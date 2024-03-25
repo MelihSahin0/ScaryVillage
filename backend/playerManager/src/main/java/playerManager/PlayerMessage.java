@@ -1,6 +1,6 @@
-package com.example.messagingstompwebsocket;
+package playerManager;
 
-public class PlayerMove {
+public class PlayerMessage {
 
     private int id;
     private String[] movement;

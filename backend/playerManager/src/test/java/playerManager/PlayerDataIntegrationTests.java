@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket;
+package playerManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 

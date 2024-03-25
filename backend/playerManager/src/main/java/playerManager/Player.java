@@ -1,4 +1,4 @@
-package com.example.messagingstompwebsocket;
+package playerManager;
 
 public class Player {
     private static int _idCounter;
