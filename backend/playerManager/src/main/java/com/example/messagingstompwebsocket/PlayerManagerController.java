@@ -6,18 +6,20 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 
+import java.util.Arrays;
+
 @Controller
 public class PlayerManagerController {
 
-	Player _p1 = new Player("Player1", 50, 50);
+	Player _p1 = new Player("Player1", 0, 0);
 
 	@MessageMapping("/playermanager")
 	@SendTo("/topic/map")
-	public PlayerData handlePlayers(PlayerMessage message) throws Exception {
-		//{"id": "123", "movement": ["w", "d"]}
+	public PlayerData handlePlayers(PlayerMove message) throws Exception {
+		//{"id": 123, "movement": ["w", "d"]}
 
 		JSONObject jo = new JSONObject(
-				message.getName()
+				message
 		);
 
 		JSONArray jsonArray = jo.getJSONArray("movement");
@@ -28,15 +30,13 @@ public class PlayerManagerController {
 			stringArray[i] = jsonArray.getString(i);
 		}
 
-
-
 		for (String str : stringArray) {
 			switch (str) {
 				case "w":
-					_p1.move(0, -1);
+					_p1.move(0, 1);
 					break;
 				case "s":
-					_p1.move(0, 1);
+					_p1.move(0, -1);
 					break;
 				case "a":
 					_p1.move(-1, 0);
@@ -50,12 +50,6 @@ public class PlayerManagerController {
 		//System.out.println(jo.get("movement"));
 		//System.out.println(stringArray[0]);
 
-		System.out.println(_p1.getX() + " " + _p1.getY());
-
-
-		return new PlayerData("{'id': '" + _p1.getId() + "', 'position':['x': '" + _p1.getX() + "', 'y': '" + _p1.getY() +"']}");
-
-
+		return new PlayerData("{\"id\": " + _p1.getId() + ", \"position\": {\"x\": " + _p1.getX() + ", \"y\": " + _p1.getY() + "}}");
 	}
-
 }

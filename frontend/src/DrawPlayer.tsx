@@ -3,46 +3,49 @@ import * as THREE from "three";
 import React, {useEffect, useRef} from "react";
 import {useFrame, useLoader} from "@react-three/fiber";
 import {Mesh, TextureLoader} from "three";
+import { Client } from '@stomp/stompjs';
 
 type Props = {
     myPlayer: Player;
     players: Array<Player>;
 }
 
+
 export default function DrawPlayer({myPlayer, players}: Props){
-
-    //TODO
-    const socket = new WebSocket("ws://localhost:8080/playerManagerWebsocket");
-
-    socket.onopen = (event) => {
-        console.log("Open");
-    };
-
-    socket.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-
-        meshRef.current.position.x = message.position.x;
-        meshRef.current.position.y = message.position.y;
-    };
-
     const meshRef = useRef<Mesh>();
+
+    const client = new Client();
+    client.configure({
+        brokerURL: 'ws://localhost:8080/playerManagerWebsocket',
+        onConnect: () => {
+            client.subscribe('/topic/map', message => {
+                const jsonObject = JSON.parse(JSON.parse(message.body).content);
+
+                if (meshRef.current) {
+                    meshRef.current.position.x = jsonObject.position.x;
+                    meshRef.current.position.y = jsonObject.position.y;
+                }
+            })
+        },
+    });
+    client.activate();
+
     const keyMap = useKeyboard()
 
-    useFrame((_, delta) => {
+    useFrame(() => {
         const keyPress = [];
 
-        keyMap['KeyA'] && (keyPress.push("A"))
-        keyMap['KeyD'] && (keyPress.push("D"))
-        keyMap['KeyW'] && (keyPress.push("W"))
-        keyMap['KeyS'] && (keyPress.push("S"))
+        keyMap['KeyA'] && (keyPress.push("a"))
+        keyMap['KeyD'] && (keyPress.push("d"))
+        keyMap['KeyW'] && (keyPress.push("w"))
+        keyMap['KeyS'] && (keyPress.push("s"))
 
         if (keyPress.length > 0) {
             const movementData = {
                 id: myPlayer.id, // Assuming this is the player ID
                 movement: keyPress
             };
-
-            socket.send(JSON.stringify(movementData));
+            client.publish({destination: '/app/playermanager', body: JSON.stringify(movementData)});
         }
     })
 

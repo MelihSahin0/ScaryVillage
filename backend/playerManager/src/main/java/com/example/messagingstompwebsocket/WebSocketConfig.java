@@ -18,7 +18,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
 	@Override
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
-		registry.addEndpoint("/playerManagerWebsocket");
+		registry.addEndpoint("/playerManagerWebsocket").setAllowedOrigins("*"); // Allow all origins, you can restrict it to specific origins if needed
+
 	}
 
 }
