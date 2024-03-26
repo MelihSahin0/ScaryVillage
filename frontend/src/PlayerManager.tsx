@@ -18,7 +18,7 @@ export default function (){
         const getNewPlayer = (messages: any) => {
             const newPlayer: Player = {
                 id: messages,
-                src: 'src/Images/Purple.jpg',
+                src: 'src/Images/Purple.png',
                 x: 0,
                 y: 0,
                 z: 0.5
@@ -49,7 +49,7 @@ export default function (){
                 } else {
                     const newPlayer = {
                         id: message.id,
-                        src: 'src/Images/Purple.jpg',
+                        src: 'src/Images/Purple.png',
                         x: message.position.x,
                         y: message.position.y,
                         z: 0.5
