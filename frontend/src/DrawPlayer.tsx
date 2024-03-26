@@ -45,7 +45,7 @@ function DrawPlayerMesh({ player, meshRef }: { player: Player, meshRef: React.Re
     return (
         <mesh ref={meshRef} position={new THREE.Vector3(player.x, player.y, player.z)}>
             <planeGeometry args={[5, 5, 1]} />
-            <meshBasicMaterial map={texture} />
+            <meshBasicMaterial transparent map={texture} />
         </mesh>
     );
 }
