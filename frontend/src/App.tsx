@@ -1,42 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Canvas, useFrame, useThree} from '@react-three/fiber';
 import {OrthographicCamera} from "@react-three/drei";
 import Map from "./Map";
-import DrawPlayer from "./DrawPlayer";
-
-export type Player = {
-    id: number;
-    src: string;
-    x: number;
-    y: number;
-    z: number;
-}
+import PlayerManager from "./PlayerManager";
 
 export default function App() {
-
-    const [players, setPlayers] = useState<Array<Player>>([]);
-
-    const newPlayer: Player = {
-        id: 0,
-        src: 'src/Images/Purple.jpg',
-        x: 0,
-        y: 0,
-        z: 0
-    }
-
-    //GANZ WICHTIG
-    useEffect(() => {
-        // Add a new player when the component mounts
-        const newPlayer: Player = {
-            id: 0,
-            src: 'src/Images/Purple.jpg',
-            x: 0,
-            y: 0,
-            z: 0
-        };
-
-        setPlayers([...players, newPlayer]);
-    }, []);
 
     return (
       <div id="canvas-container">
@@ -45,7 +13,7 @@ export default function App() {
               <ambientLight/>
               <pointLight position={[10, 10, 10]}/>
               <Map/>
-              <DrawPlayer myPlayer={players.at(0)} players={players}/>
+              <PlayerManager/>
           </Canvas>
       </div>
   );

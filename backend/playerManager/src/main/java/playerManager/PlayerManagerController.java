@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -54,6 +55,7 @@ public class PlayerManagerController {
 		return new PlayerData("{\"id\": " + curPlayerId + ", \"position\": {\"x\": " + _players.get(curPlayerId).getX() + ", \"y\": " + _players.get(curPlayerId).getY() + "}}");
 	}
 
+	@CrossOrigin(origins = "*")
 	@GetMapping(value = "/requestId")
 	public int sendPlayerId() {
 		Player player = new Player("Player", 0, 0);

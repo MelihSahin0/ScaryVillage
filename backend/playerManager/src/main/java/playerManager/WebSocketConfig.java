@@ -21,5 +21,4 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 		registry.addEndpoint("/playerManagerWebsocket").setAllowedOrigins("*"); // Allow all origins, you can restrict it to specific origins if needed
 
 	}
-
 }

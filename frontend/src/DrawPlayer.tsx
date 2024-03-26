@@ -1,35 +1,16 @@
-import {Player} from "./App";
+import {Player} from "./PlayerManager";
 import * as THREE from "three";
 import React, {useEffect, useRef} from "react";
 import {useFrame, useLoader} from "@react-three/fiber";
 import {Mesh, TextureLoader} from "three";
-import { Client } from '@stomp/stompjs';
+import {Publish} from "./SocketSubscriptions";
 
 type Props = {
-    myPlayer: Player;
     players: Array<Player>;
 }
 
-
-export default function DrawPlayer({myPlayer, players}: Props){
+export default function DrawPlayer({players}: Props){
     const meshRef = useRef<Mesh>();
-
-    const client = new Client();
-    client.configure({
-        brokerURL: 'ws://localhost:8080/playerManagerWebsocket',
-        onConnect: () => {
-            client.subscribe('/topic/map', message => {
-                const jsonObject = JSON.parse(JSON.parse(message.body).content);
-
-                if (meshRef.current) {
-                    meshRef.current.position.x = jsonObject.position.x;
-                    meshRef.current.position.y = jsonObject.position.y;
-                }
-            })
-        },
-    });
-    client.activate();
-
     const keyMap = useKeyboard()
 
     useFrame(() => {
@@ -42,24 +23,31 @@ export default function DrawPlayer({myPlayer, players}: Props){
 
         if (keyPress.length > 0) {
             const movementData = {
-                id: myPlayer.id, // Assuming this is the player ID
+                id: players.at(0).id,
                 movement: keyPress
             };
-            client.publish({destination: '/app/playermanager', body: JSON.stringify(movementData)});
+            Publish("/app/playermanager", JSON.stringify(movementData));
         }
     })
 
     return (
-        <group>{
-            players.map((player) => (
-                    <mesh ref={myPlayer.id === player.id ? meshRef : undefined} position={new THREE.Vector3(0, 0, 0.5)}>
-                        <planeGeometry args={[5, 5, 1]} />
-                        <meshBasicMaterial map={useLoader(TextureLoader, player.src)} />
-                    </mesh>
-                )
-            )
-        }</group>
-    )
+        <group>
+            {players.map((player) => (
+                <DrawPlayerMesh key={player.id} player={player} meshRef={player.id === players[0].id ? meshRef : undefined} />
+            ))}
+        </group>
+    );
+}
+
+function DrawPlayerMesh({ player, meshRef }: { player: Player, meshRef: React.Ref<Mesh> | undefined }) {
+    const texture = useLoader(TextureLoader, player.src);
+
+    return (
+        <mesh ref={meshRef} position={new THREE.Vector3(player.x, player.y, player.z)}>
+            <planeGeometry args={[5, 5, 1]} />
+            <meshBasicMaterial map={texture} />
+        </mesh>
+    );
 }
 
 function useKeyboard() {
