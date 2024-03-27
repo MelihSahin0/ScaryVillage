@@ -1,4 +1,4 @@
-package playerManager;
+package playerManager.jsonDataTransferTypes;
 
 public class PlayerMessage {
 

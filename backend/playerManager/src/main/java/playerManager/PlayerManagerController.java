@@ -4,21 +4,19 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import playerManager.jsonDataTransferTypes.PlayerMessage;
 import java.util.ArrayList;
-
+import java.util.List;
 
 @RestController
 public class PlayerManagerController {
 
-	ArrayList<Player> _players = new ArrayList<Player>();
+	List<Player> _players = new ArrayList<Player>();
 
-	@MessageMapping("/playermanager")
-	@SendTo("/topic/map")
-	public PlayerData handlePlayers(PlayerMessage message) throws Exception {
+	@MessageMapping("/playerMovement")
+	@SendTo("/subscribe/playerPosition")
+	public String handlePlayers(PlayerMessage message) throws Exception {
 		//{"id": 123, "movement": ["w", "d"]}
 
 		JSONObject jo = new JSONObject(
@@ -52,14 +50,20 @@ public class PlayerManagerController {
 			}
 		}
 
-		return new PlayerData("{\"id\": " + curPlayerId + ", \"position\": {\"x\": " + _players.get(curPlayerId).getX() + ", \"y\": " + _players.get(curPlayerId).getY() + "}}");
+		return _players.get(curPlayerId).toString();
 	}
 
-	@CrossOrigin(origins = "*")
-	@GetMapping(value = "/requestId")
-	public int sendPlayerId() {
+	@MessageMapping("/registerPlayer")
+	@SendTo("/subscribe/lobby")
+	public String addPlayer(){
 		Player player = new Player("Player", 0, 0);
 		_players.add(player);
-		return player.getId();
+
+		List<String> players = new ArrayList<String>();
+		for (Player loopPlayer : _players){
+			players.add(loopPlayer.toString());
+		}
+
+		return new JSONArray(players).toString();
 	}
 }

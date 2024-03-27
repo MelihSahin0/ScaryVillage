@@ -1,31 +1,55 @@
 import {Client} from "@stomp/stompjs";
 
+type MessageHandler = {
+    destination: string,
+    function: (message: any) => void
+};
+const subscriptionHandlers: MessageHandler[] = [];
 const client = new Client();
 
-export default function SubscribePlayerMovement(updatePlayers: (message: any) => void) {
+export function SubscribePlayerMovement(updatePlayers: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        destination: "/subscribe/playerPosition",
+        function: updatePlayers
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.destination === messageHandler.destination)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    Subscribe();
+}
+
+export function SubscribeJoinLobby(joinLobby: (messages: any) => void){
+
+    const messageHandler: MessageHandler = {
+        destination: "/subscribe/lobby",
+        function: joinLobby
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.destination === messageHandler.destination)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    Subscribe();
+}
+
+function Subscribe(){
     client.deactivate().then();
     client.configure({
         brokerURL: 'ws://localhost:8080/playerManagerWebsocket',
         onConnect: () => {
-            client.subscribe('/topic/map', message => {
-                updatePlayers(JSON.parse(JSON.parse(message.body).content));
-            })
-        },
+            subscriptionHandlers.forEach((subscription) => {
+                client.subscribe(subscription.destination, message => {
+                    subscription.function(JSON.parse(message.body));
+                });
+            });
+        }
     });
     client.activate();
 }
 
-export function GetPlayerId(newPlayer: (message: any) => void){
-    fetch('http://localhost:8080/requestId')
-        .then((response) => response.json())
-        .then((data) => {
-            newPlayer(data);
-        })
-        .catch((err) => {
-            console.log(err.message);
-        });
-}
-
 export function Publish(destination: string, body: string){
-    client.publish({destination: destination, body: body});
+    client.publish({ destination, body });
 }

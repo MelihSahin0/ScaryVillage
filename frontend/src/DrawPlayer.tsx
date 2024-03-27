@@ -6,10 +6,11 @@ import {Mesh, TextureLoader} from "three";
 import {Publish} from "./SocketSubscriptions";
 
 type Props = {
+    myPlayerId: number;
     players: Array<Player>;
 }
 
-export default function DrawPlayer({players}: Props){
+export default function DrawPlayer({myPlayerId, players}: Props){
     const meshRef = useRef<Mesh>();
     const keyMap = useKeyboard()
 
@@ -23,17 +24,17 @@ export default function DrawPlayer({players}: Props){
 
         if (keyPress.length > 0) {
             const movementData = {
-                id: players.at(0).id,
+                id: myPlayerId,
                 movement: keyPress
             };
-            Publish("/app/playermanager", JSON.stringify(movementData));
+            Publish("/send/playerMovement", JSON.stringify(movementData));
         }
     })
 
     return (
         <group>
             {players.map((player) => (
-                <DrawPlayerMesh key={player.id} player={player} meshRef={player.id === players[0].id ? meshRef : undefined} />
+                <DrawPlayerMesh key={player.id} player={player} meshRef={player.id === myPlayerId ? meshRef : undefined} />
             ))}
         </group>
     );

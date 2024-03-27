@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from "react";
 import DrawPlayer from "./DrawPlayer";
-import SocketSubscriptions from "./SocketSubscriptions";
-import {GetPlayerId} from "./SocketSubscriptions";
+import {Publish, SubscribeJoinLobby, SubscribePlayerMovement} from "./SocketSubscriptions";
 
 export type Player = {
     id: number;
@@ -11,32 +10,44 @@ export type Player = {
     z: number;
 }
 
+let myPlayerId = -1;
+
 export default function (){
     const [players, setPlayers] = useState<Array<Player>>([]);
 
     useEffect(() => {
-        const getNewPlayer = (messages: any) => {
-            const newPlayer: Player = {
-                id: messages,
-                src: 'src/Images/Purple.png',
-                x: 0,
-                y: 0,
-                z: 0.5
-            };
-            setPlayers([...players, newPlayer]);
-        };
-        GetPlayerId(getNewPlayer);
-    }, []);
+        const joinLobby = (message: any) => {
+            setPlayers(() => {
+                const updatedPlayers = [];
 
-    useEffect(() => {
+                message.forEach((jsonPlayer: string) => {
+                    const player = JSON.parse(jsonPlayer);
+                    const newPlayer: Player = {
+                        id: player.id,
+                        src: 'src/Images/Purple.png',
+                        x: player.position.x,
+                        y: player.position.y,
+                        z: 0.5
+                    };
+
+                    updatedPlayers.push(newPlayer);
+                });
+
+                if (updatedPlayers.length > 0 && myPlayerId === -1) {
+                    myPlayerId = updatedPlayers[updatedPlayers.length - 1].id;
+                }
+
+                return [...updatedPlayers];
+            });
+        };
+        SubscribeJoinLobby(joinLobby);
+
         const updatePlayers = (message: any) => {
             setPlayers(prevPlayers => {
 
-                const existingPlayerIndex = prevPlayers.findIndex(player => player.id === message.id);
 
-                if (existingPlayerIndex !== -1) {
-                    return prevPlayers.map((player, index) => {
-                        if (index === existingPlayerIndex) {
+                    return prevPlayers.map((player) => {
+                        if (player.id === message.id) {
                             return {
                                 ...player,
                                 x: message.position.x,
@@ -46,22 +57,23 @@ export default function (){
                         }
                         return player;
                     });
-                } else {
-                    const newPlayer = {
-                        id: message.id,
-                        src: 'src/Images/Purple.png',
-                        x: message.position.x,
-                        y: message.position.y,
-                        z: 0.5
-                    };
-                    return [...prevPlayers, newPlayer];
-                }
+
             });
         };
-        SocketSubscriptions(updatePlayers);
+        SubscribePlayerMovement(updatePlayers);
+    }, []);
+
+    function wait(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    useEffect(() => {
+        wait(200).then(() => {
+            Publish("/send/registerPlayer", "");
+        });
     }, []);
 
     return (
-        <DrawPlayer players={players}/>
+        <DrawPlayer myPlayerId={myPlayerId} players={players}/>
     )
 }

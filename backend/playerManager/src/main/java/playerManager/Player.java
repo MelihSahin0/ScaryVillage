@@ -31,4 +31,9 @@ public class Player {
     public double getY() {
         return _y;
     }
+
+    @Override
+    public String toString(){
+        return "{\"id\": " + _id + ", \"position\": {\"x\": " + _x + ", \"y\": " + _y + "}}";
+    }
 }
