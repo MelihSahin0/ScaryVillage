@@ -35,6 +35,21 @@ export function SubscribeJoinLobby(joinLobby: (messages: any) => void){
     Subscribe();
 }
 
+export function SubscribeKill(killPlayers: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        destination: "/subscribe/kill",
+        function: killPlayers
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.destination === messageHandler.destination)) {
+        subscriptionHandlers.push(messageHandler);
+        console.log("AHHHH");
+    }
+
+    Subscribe();
+}
+
 function Subscribe(){
     client.deactivate().then();
     client.configure({

@@ -13,6 +13,7 @@ type Props = {
 export default function DrawPlayer({myPlayerId, players}: Props){
     const meshRef = useRef<Mesh>();
     const keyMap = useKeyboard()
+    const mousePosition = useMousePosition(); // Move useMousePosition here
 
     useFrame(() => {
         const keyPress = [];
@@ -29,6 +30,12 @@ export default function DrawPlayer({myPlayerId, players}: Props){
             };
             Publish("/send/playerMovement", JSON.stringify(movementData));
         }
+        if (mousePosition.x != null && mousePosition.y != null) {
+            Publish("/send/killPlayer", JSON.stringify(mousePosition));
+            console.log(JSON.stringify(mousePosition))
+            mousePosition.x = null;
+            mousePosition.y = null;
+        }
     })
 
     return (
@@ -39,6 +46,7 @@ export default function DrawPlayer({myPlayerId, players}: Props){
         </group>
     );
 }
+
 
 function DrawPlayerMesh({ player, meshRef }: { player: Player, meshRef: React.Ref<Mesh> | undefined }) {
     const texture = useLoader(TextureLoader, player.src);
@@ -68,3 +76,20 @@ function useKeyboard() {
 
     return keyMap.current
 }
+
+const useMousePosition = () => {
+    const [
+        mousePosition,
+        setMousePosition
+    ] = React.useState({ x: null, y: null });
+    React.useEffect(() => {
+        const updateMousePosition = ev => {
+            setMousePosition({ x: ev.clientX, y: ev.clientY });
+        };
+        window.addEventListener('click', updateMousePosition);
+        return () => {
+            window.removeEventListener('click', updateMousePosition);
+        };
+    }, []);
+    return mousePosition;
+};

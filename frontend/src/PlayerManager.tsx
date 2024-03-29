@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import DrawPlayer from "./DrawPlayer";
-import {Publish, SubscribeJoinLobby, SubscribePlayerMovement} from "./SocketSubscriptions";
+import {Publish, SubscribeJoinLobby, SubscribeKill, SubscribePlayerMovement} from "./SocketSubscriptions";
 
 export type Player = {
     id: number;
@@ -61,6 +61,27 @@ export default function (){
             });
         };
         SubscribePlayerMovement(updatePlayers);
+
+        const kill = (message: any) => {
+            setPlayers(prevPlayers => {
+
+
+                return prevPlayers.map((player) => {
+                    if (player.id === message.id) {
+                        return {
+                            ...player,
+                            x: message.position.x,
+                            y: message.position.y,
+                            z: player.z
+                        };
+                    }
+                    return player;
+                });
+
+            });
+        };
+        SubscribeKill(kill);
+
     }, []);
 
     function wait(ms) {

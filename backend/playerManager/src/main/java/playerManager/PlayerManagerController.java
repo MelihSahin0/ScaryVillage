@@ -51,4 +51,17 @@ public class PlayerManagerController {
 
 		return new JSONArray(players).toString();
 	}
+
+	@MessageMapping("/killPlayer")
+	@SendTo("/subscribe/kill")
+	public String kill(String message){
+		JSONObject jo = new JSONObject(
+				message
+		);
+
+		System.out.println(jo.get("x"));
+
+
+		return "true";
+	}
 }
