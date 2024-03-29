@@ -60,4 +60,23 @@ public class PlayerManagerController {
 
 		return new JSONArray(players).toString();
 	}
+
+	@MessageMapping("/killPlayer")
+	@SendTo("/subscribe/kill")
+	public String kill(String message){
+		JSONObject jo = new JSONObject(message);
+
+		int fromId = (int)jo.get("fromId");
+		int toId = (int)jo.get("toId");
+
+		if ( _players.get(fromId).getRole() == Player.Roles.IMPOSTER && _players.get(toId).getRole() != Player.Roles.IMPOSTER) {
+			_players.get(toId).killed();
+		} else if (fromId == toId ) {
+			System.out.println("Not allowed");
+		} else {
+			System.out.println("Not allowed");
+		}
+
+		return "true";
+	}
 }
