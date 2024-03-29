@@ -8,12 +8,22 @@ public class Player {
     private double _y;
     private final double _speed;
 
-    public Player(String name, int x, int y) {
+    public enum Roles {
+        CREWMATE,
+        IMPOSTER,
+        CREWMATEGHOST,
+        IMPOSTERGHOST
+    }
+
+    private Roles _role;
+
+    public Player(String name, int x, int y, Roles role) {
         _id = _idCounter++;
         _name = name;
         _x = x;
         _y = y;
         _speed = 0.1;
+        _role = role;
     }
 
     public void initiateMove(String[] stringArray) {
@@ -46,6 +56,17 @@ public class Player {
         _y += dy * _speed * diagonalFactor;
     }
 
+    public void killed() {
+        switch (_role) {
+            case CREWMATE:
+                _role = Roles.CREWMATEGHOST;
+                break;
+            case IMPOSTER:
+                _role = Roles.IMPOSTERGHOST;
+                break;
+        }
+    }
+
     public int getId() {
         return _id;
     }
@@ -54,6 +75,9 @@ public class Player {
     }
     public double getY() {
         return _y;
+    }
+    public Roles getRole() {
+        return _role;
     }
 
     @Override
