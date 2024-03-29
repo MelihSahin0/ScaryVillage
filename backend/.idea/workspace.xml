@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="sync">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/jsonDataTransferTypes/PlayerMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/WebSocketConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/test/java/playerManager/PlayerDataIntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/test/java/playerManager/PlayerDataIntegrationTests.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/DrawPlayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/SocketSubscriptions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SocketSubscriptions.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,31 +36,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.MessagingStompWebsocketApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.StompWebsocketPlayerManager.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/frontend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Anwenundgen\\Intellij\\IntelliJ IDEA 2023.2.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.MessagingStompWebsocketApplication.executor": "Run",
+    "Spring Boot.StompWebsocketPlayerManager.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "main",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Melih_Daten/FHV/4_Semester/Software_Architektur/Seminar/Lab1TemplateExtended",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Anwenundgen\\Intellij\\IntelliJ IDEA 2023.2.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RunManager" selected="Spring Boot.StompWebsocketPlayerManager">
     <configuration name="MessagingStompWebsocketApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="messaging-stomp-websocket-complete" />
@@ -116,7 +110,9 @@
       <workItem from="1711354431949" duration="8383000" />
       <workItem from="1711364923903" duration="13000" />
       <workItem from="1711444515434" duration="3380000" />
-      <workItem from="1711532953664" duration="7772000" />
+      <workItem from="1711532953664" duration="10752000" />
+      <workItem from="1711627735065" duration="611000" />
+      <workItem from="1711701358204" duration="23000" />
     </task>
     <servers />
   </component>

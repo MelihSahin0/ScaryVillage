@@ -32,11 +32,11 @@ export default function DrawPlayer({myPlayerId, players}: Props){
     })
 
     return (
-        <group>
+        <>
             {players.map((player) => (
                 <DrawPlayerMesh key={player.id} player={player} meshRef={player.id === myPlayerId ? meshRef : undefined} />
             ))}
-        </group>
+        </>
     );
 }
 
@@ -45,7 +45,7 @@ function DrawPlayerMesh({ player, meshRef }: { player: Player, meshRef: React.Re
 
     return (
         <mesh ref={meshRef} position={new THREE.Vector3(player.x, player.y, player.z)}>
-            <planeGeometry args={[5, 5, 1]} />
+            <planeGeometry args={[1, 1, 1]} />
             <meshBasicMaterial transparent map={texture} />
         </mesh>
     );

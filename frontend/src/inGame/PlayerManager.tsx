@@ -68,7 +68,7 @@ export default function (){
     }
 
     useEffect(() => {
-        wait(200).then(() => {
+        wait(1000).then(() => {
             Publish("/send/registerPlayer", "");
         });
     }, []);
