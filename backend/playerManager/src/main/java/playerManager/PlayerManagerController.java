@@ -33,22 +33,7 @@ public class PlayerManagerController {
 
 		int curPlayerId = message.getId();
 
-		for (String str : stringArray) {
-			switch (str) {
-				case "w":
-					_players.get(curPlayerId).move(0, 1);
-					break;
-				case "s":
-					_players.get(curPlayerId).move(0, -1);
-					break;
-				case "a":
-					_players.get(curPlayerId).move(-1, 0);
-					break;
-				case "d":
-					_players.get(curPlayerId).move(1, 0);
-					break;
-			}
-		}
+		_players.get(curPlayerId).initiateMove(stringArray);
 
 		return _players.get(curPlayerId).toString();
 	}

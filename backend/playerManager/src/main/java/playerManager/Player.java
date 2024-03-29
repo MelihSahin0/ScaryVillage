@@ -16,9 +16,34 @@ public class Player {
         _speed = 0.1;
     }
 
-    public void move(int dx, int dy) {
-        _x += dx * _speed;
-        _y += dy * _speed;
+    public void initiateMove(String[] stringArray) {
+
+        double diagonalFac = 1;
+        if (stringArray.length > 1) {
+            diagonalFac = 0.7071;
+        }
+
+        for (String str : stringArray) {
+            switch (str) {
+                case "w":
+                    move(0, 1, diagonalFac);
+                    break;
+                case "s":
+                    move(0, -1, diagonalFac);
+                    break;
+                case "a":
+                    move(-1, 0, diagonalFac);
+                    break;
+                case "d":
+                    move(1, 0, diagonalFac);
+                    break;
+            }
+        }
+    }
+
+    public void move(int dx, int dy, double diagonalFactor) {
+        _x += dx * _speed * diagonalFactor;
+        _y += dy * _speed * diagonalFactor;
     }
 
     public int getId() {
@@ -27,7 +52,6 @@ public class Player {
     public double getX() {
         return _x;
     }
-
     public double getY() {
         return _y;
     }
