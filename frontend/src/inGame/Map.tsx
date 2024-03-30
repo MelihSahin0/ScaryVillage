@@ -8,7 +8,7 @@ export default function Map(){
     return (
         <group>
             <mesh position={new THREE.Vector3(0, 0, 0)}>
-                <boxGeometry args={[32, 20, 0.1]}/>
+                <boxGeometry args={[9, 5, 0.1]}/>
                 <meshBasicMaterial map={texture}/>
             </mesh>
         </group>

@@ -33,22 +33,16 @@ public class PlayerManagerController {
 
 		int curPlayerId = message.getId();
 
-		for (String str : stringArray) {
-			switch (str) {
-				case "w":
-					_players.get(curPlayerId).move(0, 1);
-					break;
-				case "s":
-					_players.get(curPlayerId).move(0, -1);
-					break;
-				case "a":
-					_players.get(curPlayerId).move(-1, 0);
-					break;
-				case "d":
-					_players.get(curPlayerId).move(1, 0);
-					break;
-			}
+		_players.get(curPlayerId).initiateMove(stringArray);
+
+		System.out.println(_players.get(0).getX() + " " + _players.get(0).getY());
+
+		/*
+		for (Player p : _players) {
+			System.out.println(p.getRole());
 		}
+		System.out.println("-----");
+		 */
 
 		return _players.get(curPlayerId).toString();
 	}
@@ -56,7 +50,7 @@ public class PlayerManagerController {
 	@MessageMapping("/registerPlayer")
 	@SendTo("/subscribe/lobby")
 	public String addPlayer(){
-		Player player = new Player("Player", 0, 0);
+		Player player = new Player("Player", 0, 0, Player.Roles.IMPOSTER);
 		_players.add(player);
 
 		List<String> players = new ArrayList<String>();
@@ -65,5 +59,24 @@ public class PlayerManagerController {
 		}
 
 		return new JSONArray(players).toString();
+	}
+
+	@MessageMapping("/killPlayer")
+	@SendTo("/subscribe/kill")
+	public String kill(String message){
+		JSONObject jo = new JSONObject(message);
+
+		int fromId = (int)jo.get("fromId");
+		int toId = (int)jo.get("toId");
+
+		if ( _players.get(fromId).getRole() == Player.Roles.IMPOSTER && _players.get(toId).getRole() != Player.Roles.IMPOSTER) {
+			_players.get(toId).killed();
+		} else if (fromId == toId ) {
+			System.out.println("Not allowed");
+		} else {
+			System.out.println("Not allowed");
+		}
+
+		return "true";
 	}
 }
