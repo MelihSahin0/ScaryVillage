@@ -43,10 +43,11 @@ export default function DrawPlayer({myPlayerId, players}: Props){
 function DrawPlayerMesh({ player, meshRef }: { player: Player, meshRef: React.Ref<Mesh> | undefined }) {
     const texture = useLoader(TextureLoader, player.src);
 
+
     return (
         <mesh ref={meshRef} position={new THREE.Vector3(player.x, player.y, player.z)}>
-            <planeGeometry args={[5, 5, 1]} />
-            <meshBasicMaterial transparent map={texture} />
+            <planeGeometry args={[1, 1, 1]}/>
+            <meshPhysicalMaterial transparent map={texture} color={player.color} />
         </mesh>
     );
 }

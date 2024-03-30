@@ -5,12 +5,21 @@ import {Publish, SubscribeJoinLobby, SubscribePlayerMovement} from "./SocketSubs
 export type Player = {
     id: number;
     src: string;
+    color: string;
     x: number;
     y: number;
     z: number;
 }
 
 let myPlayerId = -1;
+const colors = [
+    'red', 'blue', 'green', 'yellow', 'orange', 'purple', 'cyan', 'magenta',
+    'maroon', 'navy', 'olive', 'teal', 'lime', 'aqua', 'fuchsia',
+    'brown', 'pink', 'indigo',  'coral',  'violet', 'aquamarine', 'crimson', 'darkred',
+    'darkgreen', 'darkblue', 'darkorange', 'darkviolet', 'darkgoldenrod', 'darkcyan',
+    'darkmagenta', 'darkkhaki', 'darkslateblue', 'darkolivegreen', 'darkseagreen',
+    'lightsalmon', 'lightcoral', 'lightpink', 'lightgreen', 'lightblue', 'lightcyan'
+];
 
 export default function (){
     const [players, setPlayers] = useState<Array<Player>>([]);
@@ -24,7 +33,8 @@ export default function (){
                     const player = JSON.parse(jsonPlayer);
                     const newPlayer: Player = {
                         id: player.id,
-                        src: 'src/Images/Purple.png',
+                        src: 'src/Images/pixi.png',
+                        color: colors[player.id],
                         x: player.position.x,
                         y: player.position.y,
                         z: 0.5
@@ -74,6 +84,6 @@ export default function (){
     }, []);
 
     return (
-        <DrawPlayer myPlayerId={myPlayerId} players={players}/>
+        <DrawPlayer myPlayerId={myPlayerId} players={players} />
     )
 }
