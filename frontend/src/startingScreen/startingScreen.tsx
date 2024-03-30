@@ -8,7 +8,7 @@ export default function StartingScreen({ setGameState }: Props) {
 
     return (
         <div className="bg-gray-700 h-screen w-screen flex flex-col justify-center items-center">
-            <h1 className="text-8xl text-white font-serif align-middle hover:text-amber-100">
+            <h1 className="text-8xl text-white font-serif align-middle">
                 Scary Village
             </h1>
             <div>
