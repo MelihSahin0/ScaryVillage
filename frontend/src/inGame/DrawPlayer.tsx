@@ -3,7 +3,7 @@ import * as THREE from "three";
 import React, {useEffect, useRef, useState} from "react";
 import {useFrame, useLoader} from "@react-three/fiber";
 import {Mesh, TextureLoader} from "three";
-import {Publish} from "./SocketSubscriptions";
+import {Publish} from "../SocketSubscriptions";
 
 type Props = {
     myPlayerId: number;

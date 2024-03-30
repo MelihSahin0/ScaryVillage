@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import DrawPlayer from "./DrawPlayer";
-import {Publish, SubscribeJoinLobby, SubscribeKill, SubscribePlayerMovement} from "./SocketSubscriptions";
+import {Publish, SubscribeJoinLobby, SubscribeKill, SubscribePlayerMovement} from "../SocketSubscriptions";
 
 export type Player = {
     id: number;
@@ -18,7 +18,7 @@ export default function (){
     useEffect(() => {
         const joinLobby = (message: any) => {
             setPlayers(() => {
-                const updatedPlayers = [];
+                const updatedPlayers: Array<Player> = [];
 
                 message.forEach((jsonPlayer: string) => {
                     const player = JSON.parse(jsonPlayer);
@@ -45,26 +45,23 @@ export default function (){
         const updatePlayers = (message: any) => {
             setPlayers(prevPlayers => {
 
-
-                    return prevPlayers.map((player) => {
-                        if (player.id === message.id) {
-                            return {
-                                ...player,
-                                x: message.position.x,
-                                y: message.position.y,
-                                z: player.z
-                            };
-                        }
-                        return player;
-                    });
-
+                return prevPlayers.map((player) => {
+                    if (player.id === message.id) {
+                        return {
+                            ...player,
+                            x: message.position.x,
+                            y: message.position.y,
+                            z: player.z
+                        };
+                    }
+                    return player;
+                });
             });
         };
         SubscribePlayerMovement(updatePlayers);
 
         const kill = (message: any) => {
             setPlayers(prevPlayers => {
-
 
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
@@ -84,7 +81,7 @@ export default function (){
 
     }, []);
 
-    function wait(ms) {
+    function wait(ms: number) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 

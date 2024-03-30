@@ -1,25 +1,21 @@
 import React, {useState} from 'react';
-import {Canvas, useFrame, useThree} from '@react-three/fiber';
-import {OrthographicCamera} from "@react-three/drei";
-import Map from "./inGame/Map";
-import PlayerManager from "./inGame/PlayerManager";
+import {useFrame, useThree} from '@react-three/fiber';
 import {gameState} from "./types";
+import StartingScreen from "./startingScreen/startingScreen";
+import InGame from "./inGame/InGame";
+import Lobby from "./lobby/lobby";
 
 export default function App() {
 
     const [gameState, setGameState] = useState<gameState>('startingScreen');
 
     return (
-      <div id="canvas-container">
-          <Canvas style={{height: '97vh'}}>
-              <OrthographicCamera position={[0, 0, 10]} makeDefault zoom={100}/>
-              <ambientLight/>
-              <pointLight position={[10, 10, 10]}/>
-              <Map/>
-              <PlayerManager/>
-          </Canvas>
-      </div>
-  );
+        <>
+            {gameState === 'startingScreen' && <StartingScreen setGameState={setGameState}/>}
+            {gameState === 'lobby' && <Lobby setGameState={setGameState}/>}
+            {gameState === 'inGame' && <InGame/>}
+        </>
+    );
 }
 
 //TODO
