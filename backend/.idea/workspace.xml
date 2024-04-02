@@ -5,16 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="sync">
+      <change afterPath="$PROJECT_DIR$/../frontend/postcss.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/tailwind.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerData.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/jsonDataTransferTypes/PlayerMessage.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/WebSocketConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/test/java/playerManager/PlayerDataIntegrationTests.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/test/java/playerManager/PlayerDataIntegrationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/DrawPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/SocketSubscriptions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SocketSubscriptions.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

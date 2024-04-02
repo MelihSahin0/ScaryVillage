@@ -30,6 +30,7 @@ export default function (){
                 const updatedPlayers: Array<Player> = [];
 
                 message.forEach((jsonPlayer: string) => {
+                    console.log(jsonPlayer)
                     const player = JSON.parse(jsonPlayer);
                     const newPlayer: Player = {
                         id: player.id,

@@ -2,7 +2,7 @@ import {Player} from "./PlayerManager";
 import * as THREE from "three";
 import React, {useEffect, useRef, useState} from "react";
 import {useFrame, useLoader} from "@react-three/fiber";
-import {Mesh, TextureLoader} from "three";
+import {BufferGeometry, Mesh, NormalBufferAttributes, TextureLoader} from "three";
 import {Publish} from "../SocketSubscriptions";
 
 type Props = {
@@ -11,7 +11,8 @@ type Props = {
 }
 
 export default function DrawPlayer({myPlayerId, players}: Props){
-    const meshRef = useRef<Mesh>();
+    const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
+
     const keyMap = useKeyboard()
     const mousePosition = useMousePosition(); // Move useMousePosition here
 
@@ -86,11 +87,15 @@ function DrawPlayerMesh({ player, curPlayer, meshRef }: { player: Player, curPla
     );
 }
 
+type KeyMap = {
+    [key: string]: boolean;
+};
+
 function useKeyboard() {
-    const keyMap = useRef({})
+    const keyMap = useRef<KeyMap>({})
 
     useEffect(() => {
-        const onDocumentKey = (e) => {
+        const onDocumentKey = (e: KeyboardEvent) => {
             keyMap.current[e.code] = e.type === 'keydown'
         }
         document.addEventListener('keydown', onDocumentKey)
@@ -108,9 +113,9 @@ const useMousePosition = () => {
     const [
         mousePosition,
         setMousePosition
-    ] = React.useState({ x: null, y: null });
+    ] = React.useState<{ x: number | null, y: number | null }>({ x: null, y: null });
     React.useEffect(() => {
-        const updateMousePosition = ev => {
+        const updateMousePosition = (ev: MouseEvent) => {
             setMousePosition({ x: ev.clientX, y: ev.clientY });
         };
         window.addEventListener('click', updateMousePosition);

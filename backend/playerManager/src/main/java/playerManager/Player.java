@@ -22,7 +22,7 @@ public class Player {
         _name = name;
         _x = x;
         _y = y;
-        _speed = 0.1;
+        _speed = 0.01;
         _role = role;
     }
 
