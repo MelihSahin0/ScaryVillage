@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import DrawPlayer from "./DrawPlayer";
 import {Publish, SubscribeJoinLobby, SubscribeKill, SubscribePlayerMovement} from "../SocketSubscriptions";
+import { Selection, EffectComposer, Outline } from '@react-three/postprocessing'
 
 export type Player = {
     id: number;
@@ -9,6 +10,7 @@ export type Player = {
     x: number;
     y: number;
     z: number;
+    role: string;
 }
 
 let myPlayerId = -1;
@@ -25,20 +27,19 @@ export default function (){
     const [players, setPlayers] = useState<Array<Player>>([]);
 
     useEffect(() => {
-        const joinLobby = (message: any) => {
+        const joinLobby = (messages: any) => {
             setPlayers(() => {
                 const updatedPlayers: Array<Player> = [];
 
-                message.forEach((jsonPlayer: string) => {
-                    console.log(jsonPlayer)
-                    const player = JSON.parse(jsonPlayer);
+                messages.forEach((message: any) => {
                     const newPlayer: Player = {
-                        id: player.id,
+                        id: message.id,
                         src: 'src/Images/pixi.png',
-                        color: colors[player.id],
-                        x: player.position.x,
-                        y: player.position.y,
-                        z: 0.5
+                        color: colors[message.id],
+                        x: message.position.x,
+                        y: message.position.y,
+                        z: 0.5,
+                        role: message.role
                     };
 
                     updatedPlayers.push(newPlayer);
@@ -55,15 +56,21 @@ export default function (){
 
         const updatePlayers = (message: any) => {
             setPlayers(prevPlayers => {
-
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
-                        return {
-                            ...player,
-                            x: message.position.x,
-                            y: message.position.y,
-                            z: player.z
-                        };
+                        if (player.role != "CREWMATEGHOST" && player.role != "IMPOSTERGHOST") {
+                            return {
+                                ...player,
+                                x: message.position.x,
+                                y: message.position.y,
+                            };
+                        } else if (player.id == myPlayerId){
+                            return {
+                                ...player,
+                                x: message.position.x,
+                                y: message.position.y,
+                            };
+                        }
                     }
                     return player;
                 });
@@ -73,23 +80,21 @@ export default function (){
 
         const kill = (message: any) => {
             setPlayers(prevPlayers => {
-
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
                         return {
                             ...player,
+                            color: 'black',
                             x: message.position.x,
                             y: message.position.y,
-                            z: player.z
+                            role: message.role
                         };
                     }
                     return player;
                 });
-
             });
         };
         SubscribeKill(kill);
-
     }, []);
 
     function wait(ms: number) {
@@ -103,6 +108,11 @@ export default function (){
     }, []);
 
     return (
-        <DrawPlayer myPlayerId={myPlayerId} players={players} />
+        <Selection>
+            <EffectComposer multisampling={8} autoClear={false}>
+                <Outline visibleEdgeColor={"red" as any} edgeStrength={1000} width={1000}/>
+            </EffectComposer>
+            <DrawPlayer myPlayerId={myPlayerId} players={players} />
+        </Selection>
     )
 }

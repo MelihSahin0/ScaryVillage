@@ -5,15 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="sync">
-      <change afterPath="$PROJECT_DIR$/../frontend/postcss.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/tailwind.config.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/enumarators/Roles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/jsonDataTransferTypes/PlayerClicked.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/KeyBoard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/SocketSubscriptions.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/SocketSubscriptions.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,6 +118,7 @@
       <workItem from="1711364923903" duration="13000" />
       <workItem from="1711444515434" duration="3380000" />
       <workItem from="1711532953664" duration="7772000" />
+      <workItem from="1712071117129" duration="4804000" />
     </task>
     <servers />
   </component>

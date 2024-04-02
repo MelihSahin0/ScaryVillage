@@ -1,5 +1,7 @@
 package playerManager;
 
+import playerManager.enumarators.Roles;
+
 public class Player {
     private static int _idCounter;
     private int _id;
@@ -7,14 +9,6 @@ public class Player {
     private double _x;
     private double _y;
     private final double _speed;
-
-    public enum Roles {
-        CREWMATE,
-        IMPOSTER,
-        CREWMATEGHOST,
-        IMPOSTERGHOST
-    }
-
     private Roles _role;
 
     public Player(String name, int x, int y, Roles role) {
@@ -24,6 +18,19 @@ public class Player {
         _y = y;
         _speed = 0.01;
         _role = role;
+    }
+
+    public int getId() {
+        return _id;
+    }
+    public double getX() {
+        return _x;
+    }
+    public double getY() {
+        return _y;
+    }
+    public Roles getRole() {
+        return _role;
     }
 
     public void initiateMove(String[] stringArray) {
@@ -67,21 +74,15 @@ public class Player {
         }
     }
 
-    public int getId() {
-        return _id;
-    }
-    public double getX() {
-        return _x;
-    }
-    public double getY() {
-        return _y;
-    }
-    public Roles getRole() {
-        return _role;
-    }
-
     @Override
-    public String toString(){
-        return "{\"id\": " + _id + ", \"position\": {\"x\": " + _x + ", \"y\": " + _y + "}}";
+    public String toString() {
+        return "{" +
+                "\"id\": " + _id +
+                ", \"position\": {" +
+                                "\"x\": " + _x +
+                                ", \"y\": " + _y +
+                             "}" +
+                ", \"role\": " + "\"" +_role + "\"" +
+                '}';
     }
 }

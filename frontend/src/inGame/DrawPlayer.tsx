@@ -1,9 +1,11 @@
 import {Player} from "./PlayerManager";
 import * as THREE from "three";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useRef, useState} from "react";
 import {useFrame, useLoader} from "@react-three/fiber";
 import {BufferGeometry, Mesh, NormalBufferAttributes, TextureLoader} from "three";
 import {Publish} from "../SocketSubscriptions";
+import {Select} from "@react-three/postprocessing";
+import useKeyboard from "./KeyBoard";
 
 type Props = {
     myPlayerId: number;
@@ -12,9 +14,7 @@ type Props = {
 
 export default function DrawPlayer({myPlayerId, players}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
-
-    const keyMap = useKeyboard()
-    const mousePosition = useMousePosition(); // Move useMousePosition here
+    const keyMap = useKeyboard();
 
     useFrame(() => {
         const keyPress = [];
@@ -31,18 +31,6 @@ export default function DrawPlayer({myPlayerId, players}: Props){
             };
             Publish("/send/playerMovement", JSON.stringify(movementData));
         }
-        if (mousePosition.x != null && mousePosition.y != null) {
-            const message = {
-                "id": myPlayerId,
-                "x": mousePosition.x / 30,
-                "y": mousePosition.y / 30
-            };
-
-            //Publish("/send/killPlayer", JSON.stringify(message));
-            console.log(JSON.stringify(message))
-            mousePosition.x = null;
-            mousePosition.y = null;
-        }
     })
 
     return (
@@ -57,7 +45,6 @@ export default function DrawPlayer({myPlayerId, players}: Props){
 
 function DrawPlayerMesh({ player, curPlayer, meshRef }: { player: Player, curPlayer: number, meshRef: React.Ref<Mesh> | undefined }) {
     const texture = useLoader(TextureLoader, player.src);
-
     const [isHovered, setIsHovered] = useState(false);
 
     const handlePointerOver = () => {
@@ -69,8 +56,6 @@ function DrawPlayerMesh({ player, curPlayer, meshRef }: { player: Player, curPla
     };
 
     const handleClick = () => {
-        console.log('Player clicked:' + curPlayer + " " + player.id);
-
         const message = {
             "fromId": curPlayer,
             "toId": player.id
@@ -80,48 +65,11 @@ function DrawPlayerMesh({ player, curPlayer, meshRef }: { player: Player, curPla
     };
 
     return (
-        <mesh ref={meshRef} position={new THREE.Vector3(player.x, player.y, player.z)} onClick={handleClick} onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
-            <planeGeometry args={[0.3, 0.3, 1]} />
-            <meshBasicMaterial transparent map={texture} color={isHovered ? 'red' : player.color} />
-        </mesh>
+        <Select enabled={isHovered}>
+            <mesh ref={meshRef} position={new THREE.Vector3(player.x, player.y, player.z)} onClick={handleClick} onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
+                <planeGeometry attach="geometry" args={[0.3, 0.3, 1]} />
+                <meshBasicMaterial transparent map={texture} color={player.color}/>
+            </mesh>
+        </Select>
     );
 }
-
-type KeyMap = {
-    [key: string]: boolean;
-};
-
-function useKeyboard() {
-    const keyMap = useRef<KeyMap>({})
-
-    useEffect(() => {
-        const onDocumentKey = (e: KeyboardEvent) => {
-            keyMap.current[e.code] = e.type === 'keydown'
-        }
-        document.addEventListener('keydown', onDocumentKey)
-        document.addEventListener('keyup', onDocumentKey)
-        return () => {
-            document.removeEventListener('keydown', onDocumentKey)
-            document.removeEventListener('keyup', onDocumentKey)
-        }
-    }, [])
-
-    return keyMap.current
-}
-
-const useMousePosition = () => {
-    const [
-        mousePosition,
-        setMousePosition
-    ] = React.useState<{ x: number | null, y: number | null }>({ x: null, y: null });
-    React.useEffect(() => {
-        const updateMousePosition = (ev: MouseEvent) => {
-            setMousePosition({ x: ev.clientX, y: ev.clientY });
-        };
-        window.addEventListener('click', updateMousePosition);
-        return () => {
-            window.removeEventListener('click', updateMousePosition);
-        };
-    }, []);
-    return mousePosition;
-};

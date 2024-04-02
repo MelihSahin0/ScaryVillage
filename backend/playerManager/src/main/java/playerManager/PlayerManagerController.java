@@ -5,6 +5,8 @@ import org.json.JSONObject;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
+import playerManager.enumarators.Roles;
+import playerManager.jsonDataTransferTypes.PlayerClicked;
 import playerManager.jsonDataTransferTypes.PlayerMessage;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +19,6 @@ public class PlayerManagerController {
 	@MessageMapping("/playerMovement")
 	@SendTo("/subscribe/playerPosition")
 	public String handlePlayers(PlayerMessage message) throws Exception {
-		//{"id": 123, "movement": ["w", "d"]}
 
 		JSONObject jo = new JSONObject(
 				message
@@ -32,17 +33,7 @@ public class PlayerManagerController {
 		}
 
 		int curPlayerId = message.getId();
-
 		_players.get(curPlayerId).initiateMove(stringArray);
-
-		System.out.println(_players.get(0).getX() + " " + _players.get(0).getY());
-
-		/*
-		for (Player p : _players) {
-			System.out.println(p.getRole());
-		}
-		System.out.println("-----");
-		 */
 
 		return _players.get(curPlayerId).toString();
 	}
@@ -50,33 +41,30 @@ public class PlayerManagerController {
 	@MessageMapping("/registerPlayer")
 	@SendTo("/subscribe/lobby")
 	public String addPlayer(){
-		Player player = new Player("Player", 0, 0, Player.Roles.IMPOSTER);
+		//Roles to do
+		Player player = new Player("Player", 0, 0, _players.size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
 		_players.add(player);
 
-		List<String> players = new ArrayList<String>();
-		for (Player loopPlayer : _players){
-			players.add(loopPlayer.toString());
-		}
-
-		return new JSONArray(players).toString();
+		return _players.toString();
 	}
 
 	@MessageMapping("/killPlayer")
 	@SendTo("/subscribe/kill")
-	public String kill(String message){
-		JSONObject jo = new JSONObject(message);
+	public String kill(PlayerClicked playerClicked){
 
-		int fromId = (int)jo.get("fromId");
-		int toId = (int)jo.get("toId");
+		Player killer = _players.get(playerClicked.getFromId());
+		Player victim = _players.get(playerClicked.getToId());
 
-		if ( _players.get(fromId).getRole() == Player.Roles.IMPOSTER && _players.get(toId).getRole() != Player.Roles.IMPOSTER) {
-			_players.get(toId).killed();
-		} else if (fromId == toId ) {
+		if ( killer.getRole() == Roles.IMPOSTER && victim.getRole() == Roles.CREWMATE) {
+			//In the feature look out for the distance
+			victim.killed();
+			return victim.toString();
+		} else if (killer.getId() == killer.getId()) {
 			System.out.println("Not allowed");
+			return null;
 		} else {
 			System.out.println("Not allowed");
+			return null;
 		}
-
-		return "true";
 	}
 }

@@ -44,7 +44,6 @@ export function SubscribeKill(killPlayers: (message: any) => void) {
 
     if (!subscriptionHandlers.find(handler => handler.destination === messageHandler.destination)) {
         subscriptionHandlers.push(messageHandler);
-        console.log("AHHHH");
     }
 
     Subscribe();
