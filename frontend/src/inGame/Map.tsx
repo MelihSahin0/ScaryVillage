@@ -1,45 +1,16 @@
 import * as THREE from 'three';
+import {useLoader} from "@react-three/fiber";
+import {TextureLoader} from "three";
 
 export default function Map(){
 
+    const texture = useLoader(TextureLoader, 'src/Images/Map.png');
     return (
-        <>
-            <mesh position={new THREE.Vector3(-5, -5, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="white"/>
-            </mesh>
-            <mesh position={new THREE.Vector3(0, -5, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="black"/>
-            </mesh>
-            <mesh position={new THREE.Vector3(5, -5, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="white"/>
-            </mesh>
-            <mesh position={new THREE.Vector3(-5, 0, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="black"/>
-            </mesh>
+        <group>
             <mesh position={new THREE.Vector3(0, 0, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="white"/>
+                <boxGeometry args={[9, 5, 0.1]}/>
+                <meshBasicMaterial map={texture}/>
             </mesh>
-            <mesh position={new THREE.Vector3(5, 0, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="black"/>
-            </mesh>
-            <mesh position={new THREE.Vector3(-5, 5, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="white"/>
-            </mesh>
-            <mesh position={new THREE.Vector3(0, 5, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="black"/>
-            </mesh>
-            <mesh position={new THREE.Vector3(5, 5, 0)}>
-                <boxGeometry args={[5, 5, 0.1]}/>
-                <meshBasicMaterial color="white"/>
-            </mesh>
-        </>
+        </group>
     )
 }

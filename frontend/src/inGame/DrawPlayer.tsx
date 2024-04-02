@@ -80,8 +80,8 @@ function DrawPlayerMesh({ player, curPlayer, meshRef }: { player: Player, curPla
 
     return (
         <mesh ref={meshRef} position={new THREE.Vector3(player.x, player.y, player.z)} onClick={handleClick} onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
-            <planeGeometry args={[5, 5, 1]} />
-            <meshBasicMaterial transparent map={texture} color={isHovered ? 'red' : 'white'} />
+            <planeGeometry args={[0.3, 0.3, 1]} />
+            <meshBasicMaterial transparent map={texture} color={isHovered ? 'red' : player.color} />
         </mesh>
     );
 }
