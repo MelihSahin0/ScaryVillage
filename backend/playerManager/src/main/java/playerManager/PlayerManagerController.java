@@ -2,28 +2,47 @@ package playerManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
+import playerManager.enumarators.GameStatus;
 import playerManager.enumarators.Roles;
+import playerManager.jsonDataTransferTypes.AddPlayer;
 import playerManager.jsonDataTransferTypes.PlayerClicked;
-import playerManager.jsonDataTransferTypes.PlayerMessage;
-import java.util.ArrayList;
-import java.util.List;
+import playerManager.jsonDataTransferTypes.PlayerMoved;
+import java.util.HashMap;
 
 @RestController
 public class PlayerManagerController {
 
-	List<Player> _players = new ArrayList<Player>();
+	private GameStatus gameStatus;
 
-	@MessageMapping("/playerMovement")
-	@SendTo("/subscribe/playerPosition")
-	public String handlePlayers(PlayerMessage message) throws Exception {
+	public GameStatus getGameStatus() {
+		return gameStatus;
+	}
 
-		JSONObject jo = new JSONObject(
-				message
-		);
+	public void setGameStatus(GameStatus gameStatus) {
+		this.gameStatus = gameStatus;
+	}
 
+	public static PlayerManagerController addLobby(@DestinationVariable String stringLobbyId){
+		PlayerManagerController p = new PlayerManagerController();
+		p.setGameStatus(GameStatus.LOBBY);
+		return p;
+	}
+
+	private final HashMap<String, Lobby> lobbies = new HashMap<>();
+
+	@MessageMapping("/playerMovement/{stringLobbyId}")
+	@SendTo("/subscribe/playerPosition/{stringLobbyId}")
+	public String handlePlayers(PlayerMoved message) {
+
+		if (message.getLobbyId().isEmpty()){
+			return null;
+		}
+
+		JSONObject jo = new JSONObject(message);
 		JSONArray jsonArray = jo.getJSONArray("movement");
 		String[] stringArray = new String[jsonArray.length()];
 
@@ -32,34 +51,69 @@ public class PlayerManagerController {
 			stringArray[i] = jsonArray.getString(i);
 		}
 
-		int curPlayerId = message.getId();
-		_players.get(curPlayerId).initiateMove(stringArray);
+		Lobby lobby = lobbies.get(message.getLobbyId());
+		for (Player player : lobby.getPlayers()){
+			if (player.getId().equals(message.getPlayerId())){
+				player.initiateMove(stringArray);
+				return player.toString();
+			}
+		}
 
-		return _players.get(curPlayerId).toString();
+		return null;
 	}
 
-	@MessageMapping("/registerPlayer")
-	@SendTo("/subscribe/lobby")
-	public String addPlayer(){
-		//Roles to do
-		Player player = new Player("Player", 0, 0, _players.size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
-		_players.add(player);
+	@MessageMapping("/registerPlayer/{stringLobbyId}")
+	@SendTo("/subscribe/lobby/{stringLobbyId}")
+	public String addPlayer(AddPlayer message){
 
-		return _players.toString();
+		if (message.getLobbyId().isEmpty()){
+			return null;
+		}
+
+		Player player = null;
+		Lobby lobby = lobbies.get(message.getLobbyId());
+
+		if (lobby == null){
+			lobby = new Lobby();
+			lobbies.put(message.getLobbyId(), lobby);
+		}
+
+		player = new Player(message.getPlayerId(), "Player", 0, 0, lobby.getPlayers().isEmpty() || lobby.getPlayers().size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
+		lobby.addPlayers(player);
+
+		return lobby.getPlayers().toString();
 	}
 
-	@MessageMapping("/killPlayer")
-	@SendTo("/subscribe/kill")
-	public String kill(PlayerClicked playerClicked){
+	@MessageMapping("/killPlayer/{stringLobbyId}" )
+	@SendTo("/subscribe/kill/{stringLobbyId}")
+	public String kill(PlayerClicked message){
 
-		Player killer = _players.get(playerClicked.getFromId());
-		Player victim = _players.get(playerClicked.getToId());
+		if (message.getLobbyId().isEmpty()){
+			return null;
+		}
+
+		Player killer = null;
+		Player victim = null;
+
+		Lobby lobby =  lobbies.get(message.getLobbyId());
+		for (Player player : lobby.getPlayers()){
+			if (message.getFromPlayerId().equals(player.getId())){
+				killer = player;
+			}
+			if (message.getToPlayerId().equals(player.getId())){
+				victim = player;
+			}
+		}
+
+		if (killer == null || victim == null){
+			return null;
+		}
 
 		if ( killer.getRole() == Roles.IMPOSTER && victim.getRole() == Roles.CREWMATE) {
 			//In the feature look out for the distance
 			victim.killed();
 			return victim.toString();
-		} else if (killer.getId() == killer.getId()) {
+		} else if (killer.getId().equals(victim.getId())) {
 			System.out.println("Not allowed");
 			return null;
 		} else {

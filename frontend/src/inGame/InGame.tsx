@@ -1,11 +1,16 @@
 import {Canvas} from "@react-three/fiber";
 import {OrthographicCamera} from "@react-three/drei";
 import Map from "./Map";
-import PlayerManager from "./PlayerManager";
+import PlayerManager, {Player} from "./PlayerManager";
 import React from "react";
 
-export default function InGame(){
+type Props = {
+    lobbyId: string,
+    myPlayerId: string,
+    playersOrig: Array<Player>
+}
 
+export default function InGame({lobbyId, myPlayerId, playersOrig}: Props){
     return (
         <div id="canvas-container">
             <Canvas style={{height: '100vh'}}>
@@ -13,7 +18,7 @@ export default function InGame(){
                 <ambientLight/>
                 <pointLight position={[10, 10, 10]}/>
                 <Map/>
-                <PlayerManager/>
+                <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} playersOrig={playersOrig}/>
             </Canvas>
         </div>
     )

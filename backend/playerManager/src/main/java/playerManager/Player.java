@@ -3,16 +3,15 @@ package playerManager;
 import playerManager.enumarators.Roles;
 
 public class Player {
-    private static int _idCounter;
-    private int _id;
+    private String _id;
     private String _name;
     private double _x;
     private double _y;
     private final double _speed;
     private Roles _role;
 
-    public Player(String name, int x, int y, Roles role) {
-        _id = _idCounter++;
+    public Player(String id, String name, int x, int y, Roles role) {
+        _id = id;
         _name = name;
         _x = x;
         _y = y;
@@ -20,7 +19,7 @@ public class Player {
         _role = role;
     }
 
-    public int getId() {
+    public String getId() {
         return _id;
     }
     public double getX() {
@@ -77,7 +76,7 @@ public class Player {
     @Override
     public String toString() {
         return "{" +
-                "\"id\": " + _id +
+                "\"id\": \"" + _id + "\"" +
                 ", \"position\": {" +
                                 "\"x\": " + _x +
                                 ", \"y\": " + _y +

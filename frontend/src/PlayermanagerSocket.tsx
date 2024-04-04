@@ -6,11 +6,16 @@ type MessageHandler = {
 };
 const subscriptionHandlers: MessageHandler[] = [];
 const client = new Client();
+let lobbyId = "";
+
+export function SubscribeToLobby(id: string){
+    lobbyId = id;
+}
 
 export function SubscribePlayerMovement(updatePlayers: (message: any) => void) {
 
     const messageHandler: MessageHandler = {
-        destination: "/subscribe/playerPosition",
+        destination: "/subscribe/playerPosition/" + lobbyId,
         function: updatePlayers
     };
 
@@ -24,7 +29,7 @@ export function SubscribePlayerMovement(updatePlayers: (message: any) => void) {
 export function SubscribeJoinLobby(joinLobby: (messages: any) => void){
 
     const messageHandler: MessageHandler = {
-        destination: "/subscribe/lobby",
+        destination: "/subscribe/lobby/" + lobbyId,
         function: joinLobby
     };
 
@@ -38,7 +43,7 @@ export function SubscribeJoinLobby(joinLobby: (messages: any) => void){
 export function SubscribeKill(killPlayers: (message: any) => void) {
 
     const messageHandler: MessageHandler = {
-        destination: "/subscribe/kill",
+        destination: "/subscribe/kill/" + lobbyId,
         function: killPlayers
     };
 
@@ -64,6 +69,7 @@ function Subscribe(){
     client.activate();
 }
 
-export function Publish(destination: string, body: string){
+export function Publish(dest: string, body: string){
+    const destination : string = dest + "/" + lobbyId;
     client.publish({ destination, body });
 }

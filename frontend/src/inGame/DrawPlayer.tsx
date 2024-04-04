@@ -3,16 +3,17 @@ import * as THREE from "three";
 import React, {useRef, useState} from "react";
 import {useFrame, useLoader} from "@react-three/fiber";
 import {BufferGeometry, Mesh, NormalBufferAttributes, TextureLoader} from "three";
-import {Publish} from "../SocketSubscriptions";
+import {Publish} from "../PlayermanagerSocket";
 import {Select} from "@react-three/postprocessing";
 import useKeyboard from "./KeyBoard";
 
 type Props = {
-    myPlayerId: number;
-    players: Array<Player>;
+    lobbyId: string,
+    myPlayerId: string,
+    players: Array<Player>
 }
 
-export default function DrawPlayer({myPlayerId, players}: Props){
+export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
 
@@ -26,7 +27,8 @@ export default function DrawPlayer({myPlayerId, players}: Props){
 
         if (keyPress.length > 0) {
             const movementData = {
-                id: myPlayerId,
+                lobbyId: lobbyId,
+                playerId: myPlayerId,
                 movement: keyPress
             };
             Publish("/send/playerMovement", JSON.stringify(movementData));
@@ -36,14 +38,14 @@ export default function DrawPlayer({myPlayerId, players}: Props){
     return (
         <>
             {players.map((player) => (
-                <DrawPlayerMesh key={player.id} curPlayer={myPlayerId} player={player} meshRef={player.id === myPlayerId ? meshRef : undefined} />
+                <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} curPlayer={myPlayerId} meshRef={player.id === myPlayerId ? meshRef : undefined} />
             ))}
         </>
     );
 }
 
 
-function DrawPlayerMesh({ player, curPlayer, meshRef }: { player: Player, curPlayer: number, meshRef: React.Ref<Mesh> | undefined }) {
+function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: string, player: Player, curPlayer: string, meshRef: React.Ref<Mesh> | undefined }) {
     const texture = useLoader(TextureLoader, player.src);
     const [isHovered, setIsHovered] = useState(false);
 
@@ -57,8 +59,9 @@ function DrawPlayerMesh({ player, curPlayer, meshRef }: { player: Player, curPla
 
     const handleClick = () => {
         const message = {
-            "fromId": curPlayer,
-            "toId": player.id
+            "lobbyId": lobbyId,
+            "fromPlayerId": curPlayer,
+            "toPlayerId": player.id
         };
 
         Publish("/send/killPlayer", JSON.stringify(message));
