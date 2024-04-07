@@ -1,11 +1,12 @@
 package playerManager.jsonDataTransferTypes;
 
-import org.springframework.messaging.handler.annotation.DestinationVariable;
+import playerManager.enumarators.Colors;
 
-public class AddPlayer {
-
+public class ChangeColor {
+    
     private String playerId = "";
     private String lobbyId = "";
+    private Colors color = null;
 
     public String getPlayerId() {
         return playerId;
@@ -23,11 +24,20 @@ public class AddPlayer {
         this.lobbyId = lobbyId;
     }
 
+    public Colors getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = Colors.getColor(color);
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "\"playerId\": \"" + playerId + "\"" +
                 ", \"lobbyId\": \"" + lobbyId + "\"" +
+                ", \"color\": \"" + color.toString() + "\"" +
                 '}';
     }
 }

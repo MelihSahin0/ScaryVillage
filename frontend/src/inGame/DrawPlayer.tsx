@@ -6,6 +6,7 @@ import {BufferGeometry, Mesh, NormalBufferAttributes, TextureLoader} from "three
 import {Publish} from "../PlayermanagerSocket";
 import {Select} from "@react-three/postprocessing";
 import useKeyboard from "./KeyBoard";
+import { Text } from '@react-three/drei';
 
 type Props = {
     lobbyId: string,
@@ -68,11 +69,15 @@ function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: strin
     };
 
     return (
-        <Select enabled={isHovered}>
-            <mesh ref={meshRef} position={new THREE.Vector3(player.x, player.y, player.z)} onClick={handleClick} onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
-                <planeGeometry attach="geometry" args={[0.3, 0.3, 1]} />
-                <meshBasicMaterial transparent map={texture} color={player.color}/>
-            </mesh>
-        </Select>
+        <>
+            <Select enabled={isHovered}>
+                <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={handleClick}
+                      onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
+                    <planeGeometry attach="geometry" args={[0.3, 0.3, 1]}/>
+                    <meshBasicMaterial transparent map={texture} color={player.color}/>
+                </mesh>
+            </Select>
+            <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}>{player.name}</Text>
+        </>
     );
 }

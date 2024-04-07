@@ -38,9 +38,10 @@ public class GameManagerController {
             }
         } else {
             PlayerManagerController playerManagerController = playerManagerControllerHashMap.get(message.getLobbyId());
-            if (playerManagerController != null && playerManagerController.getGameStatus() != GameStatus.INGAME){
-                return message.toString();
+            if (playerManagerController == null || playerManagerController.getGameStatus() != GameStatus.LOBBY) {
+                message.setLobbyId("");
             }
+            return message.toString();
         }
 
         return message.toString();

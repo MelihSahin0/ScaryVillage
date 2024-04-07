@@ -6,6 +6,7 @@ import { Selection, EffectComposer, Outline } from '@react-three/postprocessing'
 export type Player = {
     id: string;
     src: string;
+    name: string;
     color: string;
     x: number;
     y: number;

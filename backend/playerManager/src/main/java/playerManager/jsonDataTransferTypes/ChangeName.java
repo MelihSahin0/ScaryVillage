@@ -1,11 +1,10 @@
 package playerManager.jsonDataTransferTypes;
 
-import org.springframework.messaging.handler.annotation.DestinationVariable;
-
-public class AddPlayer {
+public class ChangeName {
 
     private String playerId = "";
     private String lobbyId = "";
+    private String name = "";
 
     public String getPlayerId() {
         return playerId;
@@ -23,11 +22,20 @@ public class AddPlayer {
         this.lobbyId = lobbyId;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "\"playerId\": \"" + playerId + "\"" +
                 ", \"lobbyId\": \"" + lobbyId + "\"" +
+                ", \"name\": \"" + name + "\"" +
                 '}';
     }
 }

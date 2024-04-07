@@ -1,35 +1,65 @@
 package playerManager;
 
+import playerManager.enumarators.Colors;
 import playerManager.enumarators.Roles;
 
 public class Player {
-    private String _id;
-    private String _name;
-    private double _x;
-    private double _y;
-    private final double _speed;
-    private Roles _role;
+    private final String id;
+    private String name;
+    private Colors color;
+    private double x;
+    private double y;
+    private final double speed;
+    private Roles role;
 
-    public Player(String id, String name, int x, int y, Roles role) {
-        _id = id;
-        _name = name;
-        _x = x;
-        _y = y;
-        _speed = 0.01;
-        _role = role;
+    public Player(String id, String name, Colors color, int x, int y, Roles role) {
+        this.id = id;
+        this.name = name;
+        this.color = color;
+        this.x = x;
+        this.y = y;
+        this.speed = 0.01;
+        this.role = role;
     }
 
     public String getId() {
-        return _id;
+        return id;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public Colors getColor() {
+        return color;
+    }
+
+    public void setColor(Colors color){
+        this.color = color;
+    }
+
     public double getX() {
-        return _x;
+        return x;
     }
+
     public double getY() {
-        return _y;
+        return y;
     }
+
+    public double getSpeed() {
+        return speed;
+    }
+
     public Roles getRole() {
-        return _role;
+        return role;
+    }
+
+    public void setRole(Roles role) {
+        this.role = role;
     }
 
     public void initiateMove(String[] stringArray) {
@@ -58,17 +88,17 @@ public class Player {
     }
 
     public void move(int dx, int dy, double diagonalFactor) {
-        _x += dx * _speed * diagonalFactor;
-        _y += dy * _speed * diagonalFactor;
+        x += dx * speed * diagonalFactor;
+        y += dy * speed * diagonalFactor;
     }
 
     public void killed() {
-        switch (_role) {
+        switch (role) {
             case CREWMATE:
-                _role = Roles.CREWMATEGHOST;
+                role = Roles.CREWMATEGHOST;
                 break;
             case IMPOSTER:
-                _role = Roles.IMPOSTERGHOST;
+                role = Roles.IMPOSTERGHOST;
                 break;
         }
     }
@@ -76,12 +106,14 @@ public class Player {
     @Override
     public String toString() {
         return "{" +
-                "\"id\": \"" + _id + "\"" +
+                "\"id\": \"" + id + "\"" +
+                ", \"name\": \"" + name + "\"" +
+                ", \"color\": \"" + color.toString() + "\"" +
                 ", \"position\": {" +
-                                "\"x\": " + _x +
-                                ", \"y\": " + _y +
+                                "\"x\": " + x +
+                                ", \"y\": " + y +
                              "}" +
-                ", \"role\": " + "\"" +_role + "\"" +
+                ", \"role\": " + "\"" +role + "\"" +
                 '}';
     }
 }

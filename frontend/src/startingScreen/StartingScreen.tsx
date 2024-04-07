@@ -1,5 +1,5 @@
 import {gameState} from "../types";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Publish, SubscribeGetLobby} from "../GamemanagerSocket";
 import { v4 as uuidv4 } from "uuid";
 
@@ -14,14 +14,12 @@ export default function StartingScreen({setMyPlayerId, setLobbyId, setGameState 
 
     const [myPlayer] = useState({
         playerId: uuidv4().toString().replaceAll("-",""),
+        lobbyId: ""
     });
 
     useEffect(() => {
         const getLobbyUuid = (messages: any) => {
-            console.log(myPlayer.playerId)
-            console.log(messages)
             if (messages.playerId === myPlayer.playerId) {
-                console.log(messages.playerId === myPlayer.playerId)
                 if (messages.lobbyId != ""){
                     setMyPlayerId(myPlayer.playerId);
                     setLobbyId(messages.lobbyId);
@@ -40,7 +38,7 @@ export default function StartingScreen({setMyPlayerId, setLobbyId, setGameState 
                 Scary Village
             </h1>
             <div>
-                <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24"
+                <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24 hover:bg-amber-100"
                         onClick={() => {
                             Publish("/send/registerLobby", JSON.stringify(myPlayer));
                         }
@@ -48,6 +46,13 @@ export default function StartingScreen({setMyPlayerId, setLobbyId, setGameState 
                 <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24 hover:bg-amber-100"
                         onClick={() => {Publish("/send/joinLobby",JSON.stringify(myPlayer))}}
                 >Join</button>
+            </div>
+            <div className="-mt-5">
+                <input className="border rounded-md text-center"
+                       id="joinSpecificLobby" type="text" minLength={32} maxLength={32} size={36}
+                       placeholder="Join a specefic lobby with the Looby Id"
+                       onChange={(event) => {myPlayer.lobbyId = event.target.value}}
+                />
             </div>
             <p className="text-red-800">{lobbyMessage}</p>
         </div>

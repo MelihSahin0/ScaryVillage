@@ -6,11 +6,10 @@ import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
+import playerManager.enumarators.Colors;
 import playerManager.enumarators.GameStatus;
 import playerManager.enumarators.Roles;
-import playerManager.jsonDataTransferTypes.AddPlayer;
-import playerManager.jsonDataTransferTypes.PlayerClicked;
-import playerManager.jsonDataTransferTypes.PlayerMoved;
+import playerManager.jsonDataTransferTypes.*;
 import java.util.HashMap;
 
 @RestController
@@ -33,7 +32,70 @@ public class PlayerManagerController {
 	}
 
 	private final HashMap<String, Lobby> lobbies = new HashMap<>();
+	//Lobby
+	@MessageMapping("/registerPlayer/{stringLobbyId}")
+	@SendTo("/subscribe/lobby/{stringLobbyId}")
+	public String addPlayer(AddPlayer message){
 
+		if (message.getLobbyId().isEmpty()){
+			return null;
+		}
+		Lobby lobby = lobbies.get(message.getLobbyId());
+
+		if (lobby == null){
+			lobby = new Lobby();
+			lobbies.put(message.getLobbyId(), lobby);
+		}
+
+		if (lobby.getPlayers().size() >= 10){
+			return null;
+		}
+
+		Player player = new Player(message.getPlayerId(), "Player " + lobby.getPlayers().size(), Colors.getColor(lobby.getPlayers().size()), 0, 0, lobby.getPlayers().isEmpty() || lobby.getPlayers().size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
+		lobby.addPlayers(player);
+
+		return lobby.getPlayers().values().toString();
+	}
+
+	@MessageMapping("/changeName/{stringLobbyId}")
+	@SendTo("/subscribe/lobby/{stringLobbyId}")
+	public String changeName(ChangeName message){
+
+		if (message.getName().isEmpty()){
+			return null;
+		}
+
+		Lobby lobby =  lobbies.get(message.getLobbyId());
+		for (Player player : lobby.getPlayers().values()) {
+			if (player.getName().equals(message.getName())){
+				return null;
+			}
+		}
+
+		Player player = lobby.getPlayers().get(message.getPlayerId());
+		player.setName(message.getName());
+
+		return lobby.getPlayers().values().toString();
+	}
+
+	@MessageMapping("/changeColor/{stringLobbyId}")
+	@SendTo("/subscribe/lobby/{stringLobbyId}")
+	public String changeColor(ChangeColor message){
+
+		Lobby lobby =  lobbies.get(message.getLobbyId());
+		for (Player player : lobby.getPlayers().values()) {
+			if (player.getColor().equals(message.getColor())){
+				return null;
+			}
+		}
+
+		Player player = lobby.getPlayers().get(message.getPlayerId());
+		player.setColor(message.getColor());
+
+		return lobby.getPlayers().values().toString();
+	}
+
+	//InGame
 	@MessageMapping("/playerMovement/{stringLobbyId}")
 	@SendTo("/subscribe/playerPosition/{stringLobbyId}")
 	public String handlePlayers(PlayerMoved message) {
@@ -52,36 +114,13 @@ public class PlayerManagerController {
 		}
 
 		Lobby lobby = lobbies.get(message.getLobbyId());
-		for (Player player : lobby.getPlayers()){
-			if (player.getId().equals(message.getPlayerId())){
-				player.initiateMove(stringArray);
-				return player.toString();
-			}
+		Player player = lobby.getPlayers().get(message.getPlayerId());
+		if (player != null){
+			player.initiateMove(stringArray);
+			return player.toString();
 		}
 
 		return null;
-	}
-
-	@MessageMapping("/registerPlayer/{stringLobbyId}")
-	@SendTo("/subscribe/lobby/{stringLobbyId}")
-	public String addPlayer(AddPlayer message){
-
-		if (message.getLobbyId().isEmpty()){
-			return null;
-		}
-
-		Player player = null;
-		Lobby lobby = lobbies.get(message.getLobbyId());
-
-		if (lobby == null){
-			lobby = new Lobby();
-			lobbies.put(message.getLobbyId(), lobby);
-		}
-
-		player = new Player(message.getPlayerId(), "Player", 0, 0, lobby.getPlayers().isEmpty() || lobby.getPlayers().size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
-		lobby.addPlayers(player);
-
-		return lobby.getPlayers().toString();
 	}
 
 	@MessageMapping("/killPlayer/{stringLobbyId}" )
@@ -92,18 +131,9 @@ public class PlayerManagerController {
 			return null;
 		}
 
-		Player killer = null;
-		Player victim = null;
-
 		Lobby lobby =  lobbies.get(message.getLobbyId());
-		for (Player player : lobby.getPlayers()){
-			if (message.getFromPlayerId().equals(player.getId())){
-				killer = player;
-			}
-			if (message.getToPlayerId().equals(player.getId())){
-				victim = player;
-			}
-		}
+		Player killer = lobby.getPlayers().get(message.getFromPlayerId());
+		Player victim = lobby.getPlayers().get(message.getToPlayerId());;
 
 		if (killer == null || victim == null){
 			return null;
