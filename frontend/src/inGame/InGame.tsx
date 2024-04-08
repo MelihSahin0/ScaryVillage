@@ -8,9 +8,10 @@ type Props = {
     lobbyId: string,
     myPlayerId: string,
     playersOrig: Array<Player>
+    setGameState: any
 }
 
-export default function InGame({lobbyId, myPlayerId, playersOrig}: Props){
+export default function InGame({lobbyId, myPlayerId, playersOrig, setGameState}: Props){
     return (
         <div id="canvas-container">
             <Canvas style={{height: '100vh'}}>
@@ -18,7 +19,7 @@ export default function InGame({lobbyId, myPlayerId, playersOrig}: Props){
                 <ambientLight/>
                 <pointLight position={[10, 10, 10]}/>
                 <Map/>
-                <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} playersOrig={playersOrig}/>
+                <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} playersOrig={playersOrig} setGameState={setGameState}/>
             </Canvas>
         </div>
     )

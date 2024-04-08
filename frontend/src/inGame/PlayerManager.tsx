@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import DrawPlayer from "./DrawPlayer";
-import {SubscribeKill, SubscribePlayerMovement} from "../PlayermanagerSocket";
+import {SubscribeReport, SubscribeKill, SubscribePlayerMovement, SubscribeVoting} from "../PlayermanagerSocket";
 import { Selection, EffectComposer, Outline } from '@react-three/postprocessing'
 
 export type Player = {
@@ -18,9 +18,10 @@ type Props = {
     lobbyId: string,
     myPlayerId: string,
     playersOrig: Array<Player>
+    setGameState: any
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, playersOrig}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, playersOrig, setGameState}: Props){
     const [players, setPlayers] = useState<Array<Player>>(playersOrig);
 
     useEffect(() => {
@@ -66,6 +67,19 @@ export default function PlayerManager({lobbyId, myPlayerId, playersOrig}: Props)
             });
         };
         SubscribeKill(kill);
+
+        const report = () => {
+            console.log("RETURNED!!!");
+            setGameState("voting");
+        };
+        SubscribeReport(report);
+
+        const voting = (message) => {
+            console.log("VOTING RETURNED!!" + message.winner);
+
+        };
+        SubscribeVoting(voting);
+
     }, []);
 
     return (

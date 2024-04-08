@@ -5,6 +5,7 @@ import StartingScreen from "./startingScreen/StartingScreen";
 import InGame from "./inGame/InGame";
 import Lobby from "./lobby/Lobby";
 import {Player} from "./inGame/PlayerManager";
+import Voting from "./voting/Voting";
 
 export default function App() {
 
@@ -17,7 +18,8 @@ export default function App() {
         <>
             {gameState === 'startingScreen' && <StartingScreen setMyPlayerId={setMyPlayerId} setLobbyId={setLobbyId} setGameState={setGameState}/>}
             {gameState === 'lobby' && <Lobby setPlayers={setPlayers} myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState}/>}
-            {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} playersOrig={players}/>}
+            {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} playersOrig={players} setGameState={setGameState}/>}
+            {gameState === 'voting' && <Voting myPlayerId={myPlayerId} players={players} lobbyId={lobbyId} setGameState={setGameState}/>}
         </>
     );
 }
