@@ -1,7 +1,6 @@
 import {Player} from "../inGame/PlayerManager";
-import {send} from "vite";
-import VotingItem from "./VotingItem";
-import {Publish} from "../PlayermanagerSocket";
+import {Publish, SubscribeVoting} from "../PlayermanagerSocket";
+import {useEffect} from "react";
 
 type Props = {
     myPlayerId: string
@@ -12,9 +11,19 @@ type Props = {
 
 let votedPlayer = "";
 
-
+let winner: string = "";
 
 export default function Voting({myPlayerId, players, lobbyId, setGameState}: Props) {
+    useEffect(() => {
+        const voting = (message: any) => {
+            console.log("VOTING RETURNED!!" + message.winner);
+            winner = message.winner;
+            setGameState('inGame');
+        };
+        SubscribeVoting(voting);
+    },[])
+
+
 
     function sendVote() {
         console.log("Send Vote!");
@@ -42,12 +51,14 @@ export default function Voting({myPlayerId, players, lobbyId, setGameState}: Pro
 
             <ul>
                 {players.map((p: Player) => (
-                    <li onClick={() => onVote(p.id)}>{p.name}</li>
+                    <li key={p.id} onClick={() => onVote(p.id)}>{p.name}</li>
                 ))}
             </ul>
 
             <br/>
             <button>Skip vote!</button>
+
+            <p>{winner}</p>
 
         </div>
     );

@@ -30,6 +30,9 @@ export default function PlayerManager({lobbyId, myPlayerId, playersOrig, setGame
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
+                        console.log(player.role)
+                        console.log(player.id)
+
                         if (player.role != "CREWMATEGHOST" && player.role != "IMPOSTERGHOST") {
                             return {
                                 ...player,
@@ -73,12 +76,6 @@ export default function PlayerManager({lobbyId, myPlayerId, playersOrig, setGame
             setGameState("voting");
         };
         SubscribeReport(report);
-
-        const voting = (message) => {
-            console.log("VOTING RETURNED!!" + message.winner);
-
-        };
-        SubscribeVoting(voting);
 
     }, []);
 
