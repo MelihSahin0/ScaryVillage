@@ -11,6 +11,7 @@ import playerManager.enumarators.GameStatus;
 import playerManager.enumarators.Roles;
 import playerManager.jsonDataTransferTypes.*;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -104,6 +105,8 @@ public class PlayerManagerController {
 	@MessageMapping("/playerMovement/{stringLobbyId}")
 	@SendTo("/subscribe/playerPosition/{stringLobbyId}")
 	public String handlePlayers(PlayerMoved message) {
+
+		System.out.println(message.toString());
 
 		if (message.getLobbyId().isEmpty()){
 			return null;

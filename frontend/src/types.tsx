@@ -1,4 +1,4 @@
-export type gameState = 'startingScreen' | 'lobby' | 'inGame';
+export type gameState = 'startingScreen' | 'lobby' | 'inGame' | 'voting';
 
 export const colors = [
     'red', 'blue', 'green', 'orange', 'purple', 'cyan', 'pink',
