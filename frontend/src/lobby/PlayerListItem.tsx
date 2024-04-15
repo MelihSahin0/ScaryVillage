@@ -1,4 +1,4 @@
-import {Player} from "../inGame/PlayerManager";
+import {Player} from "./Lobby";
 
 type Props = {
     displayPlayer: Player;

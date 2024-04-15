@@ -1,7 +1,7 @@
-package playerManager;
+package extern;
 
-import playerManager.enumarators.Colors;
-import playerManager.enumarators.Roles;
+import extern.enumarators.Colors;
+import extern.enumarators.Roles;
 
 public class Player {
     private final String id;

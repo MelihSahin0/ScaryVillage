@@ -1,12 +1,12 @@
 import {Player} from "./PlayerManager";
-import * as THREE from "three";
 import React, {useRef, useState} from "react";
 import {useFrame, useLoader} from "@react-three/fiber";
 import {BufferGeometry, Mesh, NormalBufferAttributes, TextureLoader} from "three";
-import {Publish} from "../PlayermanagerSocket";
-import {Select} from "@react-three/postprocessing";
+import {Publish} from "./PlayermanagerSocket";
 import useKeyboard from "./KeyBoard";
 import { Text } from '@react-three/drei';
+import * as THREE from 'three';
+
 
 type Props = {
     lobbyId: string,
@@ -46,7 +46,7 @@ export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
 }
 
 
-function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: string, player: Player, curPlayer: string, meshRef: React.Ref<Mesh> | undefined }) {
+function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: string, player: Player, curPlayer: string, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined }) {
     const texture = useLoader(TextureLoader, player.src);
     const [isHovered, setIsHovered] = useState(false);
 
@@ -69,15 +69,21 @@ function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: strin
     };
 
     return (
-        <>
-            <Select enabled={isHovered}>
-                <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={handleClick}
-                      onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
-                    <planeGeometry attach="geometry" args={[0.3, 0.3, 1]}/>
-                    <meshBasicMaterial transparent map={texture} color={player.color}/>
-                </mesh>
-            </Select>
+        <group>
             <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}>{player.name}</Text>
-        </>
+            <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={handleClick}
+                  onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
+                <planeGeometry attach="geometry" args={[0.3, 0.3, 1]}/>
+                <meshBasicMaterial transparent map={texture} color={player.color}/>
+            </mesh>
+            {player.id !== curPlayer && player.role !== "CREWMATEGHOST" && player.role === "CREWMATE" ? (
+                <group visible={isHovered}>
+                    <lineSegments position={[player.x,player.y,player.z]}>
+                        <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />
+                        <lineBasicMaterial attach="material" color={0xff0000} />
+                    </lineSegments>
+                </group>
+            ): null}
+        </group>
     );
 }

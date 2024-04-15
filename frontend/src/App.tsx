@@ -4,20 +4,19 @@ import {gameState} from "./types";
 import StartingScreen from "./startingScreen/StartingScreen";
 import InGame from "./inGame/InGame";
 import Lobby from "./lobby/Lobby";
-import {Player} from "./inGame/PlayerManager";
+import {v4 as uuidv4} from "uuid";
 
 export default function App() {
 
     const [gameState, setGameState] = useState<gameState>('startingScreen');
-    const [myPlayerId, setMyPlayerId] = useState("");
+    const [myPlayerId] = useState(uuidv4().toString().replaceAll("-",""));
     const [lobbyId, setLobbyId] = useState("");
-    const [players, setPlayers] = useState<Array<Player>>([]);
 
     return (
         <>
-            {gameState === 'startingScreen' && <StartingScreen setMyPlayerId={setMyPlayerId} setLobbyId={setLobbyId} setGameState={setGameState}/>}
-            {gameState === 'lobby' && <Lobby setPlayers={setPlayers} myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState}/>}
-            {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} playersOrig={players}/>}
+            {gameState === 'startingScreen' && <StartingScreen myPlayerId={myPlayerId} setLobbyId={setLobbyId} setGameState={setGameState}/>}
+            {gameState === 'lobby' && <Lobby myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState}/>}
+            {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState}/>}
         </>
     );
 }

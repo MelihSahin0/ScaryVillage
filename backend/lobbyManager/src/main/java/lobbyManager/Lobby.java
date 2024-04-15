@@ -1,12 +1,13 @@
-package lobbyManager;
+package Shared;
 
 import java.util.HashMap;
-import extern.Player;
-import extern.enumarators.GameStatus;
+
+import lobbyManager.Player;
+import lobbyManager.enumarators.GameStatus;
 
 public class Lobby {
 
-    private GameStatus gameStatus = GameStatus.LOBBY;
+    private GameStatus gameStatus;
     private final HashMap<String, Player> players = new HashMap<>();
 
     public GameStatus getGameStatus() {

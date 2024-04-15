@@ -1,19 +1,30 @@
-import {gameState, colors} from "../types";
+import {gameState} from "../types";
 import React, {useEffect, useState} from "react";
-import {Publish, SubscribeJoinLobby, SubscribeToLobby} from "../PlayermanagerSocket";
-import {Publish as PublishGameStatus} from "../GamemanagerSocket";
-import {Player} from "../inGame/PlayerManager";
+import {Publish, SubscribeJoinLobby, SubscribeLobbyStatus, SubscribeToLobby} from "./LobbyManagerSocket";
+import {Unsubscribe as GameUnsubscribe} from "../startingScreen/GameManagerSocket";
 import PlayerList from "./PlayerList";
 import PlayerSettings from "./PlayerSettings";
+import LobbyInfo from "./LobbyInfo";
+import LobbySettings from "./LobbySettings";
+import {startHeartbeat} from "./Heartbeat";
 
 type Props = {
-    setPlayers(newPlayers: Array<Player>): void;
     myPlayerId: string
     lobbyId: string,
     setGameState(newState: gameState): void;
 };
 
-export default function Lobby({setPlayers, myPlayerId, lobbyId, setGameState}: Props){
+export type Player = {
+    id: string;
+    name: string;
+    color: string;
+    role: string;
+    host: boolean;
+}
+
+export default function Lobby({myPlayerId, lobbyId, setGameState}: Props){
+
+    GameUnsubscribe();
 
     const [displayPlayers, setDisplayPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
@@ -23,45 +34,49 @@ export default function Lobby({setPlayers, myPlayerId, lobbyId, setGameState}: P
     }, [lobbyId]);
 
     useEffect(() => {
-        wait(300).then(() =>{
-            const joinLobby = (messages: any) => {
-                const updatedPlayers: Array<Player> = [];
-                messages.forEach((message: any) => {
-                    const newPlayer: Player = {
-                        id: message.id,
-                        src: 'src/images/pixi.png',
-                        name: message.name,
-                        color: message.color,
-                        x: message.position.x,
-                        y: message.position.y,
-                        z: 0.5,
-                        role: message.role
-                    };
-                    updatedPlayers.push(newPlayer);
+        const joinLobby = (messages: any) => {
+            let foundMyPlayer = false;
+            const updatedPlayers: Array<Player> = [];
+            messages.forEach((message: any) => {
+                const newPlayer: Player = {
+                    id: message.id,
+                    name: message.name,
+                    color: message.color,
+                    role: message.role,
+                    host: message.host === "true"
+                };
+                updatedPlayers.push(newPlayer);
 
-                    if (newPlayer.id === myPlayerId){
-                        setMyPlayer(newPlayer);
-                    }
-                });
-                setDisplayPlayers(updatedPlayers)
-            };
-            SubscribeJoinLobby(joinLobby);
-        })
-    }, [lobbyId]);
+                if (newPlayer.id === myPlayerId){
+                    setMyPlayer(newPlayer)
+                    foundMyPlayer = true;
+                }
+            });
+            if (!foundMyPlayer){
+                setGameState("startingScreen");
+            }
+            setDisplayPlayers(updatedPlayers)
+        };
+        SubscribeJoinLobby(joinLobby);
 
-    function wait(ms: number) {
-        return new Promise(resolve => setTimeout(resolve, ms));
-    }
+        const lobbyStatus = (message: any) => {
+            if (message.gameStatus === "INGAME") {
+                setGameState('inGame');
+            }
+        };
+        SubscribeLobbyStatus(lobbyStatus);
+    }, [lobbyId, myPlayerId]);
 
     useEffect(() => {
-        wait(600).then(() => {
+        setTimeout(() => {
             const sendMyPlayerId = {
                 playerId: myPlayerId,
                 lobbyId: lobbyId
             };
             Publish("/send/registerPlayer", JSON.stringify(sendMyPlayerId));
-        });
-    }, [lobbyId]);
+            startHeartbeat(lobbyId, myPlayerId);
+        }, 400);
+    }, [lobbyId, myPlayerId]);
 
     return (
         <div className="bg-gray-700 w-screen h-screen" >
@@ -70,24 +85,25 @@ export default function Lobby({setPlayers, myPlayerId, lobbyId, setGameState}: P
                     <PlayerList displayPlayers={displayPlayers}/>
                 </div>
                 <div className="col-span-1 grid-cols-subgrid w-80 min-h-82 justify-center items-center flex">
-                    <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>
+                    <div className="border-white border-2 min-h-80 flex-1">
+                        <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>
+                        {myPlayer?.host && <LobbySettings lobbyId={lobbyId} maxNumberOfPlayers={displayPlayers.length}/>}
+                    </div>
                 </div>
             </div>
-            <p className="absolute top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white">
-                lobbyId: {lobbyId}</p>
-            <button
-                className="absolute bottom-16 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white text-1xl text-gray-700 font-serif p-4 rounded-lg hover:bg-amber-100"
-                onClick={() => {
-                    const gameStatus = {
-                        lobbyId: lobbyId,
-                        gameStatus: "INGAME"
-                    };
-                    PublishGameStatus("/send/setLobbyStatus", JSON.stringify(gameStatus));
-                    setPlayers(displayPlayers);
-                    setGameState('inGame');
-                }}
-            >Start
-            </button>
+            <LobbyInfo myPlayer={myPlayer} lobbyId={lobbyId} onClickStart={() => {
+                const gameStatus = {
+                    lobbyId: lobbyId,
+                    gameStatus: "INGAME"
+                };
+                Publish("/send/setLobbyStatus", JSON.stringify(gameStatus));
+                }} onClickLeave={() => {
+                const leaveGame= {
+                    lobbyId: lobbyId,
+                    playerId: myPlayerId
+                };
+                Publish("/send/removePlayer", JSON.stringify(leaveGame));
+            }}/>
         </div>
     );
 }

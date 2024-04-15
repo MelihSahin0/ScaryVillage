@@ -1,4 +1,4 @@
-import {Player} from "../inGame/PlayerManager";
+import {Player} from "./Lobby";
 import PlayerListItem from "./PlayerListItem";
 
 type Props = {

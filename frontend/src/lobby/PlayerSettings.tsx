@@ -1,7 +1,7 @@
-import {Player} from "../inGame/PlayerManager";
+import {Player} from "./Lobby";
 import Select from 'react-select'
-import {Publish} from "../PlayermanagerSocket";
-import {useEffect, useState} from "react";
+import {Publish} from "./LobbyManagerSocket";
+import React, {useEffect, useState} from "react";
 
 type Props = {
     myPlayer: Player | undefined
@@ -23,7 +23,7 @@ const options = [
 
 export default function PlayerSettings({myPlayer, lobbyId}: Props){
 
-    const [borderColor, setBorderColor] = useState("")
+    const [borderColor, setBorderColor] = useState("");
 
     useEffect(() => {
         checkName();
@@ -38,22 +38,28 @@ export default function PlayerSettings({myPlayer, lobbyId}: Props){
     }
 
     return (
-        <div className="border-white border-2 min-h-80 flex-1">
-            <input className={"m-1 flex justify-center items-center w-80 border-2 " + borderColor}
-                   type="text" id="setPlayerName"
-                   defaultValue={myPlayer === undefined ? "" : myPlayer.name}
-                   onChange={(event) => {
+        <div className="ml-2  mt-2">
+            <p className="text-white text-xl">Player Settings:</p>
+            <div className="flex mt-2">
+                <p className="w-20 text-white">Username:</p>
+                <input className={"justify-center items-center w-52 border-2 " + borderColor}
+                       type="text" id="setPlayerName"
+                       defaultValue={myPlayer === undefined ? "" : myPlayer.name}
+                       onChange={(event) => {
 
-                       const changePlayerName = {
-                           playerId: myPlayer!.id,
-                           lobbyId: lobbyId,
-                           name: event.target.value.trim()
-                       };
-                       Publish("/send/changeName", JSON.stringify(changePlayerName));
-                       checkName();
-                   }}
-            />
-            <Select className="w-80 m-1 flex rounded"
+                           const changePlayerName = {
+                               playerId: myPlayer!.id,
+                               lobbyId: lobbyId,
+                               name: event.target.value.trim()
+                           };
+                           Publish("/send/changeName", JSON.stringify(changePlayerName));
+                           checkName();
+                       }}
+                />
+            </div>
+            <div className="flex mt-2">
+                <p className="w-20 pt-2 text-white">Color:</p>
+            <Select className="flex rounded"
                     options={options}
                     value={options.find((option) => option.label === myPlayer?.color.toUpperCase())}
                     onChange={(event) => {
@@ -65,6 +71,7 @@ export default function PlayerSettings({myPlayer, lobbyId}: Props){
                         };
                         Publish("/send/changeColor", JSON.stringify(changePlayerColor));
                     }}/>
+            </div>
         </div>
     )
 }

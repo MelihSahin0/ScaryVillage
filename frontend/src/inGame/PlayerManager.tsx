@@ -1,7 +1,14 @@
 import React, {useEffect, useState} from "react";
 import DrawPlayer from "./DrawPlayer";
-import {SubscribeKill, SubscribePlayerMovement} from "../PlayermanagerSocket";
-import { Selection, EffectComposer, Outline } from '@react-three/postprocessing'
+import {
+    Publish,
+    SubscribeKill,
+    SubscribePlayerMovement,
+    SubscribePlayers,
+    SubscribeToLobby
+} from "./PlayermanagerSocket";
+import {gameState} from "../types";
+import {startHeartbeat} from "../lobby/Heartbeat";
 
 export type Player = {
     id: string;
@@ -12,20 +19,53 @@ export type Player = {
     y: number;
     z: number;
     role: string;
+    host: boolean;
 }
 
 type Props = {
     lobbyId: string,
     myPlayerId: string,
-    playersOrig: Array<Player>
+    setGameState(newState: gameState): void;
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, playersOrig}: Props){
-    const [players, setPlayers] = useState<Array<Player>>(playersOrig);
+export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props){
+
+    const [players, setPlayers] = useState<Array<Player>>([]);
+
+    useEffect(() => {
+        SubscribeToLobby(lobbyId);
+    }, [lobbyId]);
 
     useEffect(() => {
 
-        const updatePlayers = (message: any) => {
+        const getPlayers = (messages: any) => {
+            let foundMyPlayer = false;
+            const updatedPlayers: Array<Player> = [];
+            messages.forEach((message: any) => {
+                const newPlayer: Player = {
+                    id: message.id,
+                    src: "src/images/pixi.png",
+                    name: message.name,
+                    color: message.color,
+                    x: message.position.x,
+                    y: message.position.y,
+                    z: 0.5,
+                    role: message.role,
+                    host: message.host === "true"
+                };
+                if (message.id === myPlayerId){
+                    foundMyPlayer = true;
+                }
+                updatedPlayers.push(newPlayer);
+            });
+            if (!foundMyPlayer){
+                setGameState("voting");
+            }
+            setPlayers(updatedPlayers)
+        };
+        SubscribePlayers(getPlayers)
+
+        const updatePlayer = (message: any) => {
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
@@ -47,7 +87,7 @@ export default function PlayerManager({lobbyId, myPlayerId, playersOrig}: Props)
                 });
             });
         };
-        SubscribePlayerMovement(updatePlayers);
+        SubscribePlayerMovement(updatePlayer);
 
         const kill = (message: any) => {
             setPlayers(prevPlayers => {
@@ -66,14 +106,20 @@ export default function PlayerManager({lobbyId, myPlayerId, playersOrig}: Props)
             });
         };
         SubscribeKill(kill);
-    }, []);
+    }, [lobbyId]);
+
+    useEffect(() => {
+        setTimeout(() => {
+            const sendMyLobbyId = {
+                lobbyId: lobbyId
+            };
+            Publish("/send/players",  JSON.stringify(sendMyLobbyId));
+        }, 400);
+    }, [lobbyId]);
 
     return (
-        <Selection>
-            <EffectComposer multisampling={8} autoClear={false}>
-                <Outline visibleEdgeColor={"red" as any} edgeStrength={1000} width={1000}/>
-            </EffectComposer>
+        <>
             <DrawPlayer lobbyId={lobbyId} myPlayerId={myPlayerId} players={players} />
-        </Selection>
+        </>
     )
 }

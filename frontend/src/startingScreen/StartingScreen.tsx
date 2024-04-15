@@ -1,27 +1,29 @@
 import {gameState} from "../types";
 import React, {useEffect, useState} from "react";
-import {Publish, SubscribeGetLobby} from "../GamemanagerSocket";
-import { v4 as uuidv4 } from "uuid";
+import {Publish, SubscribeGetLobby, UnscubscribeGetLobby} from "./GameManagerSocket";
+import {Unsubscribe as LobbyUnsubscribe} from "../lobby/LobbyManagerSocket";
+import {stopHeartbeat} from "../lobby/Heartbeat";
 
 type Props = {
-    setMyPlayerId(myPlayerId: string): void;
+    myPlayerId: string;
     setLobbyId(lobbyId: string): void ;
     setGameState(gameState: gameState): void;
 };
 
-export default function StartingScreen({setMyPlayerId, setLobbyId, setGameState }: Props) {
+export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: Props) {
     const [lobbyMessage, setLobbyMessage] = useState("");
-
     const [myPlayer] = useState({
-        playerId: uuidv4().toString().replaceAll("-",""),
+        playerId: myPlayerId,
         lobbyId: ""
     });
+
+    stopHeartbeat();
+    LobbyUnsubscribe();
 
     useEffect(() => {
         const getLobbyUuid = (messages: any) => {
             if (messages.playerId === myPlayer.playerId) {
-                if (messages.lobbyId != ""){
-                    setMyPlayerId(myPlayer.playerId);
+                if (messages.lobbyId !== "") {
                     setLobbyId(messages.lobbyId);
                     setGameState('lobby');
                 } else {
@@ -30,7 +32,11 @@ export default function StartingScreen({setMyPlayerId, setLobbyId, setGameState 
             }
         };
         SubscribeGetLobby(getLobbyUuid);
-    },[]);
+        return () => {
+            UnscubscribeGetLobby();
+        }
+    }, []);
+
 
     return (
         <div className="bg-gray-700 h-screen w-screen flex flex-col justify-center items-center">
@@ -40,12 +46,14 @@ export default function StartingScreen({setMyPlayerId, setLobbyId, setGameState 
             <div>
                 <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24 hover:bg-amber-100"
                         onClick={() => {
-                            Publish("/send/registerLobby", JSON.stringify(myPlayer));
+                            Publish("/send/registerLobby", JSON.stringify(myPlayer))
                         }
                 }>Host</button>
                 <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24 hover:bg-amber-100"
-                        onClick={() => {Publish("/send/joinLobby",JSON.stringify(myPlayer))}}
-                >Join</button>
+                        onClick={() => {
+                            Publish("/send/joinLobby",JSON.stringify(myPlayer));
+                        }
+                }>Join</button>
             </div>
             <div className="-mt-5">
                 <input className="border rounded-md text-center"
