@@ -18,8 +18,7 @@ export default function App() {
         <>
             {gameState === 'startingScreen' && <StartingScreen setMyPlayerId={setMyPlayerId} setLobbyId={setLobbyId} setGameState={setGameState}/>}
             {gameState === 'lobby' && <Lobby setPlayers={setPlayers} myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState}/>}
-            {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} playersOrig={players} setGameState={setGameState}/>}
-            {gameState === 'voting' && <Voting myPlayerId={myPlayerId} players={players} lobbyId={lobbyId} setGameState={setGameState}/>}
+            {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} playersOrig={players} setGameState={setGameState} players={players} setPlayers={setPlayers}/>}
         </>
     );
 }

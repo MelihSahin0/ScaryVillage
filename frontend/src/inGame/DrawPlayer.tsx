@@ -73,9 +73,6 @@ function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: strin
         }
     };
 
-    console.log(player.id)
-    console.log(player.x)
-
     return (
         <>
             <Select enabled={isHovered}>

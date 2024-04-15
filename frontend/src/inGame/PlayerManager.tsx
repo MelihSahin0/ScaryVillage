@@ -19,9 +19,10 @@ type Props = {
     myPlayerId: string,
     playersOrig: Array<Player>
     setGameState: any
+    setVoting: any
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, playersOrig, setGameState}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, playersOrig, setGameState, setVoting}: Props){
     const [players, setPlayers] = useState<Array<Player>>(playersOrig);
 
     useEffect(() => {
@@ -30,8 +31,6 @@ export default function PlayerManager({lobbyId, myPlayerId, playersOrig, setGame
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
-                        console.log(player.role)
-                        console.log(player.id)
 
                         if (player.role != "CREWMATEGHOST" && player.role != "IMPOSTERGHOST") {
                             return {
@@ -73,7 +72,7 @@ export default function PlayerManager({lobbyId, myPlayerId, playersOrig, setGame
 
         const report = () => {
             console.log("RETURNED!!!");
-            setGameState("voting");
+            setVoting(true);
         };
         SubscribeReport(report);
 

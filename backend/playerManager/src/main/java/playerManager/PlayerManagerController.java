@@ -105,9 +105,6 @@ public class PlayerManagerController {
 	@MessageMapping("/playerMovement/{stringLobbyId}")
 	@SendTo("/subscribe/playerPosition/{stringLobbyId}")
 	public String handlePlayers(PlayerMoved message) {
-
-		System.out.println(message.toString());
-
 		if (message.getLobbyId().isEmpty()){
 			return null;
 		}
@@ -243,6 +240,7 @@ public class PlayerManagerController {
 
             JSONObject json = new JSONObject(counts);
             json.put("winner", mFP);
+			json.put("winnerRole", lobbies.get(message.getLobbyId()).getPlayers().get(mFP).getRole());
 
             //reset
 			playersVoting = new ArrayList<>();
