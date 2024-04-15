@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
 import DrawPlayer from "./DrawPlayer";
 import {
+    SubscribeReport,
+    SubscribeVoting,
     Publish,
     SubscribeKill,
     SubscribePlayerMovement,
@@ -26,9 +28,11 @@ type Props = {
     lobbyId: string,
     myPlayerId: string,
     setGameState(newState: gameState): void;
+    setVoting: any,
+    playersOrig: Array<Player>
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, setVoting, playersOrig, setGameState}: Props){
 
     const [players, setPlayers] = useState<Array<Player>>([]);
 
@@ -106,6 +110,12 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
             });
         };
         SubscribeKill(kill);
+
+        const report = () => {
+            console.log("RETURNED!!!");
+            setVoting(true);
+        };
+        SubscribeReport(report);
     }, [lobbyId]);
 
     useEffect(() => {

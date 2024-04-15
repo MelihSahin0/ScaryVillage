@@ -54,6 +54,34 @@ export function SubscribeKill(killPlayers: (message: any) => void) {
     Subscribe();
 }
 
+export function SubscribeReport(report: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        destination: "/subscribe/report/" + lobbyId,
+        function: report
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.destination === messageHandler.destination)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    Subscribe();
+}
+
+export function SubscribeVoting(voting: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        destination: "/subscribe/voting/" + lobbyId,
+        function: voting
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.destination === messageHandler.destination)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    Subscribe();
+}
+
 function Subscribe(){
     client.deactivate().then();
     client.configure({

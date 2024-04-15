@@ -4,7 +4,7 @@ import {TextureLoader} from "three";
 
 export default function Map(){
 
-    const texture = useLoader(TextureLoader, 'src/images/Map.png');
+    const texture = useLoader(TextureLoader, 'src/Images/newMap.png');
     return (
         <group>
             <mesh position={new THREE.Vector3(0, 0, 0)}>

@@ -5,76 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="sync">
-      <change afterPath="$PROJECT_DIR$/globalClasses/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/extern/Player.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/extern/enumarators/Visibility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/intern/LobbyId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/intern/LobbyIdGameStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/intern/LobbyIdInteger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/intern/LobbyIdPlayerHashMap.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/intern/LobbyIdVisibility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobbies.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/StompWebsocketLobbyManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/WebSocketConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/ApplicationContextHolder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/ChangeMaxPlayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/ChangeVisibility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/GetLobbySettings.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/Heartbeat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/RemovePlayer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobbies.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/playerManager/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/lobby/Heartbeat.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyManagerSocket.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameManage/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameManage/src/main/java/gameManager/GameManagerController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameManage/src/main/java/gameManager/StompWebsocketGameManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameManage/src/main/java/gameManager/WebSocketConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameManage/src/main/java/gameManager/jsonDataTransferTypes/GetLobbyId.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameManage/src/main/java/gameManager/jsonDataTransferTypes/LobbyStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/LobbyStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gameManage/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/PlayerManagerController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/enumarators/Colors.java" beforeDir="false" afterPath="$PROJECT_DIR$/globalClasses/src/main/java/extern/enumarators/Colors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/enumarators/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/globalClasses/src/main/java/extern/enumarators/GameStatus.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/enumarators/Roles.java" beforeDir="false" afterPath="$PROJECT_DIR$/globalClasses/src/main/java/extern/enumarators/Roles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/jsonDataTransferTypes/AddPlayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/AddPlayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/jsonDataTransferTypes/ChangeColor.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/ChangeColor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/jsonDataTransferTypes/ChangeName.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/ChangeName.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/jsonDataTransferTypes/PlayerClicked.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/PlayerClicked.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/jsonDataTransferTypes/PlayerMoved.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/PlayerMoved.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/resources/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/resources/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/.idea/jsLibraryMappings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/GamemanagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/startingScreen/GameManagerSocket.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/PlayermanagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/images/newMap.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/PlayerList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/PlayerList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/PlayerListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/PlayerListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/PlayerSettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/PlayerSettings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/types.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -157,49 +95,49 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.playerManager [assemble].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.playerManager [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.playerManager [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.backend [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.backend [compile].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.backend [package].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.backend [verify].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;Spring Boot.MessagingStompWebsocketApplication.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.StompWebsocketGameManager (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.StompWebsocketGameManager.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.StompWebsocketLobbyManager.executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.StompWebsocketPlayerManager (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.StompWebsocketPlayerManager (2).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.StompWebsocketPlayerManager.executor&quot;: &quot;Run&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/smeli/Downloads/Sahin_M_Bonusaufgabe_12_April/demo-book-service&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Anwenundgen\\Intellij\\IntelliJ IDEA 2023.2.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.Upgrade Gradle wrapper.executor": "Run",
+    "Gradle.playerManager [assemble].executor": "Run",
+    "Gradle.playerManager [build].executor": "Run",
+    "Gradle.playerManager [clean].executor": "Run",
+    "Maven.backend [clean].executor": "Run",
+    "Maven.backend [compile].executor": "Run",
+    "Maven.backend [package].executor": "Run",
+    "Maven.backend [verify].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Spring Boot.MessagingStompWebsocketApplication.executor": "Run",
+    "Spring Boot.StompWebsocketGameManager (1).executor": "Run",
+    "Spring Boot.StompWebsocketGameManager.executor": "Run",
+    "Spring Boot.StompWebsocketLobbyManager.executor": "Run",
+    "Spring Boot.StompWebsocketPlayerManager (1).executor": "Run",
+    "Spring Boot.StompWebsocketPlayerManager (2).executor": "Run",
+    "Spring Boot.StompWebsocketPlayerManager.executor": "Run",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "Merging main",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/smeli/Downloads/Sahin_M_Bonusaufgabe_12_April/demo-book-service",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
+    "ts.external.directory.path": "C:\\Anwenundgen\\Intellij\\IntelliJ IDEA 2023.2.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\playerManager\src\main\resources" />

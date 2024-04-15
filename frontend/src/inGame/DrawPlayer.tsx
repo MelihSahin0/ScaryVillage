@@ -65,7 +65,12 @@ function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: strin
             "toPlayerId": player.id
         };
 
-        Publish("/send/killPlayer", JSON.stringify(message));
+        if(player.role == "CREWMATEGHOST") {
+            console.log("CLICKED ON CREWMATEGHOST");
+            Publish("/send/report", JSON.stringify(message));
+        } else {
+            Publish("/send/killPlayer", JSON.stringify(message));
+        }
     };
 
     return (
