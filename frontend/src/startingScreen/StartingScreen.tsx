@@ -1,8 +1,8 @@
 import {gameState} from "../types";
 import React, {useEffect, useState} from "react";
-import {Publish, SubscribeGetLobby, UnscubscribeGetLobby} from "./GameManagerSocket";
-import {Unsubscribe as LobbyUnsubscribe} from "../lobby/LobbyManagerSocket";
-import {stopHeartbeat} from "../lobby/Heartbeat";
+import {CloseConnection, Publish, SubscribeGetLobby, UnsubscribeGetLobby} from "./GameManagerSocket";
+import {StopHeartbeat} from "../lobby/Heartbeat";
+import {CloseConnection as LobbyCloseConnection} from "../lobby/LobbyManagerSocket";
 
 type Props = {
     myPlayerId: string;
@@ -17,8 +17,8 @@ export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: 
         lobbyId: ""
     });
 
-    stopHeartbeat();
-    LobbyUnsubscribe();
+    StopHeartbeat();
+    LobbyCloseConnection();
 
     useEffect(() => {
         const getLobbyUuid = (messages: any) => {
@@ -33,10 +33,10 @@ export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: 
         };
         SubscribeGetLobby(getLobbyUuid);
         return () => {
-            UnscubscribeGetLobby();
+            UnsubscribeGetLobby();
+            CloseConnection();
         }
-    }, []);
-
+    }, [myPlayer.playerId, setGameState, setLobbyId]);
 
     return (
         <div className="bg-gray-700 h-screen w-screen flex flex-col justify-center items-center">

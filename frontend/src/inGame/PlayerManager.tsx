@@ -2,15 +2,13 @@ import React, {useEffect, useState} from "react";
 import DrawPlayer from "./DrawPlayer";
 import {
     SubscribeReport,
-    SubscribeVoting,
     Publish,
     SubscribeKill,
     SubscribePlayerMovement,
     SubscribePlayers,
-    SubscribeToLobby
+    SubscribeToLobby, CloseConnection, UnsubscribePlayers, UnsubscribePlayerMovement, UnsubscribeKill, UnsubscribeReport
 } from "./PlayermanagerSocket";
 import {gameState} from "../types";
-import {startHeartbeat} from "../lobby/Heartbeat";
 
 export type Player = {
     id: string;
@@ -28,11 +26,9 @@ type Props = {
     lobbyId: string,
     myPlayerId: string,
     setGameState(newState: gameState): void;
-    setVoting: any,
-    playersOrig: Array<Player>
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, setVoting, playersOrig, setGameState}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props){
 
     const [players, setPlayers] = useState<Array<Player>>([]);
 
@@ -41,7 +37,6 @@ export default function PlayerManager({lobbyId, myPlayerId, setVoting, playersOr
     }, [lobbyId]);
 
     useEffect(() => {
-
         const getPlayers = (messages: any) => {
             let foundMyPlayer = false;
             const updatedPlayers: Array<Player> = [];
@@ -63,12 +58,17 @@ export default function PlayerManager({lobbyId, myPlayerId, setVoting, playersOr
                 updatedPlayers.push(newPlayer);
             });
             if (!foundMyPlayer){
-                setGameState("voting");
+                setGameState("startingScreen");
             }
             setPlayers(updatedPlayers)
         };
         SubscribePlayers(getPlayers)
+        return () => {
+            UnsubscribePlayers();
+        }
+    }, [lobbyId, myPlayerId, setGameState]);
 
+    useEffect(() => {
         const updatePlayer = (message: any) => {
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
@@ -92,14 +92,19 @@ export default function PlayerManager({lobbyId, myPlayerId, setVoting, playersOr
             });
         };
         SubscribePlayerMovement(updatePlayer);
+        return () => {
+            UnsubscribePlayerMovement();
+        }
+    }, [myPlayerId])
 
+    useEffect(() => {
         const kill = (message: any) => {
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
                         return {
                             ...player,
-                            color: 'black',
+                            color: message.color,
                             x: message.position.x,
                             y: message.position.y,
                             role: message.role
@@ -110,14 +115,21 @@ export default function PlayerManager({lobbyId, myPlayerId, setVoting, playersOr
             });
         };
         SubscribeKill(kill);
+        return () => {
+            UnsubscribeKill();
+        }
+    }, []);
 
+    useEffect(() => {
         const report = () => {
-            console.log("RETURNED!!!");
-            setVoting(true);
+            setGameState('voting');
         };
         SubscribeReport(report);
-    }, [lobbyId]);
-
+        return () => {
+            UnsubscribeReport();
+        }
+    }, [setGameState]);
+    
     useEffect(() => {
         setTimeout(() => {
             const sendMyLobbyId = {
@@ -125,6 +137,9 @@ export default function PlayerManager({lobbyId, myPlayerId, setVoting, playersOr
             };
             Publish("/send/players",  JSON.stringify(sendMyLobbyId));
         }, 400);
+        return () => {
+            CloseConnection();
+        }
     }, [lobbyId]);
 
     return (

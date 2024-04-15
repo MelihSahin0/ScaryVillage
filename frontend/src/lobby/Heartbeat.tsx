@@ -6,21 +6,21 @@ let playerId = "";
 
 let heartbeatTimer: NodeJS.Timeout | null = null;
 
-export function startHeartbeat(myLobbyId: string, myPlayerId: string) {
+export function StartHeartbeat(myLobbyId: string, myPlayerId: string) {
     lobbyId = myLobbyId;
     playerId = myPlayerId;
     sendHeartbeat = true;
-    heartbeat();
+    Heartbeat();
 }
 
-export function stopHeartbeat() {
+export function StopHeartbeat() {
     sendHeartbeat = false;
     if (heartbeatTimer) {
         clearTimeout(heartbeatTimer);
     }
 }
 
-function heartbeat() {
+function Heartbeat() {
     const heartbeatData = {
         lobbyId: lobbyId,
         playerId: playerId
@@ -29,6 +29,6 @@ function heartbeat() {
     Publish("/send/heartbeat", JSON.stringify(heartbeatData));
 
     if (sendHeartbeat) {
-        heartbeatTimer = setTimeout(heartbeat, 3000);
+        heartbeatTimer = setTimeout(Heartbeat, 3000);
     }
 }

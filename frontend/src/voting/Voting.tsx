@@ -1,84 +1,134 @@
-import {Player} from "../inGame/PlayerManager";
-import {Publish, SubscribeVoting} from "../PlayermanagerSocket";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
+import {gameState} from "../types";
+import {
+    CloseConnection,
+    Publish,
+    SubscribePlayers,
+    SubscribeVoting, UnsubscribePlayers,
+    UnsubscribeVoting,
+    SubscribeToLobby
+} from "./VoteManagerSocket";
+
+export type Player = {
+    id: string;
+    name: string;
+    color: string;
+    role: string;
+    host: boolean;
+}
 
 type Props = {
     myPlayerId: string
-    players: any
     lobbyId: string
-    setGameState: any
-    setVoting: any
-    setPlayers: any
+    setGameState(newState: gameState): void;
 }
 
-let votedPlayer = "";
+export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
 
-let winner: string = "";
+    const [players, setPlayers] = useState<Array<Player>>([]);
+    const [myPlayer, setMyPlayer] = useState<Player|undefined>();
+    const [votedPlayer, setVotedPlayer] = useState("");
+    const [winner, setWinner] = useState("");
 
-export default function Voting({myPlayerId, players, lobbyId, setGameState, setVoting, setPlayers}: Props) {
+    useEffect(() => {
+        SubscribeToLobby(lobbyId);
+    }, []);
+
+    useEffect(() => {
+        const getPlayers = (messages: any) => {
+            const updatedPlayers: Array<Player> = [];
+            messages.forEach((message: any) => {
+                const newPlayer: Player = {
+                    id: message.id,
+                    name: message.name,
+                    color: message.color,
+                    role: message.role,
+                    host: message.host
+                };
+                console.log(newPlayer)
+                if (message.id === myPlayerId){
+                    setMyPlayer(newPlayer);
+                }
+                console.log("----------------")
+                updatedPlayers.push(newPlayer);
+            });
+            setPlayers(updatedPlayers)
+        };
+        SubscribePlayers(getPlayers)
+        return () => {
+            UnsubscribePlayers();
+        }
+    },[])
+
     useEffect(() => {
         const voting = (message: any) => {
             const prevPlayers: Player[] = [];
-            console.log("VOTING RETURNED!!" + message.winner);
-            winner = message.winner;
+            setWinner(message.name);
             players.forEach((player: Player) => {
-                if (player.id === winner) {
-                    alert("AHA");
-                    // TODO: Make it adjust the color... it comes into the if, but doesnt go into the push it seems
+                if (player.id === message.id) {
                     prevPlayers.push({
                         ...player,
-                        color: 'black',
-                        role: "CREWMATEGHOST"
+                        color: message.color,
+                        role: message.role
                     });
-                    console.log("DID IT WORK YET? " + player.color);
                 } else {
                     prevPlayers.push(player);
                 }
             });
             setPlayers(prevPlayers);
+            setGameState("inGame");
         };
         SubscribeVoting(voting);
+        return () => {
+            UnsubscribeVoting();
+        }
     }, []);
 
+    useEffect(() => {
+        setTimeout(() => {
+            const sendMyLobbyId = {
+                lobbyId: lobbyId
+            };
+            Publish("/send/players",  JSON.stringify(sendMyLobbyId));
+        }, 400);
+        return () => {
+            CloseConnection();
+        }
+    }, []);
 
-
-
-
-    function sendVote() {
-        console.log("Send Vote!");
-        const message = {
-            "lobbyId": lobbyId,
-            "fromPlayerId": myPlayerId,
-            "toPlayerId": votedPlayer
-        };
-        Publish("/send/voting", JSON.stringify(message));
-    }
-
-    function onVote(id: any) {
-        //TODO: maybe check for own id
-        votedPlayer = id;
-    }
-
-    setTimeout(sendVote, 10000);
-
+    setTimeout(() => {
+        console.log(myPlayer?.host)
+        if (myPlayer?.host === true) {
+            const message = {
+                "endVoting": "true"
+            }
+            console.log(message)
+            Publish("/send/voting", JSON.stringify(message));
+        }
+    }, 10400);
 
     return (
         <div className="z-50 absolute h-screen flex items-center justify-center">
-
             <h1>Voting</h1>
             <br/>
-
             <ul>
                 {players.map((p: Player) => (
-                    <li key={p.id} onClick={() => onVote(p.id)}>{p.name}</li>
+                    <li className={p.id === votedPlayer ? "border-2 border-red-500" : ""} key={p.id} onClick={() => {
+                        if (p.id !== myPlayerId && myPlayer !== undefined && (myPlayer!.role === "CREWMATE" || myPlayer!.role === "IMPOSTERGHOST")) {
+                            setVotedPlayer(p.id);
+                        }
+                        const message = {
+                            "lobbyId": lobbyId,
+                            "fromPlayerId": myPlayerId,
+                            "toPlayerId": p.id
+                        };
+                        Publish("/send/voting", JSON.stringify(message));
+                    }}>{p.name}</li>
                 ))}
             </ul>
-
             <br/>
             <button>Skip vote!</button>
-
             <p>{winner}</p>
-
         </div>
     );
 }

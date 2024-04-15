@@ -1,12 +1,17 @@
 import {gameState} from "../types";
 import React, {useEffect, useState} from "react";
-import {Publish, SubscribeJoinLobby, SubscribeLobbyStatus, SubscribeToLobby} from "./LobbyManagerSocket";
-import {Unsubscribe as GameUnsubscribe} from "../startingScreen/GameManagerSocket";
+import {
+    Publish,
+    SubscribeJoinLobby,
+    SubscribeLobbyStatus,
+    SubscribeToLobby,
+    UnsubscribeJoinLobby, UnsubscribeLobbyStatus
+} from "./LobbyManagerSocket";
 import PlayerList from "./PlayerList";
 import PlayerSettings from "./PlayerSettings";
 import LobbyInfo from "./LobbyInfo";
 import LobbySettings from "./LobbySettings";
-import {startHeartbeat} from "./Heartbeat";
+import {StartHeartbeat} from "./Heartbeat";
 
 type Props = {
     myPlayerId: string
@@ -23,9 +28,6 @@ export type Player = {
 }
 
 export default function Lobby({myPlayerId, lobbyId, setGameState}: Props){
-
-    GameUnsubscribe();
-
     const [displayPlayers, setDisplayPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
 
@@ -58,14 +60,23 @@ export default function Lobby({myPlayerId, lobbyId, setGameState}: Props){
             setDisplayPlayers(updatedPlayers)
         };
         SubscribeJoinLobby(joinLobby);
+        return () => {
+            UnsubscribeJoinLobby();
+        }
+    }, [lobbyId, myPlayerId, setGameState]);
 
+    useEffect(() => {
         const lobbyStatus = (message: any) => {
             if (message.gameStatus === "INGAME") {
                 setGameState('inGame');
             }
         };
         SubscribeLobbyStatus(lobbyStatus);
-    }, [lobbyId, myPlayerId]);
+        return () => {
+            UnsubscribeLobbyStatus();
+        }
+    }, [setGameState]);
+
 
     useEffect(() => {
         setTimeout(() => {
@@ -74,7 +85,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState}: Props){
                 lobbyId: lobbyId
             };
             Publish("/send/registerPlayer", JSON.stringify(sendMyPlayerId));
-            startHeartbeat(lobbyId, myPlayerId);
+            StartHeartbeat(lobbyId, myPlayerId);
         }, 400);
     }, [lobbyId, myPlayerId]);
 

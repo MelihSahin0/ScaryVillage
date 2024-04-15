@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {useFrame, useThree} from '@react-three/fiber';
+import {Canvas, useFrame, useThree} from '@react-three/fiber';
 import {gameState} from "./types";
 import StartingScreen from "./startingScreen/StartingScreen";
 import InGame from "./inGame/InGame";
 import Lobby from "./lobby/Lobby";
 import {v4 as uuidv4} from "uuid";
+import Voting from "./voting/Voting";
 
 export default function App() {
 
@@ -16,7 +17,10 @@ export default function App() {
         <>
             {gameState === 'startingScreen' && <StartingScreen myPlayerId={myPlayerId} setLobbyId={setLobbyId} setGameState={setGameState}/>}
             {gameState === 'lobby' && <Lobby myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState}/>}
-            {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState}/>}
+            <Canvas style={{height: '100vh', display: gameState === 'inGame' ? 'block' : 'none'}}>
+                {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState}/>}
+            </Canvas>
+            {gameState === 'voting' && <Voting myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState}/>}
         </>
     );
 }

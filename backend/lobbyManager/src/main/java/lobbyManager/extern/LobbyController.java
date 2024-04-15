@@ -41,6 +41,7 @@ public class LobbyController {
         player.setColor(getNextAvailableColor(lobby));
         player.setRole(lobby.getPlayers().isEmpty() || lobby.getPlayers().size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
         player.setHost(lobby.getPlayers().isEmpty());
+        lobby.stopTimer();
         lobby.addPlayer(message.getPlayerId(), player);
         lobby.startTimer();
 
@@ -67,6 +68,7 @@ public class LobbyController {
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
 
         Player player = lobby.getPlayer(message.getPlayerId());
+        lobby.stopTimer();
         lobby.removePlayer(message.getPlayerId());
         lobby.startTimer();
 

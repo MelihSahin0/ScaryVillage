@@ -2,8 +2,8 @@ import {Client} from "@stomp/stompjs";
 
 type MessageHandler = {
     id: number;
-    destination: string,
-    function: (message: any) => void
+    destination: string;
+    function: (message: any) => void;
 };
 let subscriptionHandlers: MessageHandler[] = [];
 const client = new Client();
@@ -16,17 +16,17 @@ export function SubscribeGetLobby(lobbyId: (message: any) => void) {
         function: lobbyId
     };
 
-    if (!subscriptionHandlers.find(handler => handler.destination === messageHandler.destination)) {
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    Subscribe();
+    StartConnection();
+}
+export function UnsubscribeGetLobby(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
+    StartConnection();
 }
 
-export function UnscubscribeGetLobby(){
-    subscriptionHandlers = [];
-}
-
-function Subscribe(){
+function StartConnection(){
     client.deactivate().then();
     client.configure({
         brokerURL: 'ws://localhost:8081/gameManagerWebsocket',
@@ -41,7 +41,7 @@ function Subscribe(){
     client.activate();
 }
 
-export function Unsubscribe(){
+export function CloseConnection(){
     client.deactivate().then();
 }
 

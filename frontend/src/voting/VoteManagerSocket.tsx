@@ -13,31 +13,30 @@ export function SubscribeToLobby(id: string){
     lobbyId = id;
 }
 
-export function SubscribeJoinLobby(joinLobby: (messages: any) => void){
+export function SubscribePlayers(updatePlayers: (message: any) => void) {
 
     const messageHandler: MessageHandler = {
         id: 0,
-        destination: "/subscribe/lobby/" + lobbyId,
-        function: joinLobby
+        destination: "/subscribe/getPlayers/" + lobbyId,
+        function: updatePlayers
     };
 
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
     StartConnection();
 }
-export function UnsubscribeJoinLobby(){
+export function UnsubscribePlayers(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
     StartConnection();
 }
 
-export function SubscribeLobbyStatus(joinLobby: (messages: any) => void){
+export function SubscribeVoting(voting: (message: any) => void) {
 
     const messageHandler: MessageHandler = {
         id: 1,
-        destination: "/subscribe/getLobbyStatus/" + lobbyId,
-        function: joinLobby
+        destination: "/subscribe/voting/" + lobbyId,
+        function: voting
     };
 
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
@@ -46,34 +45,16 @@ export function SubscribeLobbyStatus(joinLobby: (messages: any) => void){
 
     StartConnection();
 }
-export function UnsubscribeLobbyStatus(){
+export function UnsubscribeVoting(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 1);
     StartConnection();
 }
 
-export function SubscribeGetLobbySettings(joinLobby: (messages: any) => void){
-
-    const messageHandler: MessageHandler = {
-        id: 2,
-        destination: "/subscribe/lobbySettings/" + lobbyId,
-        function: joinLobby
-    };
-
-    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
-        subscriptionHandlers.push(messageHandler);
-    }
-
-    StartConnection();
-}
-export function UnsubscribeGetLobbySettings(){
-    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 2);
-    StartConnection();
-}
 
 function StartConnection(){
     client.deactivate().then();
     client.configure({
-        brokerURL: 'ws://localhost:8082/lobbyManagerWebsocket',
+        brokerURL: 'ws://localhost:8080/playerManagerWebsocket',
         onConnect: () => {
             subscriptionHandlers.forEach((subscription) => {
                 client.subscribe(subscription.destination, message => {

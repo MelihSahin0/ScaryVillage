@@ -69,33 +69,32 @@ public class Lobby {
     }
 
     public void startTimer() {
-        if (executorService != null) {
-            executorService.shutdown();
-        }
         executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() -> {
             for(Map.Entry<String, Player> player : players.entrySet()) {
-                int timeLeft = player.getValue().getTimeLeftInSeconds();
-                if (timeLeft > 0) {
-                    player.getValue().setTimeLeftInSeconds(timeLeft - 1);
-                } else {
-                    LobbyController lobbyController = new LobbyController();
-                    RemovePlayer removePlayer = new RemovePlayer();
-                    removePlayer.setLobbyId(lobbyId);
-                    removePlayer.setPlayerId(player.getKey());
-                    //Do it like this so the others know a player disconnected.
-                    lobbyController.removePlayer(removePlayer);
+                if (player != null) {
+                    int timeLeft = player.getValue().getTimeLeftInSeconds();
+                    if (timeLeft > 0) {
+                        player.getValue().setTimeLeftInSeconds(timeLeft - 1);
+                    } else {
+                        LobbyController lobbyController = new LobbyController();
+                        RemovePlayer removePlayer = new RemovePlayer();
+                        removePlayer.setLobbyId(lobbyId);
+                        removePlayer.setPlayerId(player.getKey());
+                        //Do it like this so the others know a player disconnected.
+                        lobbyController.removePlayer(removePlayer);
+                    }
                 }
             }
         }, 0, 1, TimeUnit.SECONDS);
     }
 
     public void resetTimer(String playerId) {
-        if (executorService != null) {
-            executorService.shutdown();
-        }
+        stopTimer();
         Player player = getPlayer(playerId);
-        player.setTimeLeftInSeconds(10);
+        if (player != null) {
+            player.setTimeLeftInSeconds(10);
+        }
         startTimer();
     }
 

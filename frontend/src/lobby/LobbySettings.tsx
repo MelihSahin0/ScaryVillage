@@ -1,5 +1,5 @@
 import Select from "react-select";
-import {Publish, SubscribeGetLobbySettings} from "./LobbyManagerSocket";
+import {Publish, SubscribeGetLobbySettings, UnsubscribeGetLobbySettings} from "./LobbyManagerSocket";
 import React, {useEffect, useState} from "react";
 
 const playerOptions = [
@@ -31,6 +31,9 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
             setSelectedMaxNumberOfPlayer(playerOptions.find((option) => option.label === message.maxNumberOfPlayers)!);
         }
         SubscribeGetLobbySettings(getSettings);
+        return () => {
+            UnsubscribeGetLobbySettings();
+        }
     }, []);
 
     useEffect(() => {

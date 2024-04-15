@@ -10,7 +10,8 @@ public enum Colors {
     PINK("pink"),
     LIME("lime"),
     YELLOW("yellow"),
-    ZINC("zinc");
+    ZINC("zinc"),
+    BLACK("black");
 
     private static final Colors[] color = Colors.values();
     private final String colorName;
