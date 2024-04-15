@@ -1,4 +1,4 @@
-package extern;
+package playerManager;
 
 import extern.enumarators.Colors;
 import extern.enumarators.Roles;

@@ -1,4 +1,4 @@
-package lobbyManager.jsonDataTransferTypes;
+package lobbyManager.extern.jsonDataTransferTypes;
 
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 

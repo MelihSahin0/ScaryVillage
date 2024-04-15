@@ -1,4 +1,4 @@
-package lobbyManager.jsonDataTransferTypes;
+package lobbyManager.extern.jsonDataTransferTypes;
 
 public class ChangeName {
 

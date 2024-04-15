@@ -11,8 +11,9 @@
 
     <modules>
         <module>playerManager</module>
-        <module>gameManage</module>
-        <module>SingletonWebsocketEndPoint</module>
+        <module>gameManager</module>
+        <module>lobbyManager</module>
+        <module>globalClasses</module>
     </modules>
 
     <properties>

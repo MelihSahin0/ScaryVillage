@@ -1,0 +1,10 @@
+POST http://localhost:8082/lobbyManager/intern/addLobby
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.10)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2024-04-08T211029.500.json
+
+###
+

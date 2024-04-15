@@ -1,4 +1,5 @@
 package extern.enumarators;
+
 public enum Colors {
     RED("red"),
     BLUE("blue"),

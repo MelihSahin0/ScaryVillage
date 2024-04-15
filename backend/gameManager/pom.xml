@@ -29,13 +29,7 @@
         </dependency>
         <dependency>
             <groupId>ScaryVillage</groupId>
-            <artifactId>playerManager</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>ScaryVillage</groupId>
-            <artifactId>SingletonWebsocketEndPoint</artifactId>
+            <artifactId>lobbyManager</artifactId>
             <version>1.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
@@ -46,5 +40,4 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
-
 </project>

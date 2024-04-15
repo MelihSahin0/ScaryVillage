@@ -1,0 +1,6 @@
+{
+  "timestamp": "2024-04-08T19:10:29.848+00:00",
+  "status": 500,
+  "error": "Internal Server Error",
+  "path": "/lobbyManager/intern/addLobby"
+}

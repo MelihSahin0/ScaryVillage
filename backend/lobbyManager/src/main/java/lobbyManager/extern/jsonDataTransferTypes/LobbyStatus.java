@@ -1,7 +1,7 @@
-package gameManager.extern.jsonDataTransferTypes;
+package lobbyManager.extern.jsonDataTransferTypes;
 
 
-import lobbyManager.enumarators.GameStatus;
+import extern.enumarators.GameStatus;
 
 public class LobbyStatus {
 

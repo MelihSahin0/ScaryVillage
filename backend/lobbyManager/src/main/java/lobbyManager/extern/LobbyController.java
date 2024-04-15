@@ -1,55 +1,108 @@
-package lobbyManager.extern.jsonDataTransferTypes;
+package lobbyManager.extern;
 
+import extern.enumarators.GameStatus;
 import lobbyManager.Lobbies;
 import lobbyManager.Lobby;
-import lobbyManager.Player;
-import lobbyManager.enumarators.Colors;
-import lobbyManager.enumarators.Roles;
-import lobbyManager.extern.jsonDataTransferTypes.AddPlayer;
-import lobbyManager.extern.jsonDataTransferTypes.ChangeColor;
-import lobbyManager.extern.jsonDataTransferTypes.ChangeName;
+import extern.Player;
+import extern.enumarators.Colors;
+import extern.enumarators.Roles;
+import lobbyManager.extern.jsonDataTransferTypes.*;
+import lobbyManager.intern.Rest;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 @RestController
 public class LobbyController {
 
-    private static final HashMap<String, Lobby> lobbies = new HashMap<>();
+    //When Endpoints can be called internally too, use this. (Reference: removePlayer)
+    private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
 
-    //intern
-    @PostMapping(value = "/sendLobby", consumes = "application/json")
-    public void addUpdateLobby(@RequestParam String lobbyId, @RequestParam Lobby lobby) {
-        lobbies.put(lobbyId,lobby);
-    }
-
-    @PostMapping(value = "/sendLobby", consumes = "application/json")
-    public void removeLobby(@RequestParam String lobbyId) {
-        lobbies.remove(lobbyId);
-    }
-
-    //global
     @MessageMapping("/registerPlayer/{stringLobbyId}")
     @SendTo("/subscribe/lobby/{stringLobbyId}")
     public String addPlayer(AddPlayer message){
-        System.out.println(Lobbies.getLobbies().size());
+
         if (message.getLobbyId().isEmpty()){
             return null;
         }
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
 
-        if (lobby.getPlayers().size() >= 10){
-            return null;
+        if (lobby.getPlayer(message.getPlayerId()) != null){
+            return lobby.getPlayers().values().toString();
         }
 
-        Player player = new Player(message.getPlayerId(), "Player " + lobby.getPlayers().size(), Colors.getColor(lobby.getPlayers().size()), 0, 0, lobby.getPlayers().isEmpty() || lobby.getPlayers().size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
-        lobby.addPlayers(player);
+        Player player = new Player();
+        player.setId(message.getPlayerId());
+        player.setName("Player " + message.getPlayerId().substring(0,4));
+        player.setColor(getNextAvailableColor(lobby));
+        player.setRole(lobby.getPlayers().isEmpty() || lobby.getPlayers().size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
+        player.setHost(lobby.getPlayers().isEmpty());
+        lobby.addPlayer(message.getPlayerId(), player);
+        lobby.startTimer();
+
+        Rest.changeNumberOfPlayers(message.getLobbyId(), lobby.getPlayers().size());
 
         return lobby.getPlayers().values().toString();
+    }
+
+    private Colors getNextAvailableColor(Lobby lobby) {
+        List<Colors> usedColors = new ArrayList<>();
+        for (Player player : lobby.getPlayers().values()) {
+            usedColors.add(player.getColor());
+        }
+        for (Colors color : Colors.values()) {
+            if (!usedColors.contains(color)) {
+                return color;
+            }
+        }
+        return null;
+    }
+
+    @MessageMapping("/removePlayer/{stringLobbyId}")
+    public void removePlayer(RemovePlayer message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+
+        Player player = lobby.getPlayer(message.getPlayerId());
+        lobby.removePlayer(message.getPlayerId());
+        lobby.startTimer();
+
+        if (lobby.getPlayers().isEmpty()){
+            lobby.stopTimer();
+            Lobbies.removeLobby(message.getLobbyId());
+            Rest.removeLobby(message.getLobbyId());;
+        } else if (player.isHost()){
+            Object[] keys = lobby.getPlayers().keySet().toArray();
+
+            Random random = new Random();
+            Player host  = lobby.getPlayer((String) keys[random.nextInt(keys.length)]);
+            host.setHost(true);
+        }
+
+        messagingTemplate.convertAndSend("/subscribe/lobby/" + message.getLobbyId(), lobby.getPlayers().values().toString());
+    }
+
+    @MessageMapping("/heartbeat/{stringLobbyId}")
+    public void heartbeat(Heartbeat message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.resetTimer(message.getPlayerId());
+    }
+
+    @MessageMapping("/setLobbyStatus/{stringLobbyId}")
+    @SendTo("/subscribe/getLobbyStatus/{stringLobbyId}")
+    public String setLobbyStatus(LobbyStatus message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setGameStatus(message.getGameStatus());
+        Rest.changeGameState(message.getLobbyId(),message.getGameStatus());
+
+        if (message.getGameStatus() == GameStatus.INGAME) {
+            Rest.addLobby(message.getLobbyId(), lobby.getPlayers());
+        }
+
+        return message.toString();
     }
 
     @MessageMapping("/changeName/{stringLobbyId}")
@@ -67,7 +120,7 @@ public class LobbyController {
             }
         }
 
-        Player player = lobby.getPlayers().get(message.getPlayerId());
+        Player player = lobby.getPlayer(message.getPlayerId());
         player.setName(message.getName());
 
         return lobby.getPlayers().values().toString();
@@ -84,9 +137,38 @@ public class LobbyController {
             }
         }
 
-        Player player = lobby.getPlayers().get(message.getPlayerId());
+        Player player = lobby.getPlayer(message.getPlayerId());
         player.setColor(message.getColor());
 
         return lobby.getPlayers().values().toString();
+    }
+
+    @MessageMapping("/getLobbySettings/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String getLobbySettings(GetLobbySettings message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        return lobby.toString();
+    }
+
+    @MessageMapping("/changeVisibility/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String changeVisibility(ChangeVisibility message){
+        Lobby lobby =  Lobbies.getLobby(message.getLobbyId());
+        lobby.setVisibility(message.getVisibility());
+
+        Rest.changeVisibility(message.getLobbyId(), message.getVisibility());
+
+        return lobby.toString();
+    }
+
+    @MessageMapping("/setMaxNumberOfPlayers/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String setMaxNumberOfPlayers(ChangeMaxPlayer message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setMaxNumberOfPlayers(message.getMaxNumberOfPlayers());
+
+        Rest.changeMaxNumberOfPlayers(message.getLobbyId(), message.getMaxNumberOfPlayers());
+
+        return lobby.toString();
     }
 }

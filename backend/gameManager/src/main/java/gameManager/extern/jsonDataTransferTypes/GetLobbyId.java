@@ -1,4 +1,4 @@
-package gameManager.jsonDataTransferTypes;
+package gameManager.extern.jsonDataTransferTypes;
 
 public class GetLobbyId {
 

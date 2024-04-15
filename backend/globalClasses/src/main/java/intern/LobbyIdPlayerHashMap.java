@@ -1,10 +1,9 @@
 package intern;
 
-import extern.Player;
 import java.util.HashMap;
+import extern.Player;
 
-
-public class LobbyIdPlayerList {
+public class LobbyIdPlayerHashMap {
 
     private String lobbyId;
     private HashMap<String, Player> players;

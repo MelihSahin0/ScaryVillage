@@ -1,6 +1,6 @@
-package lobbyManager.jsonDataTransferTypes;
+package lobbyManager.extern.jsonDataTransferTypes;
 
-import lobbyManager.enumarators.Colors;
+import extern.enumarators.Colors;
 
 public class ChangeColor {
     

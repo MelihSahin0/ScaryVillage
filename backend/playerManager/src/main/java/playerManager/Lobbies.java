@@ -1,4 +1,4 @@
-package lobbyManager;
+package playerManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,8 +7,8 @@ public class Lobbies {
 
     private static final HashMap<String, Lobby> lobbies = new HashMap<>();
 
-    public static void addLobby(String lobbyId){
-        lobbies.put(lobbyId, new Lobby());
+    public static void addLobby(String lobbyId, Lobby lobby){
+        lobbies.put(lobbyId, lobby);
     }
 
     public static void removeLobby(String lobbyId){

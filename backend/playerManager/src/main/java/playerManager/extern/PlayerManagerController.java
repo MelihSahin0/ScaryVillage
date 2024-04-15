@@ -1,8 +1,7 @@
 package playerManager.extern;
 
-import extern.Player;
-import org.json.JSONArray;
-import org.json.JSONObject;
+import intern.LobbyId;
+import playerManager.Player;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +13,12 @@ import playerManager.extern.jsonDataTransferTypes.*;
 @RestController
 public class PlayerManagerController {
 
+	@MessageMapping("/players/{stringLobbyId}")
+	@SendTo("/subscribe/getPlayers/{stringLobbyId}")
+	public String getPlayers(LobbyId message){
+		return Lobbies.getLobby(message.getLobbyId()).getPlayers().values().toString();
+	}
+
 	@MessageMapping("/playerMovement/{stringLobbyId}")
 	@SendTo("/subscribe/playerPosition/{stringLobbyId}")
 	public String handlePlayers(PlayerMoved message) {
@@ -22,19 +27,10 @@ public class PlayerManagerController {
 			return null;
 		}
 
-		JSONObject jo = new JSONObject(message);
-		JSONArray jsonArray = jo.getJSONArray("movement");
-		String[] stringArray = new String[jsonArray.length()];
-
-		// Fill the String array with characters from jsonArray
-		for (int i = 0; i < jsonArray.length(); i++) {
-			stringArray[i] = jsonArray.getString(i);
-		}
-
 		Lobby lobby = Lobbies.getLobby(message.getLobbyId());
-		Player player = lobby.getPlayers().get(message.getPlayerId());
+		Player player = lobby.getPlayer(message.getPlayerId());
 		if (player != null){
-			player.initiateMove(stringArray);
+			player.initiateMove(message.getMovement());
 			return player.toString();
 		}
 
@@ -50,8 +46,8 @@ public class PlayerManagerController {
 		}
 
 		Lobby lobby =  Lobbies.getLobby(message.getLobbyId());
-		Player killer = lobby.getPlayers().get(message.getFromPlayerId());
-		Player victim = lobby.getPlayers().get(message.getToPlayerId());;
+		Player killer = lobby.getPlayer(message.getFromPlayerId());
+		Player victim = lobby.getPlayer(message.getToPlayerId());
 
 		if (killer == null || victim == null){
 			return null;
