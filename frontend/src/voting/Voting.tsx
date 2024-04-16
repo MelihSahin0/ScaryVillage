@@ -32,7 +32,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
-    }, []);
+    }, [lobbyId]);
 
     useEffect(() => {
         const getPlayers = (messages: any) => {
@@ -45,11 +45,9 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                     role: message.role,
                     host: message.host
                 };
-                console.log(newPlayer)
                 if (message.id === myPlayerId){
                     setMyPlayer(newPlayer);
                 }
-                console.log("----------------")
                 updatedPlayers.push(newPlayer);
             });
             setPlayers(updatedPlayers)
@@ -58,31 +56,18 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
         return () => {
             UnsubscribePlayers();
         }
-    },[])
+    },[myPlayerId])
 
     useEffect(() => {
         const voting = (message: any) => {
-            const prevPlayers: Player[] = [];
             setWinner(message.name);
-            players.forEach((player: Player) => {
-                if (player.id === message.id) {
-                    prevPlayers.push({
-                        ...player,
-                        color: message.color,
-                        role: message.role
-                    });
-                } else {
-                    prevPlayers.push(player);
-                }
-            });
-            setPlayers(prevPlayers);
-            setGameState("inGame");
+            setTimeout(() => setGameState("inGame"), 10000)
         };
         SubscribeVoting(voting);
         return () => {
             UnsubscribeVoting();
         }
-    }, []);
+    }, [players, setGameState]);
 
     useEffect(() => {
         setTimeout(() => {
@@ -90,22 +75,28 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                 lobbyId: lobbyId
             };
             Publish("/send/players",  JSON.stringify(sendMyLobbyId));
-        }, 400);
+        }, 500);
         return () => {
             CloseConnection();
         }
-    }, []);
+    }, [lobbyId]);
 
-    setTimeout(() => {
-        console.log(myPlayer?.host)
-        if (myPlayer?.host === true) {
+    useEffect(() => {
+        const endVoting = () => {
+            //for some reason an if to check the host is not possible
             const message = {
-                "endVoting": "true"
-            }
-            console.log(message)
+                lobbyId: lobbyId,
+                fromPlayerId: "",
+                toPlayerId: "",
+                endVoting: myPlayer?.host,
+            };
             Publish("/send/voting", JSON.stringify(message));
-        }
-    }, 10400);
+        };
+        const timeoutId = setTimeout(endVoting, 10400);
+        return () => {
+            clearTimeout(timeoutId);
+        };
+    }, [myPlayer]);
 
     return (
         <div className="z-50 absolute h-screen flex items-center justify-center">
@@ -113,22 +104,27 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
             <br/>
             <ul>
                 {players.map((p: Player) => (
-                    <li className={p.id === votedPlayer ? "border-2 border-red-500" : ""} key={p.id} onClick={() => {
-                        if (p.id !== myPlayerId && myPlayer !== undefined && (myPlayer!.role === "CREWMATE" || myPlayer!.role === "IMPOSTERGHOST")) {
+                    (p.role === "CREWMATE" || p.role === "IMPOSTER") &&
+                    <label key={p.id} onClick={() => {
+                        if (p.id !== myPlayerId && myPlayer !== undefined && (myPlayer!.role === "CREWMATE" || myPlayer!.role === "IMPOSTER")) {
                             setVotedPlayer(p.id);
+
+                            const message = {
+                                "lobbyId": lobbyId,
+                                "fromPlayerId": myPlayerId,
+                                "toPlayerId": p.id,
+                                "endVoting": false
+                            };
+                            Publish("/send/voting", JSON.stringify(message));
                         }
-                        const message = {
-                            "lobbyId": lobbyId,
-                            "fromPlayerId": myPlayerId,
-                            "toPlayerId": p.id
-                        };
-                        Publish("/send/voting", JSON.stringify(message));
-                    }}>{p.name}</li>
+                    }}>
+                        <li className={p.id === votedPlayer ? "border-2 border-red-500" : ""} key={p.id}>{p.name}</li>
+                    </label>
                 ))}
             </ul>
             <br/>
-            <button>Skip vote!</button>
-            <p>{winner}</p>
+            <button className={"" === votedPlayer ? "border-2 border-red-500" : ""}>Skip vote!</button>
+            <p className="text-black bg-red-500 w-52 h-52" >{winner}</p>
         </div>
     );
 }

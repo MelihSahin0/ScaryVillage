@@ -86,7 +86,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState}: Props){
             };
             Publish("/send/registerPlayer", JSON.stringify(sendMyPlayerId));
             StartHeartbeat(lobbyId, myPlayerId);
-        }, 400);
+        }, 500);
     }, [lobbyId, myPlayerId]);
 
     return (

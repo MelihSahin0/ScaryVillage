@@ -35,8 +35,8 @@ public class Voting {
         return endVoting;
     }
 
-    public void setEndVoting(String endVoting) {
-        this.endVoting = Boolean.parseBoolean(endVoting);
+    public void setEndVoting(boolean endVoting) {
+        this.endVoting = endVoting;
     }
 
     @Override

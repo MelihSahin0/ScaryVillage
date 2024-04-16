@@ -136,7 +136,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
                 lobbyId: lobbyId
             };
             Publish("/send/players",  JSON.stringify(sendMyLobbyId));
-        }, 400);
+        }, 500);
         return () => {
             CloseConnection();
         }

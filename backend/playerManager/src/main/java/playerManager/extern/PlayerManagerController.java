@@ -109,19 +109,20 @@ public class PlayerManagerController {
 		if (message.getLobbyId().isEmpty()){
 			return null;
 		}
-
-		System.out.println(message.isEndVoting());
+		if (!message.isEndVoting() && "".equals(message.getFromPlayerId())){
+			return null;
+		}
 
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
         if (!message.isEndVoting()){
             lobby.getPlayer(message.getFromPlayerId()).setVotedFor(message.getToPlayerId());
+			return null;
 		} else {
             HashMap<String, Integer> votedPlayer = countVotedPlayers(lobby);
 			String mFP = findMostFrequentPlayerId(votedPlayer);
 
-			if ("".equals(mFP)) {
-				System.out.println("DRAW!");
-				return null;
+			if ("".equals(mFP) || mFP == null) {
+				return new Player("","",Colors.BLACK,0,0,Roles.CREWMATE,false).toString();
 			}
 
 			if (lobby.getPlayer(mFP).getRole() == Roles.CREWMATE) {
@@ -131,11 +132,8 @@ public class PlayerManagerController {
 			}
 			lobby.getPlayer(mFP).setColor(Colors.BLACK);
 
-			System.out.println("Player ID with the most occurrences: " + mFP);
-
 			return lobby.getPlayer(mFP).toString();
 		}
-		return null;
 	}
 
 	private static HashMap<String, Integer> countVotedPlayers(Lobby lobby){
@@ -158,7 +156,7 @@ public class PlayerManagerController {
 	}
 
 	private static String findMostFrequentPlayerId(HashMap<String, Integer> votedPlayer) {
-		String mostFrequentPlayerId = null;
+		String mostFrequentPlayerId = "";
 		int maxCount = 0;
 		int numberOfPeopleWithMaxCount = 0;
 

@@ -25,7 +25,6 @@ function Heartbeat() {
         lobbyId: lobbyId,
         playerId: playerId
     };
-
     Publish("/send/heartbeat", JSON.stringify(heartbeatData));
 
     if (sendHeartbeat) {

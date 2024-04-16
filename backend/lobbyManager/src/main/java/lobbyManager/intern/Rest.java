@@ -101,4 +101,16 @@ public class Rest {
                 lobbyIdPlayerHashMap,
                 String.class);
     }
+
+    public static void changeHost(String lobbyId, String playerId){
+        LobbyIdPlayerId lobbyIdPlayerId = new LobbyIdPlayerId();
+        lobbyIdPlayerId.setLobbyId(lobbyId);
+        lobbyIdPlayerId.setPlayerId(playerId);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "http://localhost:8080/playerManager/intern/changeHost",
+                lobbyIdPlayerId,
+                String.class);
+    }
 }

@@ -80,8 +80,10 @@ public class LobbyController {
             Object[] keys = lobby.getPlayers().keySet().toArray();
 
             Random random = new Random();
-            Player host  = lobby.getPlayer((String) keys[random.nextInt(keys.length)]);
+            String playerId = (String) keys[random.nextInt(keys.length)];
+            Player host  = lobby.getPlayer(playerId);
             host.setHost(true);
+            Rest.changeHost(message.getLobbyId(), playerId);
         }
 
         messagingTemplate.convertAndSend("/subscribe/lobby/" + message.getLobbyId(), lobby.getPlayers().values().toString());

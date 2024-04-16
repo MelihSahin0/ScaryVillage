@@ -3,6 +3,7 @@ package playerManager.intern;
 import extern.Player;
 import intern.LobbyId;
 import intern.LobbyIdPlayerHashMap;
+import intern.LobbyIdPlayerId;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,5 +32,16 @@ public class Rest {
     @PostMapping(value = "/removeLobby")
     public void removeLobby(@RequestBody LobbyId message){
         Lobbies.removeLobby(message.getLobbyId());
+    }
+
+    @PostMapping(value = "/changeHost")
+    public void changeHost(@RequestBody LobbyIdPlayerId message) {
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+
+        for (Map.Entry<String, playerManager.Player> player: lobby.getPlayers().entrySet()){
+            player.getValue().setHost(false);
+        }
+
+        lobby.getPlayer(message.getPlayerId()).setHost(true);
     }
 }

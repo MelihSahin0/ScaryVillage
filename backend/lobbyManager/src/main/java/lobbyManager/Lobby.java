@@ -69,6 +69,9 @@ public class Lobby {
     }
 
     public void startTimer() {
+        if (executorService != null) {
+            executorService.shutdown();
+        }
         executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() -> {
             for(Map.Entry<String, Player> player : players.entrySet()) {
@@ -90,12 +93,10 @@ public class Lobby {
     }
 
     public void resetTimer(String playerId) {
-        stopTimer();
         Player player = getPlayer(playerId);
-        if (player != null) {
+        try {
             player.setTimeLeftInSeconds(10);
-        }
-        startTimer();
+        } catch (Exception ignore) {}
     }
 
     public void stopTimer() {
