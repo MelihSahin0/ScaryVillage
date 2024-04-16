@@ -1,5 +1,5 @@
 const usedColors = [  'red', 'blue', 'green', 'orange', 'purple',
-                              'cyan', 'pink', 'lime', 'yellow', 'zinc']
+                              'cyan', 'pink', 'lime', 'yellow', 'zinc', 'black']
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -10,6 +10,6 @@ export default {
     theme: {
         extend: {},
     },
-    safelist: usedColors.map((c) => `border-${c}-500`),
+    safelist: usedColors.map((c) => `border-${c}${c !== "black" ? "-500" : ""}`),
     plugins: [],
 }

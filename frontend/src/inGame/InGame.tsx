@@ -5,8 +5,8 @@ import {gameState} from "../types";
 import React from "react";
 
 type Props = {
-    lobbyId: string,
-    myPlayerId: string,
+    lobbyId: string;
+    myPlayerId: string;
     setGameState(newState: gameState): void;
 }
 

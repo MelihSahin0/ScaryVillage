@@ -20,7 +20,7 @@ export default function App() {
             <Canvas style={{height: '100vh', display: gameState === 'inGame' ? 'block' : 'none'}}>
                 {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState}/>}
             </Canvas>
-            {gameState === 'voting' && <Voting myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState}/>}
+            {gameState === 'voting' && <Voting lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState}/>}
         </>
     );
 }

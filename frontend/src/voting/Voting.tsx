@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {gameState} from "../types";
 import {
     CloseConnection,
@@ -8,6 +8,8 @@ import {
     UnsubscribeVoting,
     SubscribeToLobby
 } from "./VoteManagerSocket";
+import PlayerList from "./PlayerList";
+import {StartTimer} from "./Timer";
 
 export type Player = {
     id: string;
@@ -18,8 +20,8 @@ export type Player = {
 }
 
 type Props = {
-    myPlayerId: string
-    lobbyId: string
+    myPlayerId: string;
+    lobbyId: string;
     setGameState(newState: gameState): void;
 }
 
@@ -35,6 +37,8 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
     }, [lobbyId]);
 
     useEffect(() => {
+        let myPlayerSet = false;
+
         const getPlayers = (messages: any) => {
             const updatedPlayers: Array<Player> = [];
             messages.forEach((message: any) => {
@@ -45,7 +49,8 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                     role: message.role,
                     host: message.host
                 };
-                if (message.id === myPlayerId){
+                if (message.id === myPlayerId && !myPlayerSet){
+                    myPlayerSet = true;
                     setMyPlayer(newPlayer);
                 }
                 updatedPlayers.push(newPlayer);
@@ -60,7 +65,11 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
 
     useEffect(() => {
         const voting = (message: any) => {
-            setWinner(message.name);
+            if (message.name === ""){
+                setWinner("\"nobody\"");
+            } else {
+                setWinner(message.name);
+            }
             setTimeout(() => setGameState("inGame"), 10000)
         };
         SubscribeVoting(voting);
@@ -81,50 +90,57 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
         }
     }, [lobbyId]);
 
+    const [time, setTime] = useState(10);
     useEffect(() => {
-        const endVoting = () => {
-            //for some reason an if to check the host is not possible
-            const message = {
-                lobbyId: lobbyId,
-                fromPlayerId: "",
-                toPlayerId: "",
-                endVoting: myPlayer?.host,
-            };
-            Publish("/send/voting", JSON.stringify(message));
-        };
-        const timeoutId = setTimeout(endVoting, 10400);
-        return () => {
-            clearTimeout(timeoutId);
-        };
-    }, [myPlayer]);
+        setTimeout(() => {
+            if (myPlayer !== undefined) {
+                StartTimer({lobbyId, myPlayer, setTime, startTime: time});
+            }
+        }, 1000);
+    },[myPlayer]);
 
     return (
-        <div className="z-50 absolute h-screen flex items-center justify-center">
-            <h1>Voting</h1>
-            <br/>
-            <ul>
-                {players.map((p: Player) => (
-                    (p.role === "CREWMATE" || p.role === "IMPOSTER") &&
-                    <label key={p.id} onClick={() => {
-                        if (p.id !== myPlayerId && myPlayer !== undefined && (myPlayer!.role === "CREWMATE" || myPlayer!.role === "IMPOSTER")) {
-                            setVotedPlayer(p.id);
+        <div className="bg-gray-700 w-screen h-screen flex flex-col justify-between items-center">
+            <h1 className="text-4xl self-center pt-10 text-white">Voting</h1>
+            <h1 className="text-xl self-center -mt-44 text-white">Time left to vote: {time} seconds</h1>
+            <div className="grid grid-cols-2 gap-4 -mt-40 -mb-40 justify-items-center">
+                <div className="col-span-1 grid-cols-subgrid w-80 min-h-80 justify-center items-center">
+                    <PlayerList
+                        displayPlayers={players}
+                        lobbyId={lobbyId}
+                        myPlayer={myPlayer}
+                        votedPlayer={votedPlayer}
+                        setVotedPlayer={setVotedPlayer}
+                    />
+                    <div className="flex justify-center mt-5">
+                        <button
+                            className={votedPlayer === '' ? 'text-red-500' : ''}
+                            onClick={() => {
+                                if (myPlayer?.role === "CREWMATE" || myPlayer?.role === "IMPOSTER") {
+                                    setVotedPlayer("");
 
-                            const message = {
-                                "lobbyId": lobbyId,
-                                "fromPlayerId": myPlayerId,
-                                "toPlayerId": p.id,
-                                "endVoting": false
-                            };
-                            Publish("/send/voting", JSON.stringify(message));
-                        }
-                    }}>
-                        <li className={p.id === votedPlayer ? "border-2 border-red-500" : ""} key={p.id}>{p.name}</li>
-                    </label>
-                ))}
-            </ul>
-            <br/>
-            <button className={"" === votedPlayer ? "border-2 border-red-500" : ""}>Skip vote!</button>
-            <p className="text-black bg-red-500 w-52 h-52" >{winner}</p>
+                                    const message = {
+                                        "lobbyId": lobbyId,
+                                        "fromPlayerId": myPlayer?.id,
+                                        "toPlayerId": "",
+                                        "endVoting": false
+                                    };
+                                    Publish("/send/voting", JSON.stringify(message));
+                                }
+                            }}
+                        ><p className="text-xl text-white">Skip vote!</p>
+                        </button>
+                    </div>
+                </div>
+                <div className="col-span-1 grid-cols-subgrid -mt-12 w-80 min-h-82 justify-center items-center flex">
+                    <div className="border-white border-2 min-h-80 flex-1">
+                        <p className="text-white">Placeholder</p>
+                    </div>
+                </div>
+            </div>
+            <div className="flex justify-center mb-20">
+                <p className="text-3xl text-white self-center">{winner !== "" ? `Player burned: ${winner}` : ''}</p>
+            </div>
         </div>
     );
 }

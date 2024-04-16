@@ -5,19 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="sync">
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/intern/LobbyIdPlayerId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerList.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/voting/Timer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/Voting.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/Voting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Heartbeat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Heartbeat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,8 +238,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
-        <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
+        <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Gradle.playerManager [build]" />
       </list>
     </recent_temporary>
@@ -289,7 +285,8 @@
       <workItem from="1713103686249" duration="3693000" />
       <workItem from="1713176741319" duration="1204000" />
       <workItem from="1713192447688" duration="685000" />
-      <workItem from="1713253651647" duration="8875000" />
+      <workItem from="1713253651647" duration="8913000" />
+      <workItem from="1713282901024" duration="4137000" />
     </task>
     <servers />
   </component>
