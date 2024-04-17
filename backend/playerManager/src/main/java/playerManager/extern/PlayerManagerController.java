@@ -60,15 +60,13 @@ public class PlayerManagerController {
 		}
 
 		if ( killer.getRole() == Roles.IMPOSTER && victim.getRole() == Roles.CREWMATE) {
-			//In the feature look out for the distance
+			//TODO In the feature look out for the distance
 			victim.setColor(Colors.BLACK);
 			victim.killed();
 			return victim.toString();
 		} else if (killer.getId().equals(victim.getId())) {
-			System.out.println("Not allowed");
 			return null;
 		} else {
-			System.out.println("Not allowed");
 			return null;
 		}
 	}
@@ -90,14 +88,10 @@ public class PlayerManagerController {
 		}
 
 		if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
-			//In the feature look out for the distance
-
-			System.out.println("REPORTED:" + reporter.getId() + " " + victim.getId());
-
+			//TODO In the feature look out for the distance
 			return "{\"report\": true, \"reporter\": \"" + reporter.getId() + "\", \"victim\": \"" + victim.getId() + "\"}";
 
 		} else {
-			System.out.println("Not allowed");
 			return null;
 		}
 	}

@@ -38,8 +38,9 @@ export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
 
     return (
         <>
-            {players.map((player) => (
-                <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} curPlayer={myPlayerId} meshRef={player.id === myPlayerId ? meshRef : undefined} />
+            {players.map((player: Player) => (
+                (player.role === "crewmateGhost" || player.role === "imposterGhost") && player.id === myPlayerId ? <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} curPlayer={myPlayerId} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
+                    : player.role !== "crewmateGhost" && player.role !== "imposterGhost" && <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} curPlayer={myPlayerId} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
             ))}
         </>
     );
@@ -65,8 +66,7 @@ function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: strin
             "toPlayerId": player.id
         };
 
-        if(player.role == "CREWMATEGHOST") {
-            console.log("CLICKED ON CREWMATEGHOST");
+        if(player.role == "deadBody") {
             Publish("/send/report", JSON.stringify(message));
         } else {
             Publish("/send/killPlayer", JSON.stringify(message));
@@ -81,7 +81,7 @@ function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: strin
                 <planeGeometry attach="geometry" args={[0.3, 0.3, 1]}/>
                 <meshBasicMaterial transparent map={texture} color={player.color}/>
             </mesh>
-            {player.id !== curPlayer && player.role !== "CREWMATEGHOST" && player.role === "CREWMATE" ? (
+            {player.id !== curPlayer && player.role !== "crewmateGhost" && player.role === "crewmate" ? (
                 <group visible={isHovered}>
                     <lineSegments position={[player.x,player.y,player.z]}>
                         <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />

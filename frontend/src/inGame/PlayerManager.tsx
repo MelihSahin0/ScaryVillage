@@ -8,7 +8,8 @@ import {
     SubscribePlayers,
     SubscribeToLobby, CloseConnection, UnsubscribePlayers, UnsubscribePlayerMovement, UnsubscribeKill, UnsubscribeReport
 } from "./PlayermanagerSocket";
-import {gameState} from "../types";
+import {gameState, role} from "../types";
+import {applyProps} from "@react-three/fiber";
 
 export type Player = {
     id: string;
@@ -18,7 +19,7 @@ export type Player = {
     x: number;
     y: number;
     z: number;
-    role: string;
+    role: role;
     host: boolean;
 }
 
@@ -73,13 +74,12 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
-                        if (player.role != "CREWMATEGHOST" && player.role != "IMPOSTERGHOST") {
+                        if (player.role === "deadBody") {
                             return {
-                                ...player,
-                                x: message.position.x,
-                                y: message.position.y,
-                            };
-                        } else if (player.id == myPlayerId){
+                                ...player
+                            }
+                        }
+                        else {
                             return {
                                 ...player,
                                 x: message.position.x,
@@ -99,9 +99,16 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
 
     useEffect(() => {
         const kill = (message: any) => {
+            let id: string;
+            let x: number;
+            let y: number;
+            //Change Player to ghost
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
+                        id = player.id;
+                        x = player.x;
+                        y = player.y;
                         return {
                             ...player,
                             color: message.color,
@@ -113,6 +120,21 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
                     return player;
                 });
             });
+            //Create a dead Body
+            setPlayers(prevPlayers => [
+                ...prevPlayers,
+                {
+                    id: id,
+                    src: "src/images/pixi.png",
+                    name: message.name,
+                    color: "black",
+                    x: x,
+                    y: y,
+                    z: 0.5,
+                    role: "deadBody",
+                    host: false
+                }
+            ]);
         };
         SubscribeKill(kill);
         return () => {

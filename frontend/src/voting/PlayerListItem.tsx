@@ -28,7 +28,7 @@ export default function PlayerListItem({displayPlayer, lobbyId, myPlayer, votedP
                     Publish("/send/voting", JSON.stringify(message));
                 }
             })}>
-                <p className={votedPlayer === displayPlayer.id ? "text-red-300" : "text-white"}>{displayPlayer.name}</p>
+                <p className={votedPlayer === displayPlayer.id ? "text-red-500" : "text-white"}>{displayPlayer.name}</p>
             </label>
         </div>
     )

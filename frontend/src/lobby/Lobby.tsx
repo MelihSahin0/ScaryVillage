@@ -1,4 +1,4 @@
-import {gameState} from "../types";
+import {gameState, role} from "../types";
 import React, {useEffect, useState} from "react";
 import {
     Publish,
@@ -23,7 +23,7 @@ export type Player = {
     id: string;
     name: string;
     color: string;
-    role: string;
+    role: role;
     host: boolean;
 }
 

@@ -113,9 +113,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                         setVotedPlayer={setVotedPlayer}
                     />
                     <div className="flex justify-center mt-5">
-                        <button
-                            className={votedPlayer === '' ? 'text-red-500' : ''}
-                            onClick={() => {
+                        <button onClick={() => {
                                 if (myPlayer?.role === "CREWMATE" || myPlayer?.role === "IMPOSTER") {
                                     setVotedPlayer("");
 
@@ -128,7 +126,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                                     Publish("/send/voting", JSON.stringify(message));
                                 }
                             }}
-                        ><p className="text-xl text-white">Skip vote!</p>
+                        ><p className={votedPlayer === "" ? 'text-red-500 text-xl' : 'text-white text-xl'}>Skip vote!</p>
                         </button>
                     </div>
                 </div>
