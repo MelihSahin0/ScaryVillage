@@ -17,7 +17,7 @@ export default function PlayerList({displayPlayers, lobbyId, myPlayer, votedPlay
             {displayPlayers.map((player) => (
                 <PlayerListItem key={player.id} displayPlayer={player} lobbyId={lobbyId}
                                 myPlayer={myPlayer} votedPlayer={votedPlayer} setVotedPlayer={setVotedPlayer}
-                                readonly={(player.role === "CREWMATEGHOST" || player.role === "IMPOSTERGHOST")}/>
+                                readonly={(player.role === "crewmateGhost" || player.role === "imposterGhost")}/>
             ))}
         </div>
     )

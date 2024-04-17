@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {gameState} from "../types";
+import {gameState, role} from "../types";
 import {
     CloseConnection,
     Publish,
@@ -15,7 +15,7 @@ export type Player = {
     id: string;
     name: string;
     color: string;
-    role: string;
+    role: role;
     host: boolean;
 }
 
@@ -114,7 +114,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                     />
                     <div className="flex justify-center mt-5">
                         <button onClick={() => {
-                                if (myPlayer?.role === "CREWMATE" || myPlayer?.role === "IMPOSTER") {
+                                if (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") {
                                     setVotedPlayer("");
 
                                     const message = {

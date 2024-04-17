@@ -16,7 +16,7 @@ export default function PlayerListItem({displayPlayer, lobbyId, myPlayer, votedP
         <div className={`border-${displayPlayer.color}${displayPlayer.color !== "black" ? "-500" : ""} border-2 w-78 h-8`}>
             <label onClick={readonly ? (() => {
             }) : (() => {
-                if (myPlayer !== undefined && displayPlayer.id !== myPlayer.id && (myPlayer!.role === "CREWMATE" || myPlayer!.role === "IMPOSTER")) {
+                if (myPlayer !== undefined && displayPlayer.id !== myPlayer.id && (myPlayer!.role === "crewmate" || myPlayer!.role === "imposter")) {
                     setVotedPlayer(displayPlayer.id);
 
                     const message = {
