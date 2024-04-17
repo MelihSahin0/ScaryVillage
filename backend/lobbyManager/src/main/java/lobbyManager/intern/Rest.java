@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class Rest {
 
     @PostMapping(value = "/addLobby")
-    public void addUpdateLobby(@RequestBody LobbyId message) {
+    public void addLobby(@RequestBody LobbyId message) {
 
         Lobby lobby = new Lobby();
         lobby.setLobbyId(message.getLobbyId());
