@@ -82,6 +82,7 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                             }
                         }}/>
             </div>
+
         </div>
     )
 }

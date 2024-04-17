@@ -89,7 +89,7 @@ public class LobbyController {
         messagingTemplate.convertAndSend("/subscribe/lobby/" + message.getLobbyId(), lobby.getPlayers().values().toString());
     }
 
-    @MessageMapping("/heartbeat/{stcedringLobbyId}")
+    @MessageMapping("/heartbeat/{stringLobbyId}")
     public void heartbeat(Heartbeat message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
         try {
