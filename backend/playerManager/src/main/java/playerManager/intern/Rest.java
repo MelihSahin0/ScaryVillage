@@ -1,16 +1,19 @@
 package playerManager.intern;
 
-import extern.Player;
+import intern.LobbyIdPlayerHashMapString;
 import intern.LobbyId;
 import intern.LobbyIdPlayerHashMap;
-import intern.LobbyIdPlayerId;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 import playerManager.Lobbies;
 import playerManager.Lobby;
+import playerManager.Player;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -21,8 +24,8 @@ public class Rest {
     public void addLobby(@RequestBody LobbyIdPlayerHashMap message) {
         Lobby lobby = new Lobby();
 
-        for (Map.Entry<String, Player> player : message.getPlayers().entrySet()){
-            playerManager.Player inGamePlayer = new playerManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(), 0,0,player.getValue().getRole(), player.getValue().isHost());
+        for (Map.Entry<String, intern.Player> player : message.getPlayers().entrySet()){
+            playerManager.Player inGamePlayer = new playerManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(), 0,0,player.getValue().getRole());
             lobby.addPlayer(inGamePlayer);
         }
 
@@ -34,14 +37,29 @@ public class Rest {
         Lobbies.removeLobby(message.getLobbyId());
     }
 
-    @PostMapping(value = "/changeHost")
-    public void changeHost(@RequestBody LobbyIdPlayerId message) {
+    @PostMapping(value = "/votingResult")
+    public void votingResult(@RequestBody LobbyIdPlayerHashMap message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
-
-        for (Map.Entry<String, playerManager.Player> player: lobby.getPlayers().entrySet()){
-            player.getValue().setHost(false);
+        for (Map.Entry<String, intern.Player> player : message.getPlayers().entrySet()){
+            Player player1 = lobby.getPlayer(player.getKey());
+            player1.setRole(player.getValue().getRole());
+            player1.setColor(player.getValue().getColor());
         }
+    }
 
-        lobby.getPlayer(message.getPlayerId()).setHost(true);
+
+    public static void startVoting(String lobbyId, HashMap<String, playerManager.Player> players, String requester){
+        LobbyIdPlayerHashMapString lobbyIdPlayerHashMapString = new LobbyIdPlayerHashMapString();
+        lobbyIdPlayerHashMapString.setLobbyId(lobbyId);
+        for (Player player : players.values()) {
+            lobbyIdPlayerHashMapString.setPlayer(player.getId(), new intern.Player(player.getId(), player.getName(), player.getColor(), player.getRole()));
+        }
+        lobbyIdPlayerHashMapString.setExtra(requester);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "http://localhost:8083/votingManager/intern/addLobby",
+                lobbyIdPlayerHashMapString,
+                String.class);
     }
 }

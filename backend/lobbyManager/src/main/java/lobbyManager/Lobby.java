@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.*;
 import java.util.concurrent.Executors;
-import extern.Player;
+
 import extern.enumarators.GameStatus;
 import extern.enumarators.Visibility;
 import lobbyManager.extern.LobbyController;

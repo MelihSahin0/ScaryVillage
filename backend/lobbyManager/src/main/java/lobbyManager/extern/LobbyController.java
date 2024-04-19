@@ -3,7 +3,7 @@ package lobbyManager.extern;
 import extern.enumarators.GameStatus;
 import lobbyManager.Lobbies;
 import lobbyManager.Lobby;
-import extern.Player;
+import lobbyManager.Player;
 import extern.enumarators.Colors;
 import extern.enumarators.Roles;
 import lobbyManager.extern.jsonDataTransferTypes.*;
@@ -83,7 +83,6 @@ public class LobbyController {
             String playerId = (String) keys[random.nextInt(keys.length)];
             Player host  = lobby.getPlayer(playerId);
             host.setHost(true);
-            Rest.changeHost(message.getLobbyId(), playerId);
         }
 
         messagingTemplate.convertAndSend("/subscribe/lobby/" + message.getLobbyId(), lobby.getPlayers().values().toString());

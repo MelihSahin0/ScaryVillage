@@ -23,12 +23,13 @@ export default function PlayerListItem({displayPlayer, lobbyId, myPlayer, votedP
                         "lobbyId": lobbyId,
                         "fromPlayerId": myPlayer.id,
                         "toPlayerId": displayPlayer.id,
-                        "endVoting": false
                     };
                     Publish("/send/voting", JSON.stringify(message));
                 }
             })}>
-                <p className={votedPlayer === displayPlayer.id ? "text-red-500" : "text-white"}>{displayPlayer.name}</p>
+                <p className={votedPlayer === displayPlayer.id ? "float-left text-red-500 " : "float-left text-white "}>{displayPlayer.name}</p>
+                {displayPlayer.requester && <img src="src/images/report.png" alt="Image" style={{ width: 'auto', height: '20px' }} className="ml-5 mt-[4px]"/>}
+                <p className="float-right mr-2 text-white">{displayPlayer.numberOfVotes === 0 ? "" : displayPlayer.numberOfVotes}</p>
             </label>
         </div>
     )

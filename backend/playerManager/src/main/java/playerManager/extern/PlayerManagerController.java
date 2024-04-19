@@ -11,6 +11,8 @@ import extern.enumarators.Roles;
 import playerManager.Lobbies;
 import playerManager.Lobby;
 import playerManager.extern.jsonDataTransferTypes.*;
+import playerManager.intern.Rest;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,6 +24,10 @@ public class PlayerManagerController {
 	@MessageMapping("/players/{stringLobbyId}")
 	@SendTo("/subscribe/getPlayers/{stringLobbyId}")
 	public String getPlayers(LobbyId message){
+		if (Lobbies.getLobby(message.getLobbyId()) == null){
+			return null;
+		}
+
 		return Lobbies.getLobby(message.getLobbyId()).getPlayers().values().toString();
 	}
 
@@ -89,84 +95,11 @@ public class PlayerManagerController {
 
 		if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
 			//TODO In the feature look out for the distance
-			return "{\"report\": true, \"reporter\": \"" + reporter.getId() + "\", \"victim\": \"" + victim.getId() + "\"}";
-
+			Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
+			return "{\"response\": \"" + true + "\"}";
 		} else {
 			return null;
 		}
 	}
-
-	@MessageMapping("/voting/{stringLobbyId}" )
-	@SendTo("/subscribe/voting/{stringLobbyId}")
-	public String voting(Voting message){
-
-		if (message.getLobbyId().isEmpty()){
-			return null;
-		}
-		if (!message.isEndVoting() && "".equals(message.getFromPlayerId())){
-			return null;
-		}
-
-        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
-        if (!message.isEndVoting()){
-            lobby.getPlayer(message.getFromPlayerId()).setVotedFor(message.getToPlayerId());
-			return null;
-		} else {
-            HashMap<String, Integer> votedPlayer = countVotedPlayers(lobby);
-			String mFP = findMostFrequentPlayerId(votedPlayer);
-
-			if ("".equals(mFP) || mFP == null) {
-				return new Player("","",Colors.BLACK,0,0,Roles.CREWMATE,false).toString();
-			}
-
-			if (lobby.getPlayer(mFP).getRole() == Roles.CREWMATE) {
-				lobby.getPlayer(mFP).setRole(Roles.CREWMATEGHOST);
-			} else if (lobby.getPlayer(mFP).getRole() == Roles.IMPOSTER) {
-				lobby.getPlayer(mFP).setRole(Roles.IMPOSTERGHOST);
-			}
-			lobby.getPlayer(mFP).setColor(Colors.BLACK);
-
-			return lobby.getPlayer(mFP).toString();
-		}
-	}
-
-	private static HashMap<String, Integer> countVotedPlayers(Lobby lobby){
-		HashMap<String, Integer> votedPlayer = new HashMap<>();
-
-		for (Map.Entry<String, Player> entry : lobby.getPlayers().entrySet()) {
-			Player player = entry.getValue();
-
-			if (player.getRole() == Roles.IMPOSTER || player.getRole() == Roles.CREWMATE) {
-				if (votedPlayer.containsKey(player.getVotedFor())) {
-					votedPlayer.put(player.getVotedFor(), votedPlayer.get(player.getVotedFor()) + 1);
-				} else {
-					votedPlayer.put(player.getVotedFor(), 0);
-				}
-				player.setVotedFor("");
-			}
-		}
-
-		return votedPlayer;
-	}
-
-	private static String findMostFrequentPlayerId(HashMap<String, Integer> votedPlayer) {
-		String mostFrequentPlayerId = "";
-		int maxCount = 0;
-		int numberOfPeopleWithMaxCount = 0;
-
-		for (Map.Entry<String, Integer> entry : votedPlayer.entrySet()) {
-			int count = entry.getValue();
-			if (count > maxCount) {
-				maxCount = count;
-				mostFrequentPlayerId = entry.getKey();
-				numberOfPeopleWithMaxCount = 1;
-			} else if (count == maxCount) {
-				numberOfPeopleWithMaxCount++;
-			}
-		}
-
-		return (numberOfPeopleWithMaxCount == 1) ? mostFrequentPlayerId : "";
-	}
-
 }
 

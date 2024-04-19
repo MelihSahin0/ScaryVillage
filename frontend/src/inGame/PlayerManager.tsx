@@ -9,7 +9,6 @@ import {
     SubscribeToLobby, CloseConnection, UnsubscribePlayers, UnsubscribePlayerMovement, UnsubscribeKill, UnsubscribeReport
 } from "./PlayermanagerSocket";
 import {gameState, role} from "../types";
-import {applyProps} from "@react-three/fiber";
 
 export type Player = {
     id: string;

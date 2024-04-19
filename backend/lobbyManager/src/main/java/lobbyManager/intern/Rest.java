@@ -1,6 +1,6 @@
 package lobbyManager.intern;
 
-import extern.Player;
+import lobbyManager.Player;
 import extern.enumarators.Visibility;
 import intern.*;
 import extern.enumarators.GameStatus;
@@ -93,24 +93,14 @@ public class Rest {
     public static void addLobby(String lobbyId, HashMap<String, Player> players){
         LobbyIdPlayerHashMap lobbyIdPlayerHashMap = new LobbyIdPlayerHashMap();
         lobbyIdPlayerHashMap.setLobbyId(lobbyId);
-        lobbyIdPlayerHashMap.setPlayers(players);
+        for(Player player : players.values()){
+            lobbyIdPlayerHashMap.setPlayer(player.getId(), new intern.Player(player.getId(),player.getName(),player.getColor(),player.getRole()));
+        }
 
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(
                 "http://localhost:8080/playerManager/intern/addLobby",
                 lobbyIdPlayerHashMap,
-                String.class);
-    }
-
-    public static void changeHost(String lobbyId, String playerId){
-        LobbyIdPlayerId lobbyIdPlayerId = new LobbyIdPlayerId();
-        lobbyIdPlayerId.setLobbyId(lobbyId);
-        lobbyIdPlayerId.setPlayerId(playerId);
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                "http://localhost:8080/playerManager/intern/changeHost",
-                lobbyIdPlayerId,
                 String.class);
     }
 }
