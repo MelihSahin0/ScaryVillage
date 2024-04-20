@@ -69,6 +69,25 @@ export function UnsubscribeVotingTime(){
     StartConnection();
 }
 
+export function SubscribeGameEnd(voting: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        id: 3,
+        destination: "/subscribe/gameEnd/" + lobbyId,
+        function: voting
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    StartConnection();
+}
+export function UnsubscribeGameEnd(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 3);
+    StartConnection();
+}
+
 function StartConnection(){
     client.deactivate().then();
     client.configure({

@@ -123,7 +123,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
             setPlayers(prevPlayers => [
                 ...prevPlayers,
                 {
-                    id: id,
+                    id: id + "@",
                     src: "src/images/pixi.png",
                     name: message.name,
                     color: "black",

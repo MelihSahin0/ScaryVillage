@@ -1,4 +1,4 @@
-import {gameState} from "../types";
+import {gameState, role} from "../types";
 import React, {useEffect, useState} from "react";
 import {CloseConnection, Publish, SubscribeGetLobby, UnsubscribeGetLobby} from "./GameManagerSocket";
 import {StopHeartbeat} from "../lobby/Heartbeat";
@@ -8,9 +8,10 @@ type Props = {
     myPlayerId: string;
     setLobbyId(lobbyId: string): void ;
     setGameState(gameState: gameState): void;
+    setWinner(setWinner: role | undefined): void;
 };
 
-export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: Props) {
+export default function StartingScreen({myPlayerId, setLobbyId, setGameState, setWinner }: Props) {
     const [lobbyMessage, setLobbyMessage] = useState("");
     const [myPlayer] = useState({
         playerId: myPlayerId,

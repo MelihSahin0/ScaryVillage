@@ -39,15 +39,15 @@ export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
     return (
         <>
             {players.map((player: Player) => (
-                (player.role === "crewmateGhost" || player.role === "imposterGhost") && player.id === myPlayerId ? <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} curPlayer={myPlayerId} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
-                    : player.role !== "crewmateGhost" && player.role !== "imposterGhost" && <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} curPlayer={myPlayerId} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
+                (player.role === "crewmateGhost" || player.role === "imposterGhost") && player.id === myPlayerId ? <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={players.find((intern) => intern.id === myPlayerId)!} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
+                    : player.role !== "crewmateGhost" && player.role !== "imposterGhost" && <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={players.find((intern) => intern.id === myPlayerId)!} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
             ))}
         </>
     );
 }
 
 
-function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: string, player: Player, curPlayer: string, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined }) {
+function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef }: { lobbyId: string, player: Player, myPlayer: Player, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined }) {
     const texture = useLoader(TextureLoader, player.src);
     const [isHovered, setIsHovered] = useState(false);
 
@@ -62,8 +62,8 @@ function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: strin
     const handleClick = () => {
         const message = {
             "lobbyId": lobbyId,
-            "fromPlayerId": curPlayer,
-            "toPlayerId": player.id
+            "fromPlayerId": myPlayer.id,
+            "toPlayerId": player.id.slice(0, 32)
         };
 
         if(player.role == "deadBody") {
@@ -75,17 +75,27 @@ function DrawPlayerMesh({lobbyId, player, curPlayer, meshRef }: { lobbyId: strin
 
     return (
         <group>
-            <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}>{player.name}</Text>
+            <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}
+                  color={myPlayer.role === "crewmate" ? "white": player.role === "imposter" ? "red" : "white"}
+            >{player.name}</Text>
             <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={handleClick}
                   onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
                 <planeGeometry attach="geometry" args={[0.3, 0.3, 1]}/>
                 <meshBasicMaterial transparent map={texture} color={player.color}/>
             </mesh>
-            {player.id !== curPlayer && player.role !== "crewmateGhost" && player.role === "crewmate" ? (
+            {myPlayer.role === "imposter" && player.role === "crewmate" ? (
                 <group visible={isHovered}>
                     <lineSegments position={[player.x,player.y,player.z]}>
                         <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />
-                        <lineBasicMaterial attach="material" color={0xff0000} />
+                        <lineBasicMaterial attach="material" color={0xFF0000} />
+                    </lineSegments>
+                </group>
+            ): null}
+            {(myPlayer.role === "crewmate" || myPlayer.role === "imposter") && player.role === "deadBody" ? (
+                <group visible={isHovered}>
+                    <lineSegments position={[player.x,player.y,player.z]}>
+                        <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />
+                        <lineBasicMaterial attach="material" color={0xFFFF00} />
                     </lineSegments>
                 </group>
             ): null}

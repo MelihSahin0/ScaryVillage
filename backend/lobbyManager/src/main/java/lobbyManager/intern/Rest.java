@@ -27,6 +27,12 @@ public class Rest {
         Lobbies.addLobby(message.getLobbyId(), lobby);
     }
 
+    @PostMapping(value = "/gameFinished")
+    public void gameFinished(@RequestBody LobbyId message) {
+        Lobbies.getLobby(message.getLobbyId()).setGameStatus(GameStatus.LOBBY);
+        changeGameState(message.getLobbyId(), GameStatus.LOBBY);
+    }
+
     public static void changeGameState(String lobbyId, GameStatus gameStatus){
         LobbyIdGameStatus lobbyIdGameStatus = new LobbyIdGameStatus();
         lobbyIdGameStatus.setLobbyId(lobbyId);

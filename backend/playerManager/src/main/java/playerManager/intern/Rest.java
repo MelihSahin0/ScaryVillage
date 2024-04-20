@@ -37,6 +37,16 @@ public class Rest {
         Lobbies.removeLobby(message.getLobbyId());
     }
 
+    @PostMapping(value = "/gameFinished")
+    public void gameFinished(@RequestBody LobbyId message){
+        Lobbies.removeLobby(message.getLobbyId());
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "http://localhost:8082/lobbyManager/intern/gameFinished",
+                message,
+                String.class);
+    }
+
     @PostMapping(value = "/votingResult")
     public void votingResult(@RequestBody LobbyIdPlayerHashMap message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());

@@ -34,8 +34,7 @@ public class PlayerManagerController {
 	@MessageMapping("/playerMovement/{stringLobbyId}")
 	@SendTo("/subscribe/playerPosition/{stringLobbyId}")
 	public String handlePlayers(PlayerMoved message) {
-
-		if (message.getLobbyId().isEmpty()){
+		if (Lobbies.getLobby(message.getLobbyId()) == null){
 			return null;
 		}
 
@@ -87,18 +86,28 @@ public class PlayerManagerController {
 
 		Lobby lobby =  Lobbies.getLobby(message.getLobbyId());
 		Player reporter = lobby.getPlayers().get(message.getFromPlayerId());
-		Player victim = lobby.getPlayers().get(message.getToPlayerId());;
 
-		if (reporter == null || victim == null){
-			return null;
-		}
-
-		if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
-			//TODO In the feature look out for the distance
-			Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
-			return "{\"response\": \"" + true + "\"}";
+		if (message.getToPlayerId().equals("emergency")){
+			if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
+				//TODO In the feature look out for the distance
+				Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
+				return "{\"response\": \"" + true + "\"}";
+			} else {
+				return null;
+			}
 		} else {
-			return null;
+			Player victim = lobby.getPlayers().get(message.getToPlayerId());;
+
+			if (reporter == null || victim == null){
+				return null;
+			}
+			if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
+				//TODO In the feature look out for the distance
+				Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
+				return "{\"response\": \"" + true + "\"}";
+			} else {
+				return null;
+			}
 		}
 	}
 }
