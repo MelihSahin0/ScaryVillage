@@ -4,33 +4,37 @@ import {
     CloseConnection,
     Publish,
     SubscribePlayers,
-    SubscribeVoting, UnsubscribePlayers,
-    UnsubscribeVoting,
-    SubscribeToLobby
+    UnsubscribePlayers,
+    SubscribeToLobby, SubscribeVotingTime, UnsubscribeVotingTime, SubscribeGameEnd, UnsubscribeGameEnd
 } from "./VoteManagerSocket";
 import PlayerList from "./PlayerList";
-import {StartTimer} from "./Timer";
 
 export type Player = {
     id: string;
     name: string;
     color: string;
     role: role;
-    host: boolean;
+    requester: boolean;
+    numberOfVotes: number;
+    killed: boolean;
 }
 
 type Props = {
     myPlayerId: string;
     lobbyId: string;
     setGameState(newState: gameState): void;
+    setWinner(setWinner: role): void;
 }
 
-export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
+export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: Props) {
 
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player|undefined>();
     const [votedPlayer, setVotedPlayer] = useState("");
-    const [winner, setWinner] = useState("");
+    const [skippedVote, setSkippedVote] = useState<number>(0)
+    const [killedPlayer, setKilledPlayer] = useState("");
+    const [time, setTime] = useState<number>();
+    const [timeoutId, setTimeoutId] = useState<any>(); // State to hold the timeout ID
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
@@ -47,7 +51,9 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                     name: message.name,
                     color: message.color,
                     role: message.role,
-                    host: message.host
+                    requester: message.requester === "true",
+                    numberOfVotes: parseInt(message.numberOfVotes),
+                    killed: message.killed === "true"
                 };
                 if (message.id === myPlayerId && !myPlayerSet){
                     myPlayerSet = true;
@@ -64,19 +70,52 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
     },[myPlayerId])
 
     useEffect(() => {
-        const voting = (message: any) => {
-            if (message.name === ""){
-                setWinner("\"nobody\"");
-            } else {
-                setWinner(message.name);
-            }
-            setTimeout(() => setGameState("inGame"), 10000)
-        };
-        SubscribeVoting(voting);
-        return () => {
-            UnsubscribeVoting();
+        let foundKilledPlayer = false;
+        
+        if (time !== undefined && time === 0){
+            let numberOfVotes = 0;
+            players.forEach((player) => {
+                if (player.killed){
+                    foundKilledPlayer = true;
+                    setKilledPlayer(player.name);
+                    numberOfVotes = numberOfVotes + 1 - player.numberOfVotes; //He would be already dead, that is why we count it
+                } else if (!foundKilledPlayer){
+                    setKilledPlayer("\"nobody\"");
+                }
+                if(player.role === "crewmate" || player.role === "imposter"){
+                    numberOfVotes = numberOfVotes + 1 - player.numberOfVotes;
+                }
+            });
+            setSkippedVote(numberOfVotes);
         }
-    }, [players, setGameState]);
+    }, [players, time]);
+
+     useEffect(() => {
+        const gameEnd = (messages: any) => {
+            setWinner(messages.winner);
+            clearTimeout(timeoutId);
+            setTimeout(() => setGameState("lobby"), 10000);
+        }
+        SubscribeGameEnd(gameEnd);
+        return () => {
+            UnsubscribeGameEnd();
+            clearTimeout(timeoutId);
+        }
+     }, []);
+
+    useEffect(() => {
+        const time = (message: any) => {
+            setTime(parseInt(message.timeLeft));
+            if (message.timeLeft === "0") {
+                setTimeoutId(setTimeout(() => setGameState("inGame"), 10000));
+            }
+        };
+        SubscribeVotingTime(time);
+        return () => {
+            UnsubscribeVotingTime();
+            clearTimeout(timeoutId);
+        };
+    }, []);
 
     useEffect(() => {
         setTimeout(() => {
@@ -88,16 +127,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
         return () => {
             CloseConnection();
         }
-    }, [lobbyId]);
-
-    const [time, setTime] = useState(10);
-    useEffect(() => {
-        setTimeout(() => {
-            if (myPlayer !== undefined) {
-                StartTimer({lobbyId, myPlayer, setTime, startTime: time});
-            }
-        }, 1000);
-    },[myPlayer]);
+    }, []);
 
     return (
         <div className="bg-gray-700 w-screen h-screen flex flex-col justify-between items-center">
@@ -111,22 +141,24 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                         myPlayer={myPlayer}
                         votedPlayer={votedPlayer}
                         setVotedPlayer={setVotedPlayer}
+                        time={time}
                     />
                     <div className="flex justify-center mt-5">
                         <button onClick={() => {
-                                if (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") {
+                                if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && time !== 0) {
                                     setVotedPlayer("");
 
                                     const message = {
                                         "lobbyId": lobbyId,
                                         "fromPlayerId": myPlayer?.id,
                                         "toPlayerId": "",
-                                        "endVoting": false
                                     };
                                     Publish("/send/voting", JSON.stringify(message));
                                 }
                             }}
-                        ><p className={votedPlayer === "" ? 'text-red-500 text-xl' : 'text-white text-xl'}>Skip vote!</p>
+                        ><p className={votedPlayer === "" && (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") ? 'text-red-500 text-xl' : 'text-white text-xl'}>
+                            {time === 0 ? "Skipped votes: " + skippedVote : "Skip vote!" }
+                        </p>
                         </button>
                     </div>
                 </div>
@@ -137,7 +169,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState}: Props) {
                 </div>
             </div>
             <div className="flex justify-center mb-20">
-                <p className="text-3xl text-white self-center">{winner !== "" ? `Player burned: ${winner}` : ''}</p>
+                <p className="text-3xl text-white self-center">{killedPlayer !== "" ? `Player burned: ${killedPlayer}` : ''}</p>
             </div>
         </div>
     );

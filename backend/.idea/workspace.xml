@@ -5,7 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="sync">
+      <change afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/jsonDataTransferTypes/GameEnd.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/emergency.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/intern/Rest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/PlayerList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerList.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/VoteManagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/VoteManagerSocket.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,11 +131,12 @@
     &quot;Spring Boot.StompWebsocketPlayerManager (1).executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketPlayerManager (2).executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketPlayerManager.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketVotingManager.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/smeli/Downloads/Sahin_M_Bonusaufgabe_12_April/demo-book-service&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/votingManager/src/main/java/votingManager/extern&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -133,11 +153,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\votingManager\src\main\java\votingManager\extern" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\votingManager\src\main\java\votingManager" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\votingManager\src\main\resources" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\playerManager\src\main\resources" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\lobbyManager\src\main\resources" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\lobbyManager\src\main\java\lobbyManager" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\SingletonWebsocketEndPoint\src\main\java\singletonWebsocketEndPoint" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\SingletonWebsocketEndPoint\src\main\resources" />
@@ -146,6 +166,7 @@
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\playerManager\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="votingManager.extern" />
       <recent name="playerManager" />
       <recent name="playerManager.enumarators" />
     </key>
@@ -159,7 +180,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.StompWebsocketGameManager">
+  <component name="RunManager" selected="Spring Boot.StompWebsocketPlayerManager">
     <configuration name="playerManager [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -221,18 +242,33 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StompWebsocketVotingManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true">
+      <module name="votingManager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="votingManager.StompWebsocketPlayerManager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="votingManager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
       <item itemvalue="Gradle.playerManager [build]" />
-      <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-      <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+      <item itemvalue="Spring Boot.StompWebsocketGameManager" />
+      <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
+      <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
-        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
+        <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-        <item itemvalue="Gradle.playerManager [build]" />
+        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
+        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
       </list>
     </recent_temporary>
   </component>
@@ -282,6 +318,9 @@
       <workItem from="1713340330802" duration="1151000" />
       <workItem from="1713343172444" duration="2496000" />
       <workItem from="1713348171860" duration="3299000" />
+      <workItem from="1713443587934" duration="2172000" />
+      <workItem from="1713523480449" duration="16164000" />
+      <workItem from="1713613780613" duration="12496000" />
     </task>
     <servers />
   </component>

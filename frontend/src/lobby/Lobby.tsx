@@ -14,9 +14,10 @@ import LobbySettings from "./LobbySettings";
 import {StartHeartbeat} from "./Heartbeat";
 
 type Props = {
-    myPlayerId: string
-    lobbyId: string,
+    myPlayerId: string;
+    lobbyId: string;
     setGameState(newState: gameState): void;
+    winner: role | undefined;
 };
 
 export type Player = {
@@ -27,7 +28,7 @@ export type Player = {
     host: boolean;
 }
 
-export default function Lobby({myPlayerId, lobbyId, setGameState}: Props){
+export default function Lobby({myPlayerId, lobbyId, setGameState, winner}: Props){
     const [displayPlayers, setDisplayPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
 
@@ -91,7 +92,10 @@ export default function Lobby({myPlayerId, lobbyId, setGameState}: Props){
 
     return (
         <div className="bg-gray-700 w-screen h-screen" >
-            <div className="grid grid-cols-2 gap-4 pt-24 pb-40 justify-items-center">
+            <div className="flex justify-items-center justify-center pt-10">
+                {winner !== undefined && <h1 className="text-white text-2xl">The winner of the previous round: {winner.toUpperCase()}</h1>}
+            </div>
+            <div className="grid grid-cols-2 gap-4 pt-14 pb-40 justify-items-center">
                 <div className="col-span-1 grid-cols-subgrid w-80 min-h-80 justify-center items-center">
                     <PlayerList displayPlayers={displayPlayers}/>
                 </div>

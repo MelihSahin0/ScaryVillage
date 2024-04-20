@@ -9,7 +9,6 @@ import {
     SubscribeToLobby, CloseConnection, UnsubscribePlayers, UnsubscribePlayerMovement, UnsubscribeKill, UnsubscribeReport
 } from "./PlayermanagerSocket";
 import {gameState, role} from "../types";
-import {applyProps} from "@react-three/fiber";
 
 export type Player = {
     id: string;
@@ -127,7 +126,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
             setPlayers(prevPlayers => [
                 ...prevPlayers,
                 {
-                    id: id,
+                    id: id + "@",
                     src: "src/images/pixi.png",
                     name: message.name,
                     color: "black",

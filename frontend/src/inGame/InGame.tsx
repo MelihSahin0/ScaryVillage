@@ -17,7 +17,7 @@ export default function InGame({lobbyId, myPlayerId, setGameState}: Props){
             <OrthographicCamera position={[0, 0, 10]} makeDefault zoom={100}/>
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
-            <Map/>
+            <Map lobbyId={lobbyId} myPlayerId={myPlayerId}/>
             <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState}/>
         </>
     )

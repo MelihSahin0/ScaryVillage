@@ -50,11 +50,48 @@ export function UnsubscribeVoting(){
     StartConnection();
 }
 
+export function SubscribeVotingTime(voting: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        id: 2,
+        destination: "/subscribe/getVotingTime/" + lobbyId,
+        function: voting
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    StartConnection();
+}
+export function UnsubscribeVotingTime(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 2);
+    StartConnection();
+}
+
+export function SubscribeGameEnd(voting: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        id: 3,
+        destination: "/subscribe/gameEnd/" + lobbyId,
+        function: voting
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    StartConnection();
+}
+export function UnsubscribeGameEnd(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 3);
+    StartConnection();
+}
 
 function StartConnection(){
     client.deactivate().then();
     client.configure({
-        brokerURL: 'ws://localhost:8080/playerManagerWebsocket',
+        brokerURL: 'ws://localhost:8083/votingManagerWebsocket',
         onConnect: () => {
             subscriptionHandlers.forEach((subscription) => {
                 client.subscribe(subscription.destination, message => {

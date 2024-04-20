@@ -13,11 +13,9 @@ public class Player {
     private double y;
     private final double speed;
     private Roles role;
-    private boolean host;
-    private String votedFor;
     private long lastKilling = 0;
 
-    public Player(String id, String name, Colors color, int x, int y, Roles role, boolean host) {
+    public Player(String id, String name, Colors color, int x, int y, Roles role) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -25,7 +23,6 @@ public class Player {
         this.y = y;
         this.speed = 0.01;
         this.role = role;
-        this.host = host;
     }
 
     public String getId() {
@@ -66,22 +63,6 @@ public class Player {
 
     public void setRole(Roles role) {
         this.role = role;
-    }
-
-    public boolean isHost() {
-        return host;
-    }
-
-    public void setHost(boolean host) {
-        this.host = host;
-    }
-
-    public String getVotedFor() {
-        return votedFor;
-    }
-
-    public void setVotedFor(String votedFor) {
-        this.votedFor = votedFor;
     }
 
     public long getLastKilling() {
@@ -144,7 +125,6 @@ public class Player {
                                 ", \"y\": " + y +
                              "}" +
                 ", \"role\": " + "\"" + role + "\"" +
-                ", \"host\": " + "\"" + host + "\"" +
                 '}';
     }
 }
