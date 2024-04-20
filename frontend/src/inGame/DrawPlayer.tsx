@@ -55,7 +55,19 @@ export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
 }
 
 
-function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef , counter}: { lobbyId: string, player: Player, myPlayer: Player, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined }, counter: number) {
+function DrawPlayerMesh({
+                            lobbyId,
+                            player,
+                            myPlayer,
+                            meshRef,
+                            counter
+}: {
+    lobbyId: string,
+    player: Player,
+    myPlayer: Player,
+    meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined,
+    counter: number
+}) {
     const texture = useLoader(TextureLoader, player.src);
     const [isHovered, setIsHovered] = useState(false);
 
@@ -80,14 +92,12 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef , counter}: { lobbyI
         } else {
             Publish("/send/killPlayer", JSON.stringify(message));
             myPlayer.lastKillTime = Math.round(Date.now().valueOf() / 1000);
-            console.log(player.role + " killed" + player.lastKillTime)
 
         }
     };
 
 
     const countdown = 6 - Math.min(6, counter - player.lastKillTime);
-    console.log(countdown)
     return (
         <group>
             {countdown>0 &&

@@ -6,7 +6,6 @@ import java.util.Random;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.*;
-import extern.Player;
 import extern.enumarators.GameStatus;
 import extern.enumarators.Roles;
 import extern.enumarators.Visibility;
