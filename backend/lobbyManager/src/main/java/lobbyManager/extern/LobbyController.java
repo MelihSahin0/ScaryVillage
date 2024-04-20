@@ -34,18 +34,19 @@ public class LobbyController {
         if (lobby.getPlayer(message.getPlayerId()) != null){
             return lobby.getPlayers().values().toString();
         }
-
         Player player = new Player();
         player.setId(message.getPlayerId());
         player.setName("Player " + message.getPlayerId().substring(0,4));
         player.setColor(getNextAvailableColor(lobby));
-        player.setRole(lobby.getPlayers().isEmpty() || lobby.getPlayers().size() % 2 == 0 ? Roles.IMPOSTER : Roles.CREWMATE);
+        player.setRole(Roles.CREWMATE);
         player.setHost(lobby.getPlayers().isEmpty());
         lobby.stopTimer();
         lobby.addPlayer(message.getPlayerId(), player);
+        lobby.setImposters();
         lobby.startTimer();
 
         Rest.changeNumberOfPlayers(message.getLobbyId(), lobby.getPlayers().size());
+        Rest.changeNumberOfImpostor(message.getLobbyId(), lobby.getNumberOfImposter());
 
         return lobby.getPlayers().values().toString();
     }
@@ -174,6 +175,17 @@ public class LobbyController {
         lobby.setMaxNumberOfPlayers(message.getMaxNumberOfPlayers());
 
         Rest.changeMaxNumberOfPlayers(message.getLobbyId(), message.getMaxNumberOfPlayers());
+
+        return lobby.toString();
+    }
+    @MessageMapping("/setNumberOfImpostor/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String setNumberOfImpostor(ChangeNumberOfImpostor message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setMaxImposter(message.getNumberOfImpostor());
+        lobby.setImposters();
+
+        Rest.changeNumberOfImpostor(message.getLobbyId(), lobby.getNumberOfImposter());
 
         return lobby.toString();
     }

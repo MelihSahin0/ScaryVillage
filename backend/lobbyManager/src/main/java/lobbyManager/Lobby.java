@@ -2,11 +2,13 @@ package lobbyManager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.*;
 import java.util.concurrent.Executors;
+import java.util.concurrent.*;
 import extern.Player;
 import extern.enumarators.GameStatus;
+import extern.enumarators.Roles;
 import extern.enumarators.Visibility;
 import lobbyManager.extern.LobbyController;
 import lobbyManager.extern.jsonDataTransferTypes.RemovePlayer;
@@ -17,6 +19,8 @@ public class Lobby {
     private GameStatus gameStatus;
     private final HashMap<String, Player> players = new HashMap<>();
     private int maxNumberOfPlayers;
+    private int maxImposter;
+    private int numberOfImposter;
     private Visibility visibility;
     private ScheduledExecutorService executorService;
 
@@ -68,6 +72,19 @@ public class Lobby {
         this.visibility = visibility;
     }
 
+    public int getMaxImposter() {
+        return maxImposter;
+    }
+
+    public void setMaxImposter(int maxImposter) {
+        this.maxImposter = maxImposter;
+    }
+
+    public int getNumberOfImposter(){
+        return numberOfImposter;
+    }
+
+
     public void startTimer() {
         if (executorService != null) {
             executorService.shutdown();
@@ -110,11 +127,69 @@ public class Lobby {
         }
     }
 
+    public int random(int size){
+        Random random = new Random();
+        return random.nextInt(size);
+    }
+
+    public void setImposters() {
+        if ((players.values().size() >= 2 && players.values().size() <= 5) || (players.values().size() >= 2 && maxImposter ==1)) {
+            int i = random(players.values().size() +1);
+            int x = 0;
+            for (Player p : players.values()) {
+                p.setRole(Roles.CREWMATE);
+                if (x == i){
+                    p.setRole(Roles.IMPOSTER);
+                }
+                x++;
+            }
+            numberOfImposter = 1;
+        }
+        if ((players.values().size() >= 6 && players.values().size() < 9) || (players.values().size() >= 6 && maxImposter ==2)) {
+            int i = random(players.values().size()+1);
+            int j = random(players.values().size()+1);
+            int x = 0;
+            int y = 0;
+            for (Player p : players.values()) {
+                p.setRole(Roles.CREWMATE);
+                if (x == i || j == y){
+                    p.setRole(Roles.IMPOSTER);
+                }
+                x++;
+                y++;
+            }
+            numberOfImposter = 2;
+        }
+        if (players.values().size() >= 9 && maxImposter == 3) {
+            int i = random(players.values().size() + 1);
+            int j = random(players.values().size() + 1);
+            int k = random(players.values().size() + 1);
+            System.out.println(j + "hallo");
+            System.out.println(i + "i");
+            System.out.println(k + "k");
+            int x = 0;
+            int y = 0;
+            int z = 0;
+            for (Player p : players.values()) {
+                p.setRole(Roles.CREWMATE);
+                if (i == x || j == y || k == z) {
+                    p.setRole(Roles.IMPOSTER);
+                }
+                x++;
+                y++;
+                z++;
+            }
+            numberOfImposter = 3;
+        }
+    }
+
     @Override
     public String toString() {
         return "{" +
                 "\"maxNumberOfPlayers\": \"" + maxNumberOfPlayers +"\"" +
                 ", \"visibility\": \"" + visibility + "\"" +
+                ", \"numberOfImposter\": \"" + numberOfImposter +"\"" +
                 '}';
     }
+
 }

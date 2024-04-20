@@ -23,6 +23,7 @@ public class Rest {
         lobby.setLobbyId(message.getLobbyId());
         lobby.setGameStatus(GameStatus.LOBBY);
         lobby.setMaxNumberOfPlayers(10);
+        lobby.setMaxImposter(1);
         lobby.setVisibility(Visibility.PRIVATE);
         Lobbies.addLobby(message.getLobbyId(), lobby);
     }
@@ -59,6 +60,18 @@ public class Rest {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(
                 "http://localhost:8081/gameManager/intern/changeMaxNumberOfPlayers",
+                lobbyIdInteger,
+                String.class);
+    }
+
+    public static void changeNumberOfImpostor(String lobbyId, int numberOfImpostor){
+        LobbyIdInteger lobbyIdInteger = new LobbyIdInteger();
+        lobbyIdInteger.setLobbyId(lobbyId);
+        lobbyIdInteger.setNumber(numberOfImpostor);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "http://localhost:8081/gameManager/intern/changeNumberOfImpostor",
                 lobbyIdInteger,
                 String.class);
     }

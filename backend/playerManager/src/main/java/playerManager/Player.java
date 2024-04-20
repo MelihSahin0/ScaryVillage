@@ -15,6 +15,7 @@ public class Player {
     private Roles role;
     private boolean host;
     private String votedFor;
+    private long lastKilling = 0;
 
     public Player(String id, String name, Colors color, int x, int y, Roles role, boolean host) {
         this.id = id;
@@ -81,6 +82,14 @@ public class Player {
 
     public void setVotedFor(String votedFor) {
         this.votedFor = votedFor;
+    }
+
+    public long getLastKilling() {
+        return lastKilling;
+    }
+
+    public void setLastKilling(long lastKilling) {
+        this.lastKilling = lastKilling;
     }
 
     public void initiateMove(String[] stringArray) {
