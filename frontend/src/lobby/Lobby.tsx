@@ -68,7 +68,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, winner}: Props
 
     useEffect(() => {
         const lobbyStatus = (message: any) => {
-            if (message.gameStatus === "INGAME") {
+            if (message.gameStatus === "inGame") {
                 setGameState('inGame');
             }
         };
@@ -77,7 +77,6 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, winner}: Props
             UnsubscribeLobbyStatus();
         }
     }, [setGameState]);
-
 
     useEffect(() => {
         setTimeout(() => {
@@ -109,7 +108,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, winner}: Props
             <LobbyInfo myPlayer={myPlayer} lobbyId={lobbyId} onClickStart={() => {
                 const gameStatus = {
                     lobbyId: lobbyId,
-                    gameStatus: "INGAME"
+                    gameStatus: "inGame"
                 };
                 Publish("/send/setLobbyStatus", JSON.stringify(gameStatus));
                 }} onClickLeave={() => {

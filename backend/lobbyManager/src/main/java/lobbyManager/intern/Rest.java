@@ -70,18 +70,6 @@ public class Rest {
                 String.class);
     }
 
-    public static void changeNumberOfImpostor(String lobbyId, int numberOfImpostor){
-        LobbyIdInteger lobbyIdInteger = new LobbyIdInteger();
-        lobbyIdInteger.setLobbyId(lobbyId);
-        lobbyIdInteger.setNumber(numberOfImpostor);
-
-        RestTemplate restTemplate = new RestTemplate();
-        ResponseEntity<String> response = restTemplate.postForEntity(
-                "http://localhost:8081/gameManager/intern/changeNumberOfImpostor",
-                lobbyIdInteger,
-                String.class);
-    }
-
     public static void removeLobby(String lobbyId){
         LobbyId lobbyIdSend = new LobbyId();
         lobbyIdSend.setLobbyId(lobbyId);
@@ -112,6 +100,7 @@ public class Rest {
     public static void addLobby(String lobbyId, HashMap<String, Player> players){
         LobbyIdPlayerHashMap lobbyIdPlayerHashMap = new LobbyIdPlayerHashMap();
         lobbyIdPlayerHashMap.setLobbyId(lobbyId);
+
         for(Player player : players.values()){
             lobbyIdPlayerHashMap.setPlayer(player.getId(), new intern.Player(player.getId(),player.getName(),player.getColor(),player.getRole()));
         }

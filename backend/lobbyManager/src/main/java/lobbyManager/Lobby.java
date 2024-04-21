@@ -19,7 +19,6 @@ public class Lobby {
     private final HashMap<String, Player> players = new HashMap<>();
     private int maxNumberOfPlayers;
     private int maxImposter;
-    private int numberOfImposter;
     private Visibility visibility;
     private ScheduledExecutorService executorService;
 
@@ -76,13 +75,19 @@ public class Lobby {
     }
 
     public void setMaxImposter(int maxImposter) {
-        this.maxImposter = maxImposter;
-    }
 
-    public int getNumberOfImposter(){
-        return numberOfImposter;
-    }
+        maxImposter = Math.max(maxImposter, 1);
 
+        if (players.size() <= 5) {
+            this.maxImposter = 1;
+        } else if (players.size() <= 8) {
+            this.maxImposter = Math.min(maxImposter, 2);
+        } else if (players.size() <= 10) {
+            this.maxImposter = Math.min(maxImposter, 3);
+        } else {
+            this.maxImposter = 1;
+        }
+    }
 
     public void startTimer() {
         if (executorService != null) {
@@ -126,59 +131,24 @@ public class Lobby {
         }
     }
 
-    public int random(int size){
-        Random random = new Random();
-        return random.nextInt(size);
+    public void setImposters() {
+        Random r = new Random();
+        int currentNumberOfImposter = maxImposter;
+
+        Player[] aPlayers = players.values().toArray(new Player[0]);
+        while (currentNumberOfImposter != 0) {
+            Player player = players.get(aPlayers[r.nextInt(0, players.size())].getId());
+
+            if (player != null && player.getRole() != Roles.IMPOSTER){
+                player.setRole(Roles.IMPOSTER);
+                currentNumberOfImposter--;
+            }
+        }
     }
 
-    public void setImposters() {
-        if ((players.values().size() >= 2 && players.values().size() <= 5) || (players.values().size() >= 2 && maxImposter ==1)) {
-            int i = random(players.values().size() +1);
-            int x = 0;
-            for (Player p : players.values()) {
-                p.setRole(Roles.CREWMATE);
-                if (x == i){
-                    p.setRole(Roles.IMPOSTER);
-                }
-                x++;
-            }
-            numberOfImposter = 1;
-        }
-        if ((players.values().size() >= 6 && players.values().size() < 9) || (players.values().size() >= 6 && maxImposter ==2)) {
-            int i = random(players.values().size()+1);
-            int j = random(players.values().size()+1);
-            int x = 0;
-            int y = 0;
-            for (Player p : players.values()) {
-                p.setRole(Roles.CREWMATE);
-                if (x == i || j == y){
-                    p.setRole(Roles.IMPOSTER);
-                }
-                x++;
-                y++;
-            }
-            numberOfImposter = 2;
-        }
-        if (players.values().size() >= 9 && maxImposter == 3) {
-            int i = random(players.values().size() + 1);
-            int j = random(players.values().size() + 1);
-            int k = random(players.values().size() + 1);
-            System.out.println(j + "hallo");
-            System.out.println(i + "i");
-            System.out.println(k + "k");
-            int x = 0;
-            int y = 0;
-            int z = 0;
-            for (Player p : players.values()) {
-                p.setRole(Roles.CREWMATE);
-                if (i == x || j == y || k == z) {
-                    p.setRole(Roles.IMPOSTER);
-                }
-                x++;
-                y++;
-                z++;
-            }
-            numberOfImposter = 3;
+    public void setEveryoneCrewmate(){
+        for (Player player : players.values()) {
+            player.setRole(Roles.CREWMATE);
         }
     }
 
@@ -187,7 +157,7 @@ public class Lobby {
         return "{" +
                 "\"maxNumberOfPlayers\": \"" + maxNumberOfPlayers +"\"" +
                 ", \"visibility\": \"" + visibility + "\"" +
-                ", \"numberOfImposter\": \"" + numberOfImposter +"\"" +
+                ", \"maxImposter\": \"" + maxImposter + "\"" +
                 '}';
     }
 

@@ -6,10 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="sync">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gameManager/src/main/java/gameManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/gameManager/src/main/java/gameManager/Lobby.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gameManager/src/main/java/gameManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/gameManager/src/main/java/gameManager/intern/Rest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalClasses/src/main/java/extern/enumarators/GameStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/globalClasses/src/main/java/extern/enumarators/GameStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/LobbyStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/LobbyStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Map.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,19 +201,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="StompWebsocketPlayerManager (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
-      <module name="messaging-stomp-websocket-complete" />
-      <option name="SPRING_BOOT_MAIN_CLASS" value="playerManager.StompWebsocketPlayerManager" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="playerManager.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="StompWebsocketPlayerManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="playerManager" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="playerManager.StompWebsocketPlayerManager" />
@@ -232,7 +228,6 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Spring Boot.StompWebsocketPlayerManager (1)" />
       <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
       <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
@@ -241,7 +236,6 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
-        <item itemvalue="Spring Boot.StompWebsocketPlayerManager (1)" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
@@ -305,7 +299,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sync" />
-    <option name="LAST_COMMIT_MESSAGE" value="sync" />
+    <MESSAGE value="&quot;&quot;" />
+    <option name="LAST_COMMIT_MESSAGE" value="&quot;&quot;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -20,8 +20,8 @@ public class LobbyStatus {
         return gameStatus;
     }
 
-    public void setGameStatus(GameStatus gameStatus) {
-        this.gameStatus = gameStatus;
+    public void setGameStatus(String gameStatus) {
+        this.gameStatus = GameStatus.getGameStatus(gameStatus);
     }
 
     @Override

@@ -20,7 +20,6 @@ export type Player = {
     z: number;
     role: role;
     host: boolean;
-    lastKillTime: number; //in epoch seconds
 }
 
 type Props = {
@@ -52,11 +51,9 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
                     z: 0.5,
                     role: message.role,
                     host: message.host === "true",
-                    lastKillTime:0
                 };
                 if (message.id === myPlayerId){
                     foundMyPlayer = true;
-                    console.log(message.role)
                 }
                 updatedPlayers.push(newPlayer);
             });
@@ -135,7 +132,6 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
                     z: 0.5,
                     role: "deadBody",
                     host: false,
-                    lastKillTime: 0
                 }
             ]);
         };

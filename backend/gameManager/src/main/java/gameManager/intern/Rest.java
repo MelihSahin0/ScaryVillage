@@ -28,11 +28,6 @@ public class Rest {
         Lobbies.getLobby(message.getLobbyId()).setMaxNumberOfPlayers(message.getNumber());
     }
 
-    @PostMapping(value = "/changeNumberOfImpostor")
-    public void changeNumberOfImpostor(@RequestBody LobbyIdInteger message){
-        Lobbies.getLobby(message.getLobbyId()).setNumberOfImpostor(message.getNumber());
-    }
-
     @PostMapping(value = "/removeLobby")
     public void removeLobby(@RequestBody LobbyId message){
        Lobbies.removeLobby(message.getLobbyId());

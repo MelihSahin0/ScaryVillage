@@ -42,11 +42,9 @@ public class LobbyController {
         player.setHost(lobby.getPlayers().isEmpty());
         lobby.stopTimer();
         lobby.addPlayer(message.getPlayerId(), player);
-        lobby.setImposters();
         lobby.startTimer();
 
         Rest.changeNumberOfPlayers(message.getLobbyId(), lobby.getPlayers().size());
-        Rest.changeNumberOfImpostor(message.getLobbyId(), lobby.getNumberOfImposter());
 
         return lobby.getPlayers().values().toString();
     }
@@ -67,6 +65,10 @@ public class LobbyController {
     @MessageMapping("/removePlayer/{stringLobbyId}")
     public void removePlayer(RemovePlayer message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+
+        if (lobby == null){
+            return;
+        }
 
         Player player = lobby.getPlayer(message.getPlayerId());
         lobby.stopTimer();
@@ -105,7 +107,9 @@ public class LobbyController {
         Rest.changeGameState(message.getLobbyId(),message.getGameStatus());
 
         if (message.getGameStatus() == GameStatus.INGAME) {
+            lobby.setImposters();
             Rest.addLobby(message.getLobbyId(), lobby.getPlayers());
+            lobby.setEveryoneCrewmate();
         }
 
         return message.toString();
@@ -177,14 +181,12 @@ public class LobbyController {
 
         return lobby.toString();
     }
+
     @MessageMapping("/setNumberOfImpostor/{stringLobbyId}")
     @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
     public String setNumberOfImpostor(ChangeNumberOfImpostor message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
         lobby.setMaxImposter(message.getNumberOfImpostor());
-        lobby.setImposters();
-
-        Rest.changeNumberOfImpostor(message.getLobbyId(), lobby.getNumberOfImposter());
 
         return lobby.toString();
     }
