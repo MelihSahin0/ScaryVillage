@@ -16,8 +16,8 @@ export default function App() {
 
     return (
         <>
-            {gameState === 'startingScreen' && <StartingScreen myPlayerId={myPlayerId} setLobbyId={setLobbyId} setGameState={setGameState} setWinner={setWinner}/>}
-            {gameState === 'lobby' && <Lobby myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState} winner={winner}/>}
+            {gameState === 'startingScreen' && <StartingScreen myPlayerId={myPlayerId} setLobbyId={setLobbyId} setGameState={setGameState}/>}
+            {gameState === 'lobby' && <Lobby myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState} setWinner={setWinner} winner={winner}/>}
             <Canvas style={{height: '100vh', display: gameState === 'inGame' ? 'block' : 'none'}}>
                 {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState}/>}
             </Canvas>

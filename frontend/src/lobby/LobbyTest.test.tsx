@@ -8,7 +8,7 @@ it('renders a summary', () => {
     const setGameState = vi.fn();
 
     render(
-        <Lobby lobbyId={""} setGameState={setGameState} myPlayerId={""}/>
+        <Lobby lobbyId={""} setGameState={setGameState} myPlayerId={""} winner={"imposter"}/>
     );
     screen.getByText('Leave');
 });

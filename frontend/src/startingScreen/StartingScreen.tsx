@@ -8,10 +8,9 @@ type Props = {
     myPlayerId: string;
     setLobbyId(lobbyId: string): void ;
     setGameState(gameState: gameState): void;
-    setWinner(setWinner: role | undefined): void;
 };
 
-export default function StartingScreen({myPlayerId, setLobbyId, setGameState, setWinner }: Props) {
+export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: Props) {
     const [lobbyMessage, setLobbyMessage] = useState("");
     const [myPlayer] = useState({
         playerId: myPlayerId,

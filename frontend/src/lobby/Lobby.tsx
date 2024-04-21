@@ -17,6 +17,7 @@ type Props = {
     myPlayerId: string;
     lobbyId: string;
     setGameState(newState: gameState): void;
+    setWinner(winner: role | undefined): void;
     winner: role | undefined;
 };
 
@@ -28,7 +29,7 @@ export type Player = {
     host: boolean;
 }
 
-export default function Lobby({myPlayerId, lobbyId, setGameState, winner}: Props){
+export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, winner}: Props){
     const [displayPlayers, setDisplayPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
 
@@ -117,6 +118,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, winner}: Props
                     playerId: myPlayerId
                 };
                 Publish("/send/removePlayer", JSON.stringify(leaveGame));
+                setWinner(undefined);
             }}/>
         </div>
     );
