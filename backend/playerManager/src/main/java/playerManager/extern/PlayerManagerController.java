@@ -64,10 +64,12 @@ public class PlayerManagerController {
 			return null;
 		}
 
-		if ( killer.getRole() == Roles.IMPOSTER && victim.getRole() == Roles.CREWMATE) {
+		if ( killer.getRole() == Roles.IMPOSTER && victim.getRole() == Roles.CREWMATE
+				&& (killer.getLastKilling() == 0 || (System.currentTimeMillis()-killer.getLastKilling()) >= 5000)) {
 			//TODO In the feature look out for the distance
 			victim.setColor(Colors.BLACK);
 			victim.killed();
+			killer.setLastKilling(System.currentTimeMillis());
 			return victim.toString();
 		} else if (killer.getId().equals(victim.getId())) {
 			return null;

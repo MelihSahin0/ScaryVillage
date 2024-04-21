@@ -8,6 +8,7 @@ public class Lobby {
     private GameStatus gameStatus = GameStatus.LOBBY;
     private int numberOfPlayers = 0;
     private int maxNumberOfPlayers = 10;
+    private int numberOfImpostor = 1;
     private Visibility visibility = Visibility.PRIVATE;
 
     public GameStatus getGameStatus() {
@@ -42,6 +43,15 @@ public class Lobby {
         this.visibility = visibility;
     }
 
+    public int getNumberOfImpostor() {
+        return numberOfImpostor;
+    }
+
+    public void setNumberOfImpostor(int numberOfImpostor) {
+        this.numberOfImpostor = numberOfImpostor;
+    }
+
+    //TODO: implement to string for impostor wenn needed
     @Override
     public String toString() {
         return "{" +

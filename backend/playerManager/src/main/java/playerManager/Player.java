@@ -13,6 +13,7 @@ public class Player {
     private double y;
     private final double speed;
     private Roles role;
+    private long lastKilling = 0;
 
     public Player(String id, String name, Colors color, int x, int y, Roles role) {
         this.id = id;
@@ -62,6 +63,14 @@ public class Player {
 
     public void setRole(Roles role) {
         this.role = role;
+    }
+
+    public long getLastKilling() {
+        return lastKilling;
+    }
+
+    public void setLastKilling(long lastKilling) {
+        this.lastKilling = lastKilling;
     }
 
     public void initiateMove(String[] stringArray) {

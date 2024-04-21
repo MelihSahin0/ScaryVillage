@@ -5,26 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="sync">
-      <change afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/jsonDataTransferTypes/GameEnd.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/emergency.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/PlayerList.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerList.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/VoteManagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/VoteManagerSocket.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,29 +165,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.StompWebsocketPlayerManager">
-    <configuration name="playerManager [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/playerManager" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Spring Boot.StompWebsocketVotingManager">
     <configuration name="StompWebsocketGameManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="gameManager" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="gameManager.StompWebsocketGameManager" />
@@ -222,6 +185,19 @@
       <extension name="coverage">
         <pattern>
           <option name="PATTERN" value="lobbyManager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="StompWebsocketPlayerManager (1)" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
+      <module name="messaging-stomp-websocket-complete" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="playerManager.StompWebsocketPlayerManager" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="playerManager.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -256,7 +232,7 @@
       </method>
     </configuration>
     <list>
-      <item itemvalue="Gradle.playerManager [build]" />
+      <item itemvalue="Spring Boot.StompWebsocketPlayerManager (1)" />
       <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
       <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
@@ -265,9 +241,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
+        <item itemvalue="Spring Boot.StompWebsocketPlayerManager (1)" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
-        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
       </list>
     </recent_temporary>

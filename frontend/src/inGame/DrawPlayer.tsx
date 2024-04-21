@@ -17,6 +17,7 @@ type Props = {
 export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
+    const [epochSeconds, setEpochSeconds] = useState(0)
 
     useFrame(() => {
         const keyPress = [];
@@ -26,30 +27,50 @@ export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
         keyMap['KeyW'] && (keyPress.push("w"))
         keyMap['KeyS'] && (keyPress.push("s"))
 
+        const seconds = Math.round(Date.now().valueOf() / 1000);
+        if (seconds !== epochSeconds){
+        setEpochSeconds(seconds)
+        }
+
         if (keyPress.length > 0) {
             const movementData = {
                 lobbyId: lobbyId,
                 playerId: myPlayerId,
                 movement: keyPress
             };
+
             Publish("/send/playerMovement", JSON.stringify(movementData));
         }
     })
 
+
     return (
         <>
             {players.map((player: Player) => (
-                (player.role === "crewmateGhost" || player.role === "imposterGhost") && player.id === myPlayerId ? <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={players.find((intern) => intern.id === myPlayerId)!} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
-                    : player.role !== "crewmateGhost" && player.role !== "imposterGhost" && <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={players.find((intern) => intern.id === myPlayerId)!} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
-            ))}
+                (player.role === "crewmateGhost" || player.role === "imposterGhost") && player.id === myPlayerId ? <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={players.find((intern) => intern.id === myPlayerId)!} meshRef={player.id === myPlayerId ? meshRef : undefined} counter={epochSeconds}/>
+                    : player.role !== "crewmateGhost" && player.role !== "imposterGhost" && <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={players.find((intern) => intern.id === myPlayerId)!} meshRef={player.id === myPlayerId ? meshRef : undefined} counter={epochSeconds}/>
+           ))}
         </>
     );
 }
 
 
-function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef }: { lobbyId: string, player: Player, myPlayer: Player, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined }) {
+function DrawPlayerMesh({
+                            lobbyId,
+                            player,
+                            myPlayer,
+                            meshRef,
+                            counter
+}: {
+    lobbyId: string,
+    player: Player,
+    myPlayer: Player,
+    meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined,
+    counter: number
+}) {
     const texture = useLoader(TextureLoader, player.src);
     const [isHovered, setIsHovered] = useState(false);
+
 
     const handlePointerOver = () => {
         setIsHovered(true);
@@ -70,11 +91,17 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef }: { lobbyId: string
             Publish("/send/report", JSON.stringify(message));
         } else {
             Publish("/send/killPlayer", JSON.stringify(message));
+            myPlayer.lastKillTime = Math.round(Date.now().valueOf() / 1000);
+
         }
     };
 
+
+    const countdown = 6 - Math.min(6, counter - player.lastKillTime);
     return (
         <group>
+            {countdown>0 &&
+                <Text position={[player.x, player.y + 0.35, player.z]} scale={[0.1, 0.1, 0.1]}>{countdown}</Text>}
             <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}
                   color={myPlayer.role === "crewmate" ? "white": player.role === "imposter" ? "red" : "white"}
             >{player.name}</Text>
