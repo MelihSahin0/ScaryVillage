@@ -25,7 +25,7 @@ public class Rest {
         Lobby lobby = new Lobby();
 
         for (Map.Entry<String, intern.Player> player : message.getPlayers().entrySet()){
-            playerManager.Player inGamePlayer = new playerManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(), 0,0,player.getValue().getRole());
+            playerManager.Player inGamePlayer = new playerManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(), 0,0,player.getValue().getRole(), 10);
             lobby.addPlayer(inGamePlayer);
         }
 

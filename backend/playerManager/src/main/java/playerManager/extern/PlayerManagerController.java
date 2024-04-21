@@ -2,7 +2,7 @@ package playerManager.extern;
 
 import extern.enumarators.Colors;
 import intern.LobbyId;
-import org.json.JSONObject;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import playerManager.Player;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -13,13 +13,13 @@ import playerManager.Lobby;
 import playerManager.extern.jsonDataTransferTypes.*;
 import playerManager.intern.Rest;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 @RestController
 public class PlayerManagerController {
+
+	//When Endpoints can be called internally too, use this. (Reference: removePlayer)
+	private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
 
 	@MessageMapping("/players/{stringLobbyId}")
 	@SendTo("/subscribe/getPlayers/{stringLobbyId}")
@@ -48,10 +48,13 @@ public class PlayerManagerController {
 		return null;
 	}
 
+	public void killCooldown(KillCooldown message){
+		messagingTemplate.convertAndSend("/subscribe/killCooldown/" + message.getLobbyId(), message.toString());
+	}
+
 	@MessageMapping("/killPlayer/{stringLobbyId}" )
 	@SendTo("/subscribe/kill/{stringLobbyId}")
 	public String kill(PlayerClicked message){
-
 		if (message.getLobbyId().isEmpty()){
 			return null;
 		}
@@ -64,12 +67,11 @@ public class PlayerManagerController {
 			return null;
 		}
 
-		if ( killer.getRole() == Roles.IMPOSTER && victim.getRole() == Roles.CREWMATE
-				&& (killer.getLastKilling() == 0 || (System.currentTimeMillis()-killer.getLastKilling()) >= 5000)) {
+		if ( killer.getRole() == Roles.IMPOSTER && victim.getRole() == Roles.CREWMATE && killer.getAllowedToKillIn() == 0) {
 			//TODO In the feature look out for the distance
 			victim.setColor(Colors.BLACK);
 			victim.killed();
-			killer.setLastKilling(System.currentTimeMillis());
+			killer.startKillCooldown(message.getLobbyId());
 			return victim.toString();
 		} else if (killer.getId().equals(victim.getId())) {
 			return null;

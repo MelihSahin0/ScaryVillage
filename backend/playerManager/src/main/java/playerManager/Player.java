@@ -2,8 +2,16 @@ package playerManager;
 
 import extern.enumarators.Colors;
 import extern.enumarators.Roles;
+import lobbyManager.extern.LobbyController;
+import lobbyManager.extern.jsonDataTransferTypes.RemovePlayer;
+import playerManager.extern.PlayerManagerController;
+import playerManager.extern.jsonDataTransferTypes.KillCooldown;
 
 import javax.swing.text.Position;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Player {
     private final String id;
@@ -13,9 +21,12 @@ public class Player {
     private double y;
     private final double speed;
     private Roles role;
-    private long lastKilling = 0;
+    private final int killCooldown;
+    private int allowedToKillIn;
 
-    public Player(String id, String name, Colors color, int x, int y, Roles role) {
+    private ScheduledExecutorService executorServiceKillCooldown;
+
+    public Player(String id, String name, Colors color, int x, int y, Roles role, int killCooldown) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -23,6 +34,7 @@ public class Player {
         this.y = y;
         this.speed = 0.01;
         this.role = role;
+        this.killCooldown = killCooldown;
     }
 
     public String getId() {
@@ -65,12 +77,8 @@ public class Player {
         this.role = role;
     }
 
-    public long getLastKilling() {
-        return lastKilling;
-    }
-
-    public void setLastKilling(long lastKilling) {
-        this.lastKilling = lastKilling;
+    public int getAllowedToKillIn() {
+        return allowedToKillIn;
     }
 
     public void initiateMove(String[] stringArray) {
@@ -112,6 +120,31 @@ public class Player {
                 role = Roles.IMPOSTERGHOST;
                 break;
         }
+    }
+
+    public void startKillCooldown(String lobbyId) {
+        if (executorServiceKillCooldown != null) {
+            executorServiceKillCooldown.shutdown();
+        }
+        allowedToKillIn = killCooldown;
+        executorServiceKillCooldown = Executors.newSingleThreadScheduledExecutor();
+        executorServiceKillCooldown.scheduleAtFixedRate(() -> {
+            if (allowedToKillIn > 0) {
+                allowedToKillIn--;
+                KillCooldown message = new KillCooldown();
+                message.setLobbyId(lobbyId);
+                message.setKillCooldown(allowedToKillIn);
+                PlayerManagerController playerManagerController = new PlayerManagerController();
+                playerManagerController.killCooldown(message);
+            } else {
+                executorServiceKillCooldown.shutdown();
+                try {
+                    executorServiceKillCooldown.awaitTermination(5, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, 0, 1, TimeUnit.SECONDS);
     }
 
     @Override

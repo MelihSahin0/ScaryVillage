@@ -6,7 +6,13 @@ import {
     SubscribeKill,
     SubscribePlayerMovement,
     SubscribePlayers,
-    SubscribeToLobby, CloseConnection, UnsubscribePlayers, UnsubscribePlayerMovement, UnsubscribeKill, UnsubscribeReport
+    SubscribeToLobby,
+    CloseConnection,
+    UnsubscribePlayers,
+    UnsubscribePlayerMovement,
+    UnsubscribeKill,
+    UnsubscribeReport,
+    SubscribeKillCooldown, UnsubscribeKillCooldown
 } from "./PlayermanagerSocket";
 import {gameState, role} from "../types";
 
@@ -31,7 +37,9 @@ type Props = {
 export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props){
 
     const [players, setPlayers] = useState<Array<Player>>([]);
-
+    const [myPlayer, setMyPlayer] = useState<Player>()
+    const [killCooldown, setKillCooldown] = useState(0);
+    
     useEffect(() => {
         SubscribeToLobby(lobbyId);
     }, [lobbyId]);
@@ -54,6 +62,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
                 };
                 if (message.id === myPlayerId){
                     foundMyPlayer = true;
+                    setMyPlayer(newPlayer);
                 }
                 updatedPlayers.push(newPlayer);
             });
@@ -66,7 +75,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
         return () => {
             UnsubscribePlayers();
         }
-    }, [lobbyId, myPlayerId, setGameState]);
+    }, []);
 
     useEffect(() => {
         const updatePlayer = (message: any) => {
@@ -94,7 +103,19 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
         return () => {
             UnsubscribePlayerMovement();
         }
-    }, [myPlayerId])
+    }, [])
+
+    useEffect(() => {
+        if (myPlayer?.role === "imposter"){
+            const cooldown = (message: any) => {
+                setKillCooldown(parseInt(message.killCooldown));
+            }
+            SubscribeKillCooldown(cooldown);
+        }
+        return () => {
+            UnsubscribeKillCooldown();
+        }
+    }, [myPlayer]);
 
     useEffect(() => {
         const kill = (message: any) => {
@@ -105,6 +126,9 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
                     if (player.id === message.id) {
+                        if (player.id === myPlayerId){
+                            myPlayer!.role = message.role;
+                        }
                         id = player.id;
                         x = player.x;
                         y = player.y;
@@ -139,7 +163,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
         return () => {
             UnsubscribeKill();
         }
-    }, []);
+    }, [myPlayer]);
 
     useEffect(() => {
         const report = () => {
@@ -149,7 +173,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
         return () => {
             UnsubscribeReport();
         }
-    }, [setGameState]);
+    }, []);
     
     useEffect(() => {
         setTimeout(() => {
@@ -161,11 +185,11 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
         return () => {
             CloseConnection();
         }
-    }, [lobbyId]);
+    }, []);
 
     return (
         <>
-            <DrawPlayer lobbyId={lobbyId} myPlayerId={myPlayerId} players={players} />
+            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} />
         </>
     )
 }

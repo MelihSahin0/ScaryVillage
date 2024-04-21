@@ -88,6 +88,25 @@ export function UnsubscribeReport(){
     StartConnection();
 }
 
+export function SubscribeKillCooldown(report: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        id: 4,
+        destination: "/subscribe/killCooldown/" + lobbyId,
+        function: report
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    StartConnection();
+}
+export function UnsubscribeKillCooldown(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 4);
+    StartConnection();
+}
+
 function StartConnection(){
     client.deactivate().then();
     client.configure({

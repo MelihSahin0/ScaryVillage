@@ -9,12 +9,13 @@ import * as THREE from 'three';
 
 
 type Props = {
-    lobbyId: string,
-    myPlayerId: string,
-    players: Array<Player>
+    lobbyId: string;
+    myPlayer: Player | undefined;
+    players: Array<Player>;
+    killCooldown: number;
 }
 
-export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
+export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
 
@@ -29,7 +30,7 @@ export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
         if (keyPress.length > 0) {
             const movementData = {
                 lobbyId: lobbyId,
-                playerId: myPlayerId,
+                playerId: myPlayer?.id,
                 movement: keyPress
             };
 
@@ -40,15 +41,20 @@ export default function DrawPlayer({lobbyId, myPlayerId, players}: Props){
     return (
         <>
             {players.map((player: Player) => (
-                (player.role === "crewmateGhost" || player.role === "imposterGhost") && player.id === myPlayerId ? <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={players.find((intern) => intern.id === myPlayerId)!} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
-                    : player.role !== "crewmateGhost" && player.role !== "imposterGhost" && <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={players.find((intern) => intern.id === myPlayerId)!} meshRef={player.id === myPlayerId ? meshRef : undefined}/>
+                (
+                    ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && (player.role === "crewmate" || player.role === "imposter" || player.role === "deadBody"))
+                    ||
+                    (myPlayer?.role === "imposterGhost" || myPlayer?.role === "crewmateGhost")
+                )
+                &&
+                <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={myPlayer} meshRef={player.id === myPlayer?.id ? meshRef : undefined} killCooldown={killCooldown}/>
            ))}
         </>
     );
 }
 
 
-function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef}: { lobbyId: string, player: Player, myPlayer: Player, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined }) {
+function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lobbyId: string, player: Player, myPlayer: Player | undefined, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined, killCooldown: number }) {
     const texture = useLoader(TextureLoader, player.src);
     const [isHovered, setIsHovered] = useState(false);
 
@@ -63,7 +69,7 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef}: { lobbyId: string,
     const handleClick = () => {
         const message = {
             "lobbyId": lobbyId,
-            "fromPlayerId": myPlayer.id,
+            "fromPlayerId": myPlayer?.id,
             "toPlayerId": player.id.slice(0, 32)
         };
 
@@ -77,22 +83,22 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef}: { lobbyId: string,
     return (
         <group>
             <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}
-                  color={myPlayer.role === "crewmate" ? "white": player.role === "imposter" ? "red" : "white"}
+                  color={myPlayer?.role === "crewmate" ? "white": player.role === "imposter" ? "red" : "white"}
             >{player.name}</Text>
             <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={handleClick}
                   onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
                 <planeGeometry attach="geometry" args={[0.3, 0.3, 1]}/>
                 <meshBasicMaterial transparent map={texture} color={player.color}/>
             </mesh>
-            {myPlayer.role === "imposter" && player.role === "crewmate" ? (
-                <group visible={isHovered}>
+            {myPlayer?.role === "imposter" && player.role === "crewmate" ? (
+                <group visible={isHovered && killCooldown === 0}>
                     <lineSegments position={[player.x,player.y,player.z]}>
                         <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />
                         <lineBasicMaterial attach="material" color={0xFF0000} />
                     </lineSegments>
                 </group>
             ): null}
-            {(myPlayer.role === "crewmate" || myPlayer.role === "imposter") && player.role === "deadBody" ? (
+            {(myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && player.role === "deadBody" ? (
                 <group visible={isHovered}>
                     <lineSegments position={[player.x,player.y,player.z]}>
                         <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />
