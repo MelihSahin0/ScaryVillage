@@ -26,23 +26,3 @@ export default function App() {
     );
 }
 
-//TODO
-function CameraMovement() {
-    const {camera} = useThree();
-
-    React.useLayoutEffect(() => {
-        camera.rotation.order = 'YXZ'
-        camera.rotation.y = -Math.PI / 4
-        camera.rotation.x = Math.atan(-1 / Math.sqrt(2))
-        camera.translateZ(100)
-    }, [camera]);
-
-    // Move the camera
-    useFrame(() => {
-        if (camera && camera.position) { // Ensure camera and camera.position are not null
-            camera.position.x += 0;
-        }
-    });
-
-    return null;
-}

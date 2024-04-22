@@ -56,6 +56,8 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown}: P
 
 function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lobbyId: string, player: Player, myPlayer: Player | undefined, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined, killCooldown: number }) {
     const texture = useLoader(TextureLoader, player.src);
+    texture.magFilter = THREE.NearestFilter;
+    texture.minFilter = THREE.NearestFilter;
     const [isHovered, setIsHovered] = useState(false);
 
     const handlePointerOver = () => {
