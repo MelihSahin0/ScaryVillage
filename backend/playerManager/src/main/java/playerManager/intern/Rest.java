@@ -22,13 +22,13 @@ public class Rest {
 
     @PostMapping(value = "/addLobby")
     public void addLobby(@RequestBody LobbyIdPlayerHashMap message) {
-        Lobby lobby = new Lobby();
+        Lobby lobby = new Lobby(10);
 
         for (Map.Entry<String, intern.Player> player : message.getPlayers().entrySet()){
             playerManager.Player inGamePlayer = new playerManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(), 0,0,player.getValue().getRole(), 10);
             lobby.addPlayer(inGamePlayer);
         }
-
+        lobby.startBellCooldown(message.getLobbyId());
         Lobbies.addLobby(message.getLobbyId(), lobby);
     }
 
@@ -55,6 +55,7 @@ public class Rest {
             player1.setRole(player.getValue().getRole());
             player1.setColor(player.getValue().getColor());
         }
+        lobby.startBellCooldown(message.getLobbyId());
     }
 
 

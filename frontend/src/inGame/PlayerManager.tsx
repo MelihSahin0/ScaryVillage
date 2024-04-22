@@ -32,9 +32,11 @@ type Props = {
     lobbyId: string,
     myPlayerId: string,
     setGameState(newState: gameState): void;
+    setWinner(setWinner: role): void;
+    setMyPlayerMap(setMyPlayerMap: Player): void;
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, setMyPlayerMap}: Props){
 
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player>()
@@ -63,6 +65,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
                 if (message.id === myPlayerId){
                     foundMyPlayer = true;
                     setMyPlayer(newPlayer);
+                    setMyPlayerMap(newPlayer);
                 }
                 updatedPlayers.push(newPlayer);
             });
@@ -119,51 +122,57 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState}: Props
 
     useEffect(() => {
         const kill = (message: any) => {
-            let id: string;
-            let x: number;
-            let y: number;
-            //Change Player to ghost
-            setPlayers(prevPlayers => {
-                return prevPlayers.map((player) => {
-                    if (player.id === message.id) {
-                        if (player.id === myPlayerId){
-                            myPlayer!.role = message.role;
+            if (Object.prototype.hasOwnProperty.call(message, "gameFinished") && message.gameFinished === true) {
+                setWinner("imposter");
+                setGameState("lobby")
+            } else {
+                let id: string;
+                let x: number;
+                let y: number;
+                //Change Player to ghost
+                setPlayers(prevPlayers => {
+                    return prevPlayers.map((player) => {
+                        if (player.id === message.id) {
+                            if (player.id === myPlayerId) {
+                                myPlayer!.role = message.role;
+                                setMyPlayerMap(myPlayer!);
+                            }
+                            id = player.id;
+                            x = player.x;
+                            y = player.y;
+                            return {
+                                ...player,
+                                color: message.color,
+                                y: message.position.y,
+                                x: message.position.x,
+                                role: message.role
+                            };
                         }
-                        id = player.id;
-                        x = player.x;
-                        y = player.y;
-                        return {
-                            ...player,
-                            color: message.color,
-                            y: message.position.y,
-                            x: message.position.x,
-                            role: message.role
-                        };
-                    }
-                    return player;
+                        return player;
+                    });
                 });
-            });
-            //Create a dead Body
-            setPlayers(prevPlayers => [
-                ...prevPlayers,
-                {
-                    id: id + "@",
-                    src: "src/images/pixi.png",
-                    name: message.name,
-                    color: "black",
-                    x: x,
-                    y: y,
-                    z: 0.5,
-                    role: "deadBody",
-                    host: false,
-                }
-            ]);
+                //Create a dead Body
+                setPlayers(prevPlayers => [
+                    ...prevPlayers,
+                    {
+                        id: id + "@",
+                        src: "src/images/pixi.png",
+                        name: message.name,
+                        color: "black",
+                        x: x,
+                        y: y,
+                        z: 0.5,
+                        role: "deadBody",
+                        host: false,
+                    }
+                ]);
+            }
         };
         SubscribeKill(kill);
         return () => {
             UnsubscribeKill();
         }
-    }, [myPlayer]);
+    }, [myPlayer, setWinner]);
 
     useEffect(() => {
         const report = () => {

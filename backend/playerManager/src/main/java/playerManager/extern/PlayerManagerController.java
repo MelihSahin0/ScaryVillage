@@ -48,6 +48,10 @@ public class PlayerManagerController {
 		return null;
 	}
 
+	public void bellCooldown(BellCooldown message){
+		messagingTemplate.convertAndSend("/subscribe/bellCooldown/" + message.getLobbyId(), message.toString());
+	}
+
 	public void killCooldown(KillCooldown message){
 		messagingTemplate.convertAndSend("/subscribe/killCooldown/" + message.getLobbyId(), message.toString());
 	}
@@ -55,7 +59,7 @@ public class PlayerManagerController {
 	@MessageMapping("/killPlayer/{stringLobbyId}" )
 	@SendTo("/subscribe/kill/{stringLobbyId}")
 	public String kill(PlayerClicked message){
-		if (message.getLobbyId().isEmpty()){
+		if (Lobbies.getLobby(message.getLobbyId()) == null){
 			return null;
 		}
 
@@ -71,14 +75,35 @@ public class PlayerManagerController {
 			//TODO In the feature look out for the distance
 			victim.setColor(Colors.BLACK);
 			victim.killed();
-			killer.startKillCooldown(message.getLobbyId());
-			return victim.toString();
+
+			if (imposterWon(lobby)){
+				GameFinished gameFinished = new GameFinished();
+				gameFinished.setGameFinished(true);
+				messagingTemplate.convertAndSend("/subscribe/kill/" + message.getLobbyId(), gameFinished.toString());
+
+				Rest rest = new Rest();
+				LobbyId internMessage = new LobbyId();
+				internMessage.setLobbyId(message.getLobbyId());
+				rest.gameFinished(internMessage);
+
+				return null;
+			} else {
+				killer.startKillCooldown(message.getLobbyId());
+				return victim.toString();
+			}
 		} else if (killer.getId().equals(victim.getId())) {
 			return null;
 		} else {
 			return null;
 		}
 	}
+
+	private boolean imposterWon(Lobby lobby){
+		int imposter = (int) lobby.getPlayers().values().stream().filter(player -> player.getRole().equals(Roles.IMPOSTER)).count();
+		int crewmate = (int) lobby.getPlayers().values().stream().filter(player -> player.getRole().equals(Roles.CREWMATE)).count();
+
+        return imposter >= crewmate;
+    }
 
 	@MessageMapping("/report/{stringLobbyId}" )
 	@SendTo("/subscribe/report/{stringLobbyId}")
@@ -89,6 +114,11 @@ public class PlayerManagerController {
 		}
 
 		Lobby lobby =  Lobbies.getLobby(message.getLobbyId());
+
+		if (lobby.getAllowedToBellIn() != 0){
+			return null;
+		}
+
 		Player reporter = lobby.getPlayers().get(message.getFromPlayerId());
 
 		if (message.getToPlayerId().equals("emergency")){

@@ -1,10 +1,24 @@
 package playerManager;
 
+import playerManager.extern.PlayerManagerController;
+import playerManager.extern.jsonDataTransferTypes.BellCooldown;
+import playerManager.extern.jsonDataTransferTypes.KillCooldown;
+
 import java.util.HashMap;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class Lobby {
 
     private final HashMap<String, Player> players = new HashMap<>();
+    private final int bellCooldown;
+    private int allowedToBellIn;
+    private ScheduledExecutorService executorServiceKillCooldown;
+
+    public Lobby(int bellCooldown) {
+        this.bellCooldown = bellCooldown;
+    }
 
     public HashMap<String, Player> getPlayers() {
         return players;
@@ -17,4 +31,34 @@ public class Lobby {
     public void addPlayer(Player player) {
         this.players.put(player.getId(), player);
     }
+
+    public int getAllowedToBellIn() {
+        return allowedToBellIn;
+    }
+
+    public void startBellCooldown(String lobbyId) {
+        if (executorServiceKillCooldown != null) {
+            executorServiceKillCooldown.shutdown();
+        }
+        allowedToBellIn = bellCooldown;
+        executorServiceKillCooldown = Executors.newSingleThreadScheduledExecutor();
+        executorServiceKillCooldown.scheduleAtFixedRate(() -> {
+            if (allowedToBellIn > 0) {
+                allowedToBellIn--;
+                BellCooldown message = new BellCooldown();
+                message.setLobbyId(lobbyId);
+                message.setBellCooldown(allowedToBellIn);
+                PlayerManagerController playerManagerController = new PlayerManagerController();
+                playerManagerController.bellCooldown(message);
+            } else {
+                executorServiceKillCooldown.shutdown();
+                try {
+                    executorServiceKillCooldown.awaitTermination(5, TimeUnit.SECONDS);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }, 0, 1, TimeUnit.SECONDS);
+    }
+
 }
