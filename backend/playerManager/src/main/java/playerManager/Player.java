@@ -2,13 +2,9 @@ package playerManager;
 
 import extern.enumarators.Colors;
 import extern.enumarators.Roles;
-import lobbyManager.extern.LobbyController;
-import lobbyManager.extern.jsonDataTransferTypes.RemovePlayer;
 import playerManager.extern.PlayerManagerController;
 import playerManager.extern.jsonDataTransferTypes.KillCooldown;
 
-import javax.swing.text.Position;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -107,8 +103,29 @@ public class Player {
     }
 
     public void move(int dx, int dy, double diagonalFactor) {
-        x += dx * speed * diagonalFactor;
-        y += dy * speed * diagonalFactor;
+
+        if (isMoveable(dx, dy, diagonalFactor)) {
+            x += dx * speed * diagonalFactor;
+            y += dy * speed * diagonalFactor;
+        }
+    }
+
+    public boolean isMoveable(int dx, int dy, double diagonalFactor) {
+
+        //World border
+        if (y + (dy * speed * diagonalFactor ) > 2) {
+            return false;
+        } else if (y + (dy * speed * diagonalFactor ) < -2.2) {
+            return false;
+        } else if (x + (dx * speed * diagonalFactor ) > 4) {
+            return false;
+        } else if (x + (dx * speed * diagonalFactor ) < -3.8) {
+            return false;
+        }
+
+        //System.out.println(x + " " + y);
+
+        return true;
     }
 
     public void killed() {

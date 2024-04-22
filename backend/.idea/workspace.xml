@@ -5,15 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/ApplicationContextHolder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/KillCooldown.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -122,7 +115,7 @@
     &quot;Spring Boot.StompWebsocketPlayerManager.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketVotingManager.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;collision&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/votingManager/src/main/java/votingManager/extern&quot;,
@@ -231,18 +224,17 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
+        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>
   </component>
@@ -288,6 +280,8 @@
       <workItem from="1713523480449" duration="16164000" />
       <workItem from="1713613780613" duration="12496000" />
       <workItem from="1713719983918" duration="5089000" />
+      <workItem from="1713784755426" duration="75000" />
+      <workItem from="1713784839462" duration="1965000" />
     </task>
     <servers />
   </component>
