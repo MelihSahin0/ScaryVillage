@@ -120,8 +120,6 @@ public class Player {
 
     public boolean isMoveable(int dx, int dy, double diagonalFactor) {
 
-
-
         //World border
         if (y + (dy * speed * diagonalFactor ) > 2) {
             return false;
@@ -133,7 +131,6 @@ public class Player {
             return false;
         }
 
-
         System.out.println(x + " " + y);
 
         return true;
@@ -141,37 +138,36 @@ public class Player {
 
     private boolean isCollidingWithWalls(double newX, double newY) {
         for (Wall wall : Map.getWalls()) {
-            // Check collision with each side of the wall
 
             // Check collision with left side
             if (newX >= wall.getStartX() && newX <= wall.getStartX() + 0.01 && // Add a small tolerance for precision issues
                     newY >= Math.min(wall.getStartY(), wall.getEndY()) &&
                     newY <= Math.max(wall.getStartY(), wall.getEndY())) {
-                return true; // Collision detected
+                return true;
             }
 
             // Check collision with right side
             if (newX <= wall.getEndX() && newX >= wall.getEndX() - 0.01 && // Add a small tolerance for precision issues
                     newY >= Math.min(wall.getStartY(), wall.getEndY()) &&
                     newY <= Math.max(wall.getStartY(), wall.getEndY())) {
-                return true; // Collision detected
+                return true;
             }
 
             // Check collision with top side
             if (newY >= wall.getStartY() && newY <= wall.getStartY() + 0.01 && // Add a small tolerance for precision issues
                     newX >= Math.min(wall.getStartX(), wall.getEndX()) &&
                     newX <= Math.max(wall.getStartX(), wall.getEndX())) {
-                return true; // Collision detected
+                return true;
             }
 
             // Check collision with bottom side
             if (newY <= wall.getEndY() && newY >= wall.getEndY() - 0.01 && // Add a small tolerance for precision issues
                     newX >= Math.min(wall.getStartX(), wall.getEndX()) &&
                     newX <= Math.max(wall.getStartX(), wall.getEndX())) {
-                return true; // Collision detected
+                return true;
             }
         }
-        return false; // No collision detected
+        return false;
     }
 
     public void killed() {
