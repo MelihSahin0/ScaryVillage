@@ -2,7 +2,6 @@ package playerManager;
 
 import playerManager.extern.PlayerManagerController;
 import playerManager.extern.jsonDataTransferTypes.BellCooldown;
-import playerManager.extern.jsonDataTransferTypes.KillCooldown;
 
 import java.util.HashMap;
 import java.util.concurrent.Executors;
@@ -36,11 +35,11 @@ public class Lobby {
         return allowedToBellIn;
     }
 
-    public void startBellCooldown(String lobbyId) {
+    public void startBellCooldown(String lobbyId, int cooldownOffset) {
         if (executorServiceKillCooldown != null) {
             executorServiceKillCooldown.shutdown();
         }
-        allowedToBellIn = bellCooldown;
+        allowedToBellIn = bellCooldown + cooldownOffset;
         executorServiceKillCooldown = Executors.newSingleThreadScheduledExecutor();
         executorServiceKillCooldown.scheduleAtFixedRate(() -> {
             if (allowedToBellIn > 0) {

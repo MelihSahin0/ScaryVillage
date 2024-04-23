@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="&quot;&quot;">
-      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/BellCooldown.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/GameFinished.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/Utility.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobby.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/emergency.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Emergency.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Emergency.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Emergency.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -291,7 +287,8 @@
       <workItem from="1713523480449" duration="16164000" />
       <workItem from="1713613780613" duration="12496000" />
       <workItem from="1713719983918" duration="5178000" />
-      <workItem from="1713806053006" duration="4777000" />
+      <workItem from="1713806053006" duration="4821000" />
+      <workItem from="1713858741684" duration="6333000" />
     </task>
     <servers />
   </component>

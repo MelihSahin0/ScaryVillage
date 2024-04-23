@@ -2,6 +2,7 @@ import * as THREE from "three";
 import React, {useEffect, useState} from "react";
 import {Publish, SubscribeBellCooldown, UnsubscribeBellCooldown,} from "../PlayermanagerSocket";
 import {Player} from "../PlayerManager";
+import {calculateInsideBellDistance} from "../Utility";
 
 type Props = {
     lobbyId: string;
@@ -13,7 +14,9 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
 
     const [isHovered, setIsHovered] = useState(false);
     const [bellCooldown, setBellCooldown] = useState<number>()
-    
+    const [insideBellDistance, setInsideBellDistance] = useState<boolean>();
+    const meshPosition = new THREE.Vector3(0.1, 0.2, -1);
+
     const handlePointerOver = () => {
         setIsHovered(true);
     };
@@ -37,31 +40,34 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
     useEffect(() => {
         if (myPlayer?.role === "imposter" || myPlayer?.role === "crewmate"){
             const cooldown = (message: any) => {
-                console.log(parseInt(message.bellCooldown))
                 setBellCooldown(parseInt(message.bellCooldown));
-                console.log(bellCooldown)
             }
             SubscribeBellCooldown(cooldown);
         } else {
-            setBellCooldown(100);
             UnsubscribeBellCooldown();
         }
         return () => {
             UnsubscribeBellCooldown();
         }
-    }, [myPlayer]);
+    }, [myPlayer?.role]);
+
+    useEffect(() => {
+        if (myPlayer !== null && myPlayer !== undefined) {
+            setInsideBellDistance(calculateInsideBellDistance(meshPosition, myPlayer));
+        }
+    }, [myPlayer?.x, myPlayer?.y]);
 
     return (
         <group>
-            <mesh position={new THREE.Vector3(0.1, 0.2, -1)} onClick={handleClick}
+            <mesh position={meshPosition} onClick={handleClick}
                   onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
                 <boxGeometry args={[0.6, 0.5, 1]}/>
                 <meshBasicMaterial transparent/>
             </mesh>
-            <group visible={isHovered && bellCooldown === 0 && (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter")}>
+            <group visible={isHovered && bellCooldown == 0 && (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter")}>
                 <lineSegments position={[0.1, 0.2, 1]}>
                     <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.6, 0.5, 1)]}/>
-                    <lineBasicMaterial attach="material" color={0xFFFF00}/>
+                    <lineBasicMaterial attach="material" color={insideBellDistance ? 0xFFFF00 : 0x808080 }/>
                 </lineSegments>
             </group>
         </group>

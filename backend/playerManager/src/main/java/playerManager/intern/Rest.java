@@ -28,7 +28,7 @@ public class Rest {
             playerManager.Player inGamePlayer = new playerManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(), 0,0,player.getValue().getRole(), 10);
             lobby.addPlayer(inGamePlayer);
         }
-        lobby.startBellCooldown(message.getLobbyId());
+        lobby.startBellCooldown(message.getLobbyId(), 2);
         Lobbies.addLobby(message.getLobbyId(), lobby);
     }
 
@@ -55,7 +55,7 @@ public class Rest {
             player1.setRole(player.getValue().getRole());
             player1.setColor(player.getValue().getColor());
         }
-        lobby.startBellCooldown(message.getLobbyId());
+        lobby.startBellCooldown(message.getLobbyId(),10);
     }
 
 

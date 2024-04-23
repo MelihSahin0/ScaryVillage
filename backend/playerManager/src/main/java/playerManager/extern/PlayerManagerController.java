@@ -72,7 +72,12 @@ public class PlayerManagerController {
 		}
 
 		if ( killer.getRole() == Roles.IMPOSTER && victim.getRole() == Roles.CREWMATE && killer.getAllowedToKillIn() == 0) {
-			//TODO In the feature look out for the distance
+
+			double distance = Math.sqrt(Math.pow(victim.getX() - killer.getX(),2) + Math.pow(victim.getY() - killer.getY(),2));
+			if (distance > 0.4){
+				return null;
+			}
+
 			victim.setColor(Colors.BLACK);
 			victim.killed();
 
@@ -123,26 +128,28 @@ public class PlayerManagerController {
 
 		if (message.getToPlayerId().equals("emergency")){
 			if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
-				//TODO In the feature look out for the distance
-				Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
-				return "{\"response\": \"" + true + "\"}";
-			} else {
-				return null;
-			}
-		} else {
+				double distance = Math.sqrt(Math.pow(0.1 - reporter.getX(),2) + Math.pow(0.2 - reporter.getY(),2));
+				if (distance <= 0.6){
+					Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
+					return "{\"response\": \"" + true + "\"}";
+				}
+            }
+            return null;
+        } else {
 			Player victim = lobby.getPlayers().get(message.getToPlayerId());;
 
 			if (reporter == null || victim == null){
 				return null;
 			}
 			if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
-				//TODO In the feature look out for the distance
-				Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
-				return "{\"response\": \"" + true + "\"}";
-			} else {
-				return null;
-			}
-		}
+				double distance = Math.sqrt(Math.pow(victim.getX() - reporter.getX(),2) + Math.pow(victim.getY() - reporter.getY(),2));
+				if (distance <= 0.4){
+					Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
+					return "{\"response\": \"" + true + "\"}";
+				}
+            }
+            return null;
+        }
 	}
 }
 
