@@ -35,6 +35,10 @@ public class Lobby {
         this.players.put(player.getId(), player);
     }
 
+    public void setTimeLeft(int timeLeft) {
+        this.timeLeft = timeLeft;
+    }
+
     public void startTimer() {
         if (executorService != null) {
             executorService.shutdown();

@@ -97,9 +97,12 @@ public class Rest {
                 String.class);
     }
 
-    public static void addLobby(String lobbyId, HashMap<String, Player> players){
+    public static void addLobby(String lobbyId, HashMap<String, Player> players, int bellCooldown, int killCooldown, int votingTime){
         LobbyIdPlayerHashMap lobbyIdPlayerHashMap = new LobbyIdPlayerHashMap();
         lobbyIdPlayerHashMap.setLobbyId(lobbyId);
+        lobbyIdPlayerHashMap.setBellCooldown(bellCooldown);
+        lobbyIdPlayerHashMap.setKillCooldown(killCooldown);
+        lobbyIdPlayerHashMap.setVotingTime(votingTime);
 
         for(Player player : players.values()){
             lobbyIdPlayerHashMap.setPlayer(player.getId(), new intern.Player(player.getId(),player.getName(),player.getColor(),player.getRole()));

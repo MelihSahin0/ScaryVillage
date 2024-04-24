@@ -130,7 +130,7 @@ public class PlayerManagerController {
 			if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
 				double distance = Math.sqrt(Math.pow(0.1 - reporter.getX(),2) + Math.pow(0.2 - reporter.getY(),2));
 				if (distance <= 0.6){
-					Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
+					Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId(), lobby.getVotingTime());
 					return "{\"response\": \"" + true + "\"}";
 				}
             }
@@ -144,7 +144,7 @@ public class PlayerManagerController {
 			if ( reporter.getRole() == Roles.IMPOSTER || reporter.getRole() == Roles.CREWMATE) {
 				double distance = Math.sqrt(Math.pow(victim.getX() - reporter.getX(),2) + Math.pow(victim.getY() - reporter.getY(),2));
 				if (distance <= 0.4){
-					Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId());
+					Rest.startVoting(message.getLobbyId(), lobby.getPlayers(), message.getFromPlayerId(), lobby.getVotingTime());
 					return "{\"response\": \"" + true + "\"}";
 				}
             }

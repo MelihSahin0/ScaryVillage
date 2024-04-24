@@ -13,6 +13,7 @@ public class Lobby {
     private final HashMap<String, Player> players = new HashMap<>();
     private final int bellCooldown;
     private int allowedToBellIn;
+    private int votingTime;
     private ScheduledExecutorService executorServiceKillCooldown;
 
     public Lobby(int bellCooldown) {
@@ -29,6 +30,14 @@ public class Lobby {
 
     public void addPlayer(Player player) {
         this.players.put(player.getId(), player);
+    }
+
+    public int getVotingTime() {
+        return votingTime;
+    }
+
+    public void setVotingTime(int votingTime) {
+        this.votingTime = votingTime;
     }
 
     public int getAllowedToBellIn() {
