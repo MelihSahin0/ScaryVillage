@@ -7,7 +7,8 @@
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="&quot;&quot;">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -227,8 +228,8 @@
       <list>
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
   </component>
@@ -286,7 +287,8 @@
       <workItem from="1713858741684" duration="7951000" />
       <workItem from="1713947985514" duration="3014000" />
       <workItem from="1713955656614" duration="1922000" />
-      <workItem from="1713957766198" duration="1475000" />
+      <workItem from="1713957766198" duration="3128000" />
+      <workItem from="1713966515168" duration="1258000" />
     </task>
     <servers />
   </component>

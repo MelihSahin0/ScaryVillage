@@ -30,7 +30,7 @@ public class Player {
         this.color = color;
         this.x = x;
         this.y = y;
-        this.speed = 1;
+        this.speed = 0.9;
         this.role = role;
         this.killCooldown = killCooldown;
     }

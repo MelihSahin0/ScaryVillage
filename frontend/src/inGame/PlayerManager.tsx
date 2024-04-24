@@ -34,14 +34,14 @@ type Props = {
     setGameState(newState: gameState): void;
     setWinner(setWinner: role): void;
     myPlayer: Player | undefined;
-    setMyPlayer(setMyPlayerMap: Player): void;
+    setMyPlayer(setMyPlayer: Player): void;
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer, setMyPlayer}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer ,setMyPlayer}: Props){
 
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [killCooldown, setKillCooldown] = useState(0);
-    
+
     useEffect(() => {
         SubscribeToLobby(lobbyId);
     }, [lobbyId]);
@@ -110,7 +110,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
         return () => {
             UnsubscribePlayerMovement();
         }
-    }, [])
+    }, [myPlayer?.role])
 
     useEffect(() => {
         if (myPlayer?.role === "imposter"){
@@ -126,7 +126,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
 
     useEffect(() => {
         const kill = (message: any) => {
-            let updateMyPlayerMap: Player;
+            let updateMyPlayerMap: Player | undefined;
             if (Object.prototype.hasOwnProperty.call(message, "gameFinished") && message.gameFinished === true) {
                 setWinner("imposter");
                 setGameState("lobby")
@@ -139,8 +139,8 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                     return prevPlayers.map((player) => {
                         if (player.id === message.id) {
                             if (player.id === myPlayerId) {
-                                myPlayer!.role = message.role;
-                                updateMyPlayerMap = myPlayer!;
+                                updateMyPlayerMap = player!;
+                                updateMyPlayerMap.role = message.role;
                             }
                             id = player.id;
                             x = player.x;
@@ -172,13 +172,15 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                     }
                 ]);
             }
-            setMyPlayer(updateMyPlayerMap!);
-        };
+            if (updateMyPlayerMap != undefined) {
+                setMyPlayer(updateMyPlayerMap!);
+            }
+        }
         SubscribeKill(kill);
         return () => {
             UnsubscribeKill();
         }
-    }, [myPlayer?.role, setWinner]);
+    }, []);
 
     useEffect(() => {
         const report = () => {
@@ -189,7 +191,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
             UnsubscribeReport();
         }
     }, []);
-    
+
     useEffect(() => {
         setTimeout(() => {
             const sendMyLobbyId = {

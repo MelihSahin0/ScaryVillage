@@ -16,7 +16,6 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
 
     const [previousX, setPreviousX] = useState(0)
     const [previousY, setPreviousY] = useState(0)
-
     useEffect(() => {
         if (myPlayer !== undefined){
             setPreviousX(myPlayer!.x);
