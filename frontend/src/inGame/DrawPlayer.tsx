@@ -20,7 +20,7 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown}: P
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
 
-    useFrame(() => {
+    useFrame((_, delta) => {
         const keyPress = [];
 
         keyMap['KeyA'] && (keyPress.push("a"))
@@ -32,6 +32,7 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown}: P
             const movementData = {
                 lobbyId: lobbyId,
                 playerId: myPlayer?.id,
+                deltaTime: delta,
                 movement: keyPress
             };
 

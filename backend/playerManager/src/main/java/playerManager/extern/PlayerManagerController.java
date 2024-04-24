@@ -13,8 +13,6 @@ import playerManager.Lobby;
 import playerManager.extern.jsonDataTransferTypes.*;
 import playerManager.intern.Rest;
 
-import java.util.*;
-
 @RestController
 public class PlayerManagerController {
 
@@ -41,7 +39,7 @@ public class PlayerManagerController {
 		Lobby lobby = Lobbies.getLobby(message.getLobbyId());
 		Player player = lobby.getPlayer(message.getPlayerId());
 		if (player != null){
-			player.initiateMove(message.getMovement());
+			player.initiateMove(message.getMovement(), message.getDeltaTime());
 			return player.toString();
 		}
 

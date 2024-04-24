@@ -2,7 +2,7 @@ import {OrthographicCamera} from "@react-three/drei";
 import Map from "./Map";
 import PlayerManager, {Player} from "./PlayerManager";
 import {gameState, role} from "../types";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 type Props = {
     lobbyId: string;
@@ -12,12 +12,22 @@ type Props = {
 }
 
 export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: Props){
-
     const [myPlayer, setMyPlayer] = useState<Player>();
+
+    const [previousX, setPreviousX] = useState(0)
+    const [previousY, setPreviousY] = useState(0)
+
+    useEffect(() => {
+        if (myPlayer !== undefined){
+            setPreviousX(myPlayer!.x);
+            setPreviousY(myPlayer!.y);
+        }
+
+    }, [myPlayer?.x, myPlayer?.y]);
 
     return (
         <>
-            <OrthographicCamera position={[myPlayer ? myPlayer.x : 0, myPlayer ? myPlayer.y : 0, 10]} makeDefault zoom={500}/>
+            <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={500}/>
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
             <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>

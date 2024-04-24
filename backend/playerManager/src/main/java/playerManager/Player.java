@@ -30,7 +30,7 @@ public class Player {
         this.color = color;
         this.x = x;
         this.y = y;
-        this.speed = 0.01;
+        this.speed = 1;
         this.role = role;
         this.killCooldown = killCooldown;
     }
@@ -79,7 +79,7 @@ public class Player {
         return allowedToKillIn;
     }
 
-    public void initiateMove(String[] stringArray) {
+    public void initiateMove(String[] stringArray, double deltaTime) {
 
         double diagonalFac = 1;
         if (stringArray.length > 1) {
@@ -89,26 +89,26 @@ public class Player {
         for (String str : stringArray) {
             switch (str) {
                 case "w":
-                    move(0, 1, diagonalFac);
+                    move(0, 1, diagonalFac, deltaTime);
                     break;
                 case "s":
-                    move(0, -1, diagonalFac);
+                    move(0, -1, diagonalFac, deltaTime);
                     break;
                 case "a":
-                    move(-1, 0, diagonalFac);
+                    move(-1, 0, diagonalFac, deltaTime);
                     break;
                 case "d":
-                    move(1, 0, diagonalFac);
+                    move(1, 0, diagonalFac, deltaTime);
                     break;
             }
         }
     }
 
-    public void move(int dx, int dy, double diagonalFactor) {
+    public void move(int dx, int dy, double diagonalFactor, double deltaTime) {
 
-         if (isMoveable(dx, dy, diagonalFactor)) {
-            double newX = x + dx * speed * diagonalFactor;
-            double newY = y + dy * speed * diagonalFactor;
+         if (isMoveable(dx, dy, diagonalFactor, deltaTime)) {
+            double newX = x + dx * speed * diagonalFactor * deltaTime;
+            double newY = y + dy * speed * diagonalFactor * deltaTime;
 
             // Check collision with walls
             if (!isCollidingWithWalls(newX, newY)) {
@@ -118,16 +118,16 @@ public class Player {
         }
     }
 
-    public boolean isMoveable(int dx, int dy, double diagonalFactor) {
+    public boolean isMoveable(int dx, int dy, double diagonalFactor, double deltaTime) {
 
         //World border
-        if (y + (dy * speed * diagonalFactor ) > 2) {
+        if (y + (dy * speed * diagonalFactor * deltaTime) > 2) {
             return false;
-        } else if (y + (dy * speed * diagonalFactor ) < -2.2) {
+        } else if (y + (dy * speed * diagonalFactor * deltaTime) < -2.2) {
             return false;
-        } else if (x + (dx * speed * diagonalFactor ) > 4) {
+        } else if (x + (dx * speed * diagonalFactor * deltaTime) > 4) {
             return false;
-        } else if (x + (dx * speed * diagonalFactor ) < -3.8) {
+        } else if (x + (dx * speed * diagonalFactor * deltaTime) < -3.8) {
             return false;
         }
 
