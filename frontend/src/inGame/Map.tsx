@@ -13,6 +13,8 @@ type Props = {
 export default function Map({lobbyId, myPlayerId, myPlayer}: Props){
 
     const texture = useLoader(TextureLoader, 'src/Images/newMap.png');
+    texture.magFilter = THREE.NearestFilter;
+    texture.minFilter = THREE.NearestFilter;
     return (
         <group>
             <mesh position={new THREE.Vector3(0, 0, 0)}>
