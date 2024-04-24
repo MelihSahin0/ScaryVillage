@@ -107,6 +107,25 @@ export function UnsubscribeKillCooldown(){
     StartConnection();
 }
 
+export function SubscribeBellCooldown(report: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        id: 5,
+        destination: "/subscribe/bellCooldown/" + lobbyId,
+        function: report
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    StartConnection();
+}
+export function UnsubscribeBellCooldown(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 5);
+    StartConnection();
+}
+
 function StartConnection(){
     client.deactivate().then();
     client.configure({

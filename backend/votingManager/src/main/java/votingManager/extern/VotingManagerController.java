@@ -22,7 +22,6 @@ import java.util.Map;
 @RestController
 public class VotingManagerController {
 
-    private static final Logger log = LoggerFactory.getLogger(VotingManagerController.class);
     //When Endpoints can be called internally too, use this. (Reference: removePlayer)
     private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
 

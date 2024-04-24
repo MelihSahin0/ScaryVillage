@@ -1,11 +1,12 @@
 import {Player} from "./PlayerManager";
-import React, {useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {useFrame, useLoader} from "@react-three/fiber";
 import {BufferGeometry, Mesh, NormalBufferAttributes, TextureLoader} from "three";
 import {Publish} from "./PlayermanagerSocket";
 import useKeyboard from "./KeyBoard";
 import { Text } from '@react-three/drei';
 import * as THREE from 'three';
+import {calculateInsideClickRange} from "./Utility";
 
 
 type Props = {
@@ -59,6 +60,13 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
     const [isHovered, setIsHovered] = useState(false);
+    const [insideClickRange, setInsideClickRange] = useState<boolean>()
+
+    useEffect(() => {
+        if (myPlayer !== null && myPlayer !== undefined) {
+            setInsideClickRange(calculateInsideClickRange(player, myPlayer));
+        }
+    }, [player.x, player.y, myPlayer?.x, myPlayer?.y]);
 
     const handlePointerOver = () => {
         setIsHovered(true);
@@ -66,6 +74,7 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
 
     const handlePointerOut = () => {
         setIsHovered(false);
+        setInsideClickRange(false);
     };
 
     const handleClick = () => {
@@ -96,7 +105,7 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
                 <group visible={isHovered && killCooldown === 0}>
                     <lineSegments position={[player.x,player.y,player.z]}>
                         <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />
-                        <lineBasicMaterial attach="material" color={0xFF0000} />
+                        <lineBasicMaterial attach="material" color={insideClickRange ? 0xFF0000 : 0x808080} />
                     </lineSegments>
                 </group>
             ): null}
@@ -104,7 +113,7 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
                 <group visible={isHovered}>
                     <lineSegments position={[player.x,player.y,player.z]}>
                         <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />
-                        <lineBasicMaterial attach="material" color={0xFFFF00} />
+                        <lineBasicMaterial attach="material" color={insideClickRange ? 0xFFFF00 : 0x808080} />
                     </lineSegments>
                 </group>
             ): null}
