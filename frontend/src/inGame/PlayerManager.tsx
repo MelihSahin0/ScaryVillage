@@ -31,16 +31,15 @@ export type Player = {
 type Props = {
     lobbyId: string,
     myPlayerId: string,
-    players: Array<Player>,
-    setPlayers: any,
     setGameState(newState: gameState): void;
     setWinner(setWinner: role): void;
-    setMyPlayerMap(setMyPlayerMap: Player): void;
+    myPlayer: Player | undefined;
+    setMyPlayer(setMyPlayerMap: Player): void;
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, setMyPlayerMap}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer, setMyPlayer}: Props){
 
-    const [myPlayer, setMyPlayer] = useState<Player>()
+    const [players, setPlayers] = useState<Array<Player>>([]);
     const [killCooldown, setKillCooldown] = useState(0);
     
     useEffect(() => {
@@ -66,7 +65,6 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                 if (message.id === myPlayerId){
                     foundMyPlayer = true;
                     setMyPlayer(newPlayer);
-                    setMyPlayerMap(newPlayer);
                 }
                 updatedPlayers.push(newPlayer);
             });
@@ -107,7 +105,6 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                 });
             });
             setMyPlayer(myUpdatedPlayer);
-            setMyPlayerMap(myUpdatedPlayer);
         };
         SubscribePlayerMovement(updatePlayer);
         return () => {
@@ -175,7 +172,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                     }
                 ]);
             }
-            setMyPlayerMap(updateMyPlayerMap!);
+            setMyPlayer(updateMyPlayerMap!);
         };
         SubscribeKill(kill);
         return () => {

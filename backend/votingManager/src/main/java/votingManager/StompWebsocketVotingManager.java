@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StompWebsocketPlayerManager {
+public class StompWebsocketVotingManager {
 
 	public static void main(String[] args) {
 
-		SpringApplication.run(StompWebsocketPlayerManager.class, args);
+		SpringApplication.run(StompWebsocketVotingManager.class, args);
 	}
 }
