@@ -32,7 +32,7 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown}: P
             const movementData = {
                 lobbyId: lobbyId,
                 playerId: myPlayer?.id,
-                deltaTime: delta,
+                deltaTime: Math.round(delta * 10000) / 10000,
                 movement: keyPress
             };
 

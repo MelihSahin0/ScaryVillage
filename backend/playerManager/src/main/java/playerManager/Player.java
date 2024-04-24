@@ -105,7 +105,6 @@ public class Player {
     }
 
     public void move(int dx, int dy, double diagonalFactor, double deltaTime) {
-
          if (isMoveable(dx, dy, diagonalFactor, deltaTime)) {
             double newX = x + dx * speed * diagonalFactor * deltaTime;
             double newY = y + dy * speed * diagonalFactor * deltaTime;
