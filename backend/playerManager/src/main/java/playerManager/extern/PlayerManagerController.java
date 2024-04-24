@@ -134,7 +134,6 @@ public class PlayerManagerController {
 					return "{\"response\": \"" + true + "\"}";
 				}
             }
-            return null;
         } else {
 			Player victim = lobby.getPlayers().get(message.getToPlayerId());;
 
@@ -148,8 +147,8 @@ public class PlayerManagerController {
 					return "{\"response\": \"" + true + "\"}";
 				}
             }
-            return null;
         }
-	}
+        return null;
+    }
 }
 
