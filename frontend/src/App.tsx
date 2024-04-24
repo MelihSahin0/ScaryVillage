@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Canvas, useFrame, useThree} from '@react-three/fiber';
+import {Canvas} from '@react-three/fiber';
 import {gameState, role} from "./types";
 import StartingScreen from "./startingScreen/StartingScreen";
 import InGame from "./inGame/InGame";
@@ -24,25 +24,4 @@ export default function App() {
             {gameState === 'voting' && <Voting lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner}/>}
         </>
     );
-}
-
-//TODO
-function CameraMovement() {
-    const {camera} = useThree();
-
-    React.useLayoutEffect(() => {
-        camera.rotation.order = 'YXZ'
-        camera.rotation.y = -Math.PI / 4
-        camera.rotation.x = Math.atan(-1 / Math.sqrt(2))
-        camera.translateZ(100)
-    }, [camera]);
-
-    // Move the camera
-    useFrame(() => {
-        if (camera && camera.position) { // Ensure camera and camera.position are not null
-            camera.position.x += 0;
-        }
-    });
-
-    return null;
 }

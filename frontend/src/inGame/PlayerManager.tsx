@@ -31,6 +31,8 @@ export type Player = {
 type Props = {
     lobbyId: string,
     myPlayerId: string,
+    players: Array<Player>,
+    setPlayers: any,
     setGameState(newState: gameState): void;
     setWinner(setWinner: role): void;
     setMyPlayerMap(setMyPlayerMap: Player): void;
@@ -38,7 +40,6 @@ type Props = {
 
 export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, setMyPlayerMap}: Props){
 
-    const [players, setPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player>()
     const [killCooldown, setKillCooldown] = useState(0);
     

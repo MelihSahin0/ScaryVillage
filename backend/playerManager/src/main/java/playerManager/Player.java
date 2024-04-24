@@ -2,13 +2,9 @@ package playerManager;
 
 import extern.enumarators.Colors;
 import extern.enumarators.Roles;
-import lobbyManager.extern.LobbyController;
-import lobbyManager.extern.jsonDataTransferTypes.RemovePlayer;
 import playerManager.extern.PlayerManagerController;
 import playerManager.extern.jsonDataTransferTypes.KillCooldown;
 
-import javax.swing.text.Position;
-import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,6 +21,8 @@ public class Player {
     private int allowedToKillIn;
 
     private ScheduledExecutorService executorServiceKillCooldown;
+
+    Map m = new Map();
 
     public Player(String id, String name, Colors color, int x, int y, Roles role, int killCooldown) {
         this.id = id;
@@ -107,8 +105,69 @@ public class Player {
     }
 
     public void move(int dx, int dy, double diagonalFactor) {
-        x += dx * speed * diagonalFactor;
-        y += dy * speed * diagonalFactor;
+
+         if (isMoveable(dx, dy, diagonalFactor)) {
+            double newX = x + dx * speed * diagonalFactor;
+            double newY = y + dy * speed * diagonalFactor;
+
+            // Check collision with walls
+            if (!isCollidingWithWalls(newX, newY)) {
+                x = newX;
+                y = newY;
+            }
+        }
+    }
+
+    public boolean isMoveable(int dx, int dy, double diagonalFactor) {
+
+        //World border
+        if (y + (dy * speed * diagonalFactor ) > 2) {
+            return false;
+        } else if (y + (dy * speed * diagonalFactor ) < -2.2) {
+            return false;
+        } else if (x + (dx * speed * diagonalFactor ) > 4) {
+            return false;
+        } else if (x + (dx * speed * diagonalFactor ) < -3.8) {
+            return false;
+        }
+
+        System.out.println(x + " " + y);
+
+        return true;
+    }
+
+    private boolean isCollidingWithWalls(double newX, double newY) {
+        for (Wall wall : Map.getWalls()) {
+
+            // Check collision with left side
+            if (newX >= wall.getStartX() && newX <= wall.getStartX() + 0.01 && // Add a small tolerance for precision issues
+                    newY >= Math.min(wall.getStartY(), wall.getEndY()) &&
+                    newY <= Math.max(wall.getStartY(), wall.getEndY())) {
+                return true;
+            }
+
+            // Check collision with right side
+            if (newX <= wall.getEndX() && newX >= wall.getEndX() - 0.01 && // Add a small tolerance for precision issues
+                    newY >= Math.min(wall.getStartY(), wall.getEndY()) &&
+                    newY <= Math.max(wall.getStartY(), wall.getEndY())) {
+                return true;
+            }
+
+            // Check collision with top side
+            if (newY >= wall.getStartY() && newY <= wall.getStartY() + 0.01 && // Add a small tolerance for precision issues
+                    newX >= Math.min(wall.getStartX(), wall.getEndX()) &&
+                    newX <= Math.max(wall.getStartX(), wall.getEndX())) {
+                return true;
+            }
+
+            // Check collision with bottom side
+            if (newY <= wall.getEndY() && newY >= wall.getEndY() - 0.01 && // Add a small tolerance for precision issues
+                    newX >= Math.min(wall.getStartX(), wall.getEndX()) &&
+                    newX <= Math.max(wall.getStartX(), wall.getEndX())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public void killed() {

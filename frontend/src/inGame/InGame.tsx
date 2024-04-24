@@ -15,6 +15,18 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
 
     const [myPlayer, setMyPlayer] = useState<Player>();
 
+    const [players, setPlayers] = useState<Array<Player>>([]);
+
+    let myPlayerX: number = 0;
+    let myPlayerY: number = 0;
+
+    for (let i = 0; i < players.length; i++) {
+        if (players[i].id === myPlayerId) {
+            myPlayerX = players[i].x;
+            myPlayerY = players[i].y;
+        }
+    }
+
     return (
         <>
             <OrthographicCamera position={[0, 0, 10]} makeDefault zoom={100}/>
