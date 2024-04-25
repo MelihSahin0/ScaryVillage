@@ -21,6 +21,24 @@ const visibilityOptions = [
     {value: 1, label: 'PUBLIC'}
 ]
 
+const cooldownOptions = [
+    { value: 5, label: '5' },
+    { value: 6, label: '6' },
+    { value: 7, label: '7' },
+    { value: 8, label: '8' },
+    { value: 9, label: '9' },
+    { value: 10, label: '10' }
+]
+
+const timerOptions =  [
+    { value: 10, label: '10' },
+    { value: 20, label: '20' },
+    { value: 30, label: '30' },
+    { value: 40, label: '40' },
+    { value: 50, label: '50' },
+    { value: 60, label: '60' }
+]
+
 type Props = {
     lobbyId: string,
     maxNumberOfPlayers: number
@@ -30,12 +48,18 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
     const [selectedVisibility, setSelectedVisibility] = useState(visibilityOptions[0]);
     const [selectedMaxNumberOfPlayer, setSelectedMaxNumberOfPlayer] = useState(playerOptions[5]);
     const [selectedImpostorOption, setSelectedImpostorOption] = useState(imposterOption[0]);
+    const [selectedKillCooldown, setKillCooldown] = useState(cooldownOptions[5]);
+    const [selectedBellCooldown, setBellCooldown] = useState(cooldownOptions[5]);
+    const [selectedVotingTimerOptions, setVotingTimerOptions] = useState(timerOptions[5]);
 
     useEffect(() => {
         const getSettings = (message: any) => {
             setSelectedVisibility(visibilityOptions.find((option) => option.label === message.visibility.toUpperCase())!);
             setSelectedMaxNumberOfPlayer(playerOptions.find((option) => option.label === message.maxNumberOfPlayers)!);
             setSelectedImpostorOption(imposterOption.find((option) => option.label === message.maxImposter)!);
+            setKillCooldown(cooldownOptions.find((option) => option.label === message.killCooldownTime)!);
+            setBellCooldown(cooldownOptions.find((option) => option.label === message.bellCooldownTime)!);
+            setVotingTimerOptions(timerOptions.find((option) => option.label === message.votingTime)!);
         }
         SubscribeGetLobbySettings(getSettings);
         return () => {
@@ -103,6 +127,52 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                            Publish("/send/setNumberOfImpostor", JSON.stringify(setNumberOfImpostor));
                         }
                 }/>
+            </div>
+            <div className="flex">
+                <p className="w-52 pt-2 text-white">Kill cooldown in sec:</p>
+                <Select className="-ml-8 flex rounded"
+                        options={cooldownOptions}
+                        value={selectedKillCooldown}
+                        onChange={(event) => {
+                            //setKillCooldown(cooldownOptions[event!.value]);
+                            const setKillCooldown = {
+                                lobbyId: lobbyId,
+                                killCooldownTime: event!.value
+                            }
+
+                            Publish("/send/setKillCooldown", JSON.stringify(setKillCooldown));
+                        }}/>
+
+            </div>
+            <div className="flex">
+                <p className="w-52 pt-2 text-white">Bell cooldown in sec:</p>
+                <Select className="-ml-8 flex rounded"
+                        options={cooldownOptions}
+                        value={selectedBellCooldown}
+                        onChange={(event) => {
+                            const setBellCooldown = {
+                                lobbyId: lobbyId,
+                                bellCooldownTime: event!.value
+                            }
+
+                            Publish("/send/setBellCooldown", JSON.stringify(setBellCooldown));
+                        }}/>
+
+            </div>
+            <div className="flex">
+                <p className="w-52 pt-2 text-white">Timer for voting in sec:</p>
+                <Select className="-ml-8 flex rounded"
+                        options={timerOptions}
+                        value={selectedVotingTimerOptions}
+                        onChange={(event) => {
+                            const setVotingTime = {
+                                lobbyId: lobbyId,
+                                votingTime: event!.value
+                            }
+
+                            Publish("/send/setVotingTime", JSON.stringify(setVotingTime));
+                        }}/>
+
             </div>
         </div>
     )

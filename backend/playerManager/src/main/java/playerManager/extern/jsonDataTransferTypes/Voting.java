@@ -3,7 +3,7 @@ package playerManager.extern.jsonDataTransferTypes;
 public class Voting {
 
     private String lobbyId = "";
-    private String fromPlayerId = "";
+    private String fromPlayerId = "  ";
     private String toPlayerId = "";
     private boolean endVoting = false;
 

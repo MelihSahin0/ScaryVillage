@@ -108,7 +108,7 @@ public class LobbyController {
 
         if (message.getGameStatus() == GameStatus.INGAME) {
             lobby.setImposters();
-            Rest.addLobby(message.getLobbyId(), lobby.getPlayers());
+            Rest.addLobby(message.getLobbyId(), lobby.getPlayers(), lobby.getBellCooldownTime(), lobby.getKillCooldownTime(), lobby.getVotingTime());
             lobby.setEveryoneCrewmate();
         }
 
@@ -187,7 +187,27 @@ public class LobbyController {
     public String setNumberOfImpostor(ChangeNumberOfImpostor message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
         lobby.setMaxImposter(message.getNumberOfImpostor());
-
+        return lobby.toString();
+    }
+    @MessageMapping("/setKillCooldown/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String setKillCooldownTime(ChangeKillCooldown message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setKillCooldownTime(message.getKillCooldownTime());
+        return lobby.toString();
+    }
+    @MessageMapping("/setBellCooldown/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String setBellCooldownTime(ChangeBellCooldown message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setBellCooldownTime(message.getBellCooldownTime());
+        return lobby.toString();
+    }
+    @MessageMapping("/setVotingTime/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String setVotingTime(ChangeVotingTime message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setVotingTime(message.getVotingTime());
         return lobby.toString();
     }
 }

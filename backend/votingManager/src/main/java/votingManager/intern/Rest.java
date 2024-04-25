@@ -23,6 +23,7 @@ public class Rest {
     public void addLobby(@RequestBody LobbyIdPlayerHashMapString message) {
         Lobby lobby = new Lobby();
         lobby.setLobbyId(message.getLobbyId());
+        lobby.setTimeLeft(message.getVotingTime());
         for (Map.Entry<String, Player> player : message.getPlayers().entrySet()){
             votingManager.Player votingPlayer = new votingManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(),player.getValue().getRole());
             if (votingPlayer.getId().equals(message.getExtra())){

@@ -19,6 +19,9 @@ public class Lobby {
     private final HashMap<String, Player> players = new HashMap<>();
     private int maxNumberOfPlayers;
     private int maxImposter;
+    private int votingTime = 10;
+    private int killCooldownTime = 5;
+    private int bellCooldownTime = 5;
     private Visibility visibility;
     private ScheduledExecutorService executorService;
 
@@ -87,6 +90,30 @@ public class Lobby {
         } else {
             this.maxImposter = 1;
         }
+    }
+
+    public int getVotingTime() {
+        return votingTime;
+    }
+
+    public void setVotingTime(int votingTime) {
+        this.votingTime = votingTime;
+    }
+
+    public int getKillCooldownTime() {
+        return killCooldownTime;
+    }
+
+    public void setKillCooldownTime(int killCooldownTime) {
+        this.killCooldownTime = killCooldownTime;
+    }
+
+    public int getBellCooldownTime() {
+        return bellCooldownTime;
+    }
+
+    public void setBellCooldownTime(int bellCooldownTime) {
+        this.bellCooldownTime = bellCooldownTime;
     }
 
     public void startTimer() {
@@ -158,6 +185,9 @@ public class Lobby {
                 "\"maxNumberOfPlayers\": \"" + maxNumberOfPlayers +"\"" +
                 ", \"visibility\": \"" + visibility + "\"" +
                 ", \"maxImposter\": \"" + maxImposter + "\"" +
+                ", \"votingTime\": \"" + votingTime + "\"" +
+                ", \"killCooldownTime\": \"" + killCooldownTime + "\"" +
+                ", \"bellCooldownTime\": \"" + bellCooldownTime + "\"" +
                 '}';
     }
 

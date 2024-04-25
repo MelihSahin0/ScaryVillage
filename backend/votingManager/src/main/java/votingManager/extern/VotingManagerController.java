@@ -58,8 +58,8 @@ public class VotingManagerController {
 
         for (Player player : lobby.getPlayers().values()){
             switch(player.getRole()) {
-                case Roles.IMPOSTER -> imposter += 1;
-                case Roles.CREWMATE -> crewmate += 1;
+                case IMPOSTER -> imposter += 1;
+                case CREWMATE -> crewmate += 1;
             }
         }
 
