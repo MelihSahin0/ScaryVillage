@@ -2,7 +2,7 @@ import * as THREE from "three";
 import React, {useEffect, useState} from "react";
 import {Publish, SubscribeBellCooldown, UnsubscribeBellCooldown,} from "../PlayermanagerSocket";
 import {Player} from "../PlayerManager";
-import {calculateInsideBellDistance} from "../Utility";
+import {calculateInsideMeshDistance} from "../Utility";
 
 type Props = {
     lobbyId: string;
@@ -53,7 +53,7 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
 
     useEffect(() => {
         if (myPlayer !== null && myPlayer !== undefined) {
-            setInsideBellDistance(calculateInsideBellDistance(meshPosition, myPlayer));
+            setInsideBellDistance(calculateInsideMeshDistance(meshPosition, myPlayer));
         }
     }, [myPlayer?.x, myPlayer?.y]);
 
@@ -65,7 +65,7 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
                 <meshBasicMaterial transparent/>
             </mesh>
             <group visible={isHovered && bellCooldown == 0 && (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter")}>
-                <lineSegments position={[0.1, 0.2, 1]}>
+                <lineSegments position={[meshPosition.x, meshPosition.y, 1]}>
                     <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.6, 0.5, 1)]}/>
                     <lineBasicMaterial attach="material" color={insideBellDistance ? 0xFFFF00 : 0x808080 }/>
                 </lineSegments>

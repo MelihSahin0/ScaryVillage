@@ -6,3 +6,6 @@ export const colors = [
     'red', 'blue', 'green', 'orange', 'purple', 'cyan', 'pink',
     'lime', 'yellow', 'zinc'
 ];
+
+export type games = "Bin" | "Chicken" | "Chopping" | "Cooking" | "Fishing" |
+                    "Flooding" | "Fountain" | "Mining" | "Sleeping"

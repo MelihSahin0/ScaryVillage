@@ -4,7 +4,6 @@ import extern.enumarators.Colors;
 import extern.enumarators.Roles;
 import playerManager.extern.PlayerManagerController;
 import playerManager.extern.jsonDataTransferTypes.KillCooldown;
-
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -33,6 +32,10 @@ public class Player {
         this.speed = 0.9;
         this.role = role;
         this.killCooldown = killCooldown;
+    }
+
+    public int getKillCooldown() {
+        return killCooldown;
     }
 
     public String getId() {

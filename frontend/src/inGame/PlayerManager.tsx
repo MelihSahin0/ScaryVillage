@@ -7,7 +7,6 @@ import {
     SubscribePlayerMovement,
     SubscribePlayers,
     SubscribeToLobby,
-    CloseConnection,
     UnsubscribePlayers,
     UnsubscribePlayerMovement,
     UnsubscribeKill,
@@ -199,9 +198,6 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
             };
             Publish("/send/players",  JSON.stringify(sendMyLobbyId));
         }, 500);
-        return () => {
-            CloseConnection();
-        }
     }, []);
 
     return (

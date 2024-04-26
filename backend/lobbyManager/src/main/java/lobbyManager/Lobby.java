@@ -19,9 +19,9 @@ public class Lobby {
     private final HashMap<String, Player> players = new HashMap<>();
     private int maxNumberOfPlayers;
     private int maxImposter;
-    private int votingTime = 10;
-    private int killCooldownTime = 5;
-    private int bellCooldownTime = 5;
+    private int votingTime;
+    private int killCooldownTime;
+    private int bellCooldownTime;
     private Visibility visibility;
     private ScheduledExecutorService executorService;
 

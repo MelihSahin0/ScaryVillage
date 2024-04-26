@@ -18,13 +18,15 @@ public class Rest {
 
     @PostMapping(value = "/addLobby")
     public void addLobby(@RequestBody LobbyId message) {
-
         Lobby lobby = new Lobby();
         lobby.setLobbyId(message.getLobbyId());
         lobby.setGameStatus(GameStatus.LOBBY);
         lobby.setMaxNumberOfPlayers(10);
         lobby.setMaxImposter(1);
         lobby.setVisibility(Visibility.PRIVATE);
+        lobby.setKillCooldownTime(10);
+        lobby.setBellCooldownTime(10);
+        lobby.setVotingTime(60);
         Lobbies.addLobby(message.getLobbyId(), lobby);
     }
 
@@ -83,6 +85,10 @@ public class Rest {
                 "http://localhost:8080/playerManager/intern/removeLobby",
                 lobbyIdSend,
                 String.class);
+        ResponseEntity<String> response3 = restTemplate.postForEntity(
+                "http://localhost:8084/taskManager/intern/removeLobby",
+                lobbyIdSend,
+                String.class);
     }
 
     public static void changeVisibility(String lobbyId, Visibility visibility){
@@ -111,6 +117,11 @@ public class Rest {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(
                 "http://localhost:8080/playerManager/intern/addLobby",
+                lobbyIdPlayerHashMap,
+                String.class);
+
+        ResponseEntity<String> response2 = restTemplate.postForEntity(
+                "http://localhost:8084/taskManager/intern/addLobby",
                 lobbyIdPlayerHashMap,
                 String.class);
     }
