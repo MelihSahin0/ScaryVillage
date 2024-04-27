@@ -5,55 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="&quot;&quot;">
-      <change afterPath="$PROJECT_DIR$/globalClasses/src/main/java/intern/PlayerPosi.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/Lobbies.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/Lobby.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/StompWebsocketTaskManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/TaskDifficulty.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/TaskStatus.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/Tasks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/WebSocketConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/jsonDataTransferTypes/GetTasks.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/jsonDataTransferTypes/TaskFinished.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/intern/Rest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Bin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chicken.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chopping.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Cooking.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fishing.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Flooding.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fountain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Mining.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Sleeping.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Task.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/TaskmanagerSocket.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Bin.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Chicken.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Chopping.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Cooking.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Fishing.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Mining.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Sleeping.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/Map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/Utility.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/Utility.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Emergency.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/interactableMap/Emergency.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/types.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Map.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -281,17 +235,17 @@
     </configuration>
     <list>
       <item itemvalue="Spring Boot.StompWebsocketGameManager" />
-      <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
       <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
-      <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
+      <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
       <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
+      <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
-        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
-        <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
+        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
+        <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
@@ -359,6 +313,7 @@
       <workItem from="1714110646165" duration="8954000" />
       <workItem from="1714127621654" duration="25000" />
       <workItem from="1714148772413" duration="2985000" />
+      <workItem from="1714229374845" duration="2722000" />
     </task>
     <servers />
   </component>
