@@ -1,5 +1,5 @@
 import {OrthographicCamera} from "@react-three/drei";
-import Map from "./Map";
+import Map from "./map/Map";
 import PlayerManager, {Player} from "./PlayerManager";
 import {gameState, role} from "../types";
 import React, {useEffect, useState} from "react";
@@ -26,10 +26,10 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
 
     return (
         <>
-            <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={100}/>
+            <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={500}/>
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
-            <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
+            <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner}/>
             <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner} myPlayer={myPlayer} setMyPlayer={setMyPlayer}/>
         </>
     )

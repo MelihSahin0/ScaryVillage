@@ -2,22 +2,31 @@ import * as THREE from 'three';
 import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import BellMesh from "./interactableMap/Emergency";
-import {Player} from "./PlayerManager";
+import {Player} from "../PlayerManager";
 import {useEffect, useState} from "react";
-import {Publish, SubscribePlayerTasks, SubscribeToLobby, UnsubscribePlayerTasks} from "./TaskmanagerSocket";
+import {
+    Publish, SubscribeGetProgress,
+    SubscribePlayerTasks,
+    SubscribeToLobby,
+    UnsubscribeGetProgress,
+    UnsubscribePlayerTasks
+} from "../TaskmanagerSocket";
 import BinMesh from "./interactableMap/Bin";
-import {games} from "../types";
+import {games, gameState, role} from "../../types";
 import ChickenMesh from "./interactableMap/Chicken";
 import ChoppingMesh from "./interactableMap/Chopping";
 import CookingMesh from "./interactableMap/Cooking";
 import FishingMesh from "./interactableMap/Fishing";
 import MiningMesh from "./interactableMap/Mining";
 import SleepingMesh from "./interactableMap/Sleeping";
+import Progressbar from "./Progressbar";
 
 type Props = {
     lobbyId: string;
     myPlayerId: string;
     myPlayer: Player | undefined;
+    setGameState(newState: gameState): void;
+    setWinner(setWinner: role): void;
 }
 
 export type Task = {
@@ -26,8 +35,9 @@ export type Task = {
     targetId: number;
 };
 
-export default function Map({lobbyId, myPlayerId, myPlayer}: Props){
+export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner}: Props){
 
+    const [progress, setProgress] = useState<number>(0)
     const [tasks, setTasks] = useState<Array<Task>>([]);
     const texture = useLoader(TextureLoader, 'src/Images/newMap.png');
     texture.magFilter = THREE.NearestFilter;
@@ -60,6 +70,22 @@ export default function Map({lobbyId, myPlayerId, myPlayer}: Props){
     }, [lobbyId]);
 
     useEffect(() => {
+        const getProgress = (message: any) => {
+            setProgress(message.progress);
+
+            if (message.progress === 1){
+                setWinner("crewmate");
+                setGameState("lobby");
+            }
+        }
+        SubscribeGetProgress(getProgress);
+
+        return () => {
+            UnsubscribeGetProgress();
+        }
+    }, []);
+
+    useEffect(() => {
         setTimeout(() => {
             const sendTaskRequest = {
                 lobbyId: lobbyId,
@@ -75,6 +101,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer}: Props){
                 <boxGeometry args={[9, 5, 0.1]}/>
                 <meshBasicMaterial map={texture}/>
             </mesh>
+            <Progressbar progress={progress} myPlayer={myPlayer}/>
             <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
             <BinMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Bin")}/>
             <ChickenMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Chicken")}/>

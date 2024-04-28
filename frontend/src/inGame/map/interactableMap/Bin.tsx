@@ -1,9 +1,9 @@
-import {Player} from "../PlayerManager";
+import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import * as THREE from "three";
 import React, {useEffect, useState} from "react";
-import {calculateInsideMeshDistance} from "../Utility";
-import {Publish} from "../TaskmanagerSocket";
+import {calculateInsideMeshDistance} from "../../Utility";
+import {Publish} from "../../TaskmanagerSocket";
 
 type Props = {
     lobbyId: string;
@@ -12,15 +12,19 @@ type Props = {
     tasks: Array<Task>
 }
 
-export default function MiningMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Props){
+export default function BinMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Props){
     const meshPositions = [
-        new THREE.Vector3(4.05, 0.26, -1)
+        new THREE.Vector3(1.97, 0.33, -1),
+        new THREE.Vector3(-1.81, 0.55, -1),
+        new THREE.Vector3(-1.59, -0.72, -1),
+        new THREE.Vector3(2.9, -1.9, -1),
+        new THREE.Vector3(4.25, -2.26, -1) //Cave
     ];
-    const [isHovered, setIsHovered] = useState(Array.from({ length: 1 }, () => false));
-    const [taskIds, setTaskIds] =useState(Array.from({ length: 1 }, () => ""));
-    const [insideMiningDistance, setInsideMiningDistance] = useState(Array.from({ length: 1 }, () => false));
+    const [isHovered, setIsHovered] = useState(Array.from({ length: 5 }, () => false));
+    const [taskIds, setTaskIds] =useState(Array.from({ length: 5 }, () => ""));
+    const [insideBinDistance, setInsideBinDistance] = useState(Array.from({ length: 5 }, () => false));
     useEffect(() => {
-        const updatedTaskIds = Array.from({ length: 1 }, () => "");
+        const updatedTaskIds = Array.from({ length: 5 }, () => "");
         tasks.forEach((task) => {
             updatedTaskIds[task.targetId] = task.taskId;
         });
@@ -46,11 +50,11 @@ export default function MiningMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Props
 
     useEffect(() => {
         if (myPlayer !== null && myPlayer !== undefined) {
-            const insideDistance = insideMiningDistance;
+            const insideDistance = insideBinDistance;
             meshPositions.map((mesh, index) => {
                 insideDistance[index] = calculateInsideMeshDistance(mesh,myPlayer);
             })
-            setInsideMiningDistance(insideDistance);
+            setInsideBinDistance(insideDistance);
         }
     }, [myPlayer?.x, myPlayer?.y]);
 
@@ -69,18 +73,34 @@ export default function MiningMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Props
 
                             Publish("/send/taskFinished", JSON.stringify(taskFinished));
                         }}>
-                            <boxGeometry args={[0.44, 0.52, 1]}/>
+                            <boxGeometry args={[0.6, 0.33, 1]}/>
                             <meshBasicMaterial transparent/>
                         </mesh>
                         <group visible={isHovered[index]}>
                             <lineSegments position={[meshPositions[index].x, meshPositions[index].y, 1]}>
-                                <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.38, 0.44, 1)]}/>
-                                <lineBasicMaterial attach="material" color={insideMiningDistance[index] ? 0xFFFF00 : 0x808080}/>
+                                <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.6, 0.33, 1)]}/>
+                                <lineBasicMaterial attach="material" color={insideBinDistance[index] ? 0xFFFF00 : 0x808080}/>
                             </lineSegments>
                         </group>
                     </group>
-                )
+                    )
             ))}
+            {
+                taskIds.some(task => task !== "") &&
+                <group key={"cave"}>
+                    <mesh key={"cave"} position={meshPositions[4]} onPointerOver={() => handlePointerOver(4)}
+                          onPointerOut={() => handlePointerOut(4)}>
+                        <boxGeometry args={[0.5, 0.47, 1]}/>
+                        <meshBasicMaterial transparent/>
+                    </mesh>
+                    <group visible={isHovered[4]}>
+                        <lineSegments position={[meshPositions[4].x, meshPositions[4].y, 1]}>
+                            <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.5, 0.47, 1)]}/>
+                            <lineBasicMaterial attach="material" color={insideBinDistance[4] ? 0xFFFF00 : 0x808080}/>
+                        </lineSegments>
+                    </group>
+                </group>
+            }
         </group>
     )
 }

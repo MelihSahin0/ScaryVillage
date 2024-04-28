@@ -31,6 +31,24 @@ export function UnsubscribePlayerTasks(){
     StartConnection();
 }
 
+export function SubscribeGetProgress(updatePlayers: (message: any) => void) {
+
+    const messageHandler: MessageHandler = {
+        id: 1,
+        destination: "/subscribe/getProgress/" + lobbyId,
+        function: updatePlayers
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+    StartConnection();
+}
+export function UnsubscribeGetProgress(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 1);
+    StartConnection();
+}
+
 function StartConnection(){
     client.deactivate().then();
     client.configure({

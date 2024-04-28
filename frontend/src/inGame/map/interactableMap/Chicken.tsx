@@ -1,9 +1,9 @@
-import {Player} from "../PlayerManager";
+import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import * as THREE from "three";
 import React, {useEffect, useState} from "react";
-import {calculateInsideMeshDistance} from "../Utility";
-import {Publish} from "../TaskmanagerSocket";
+import {calculateInsideMeshDistance} from "../../Utility";
+import {Publish} from "../../TaskmanagerSocket";
 
 type Props = {
     lobbyId: string;
@@ -12,16 +12,15 @@ type Props = {
     tasks: Array<Task>
 }
 
-export default function ChoppingMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Props){
+export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Props){
     const meshPositions = [
-        new THREE.Vector3(-3.68, 2.05, -1),
-        new THREE.Vector3(0.18, -2.11, -1),
+        new THREE.Vector3(3.8, 1.8, -1),
     ];
-    const [isHovered, setIsHovered] = useState(Array.from({ length: 2 }, () => false));
-    const [taskIds, setTaskIds] =useState(Array.from({ length: 2 }, () => ""));
-    const [insideChoppingDistance, setInsideChoppingDistance] = useState(Array.from({ length: 2 }, () => false));
+    const [isHovered, setIsHovered] = useState(Array.from({ length: 1 }, () => false));
+    const [taskIds, setTaskIds] =useState(Array.from({ length: 1 }, () => ""));
+    const [insideChickenDistance, setInsideChickenDistance] = useState(Array.from({ length: 1 }, () => false));
     useEffect(() => {
-        const updatedTaskIds = Array.from({ length: 2 }, () => "");
+        const updatedTaskIds = Array.from({ length: 1 }, () => "");
         tasks.forEach((task) => {
             updatedTaskIds[task.targetId] = task.taskId;
         });
@@ -47,11 +46,11 @@ export default function ChoppingMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Pro
 
     useEffect(() => {
         if (myPlayer !== null && myPlayer !== undefined) {
-            const insideDistance = insideChoppingDistance;
+            const insideDistance = insideChickenDistance;
             meshPositions.map((mesh, index) => {
                 insideDistance[index] = calculateInsideMeshDistance(mesh,myPlayer);
             })
-            setInsideChoppingDistance(insideDistance);
+            setInsideChickenDistance(insideDistance);
         }
     }, [myPlayer?.x, myPlayer?.y]);
 
@@ -70,13 +69,13 @@ export default function ChoppingMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Pro
 
                             Publish("/send/taskFinished", JSON.stringify(taskFinished));
                         }}>
-                            <boxGeometry args={[0.55, 0.4, 1]}/>
+                            <boxGeometry args={[1, 0.6, 1]}/>
                             <meshBasicMaterial transparent/>
                         </mesh>
                         <group visible={isHovered[index]}>
                             <lineSegments position={[meshPositions[index].x, meshPositions[index].y, 1]}>
-                                <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.55, 0.4, 1)]}/>
-                                <lineBasicMaterial attach="material" color={insideChoppingDistance[index] ? 0xFFFF00 : 0x808080}/>
+                                <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(1, 0.6, 1)]}/>
+                                <lineBasicMaterial attach="material" color={insideChickenDistance[index] ? 0xFFFF00 : 0x808080}/>
                             </lineSegments>
                         </group>
                     </group>

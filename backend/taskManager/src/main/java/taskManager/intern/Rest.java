@@ -96,4 +96,15 @@ public class Rest {
 
         return response.getBody();
     }
+
+    public static void gameFinished(String lobbyId){
+        LobbyId lobbyId1 = new LobbyId();
+        lobbyId1.setLobbyId(lobbyId);
+
+        RestTemplate restTemplate = new RestTemplate();
+        ResponseEntity<String> response = restTemplate.postForEntity(
+                "http://localhost:8080/playerManager/intern/gameFinished",
+                lobbyId1,
+                String.class);
+    }
 }

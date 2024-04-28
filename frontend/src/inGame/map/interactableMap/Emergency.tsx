@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import React, {useEffect, useState} from "react";
-import {Publish, SubscribeBellCooldown, UnsubscribeBellCooldown,} from "../PlayermanagerSocket";
-import {Player} from "../PlayerManager";
-import {calculateInsideMeshDistance} from "../Utility";
+import {Publish, SubscribeBellCooldown, UnsubscribeBellCooldown,} from "../../PlayermanagerSocket";
+import {Player} from "../../PlayerManager";
+import {calculateInsideMeshDistance} from "../../Utility";
 
 type Props = {
     lobbyId: string;

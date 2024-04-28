@@ -1,9 +1,9 @@
-import {Player} from "../PlayerManager";
+import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import * as THREE from "three";
 import React, {useEffect, useState} from "react";
-import {calculateInsideMeshDistance} from "../Utility";
-import {Publish} from "../TaskmanagerSocket";
+import {calculateInsideMeshDistance} from "../../Utility";
+import {Publish} from "../../TaskmanagerSocket";
 
 type Props = {
     lobbyId: string;
@@ -12,15 +12,16 @@ type Props = {
     tasks: Array<Task>
 }
 
-export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Props){
+export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Props){
     const meshPositions = [
-        new THREE.Vector3(-3.72, -1.765, -1)
+        new THREE.Vector3(2.78, 1.135, -1),
+        new THREE.Vector3(-1.61, -1.5, -1)
     ];
-    const [isHovered, setIsHovered] = useState(Array.from({ length: 1 }, () => false));
-    const [taskIds, setTaskIds] =useState(Array.from({ length: 1 }, () => ""));
-    const [insideFishingDistance, setInsideFishingDistance] = useState(Array.from({ length: 1 }, () => false));
+    const [isHovered, setIsHovered] = useState(Array.from({ length: 2 }, () => false));
+    const [taskIds, setTaskIds] =useState(Array.from({ length: 2 }, () => ""));
+    const [insideSleepingDistance, setInsideSleepingDistance] = useState(Array.from({ length: 2 }, () => false));
     useEffect(() => {
-        const updatedTaskIds = Array.from({ length: 1 }, () => "");
+        const updatedTaskIds = Array.from({ length: 2 }, () => "");
         tasks.forEach((task) => {
             updatedTaskIds[task.targetId] = task.taskId;
         });
@@ -46,11 +47,11 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Prop
 
     useEffect(() => {
         if (myPlayer !== null && myPlayer !== undefined) {
-            const insideDistance = insideFishingDistance;
+            const insideDistance = insideSleepingDistance;
             meshPositions.map((mesh, index) => {
                 insideDistance[index] = calculateInsideMeshDistance(mesh,myPlayer);
             })
-            setInsideFishingDistance(insideDistance);
+            setInsideSleepingDistance(insideDistance);
         }
     }, [myPlayer?.x, myPlayer?.y]);
 
@@ -69,13 +70,13 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, tasks}: Prop
 
                             Publish("/send/taskFinished", JSON.stringify(taskFinished));
                         }}>
-                            <boxGeometry args={[0.44, 0.52, 1]}/>
+                            <boxGeometry args={[0.62, 0.24, 1]}/>
                             <meshBasicMaterial transparent/>
                         </mesh>
                         <group visible={isHovered[index]}>
                             <lineSegments position={[meshPositions[index].x, meshPositions[index].y, 1]}>
-                                <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.44, 0.52, 1)]}/>
-                                <lineBasicMaterial attach="material" color={insideFishingDistance[index] ? 0xFFFF00 : 0x808080}/>
+                                <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.62, 0.24, 1)]}/>
+                                <lineBasicMaterial attach="material" color={insideSleepingDistance[index] ? 0xFFFF00 : 0x808080}/>
                             </lineSegments>
                         </group>
                     </group>

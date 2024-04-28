@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import taskManager.tasks.Task;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Tasks {
 
@@ -11,6 +12,10 @@ public class Tasks {
 
     public Task getTask(String taskId){
         return tasks.get(taskId);
+    }
+
+    public Set<Map.Entry<String, Task>> getTasks(){
+        return tasks.entrySet();
     }
 
     public void addTask(String taskId,Task task){
@@ -25,10 +30,6 @@ public class Tasks {
             }
         }
         return numberOfTasks;
-    }
-
-    public java.util.Set<Map.Entry<String, Task>> getTasks(){
-        return tasks.entrySet();
     }
 
     @Override

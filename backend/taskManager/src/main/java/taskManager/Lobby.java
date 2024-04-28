@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class Lobby {
 
@@ -15,6 +16,10 @@ public class Lobby {
 
     public Tasks getPlayersTask(String playerId) {
         return playersTask.get(playerId);
+    }
+
+    public Set<Map.Entry<String, Tasks>> getPlayerTasks(){
+        return playersTask.entrySet();
     }
 
     @Override
