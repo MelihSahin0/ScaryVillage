@@ -76,104 +76,121 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
         }, 400);
     }, [lobbyId]);
 
+    const [checked, setChecked] = React.useState(false);
+
+    const handleChange = () => {
+        setChecked(!checked);
+    };
+
     return (
         <div className="ml-2">
             <p className="text-white mt-4 text-xl">Lobby Settings:</p>
-            <div className="flex">
-                <p className="w-52 pt-2 text-white">Visibility:</p>
-                <Select className="-ml-8 flex rounded"
-                        options={visibilityOptions}
-                        value={selectedVisibility}
-                        onChange={(event) => {
-                            const changeVisibility = {
-                                lobbyId: lobbyId,
-                                visibility: event!.value
-                            }
-
-                            Publish("/send/changeVisibility", JSON.stringify(changeVisibility));
-                        }}/>
-            </div>
-            <div className="flex">
-                <p className="w-52 pt-2 text-white">Max. number of players:</p>
-                <Select className="-ml-8 flex rounded"
-                        options={playerOptions}
-                        value={selectedMaxNumberOfPlayer}
-                        onChange={(event) => {
-                            if (maxNumberOfPlayers < event!.value) {
-                                const setMaxPlayer = {
+            <div className="overflow-auto h-32">
+                <div className="flex" >
+                    <p className="w-52 pt-2 text-white">Visibility:</p>
+                    <Select className="m-1 h-8 flex rounded w-40"
+                            options={visibilityOptions}
+                            value={selectedVisibility}
+                            onChange={(event) => {
+                                const changeVisibility = {
                                     lobbyId: lobbyId,
-                                    maxNumberOfPlayers: event!.value
+                                    visibility: event!.value
                                 }
 
-                                Publish("/send/setMaxNumberOfPlayers", JSON.stringify(setMaxPlayer));
+                                Publish("/send/changeVisibility", JSON.stringify(changeVisibility));
+                            }}/>
+                </div>
+                <div className="flex">
+                    <label className="w-52 pt-2 text-white">Max. number of players:</label>
+                    <Select maxMenuHeight={120} className="m-1 w-20 h-8 flex rounded"
+                            options={playerOptions}
+                            value={selectedMaxNumberOfPlayer}
+                            onChange={(event) => {
+                                if (maxNumberOfPlayers < event!.value) {
+                                    const setMaxPlayer = {
+                                        lobbyId: lobbyId,
+                                        maxNumberOfPlayers: event!.value
+                                    }
+
+                                    Publish("/send/setMaxNumberOfPlayers", JSON.stringify(setMaxPlayer));
+                                }
+                            }}/>
+                </div>
+                <div className="flex">
+                    <p className="w-52 pt-2 text-white">Number of imposter:</p>
+                    <Select className=" m-1 w-20 h-8 flex rounded"
+                            options={imposterOption.slice(
+                                0,
+                                selectedMaxNumberOfPlayer.value <= 5 ? 1 :
+                                selectedMaxNumberOfPlayer.value <= 8 ? 2 :
+                                3
+                            )}
+                            value={selectedImpostorOption}
+                            onChange={(event) => {
+                                const setNumberOfImpostor = {
+                                    lobbyId: lobbyId,
+                                    numberOfImpostor: event!.value
+                                }
+                               Publish("/send/setNumberOfImpostor", JSON.stringify(setNumberOfImpostor));
                             }
-                        }}/>
-            </div>
-            <div className="flex">
-                <p className="w-52 pt-2 text-white">Number of imposter:</p>
-                <Select className="-ml-8 flex rounded"
-                        options={imposterOption.slice(
-                            0,
-                            selectedMaxNumberOfPlayer.value <= 5 ? 1 :
-                            selectedMaxNumberOfPlayer.value <= 8 ? 2 :
-                            3
-                        )}
-                        value={selectedImpostorOption}
-                        onChange={(event) => {
-                            const setNumberOfImpostor = {
-                                lobbyId: lobbyId,
-                                numberOfImpostor: event!.value
-                            }
-                           Publish("/send/setNumberOfImpostor", JSON.stringify(setNumberOfImpostor));
-                        }
-                }/>
-            </div>
-            <div className="flex">
-                <p className="w-52 pt-2 text-white">Kill cooldown in sec:</p>
-                <Select className="-ml-8 flex rounded"
-                        options={cooldownOptions}
-                        value={selectedKillCooldown}
-                        onChange={(event) => {
-                            //setKillCooldown(cooldownOptions[event!.value]);
-                            const setKillCooldown = {
-                                lobbyId: lobbyId,
-                                killCooldownTime: event!.value
-                            }
+                    }/>
+                </div>
+                <div className="flex">
+                    <p className="w-52 pt-2 text-white">Kill cooldown in sec:</p>
+                    <Select  maxMenuHeight={120} className="m-1 h-8 flex rounded w-20"
+                            options={cooldownOptions}
+                            value={selectedKillCooldown}
+                            onChange={(event) => {
+                                //setKillCooldown(cooldownOptions[event!.value]);
+                                const setKillCooldown = {
+                                    lobbyId: lobbyId,
+                                    killCooldownTime: event!.value
+                                }
 
-                            Publish("/send/setKillCooldown", JSON.stringify(setKillCooldown));
-                        }}/>
+                                Publish("/send/setKillCooldown", JSON.stringify(setKillCooldown));
+                            }}/>
 
-            </div>
-            <div className="flex">
-                <p className="w-52 pt-2 text-white">Bell cooldown in sec:</p>
-                <Select className="-ml-8 flex rounded"
-                        options={cooldownOptions}
-                        value={selectedBellCooldown}
-                        onChange={(event) => {
-                            const setBellCooldown = {
-                                lobbyId: lobbyId,
-                                bellCooldownTime: event!.value
-                            }
+                </div>
+                <div className="flex">
+                    <p className="w-52 pt-2 text-white">Bell cooldown in sec:</p>
+                    <Select maxMenuHeight={120} className="m-1 h-8 flex rounded w-20"
+                            options={cooldownOptions}
+                            value={selectedBellCooldown}
+                            onChange={(event) => {
+                                const setBellCooldown = {
+                                    lobbyId: lobbyId,
+                                    bellCooldownTime: event!.value
+                                }
 
-                            Publish("/send/setBellCooldown", JSON.stringify(setBellCooldown));
-                        }}/>
+                                Publish("/send/setBellCooldown", JSON.stringify(setBellCooldown));
+                            }}/>
 
-            </div>
-            <div className="flex">
-                <p className="w-52 pt-2 text-white">Timer for voting in sec:</p>
-                <Select className="-ml-8 flex rounded"
-                        options={timerOptions}
-                        value={selectedVotingTimerOptions}
-                        onChange={(event) => {
-                            const setVotingTime = {
-                                lobbyId: lobbyId,
-                                votingTime: event!.value
-                            }
+                </div>
+                <div className="flex">
+                    <p className="w-52 pt-2 text-white">Timer for voting in sec:</p>
+                    <Select maxMenuHeight={120} className="m-1 h-8 flex rounded w-20"
+                            options={timerOptions}
+                            value={selectedVotingTimerOptions}
+                            onChange={(event) => {
+                                const setVotingTime = {
+                                    lobbyId: lobbyId,
+                                    votingTime: event!.value
+                                }
 
-                            Publish("/send/setVotingTime", JSON.stringify(setVotingTime));
-                        }}/>
-
-            </div>
+                                Publish("/send/setVotingTime", JSON.stringify(setVotingTime));
+                            }}/>
+                </div>
+                <div>
+                    <label className="w-52 pt-2 text-white">
+                        Kill one, if voting is draw:
+                        <input className="w-20 h-4 mt-2 ml-1 mb-2"
+                            type="checkbox"
+                            checked={checked}
+                            onChange={handleChange}
+                        />
+                    </label>
+                </div>
+        </div>
         </div>
     )
 }
