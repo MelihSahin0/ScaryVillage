@@ -32,6 +32,10 @@ public class Lobby {
         this.players.put(player.getId(), player);
     }
 
+    public int getBellCooldown() {
+        return bellCooldown;
+    }
+
     public int getVotingTime() {
         return votingTime;
     }

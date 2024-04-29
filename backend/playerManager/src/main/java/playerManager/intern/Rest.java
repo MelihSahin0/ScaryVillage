@@ -1,8 +1,6 @@
 package playerManager.intern;
 
-import intern.LobbyIdPlayerHashMapString;
-import intern.LobbyId;
-import intern.LobbyIdPlayerHashMap;
+import intern.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,6 +43,10 @@ public class Rest {
                 "http://localhost:8082/lobbyManager/intern/gameFinished",
                 message,
                 String.class);
+        ResponseEntity<String> response2= restTemplate.postForEntity(
+                "http://localhost:8084/taskManager/intern/removeLobby",
+                message,
+                String.class);
     }
 
     @PostMapping(value = "/votingResult")
@@ -58,6 +60,23 @@ public class Rest {
         lobby.startBellCooldown(message.getLobbyId(),10);
     }
 
+    @PostMapping(value = "/getPlayerPosition")
+    public PlayerPosi getPlayerPosition(@RequestBody LobbyIdPlayerId message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        if (lobby == null){
+            return null;
+        }
+        Player player = lobby.getPlayer(message.getPlayerId());
+        if (player == null){
+            return null;
+        }
+
+        PlayerPosi playerPosition = new PlayerPosi();
+        playerPosition.setX(player.getX());
+        playerPosition.setY(player.getY());
+
+        return playerPosition;
+    }
 
     public static void startVoting(String lobbyId, HashMap<String, playerManager.Player> players, String requester, int votingTime){
         LobbyIdPlayerHashMapString lobbyIdPlayerHashMapString = new LobbyIdPlayerHashMapString();

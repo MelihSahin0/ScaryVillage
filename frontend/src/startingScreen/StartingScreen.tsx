@@ -1,4 +1,4 @@
-import {gameState, role} from "../types";
+import {gameState} from "../types";
 import React, {useEffect, useState} from "react";
 import {CloseConnection, Publish, SubscribeGetLobby, UnsubscribeGetLobby} from "./GameManagerSocket";
 import {StopHeartbeat} from "../lobby/Heartbeat";

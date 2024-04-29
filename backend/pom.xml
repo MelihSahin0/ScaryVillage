@@ -15,6 +15,7 @@
         <module>lobbyManager</module>
         <module>globalClasses</module>
         <module>votingManager</module>
+        <module>taskManager</module>
     </modules>
 
     <properties>

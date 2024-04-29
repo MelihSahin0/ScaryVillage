@@ -13,7 +13,7 @@ public class Lobby {
     private String lobbyId;
     private final HashMap<String, Player> players = new HashMap<>();
     private ScheduledExecutorService executorService;
-    private int timeLeft = 21;
+    private int timeLeft;
 
     public String getLobbyId() {
         return lobbyId;

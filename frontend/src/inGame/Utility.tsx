@@ -1,6 +1,6 @@
 import {Player} from "./PlayerManager";
 
-export const calculateInsideBellDistance = (meshPosition: any, myPlayer: Player | null | undefined) => {
+export const calculateInsideMeshDistance = (meshPosition: any, myPlayer: Player | null | undefined) => {
     if (myPlayer !== null && myPlayer !== undefined) {
         const radius = 0.6;
         const distance = Math.sqrt((meshPosition.x - myPlayer.x) ** 2 + (meshPosition.y - myPlayer.y) ** 2);

@@ -13,6 +13,7 @@ import LobbyInfo from "./LobbyInfo";
 import LobbySettings from "./LobbySettings";
 import {StartHeartbeat} from "./Heartbeat";
 import {CloseConnection as ClosePlayermanagerConnection} from "../inGame/PlayermanagerSocket";
+import {CloseConnection as CloseTaskmanagerConnection} from "../inGame/TaskmanagerSocket";
 
 type Props = {
     myPlayerId: string;
@@ -35,6 +36,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
 
     ClosePlayermanagerConnection();
+    CloseTaskmanagerConnection();
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
