@@ -5,21 +5,15 @@ import BellMesh from "./interactableMap/Emergency";
 import {Player} from "../PlayerManager";
 import {useEffect, useState} from "react";
 import {
-    Publish, SubscribeGetProgress,
+    Publish, SubscribeGetPlayerTodoTask, SubscribeGetProgress,
     SubscribePlayerTasks,
-    SubscribeToLobby,
+    SubscribeToLobby, UnsubscribeGetPlayerTodoTask,
     UnsubscribeGetProgress,
     UnsubscribePlayerTasks
 } from "../TaskmanagerSocket";
-import BinMesh from "./interactableMap/Bin";
 import {games, gameState, role} from "../../types";
-import ChickenMesh from "./interactableMap/Chicken";
-import ChoppingMesh from "./interactableMap/Chopping";
-import CookingMesh from "./interactableMap/Cooking";
-import FishingMesh from "./interactableMap/Fishing";
-import MiningMesh from "./interactableMap/Mining";
-import SleepingMesh from "./interactableMap/Sleeping";
-import Progressbar from "./Progressbar";
+import TaskProgress from "./TaskProgress";
+import TaskMeshDrawer from "./interactableMap/TaskMeshDrawer";
 
 type Props = {
     lobbyId: string;
@@ -32,11 +26,25 @@ type Props = {
 export type Task = {
     taskId: string;
     gameType: games;
-    targetId: number;
+    position: {
+        x: number,
+        y: number,
+        z: number
+    };
+    scale: {
+        width: number,
+        height: number,
+        depth: number
+    };
+    radius: number;
 };
 
 export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner}: Props){
 
+    {/*TODO Idea for displaying the clicked task would be this use State. And when voting this would automatically be
+        undefined because it unmounts. It would be set when the backend says you were in clickRange.
+     */}
+    const [currentTask, setCurrentTask] = useState<Task | undefined>(undefined);
     const [progress, setProgress] = useState<number>(0)
     const [tasks, setTasks] = useState<Array<Task>>([]);
     const texture = useLoader(TextureLoader, 'src/Images/newMap.png');
@@ -56,7 +64,9 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                     const task: Task = {
                         taskId: taskJson.taskId,
                         gameType: taskJson.type,
-                        targetId: taskJson.targetId
+                        position: taskJson.position,
+                        scale: taskJson.scale,
+                        radius: taskJson.radius
                     }
                     updatedTasks.push(task);
                 });
@@ -86,6 +96,27 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     }, []);
 
     useEffect(() => {
+        const getPlayerTodoTask = (message: any) => {
+            if (message[myPlayerId] != undefined){
+                const taskJson = message[myPlayerId];
+                const task: Task = {
+                    taskId: taskJson.taskId,
+                    gameType: taskJson.type,
+                    position: taskJson.position,
+                    scale: taskJson.scale,
+                    radius: taskJson.radius
+                }
+                setCurrentTask(task);
+            }
+        }
+        SubscribeGetPlayerTodoTask(getPlayerTodoTask);
+
+        return () => {
+            UnsubscribeGetPlayerTodoTask();
+        }
+    }, []);
+
+    useEffect(() => {
         setTimeout(() => {
             const sendTaskRequest = {
                 lobbyId: lobbyId,
@@ -101,15 +132,20 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 <boxGeometry args={[9, 5, 0.1]}/>
                 <meshBasicMaterial map={texture}/>
             </mesh>
-            <Progressbar progress={progress} myPlayer={myPlayer}/>
+            {/*TODO When doing a task dont draw the other meshes "Disable movement?" and show task*/}
+            <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks}/>
             <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
-            <BinMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Bin")}/>
+            <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks}/>
+            {/*TODO They dont draw meshes anymore, change it so they display the game itself maybe? They need a complete Rework*/}
+            {/*
+            <BinMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Bin" || task.gameType === "Cave")}/>
             <ChickenMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Chicken")}/>
             <ChoppingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Chopping")}/>
             <CookingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Cooking")}/>
             <FishingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Fishing")}/>
             <MiningMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Mining")}/>
             <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Sleeping")}/>
+            */}
         </group>
     )
 }

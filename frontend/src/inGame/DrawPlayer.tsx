@@ -65,7 +65,7 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
 
     useEffect(() => {
         if (myPlayer !== null && myPlayer !== undefined) {
-            setInsideClickRange(calculateInsideClickRange(player, myPlayer));
+            setInsideClickRange(calculateInsideClickRange(player, myPlayer, 0.4));
         }
     }, [player.x, player.y, myPlayer?.x, myPlayer?.y]);
 

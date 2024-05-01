@@ -4,12 +4,9 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
-import taskManager.Lobbies;
-import taskManager.Lobby;
-import taskManager.TaskStatus;
-import taskManager.Tasks;
+import taskManager.*;
 import taskManager.extern.jsonDataTransferTypes.GetTasks;
-import taskManager.extern.jsonDataTransferTypes.TaskFinished;
+import taskManager.extern.jsonDataTransferTypes.TaskClicked;
 import taskManager.intern.Rest;
 import taskManager.tasks.Task;
 
@@ -31,15 +28,38 @@ public class TaskManagerController {
         return lobby.toString();
     }
 
-    @MessageMapping("/taskFinished/{stringLobbyId}")
-    @SendTo("/subscribe/getPlayerTasks/{stringLobbyId}")
-    public String taskFinished(TaskFinished message){
+    @MessageMapping("/doTaskRequest/{stringLobbyId}")
+    @SendTo("/subscribe/getPlayerTodoTask/{stringLobbyId}")
+    public String doTask(TaskClicked message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
         if (lobby == null) {
             return null;
         }
 
         Task task = lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId());
+        if (!task.insideRadius(Rest.getPlayerPosi(message.getLobbyId(), message.getPlayerId()))){
+            return null;
+        }
+
+        return "{" +
+                "\"" + message.getPlayerId() + "\": "
+                     + task +
+                "}";
+    }
+
+    @MessageMapping("/taskFinished/{stringLobbyId}")
+    @SendTo("/subscribe/getPlayerTasks/{stringLobbyId}")
+    public String taskFinished(TaskClicked message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        if (lobby == null) {
+            return null;
+        }
+
+        Task task = lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId());
+        if (task.getDifficulty() == TaskDifficulty.EXTENSION && !task.insideRadius(Rest.getPlayerPosi(message.getLobbyId(), message.getPlayerId()))){
+            return null;
+        }
+
         task.setStatus(TaskStatus.FINISHED);
         newProgress(message.getLobbyId());
 
@@ -54,10 +74,12 @@ public class TaskManagerController {
 
         for (Map.Entry<String, Tasks> tasks : lobby.getPlayerTasks()){
             for (Map.Entry<String, Task> task : tasks.getValue().getTasks()){
-                totalNumberOfTasks++;
+                if (task.getValue().getDifficulty() != TaskDifficulty.EXTENSION || task.getValue().getDifficulty() != TaskDifficulty.REQUIRED) {
+                    totalNumberOfTasks++;
 
-                if (task.getValue().getStatus() == TaskStatus.FINISHED){
-                    finishedNumberOfTasks++;
+                    if (task.getValue().getStatus() == TaskStatus.FINISHED) {
+                        finishedNumberOfTasks++;
+                    }
                 }
             }
         }

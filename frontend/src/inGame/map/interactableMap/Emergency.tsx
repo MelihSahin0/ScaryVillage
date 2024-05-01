@@ -2,7 +2,7 @@ import * as THREE from "three";
 import React, {useEffect, useState} from "react";
 import {Publish, SubscribeBellCooldown, UnsubscribeBellCooldown,} from "../../PlayermanagerSocket";
 import {Player} from "../../PlayerManager";
-import {calculateInsideMeshDistance} from "../../Utility";
+import {calculateInsideClickRange} from "../../Utility";
 
 type Props = {
     lobbyId: string;
@@ -53,7 +53,7 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
 
     useEffect(() => {
         if (myPlayer !== null && myPlayer !== undefined) {
-            setInsideBellDistance(calculateInsideMeshDistance(meshPosition, myPlayer));
+            setInsideBellDistance(calculateInsideClickRange(meshPosition, myPlayer, 0.6));
         }
     }, [myPlayer?.x, myPlayer?.y]);
 

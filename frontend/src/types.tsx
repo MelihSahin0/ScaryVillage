@@ -7,5 +7,5 @@ export const colors = [
     'lime', 'yellow', 'zinc'
 ];
 
-export type games = "Bin" | "Chicken" | "Chopping" | "Cooking" | "Fishing" |
+export type games = "Bin" | "Cave" | "Chicken" | "Chopping" | "Cooking" | "Fishing" |
                     "Flooding" | "Fountain" | "Mining" | "Sleeping"

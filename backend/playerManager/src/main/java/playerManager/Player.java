@@ -133,8 +133,6 @@ public class Player {
             return false;
         }
 
-        System.out.println(x + ", " + y);
-
         return true;
     }
 

@@ -1,6 +1,6 @@
 package taskManager.extern.jsonDataTransferTypes;
 
-public class TaskFinished {
+public class TaskClicked {
 
     private String lobbyId;
     private String playerId;
