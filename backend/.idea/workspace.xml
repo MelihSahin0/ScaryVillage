@@ -5,42 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/VillageMeshes.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/VillageMeshesDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/intern/Utility.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Cave.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/TaskDifficulty.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/TaskDifficulty.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/jsonDataTransferTypes/TaskFinished.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/jsonDataTransferTypes/TaskClicked.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Bin.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Bin.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chicken.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chicken.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chopping.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chopping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Cooking.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Cooking.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fishing.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fishing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Flooding.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Flooding.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fountain.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fountain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Mining.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Mining.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Sleeping.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Sleeping.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Task.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/TaskmanagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/TaskmanagerSocket.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/Utility.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/Utility.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Progressbar.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Bin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Bin.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Emergency.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Emergency.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/types.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/types.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -276,10 +247,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
+        <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
-        <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
       </list>
     </recent_temporary>
   </component>
@@ -348,7 +319,8 @@
       <workItem from="1714148772413" duration="2985000" />
       <workItem from="1714229374845" duration="2722000" />
       <workItem from="1714496516155" duration="10295000" />
-      <workItem from="1714554767515" duration="6854000" />
+      <workItem from="1714554767515" duration="7110000" />
+      <workItem from="1714569475912" duration="2548000" />
     </task>
     <servers />
   </component>

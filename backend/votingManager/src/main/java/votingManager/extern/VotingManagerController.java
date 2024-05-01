@@ -16,6 +16,8 @@ import votingManager.extern.jsonDataTransferTypes.GameEnd;
 import votingManager.extern.jsonDataTransferTypes.Voting;
 import votingManager.extern.jsonDataTransferTypes.VotingTime;
 import votingManager.intern.Rest;
+
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -46,9 +48,11 @@ public class VotingManagerController {
         HashMap<String, Integer> votedPlayer = countVotedPlayers(lobby);
         String[] mFP = findMostFrequentPlayerId(votedPlayer).split(",");
 
-        if (mFP != null && (mFP.length <= 1 || (mFP.length >1 && killOne))) {
+        System.out.println(Arrays.toString(mFP));
+
+        if (mFP.length == 1 || (mFP.length > 1 && killOne)) {
                 Random random = new Random();
-            System.out.println("h");
+
                 int burn = mFP.length == 1 ? 0 : random.nextInt(mFP.length);
                 Player player = lobby.getPlayer(mFP[burn]);
                 player.setKilled(true);
@@ -126,18 +130,15 @@ public class VotingManagerController {
     private static String findMostFrequentPlayerId(HashMap<String, Integer> votedPlayer) {
         StringBuilder mostFrequentPlayerId = new StringBuilder();
         int maxCount = 0;
-        int numberOfPeopleWithMaxCount = 0;
         for (Map.Entry<String, Integer> entry : votedPlayer.entrySet()) {
             int count = entry.getValue();
             if (count > maxCount) {
                 maxCount = count;
                 mostFrequentPlayerId.setLength(0);
-                mostFrequentPlayerId.append(entry.getKey().toString());
-                mostFrequentPlayerId.append(",");
-                numberOfPeopleWithMaxCount = 1;
+                mostFrequentPlayerId.append(entry.getKey());
             } else if (count == maxCount) {
-                numberOfPeopleWithMaxCount++;
-                mostFrequentPlayerId.append(entry.getKey().toString());
+                mostFrequentPlayerId.append(",");
+                mostFrequentPlayerId.append(entry.getKey());
             }
         }
         return String.valueOf(mostFrequentPlayerId);

@@ -159,7 +159,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
                                 }
                             }}
                         ><p className={votedPlayer === "" && (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") ? 'text-red-500 text-xl' : 'text-white text-xl'}>
-                            {time === 0 ? "Skipped votes: " + skippedVote : "Skip vote!" }
+                            {time === 0 ? "Skipped votes: " + (skippedVote == 0 ? "" : skippedVote) : "Skip vote!" }
                         </p>
                         </button>
                     </div>

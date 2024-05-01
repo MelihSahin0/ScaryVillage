@@ -558,20 +558,37 @@ video {
   visibility: visible;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.inset-y-0 {
+  top: 0px;
+  bottom: 0px;
+}
+
+.right-0 {
+  right: 0px;
+}
+
 .col-span-1 {
   grid-column: span 1 / span 1;
+}
+
+.m-1 {
+  margin: 0.25rem;
 }
 
 .m-10 {
   margin: 2.5rem;
 }
 
-.-mb-40 {
-  margin-bottom: -10rem;
+.m-8 {
+  margin: 2rem;
 }
 
-.-ml-8 {
-  margin-left: -2rem;
+.-mb-40 {
+  margin-bottom: -10rem;
 }
 
 .-mt-12 {
@@ -594,6 +611,18 @@ video {
   margin-top: -1.25rem;
 }
 
+.mb-1 {
+  margin-bottom: 0.25rem;
+}
+
+.mb-10 {
+  margin-bottom: 2.5rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
 .mb-20 {
   margin-bottom: 5rem;
 }
@@ -602,8 +631,16 @@ video {
   margin-left: 0.5rem;
 }
 
+.ml-8 {
+  margin-left: 2rem;
+}
+
 .ml-auto {
   margin-left: auto;
+}
+
+.ml-px {
+  margin-left: 1px;
 }
 
 .mr-2 {
@@ -622,6 +659,14 @@ video {
   margin-top: 1.25rem;
 }
 
+.-mt-20 {
+  margin-top: -5rem;
+}
+
+.mb-12 {
+  margin-bottom: 3rem;
+}
+
 .block {
   display: block;
 }
@@ -632,6 +677,18 @@ video {
 
 .grid {
   display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+.h-32 {
+  height: 8rem;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .h-8 {
@@ -652,6 +709,10 @@ video {
 
 .w-24 {
   width: 6rem;
+}
+
+.w-40 {
+  width: 10rem;
 }
 
 .w-52 {
@@ -708,6 +769,10 @@ video {
 
 .self-center {
   align-self: center;
+}
+
+.overflow-y-auto {
+  overflow-y: auto;
 }
 
 .rounded {
@@ -790,6 +855,11 @@ video {
   border-color: rgb(113 113 122 / var(--tw-border-opacity));
 }
 
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
+
 .bg-gray-700 {
   --tw-bg-opacity: 1;
   background-color: rgb(55 65 81 / var(--tw-bg-opacity));
@@ -828,6 +898,14 @@ video {
   padding-top: 4px;
 }
 
+.pb-36 {
+  padding-bottom: 9rem;
+}
+
+.pb-32 {
+  padding-bottom: 8rem;
+}
+
 .text-center {
   text-align: center;
 }
@@ -863,6 +941,11 @@ video {
 .text-xl {
   font-size: 1.25rem;
   line-height: 1.75rem;
+}
+
+.text-gray-100 {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity));
 }
 
 .text-gray-700 {

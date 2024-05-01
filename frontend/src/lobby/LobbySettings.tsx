@@ -11,9 +11,9 @@ const playerOptions = [
     { value: 10, label: '10' }
 ]
 const imposterOption = [
-    { value: 1, label: '1' },
-    { value: 2, label: '2' },
-    { value: 3, label: '3' },
+    { value: 1, label: '01' },
+    { value: 2, label: '02' },
+    { value: 3, label: '03' },
 ]
 
 const visibilityOptions = [
@@ -86,7 +86,8 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
             <div className="overflow-y-auto h-32">
                 <div className="flex" >
                     <p className="w-52 pt-2 text-white">Visibility:</p>
-                    <Select className="m-1 h-8 ml-2 flex rounded w-40"
+                    <Select className="m-1 h-8 ml-3 flex rounded w-40"
+                            menuPortalTarget={document.body}
                             options={visibilityOptions}
                             value={selectedVisibility}
                             onChange={(event) => {
@@ -101,6 +102,7 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                 <div className="flex">
                     <label className="w-52 pt-2 text-white">Max. number of players:</label>
                     <Select maxMenuHeight={120} className="m-1 w-20 h-8 flex rounded absolute inset-y-0 right-0"
+                            menuPortalTarget={document.body}
                             options={playerOptions}
                             value={selectedMaxNumberOfPlayer}
                             onChange={(event) => {
@@ -117,6 +119,7 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                 <div className="flex">
                     <p className="w-52 pt-2 text-white">Number of imposter:</p>
                     <Select className=" m-1 w-20 h-8 flex rounded"
+                            menuPortalTarget={document.body}
                             options={imposterOption.slice(
                                 0,
                                 selectedMaxNumberOfPlayer.value <= 5 ? 1 :
@@ -135,7 +138,8 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                 </div>
                 <div className="flex">
                     <p className="w-52 pt-2 text-white">Kill cooldown in sec:</p>
-                    <Select  maxMenuHeight={120} className="m-1 h-8 flex rounded w-20"
+                    <Select maxMenuHeight={120} className="m-1 h-8 flex rounded w-20"
+                            menuPortalTarget={document.body}
                             options={cooldownOptions}
                             value={selectedKillCooldown}
                             onChange={(event) => {
@@ -152,6 +156,7 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                 <div className="flex">
                     <p className="w-52 pt-2 text-white">Bell cooldown in sec:</p>
                     <Select maxMenuHeight={120} className="m-1 h-8 flex rounded w-20"
+                            menuPortalTarget={document.body}
                             options={cooldownOptions}
                             value={selectedBellCooldown}
                             onChange={(event) => {
@@ -167,6 +172,7 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                 <div className="flex">
                     <p className="w-52 pt-2 text-white">Timer for voting in sec:</p>
                     <Select maxMenuHeight={120} className="m-1 h-8 flex rounded w-20"
+                            menuPortalTarget={document.body}
                             options={timerOptions}
                             value={selectedVotingTimerOptions}
                             onChange={(event) => {
@@ -178,10 +184,10 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                                 Publish("/send/setVotingTime", JSON.stringify(setVotingTime));
                             }}/>
                 </div>
-                <div>
-                    <label className="w-52 pt-2 text-white">
+                <div className="mt-1">
+                    <label className="w-52 text-white">
                         Kill one, if voting is draw:
-                        <input className="w-20 h-4 mt-2 ml-px mb-2"
+                        <input className="w-20 h-4 pt-5"
                             type="checkbox"
                             checked={killOneChecked}
                             onChange={()=> {
@@ -191,15 +197,14 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                                     killOne: !killOneChecked}
 
                                 Publish("/send/setKillOne", JSON.stringify(checkKillOne));
-
                         }}
                         />
                     </label>
                 </div>
-                <div>
-                    <label className="w-52 pt-2 text-white">
+                <div className="mt-1">
+                    <label className="w-52 text-white">
                         Voting result hidden:
-                        <input className="w-20 h-4 mt-2 ml-8 mb-1"
+                        <input className="w-20 h-4 ml-[29px]"
                                type="checkbox"
                                checked={votingNumberHidden}
                                onChange={()=> {

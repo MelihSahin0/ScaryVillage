@@ -96,11 +96,11 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
     }, [lobbyId, myPlayerId]);
 
     return (
-        <div className="bg-gray-700" >
+        <div className="bg-gray-700 w-screen h-screen" >
             <div className="flex justify-items-center justify-center pt-10">
                 {winner !== undefined && <h1 className="text-white text-2xl">The winner of the previous round: {winner.toUpperCase()}</h1>}
             </div>
-            <div className="grid grid-cols-2 gap-4 pt-14 pb-40 justify-items-center">
+            <div className="grid grid-cols-2 gap-4 pt-14 pb-32 justify-items-center">
                 <div className="col-span-1 grid-cols-subgrid w-80 min-h-80 justify-center items-center">
                     <PlayerList displayPlayers={displayPlayers}/>
                 </div>
