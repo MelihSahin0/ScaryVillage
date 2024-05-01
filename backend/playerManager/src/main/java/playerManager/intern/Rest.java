@@ -22,6 +22,8 @@ public class Rest {
     public void addLobby(@RequestBody LobbyIdPlayerHashMap message) {
         Lobby lobby = new Lobby(message.getBellCooldown());
         lobby.setVotingTime(message.getVotingTime());
+        lobby.setKillOne(message.getKillOne());
+        lobby.setChangeVotingNumberVisibility(message.getChangeVotingNumberVisibility());
         for (Map.Entry<String, intern.Player> player : message.getPlayers().entrySet()){
             playerManager.Player inGamePlayer = new playerManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(), 0,0,player.getValue().getRole(), message.getKillCooldown());
             lobby.addPlayer(inGamePlayer);
@@ -78,10 +80,13 @@ public class Rest {
         return playerPosition;
     }
 
-    public static void startVoting(String lobbyId, HashMap<String, playerManager.Player> players, String requester, int votingTime){
+    public static void startVoting(String lobbyId, HashMap<String, playerManager.Player> players, String requester,
+                                   int votingTime, boolean killOne, boolean changeVotingNumberVisibility){
         LobbyIdPlayerHashMapString lobbyIdPlayerHashMapString = new LobbyIdPlayerHashMapString();
         lobbyIdPlayerHashMapString.setLobbyId(lobbyId);
         lobbyIdPlayerHashMapString.setVotingTime(votingTime);
+        lobbyIdPlayerHashMapString.setKillOne(killOne);
+        lobbyIdPlayerHashMapString.setChangeVotingNumberVisibility(changeVotingNumberVisibility);
         for (Player player : players.values()) {
             lobbyIdPlayerHashMapString.setPlayer(player.getId(), new intern.Player(player.getId(), player.getName(), player.getColor(), player.getRole()));
         }

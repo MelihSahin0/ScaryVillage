@@ -76,19 +76,17 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
         }, 400);
     }, [lobbyId]);
 
-    const [checked, setChecked] = React.useState(false);
+    const [killOneChecked, setKillOneChecked] = useState(false);
+    const [votingNumberHidden, setVotingNumberHidden] = useState(false);
 
-    const handleChange = () => {
-        setChecked(!checked);
-    };
 
     return (
         <div className="ml-2">
             <p className="text-white mt-4 text-xl">Lobby Settings:</p>
-            <div className="overflow-auto h-32">
+            <div className="overflow-y-auto h-32">
                 <div className="flex" >
                     <p className="w-52 pt-2 text-white">Visibility:</p>
-                    <Select className="m-1 h-8 flex rounded w-40"
+                    <Select className="m-1 h-8 ml-2 flex rounded w-40"
                             options={visibilityOptions}
                             value={selectedVisibility}
                             onChange={(event) => {
@@ -102,7 +100,7 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                 </div>
                 <div className="flex">
                     <label className="w-52 pt-2 text-white">Max. number of players:</label>
-                    <Select maxMenuHeight={120} className="m-1 w-20 h-8 flex rounded"
+                    <Select maxMenuHeight={120} className="m-1 w-20 h-8 flex rounded absolute inset-y-0 right-0"
                             options={playerOptions}
                             value={selectedMaxNumberOfPlayer}
                             onChange={(event) => {
@@ -183,10 +181,37 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                 <div>
                     <label className="w-52 pt-2 text-white">
                         Kill one, if voting is draw:
-                        <input className="w-20 h-4 mt-2 ml-1 mb-2"
+                        <input className="w-20 h-4 mt-2 ml-px mb-2"
                             type="checkbox"
-                            checked={checked}
-                            onChange={handleChange}
+                            checked={killOneChecked}
+                            onChange={()=> {
+                                setKillOneChecked(!killOneChecked);
+                                const checkKillOne = {
+                                lobbyId: lobbyId,
+                                    killOne: !killOneChecked}
+
+                                Publish("/send/setKillOne", JSON.stringify(checkKillOne));
+
+                        }}
+                        />
+                    </label>
+                </div>
+                <div>
+                    <label className="w-52 pt-2 text-white">
+                        Voting result hidden:
+                        <input className="w-20 h-4 mt-2 ml-8 mb-1"
+                               type="checkbox"
+                               checked={votingNumberHidden}
+                               onChange={()=> {
+                                   setVotingNumberHidden(!votingNumberHidden)
+                                   const checkVotingNumber = {
+                                       lobbyId: lobbyId,
+                                       changeVotingNumberVisibility: !votingNumberHidden}
+                                   console.log(checkVotingNumber)
+
+                                   Publish("/send/changeVotingNumberVisibility", JSON.stringify(checkVotingNumber));
+
+                               }}
                         />
                     </label>
                 </div>

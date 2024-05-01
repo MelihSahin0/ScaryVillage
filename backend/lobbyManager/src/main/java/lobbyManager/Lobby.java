@@ -22,7 +22,9 @@ public class Lobby {
     private int votingTime;
     private int killCooldownTime;
     private int bellCooldownTime;
+    private boolean killOne;
     private Visibility visibility;
+    private boolean changeVotingNumberVisibility;
     private ScheduledExecutorService executorService;
 
     public String getLobbyId() {
@@ -116,6 +118,22 @@ public class Lobby {
         this.bellCooldownTime = bellCooldownTime;
     }
 
+    public boolean getKillOne() {
+        return killOne;
+    }
+
+    public void setKillOne(boolean killOne) {
+        this.killOne = killOne;
+    }
+
+    public boolean getChangeVotingNumberVisibility() {
+        return changeVotingNumberVisibility;
+    }
+
+    public void setChangeVotingNumberVisibility(boolean changeVotingNumberVisibility) {
+        this.changeVotingNumberVisibility = changeVotingNumberVisibility;
+    }
+
     public void startTimer() {
         if (executorService != null) {
             executorService.shutdown();
@@ -188,6 +206,8 @@ public class Lobby {
                 ", \"votingTime\": \"" + votingTime + "\"" +
                 ", \"killCooldownTime\": \"" + killCooldownTime + "\"" +
                 ", \"bellCooldownTime\": \"" + bellCooldownTime + "\"" +
+                ", \"killOne\": \"" + killOne + "\"" +
+                ", \"changeVotingNumberVisibility\": \"" + changeVotingNumberVisibility + "\"" +
                 '}';
     }
 

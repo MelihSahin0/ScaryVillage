@@ -18,6 +18,7 @@ import votingManager.extern.jsonDataTransferTypes.VotingTime;
 import votingManager.intern.Rest;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 @RestController
 public class VotingManagerController {
@@ -41,15 +42,19 @@ public class VotingManagerController {
 
     public void sendResult(String lobbyId){
         Lobby lobby = Lobbies.getLobby(lobbyId);
+        boolean killOne = lobby.getKillOne();
         HashMap<String, Integer> votedPlayer = countVotedPlayers(lobby);
-        String mFP = findMostFrequentPlayerId(votedPlayer);
+        String[] mFP = findMostFrequentPlayerId(votedPlayer).split(",");
 
-        if (mFP != null && !mFP.isEmpty()) {
-            Player player = lobby.getPlayer(mFP);
-            player.setKilled(true);
-            player.killed();
-            player.setColor(Colors.BLACK);
-        }
+        if (mFP != null && (mFP.length <= 1 || (mFP.length >1 && killOne))) {
+                Random random = new Random();
+            System.out.println("h");
+                int burn = mFP.length == 1 ? 0 : random.nextInt(mFP.length);
+                Player player = lobby.getPlayer(mFP[burn]);
+                player.setKilled(true);
+                player.killed();
+                player.setColor(Colors.BLACK);
+         }
 
         Rest.sendResult(lobbyId);
 
@@ -72,8 +77,15 @@ public class VotingManagerController {
             gameEnd.setWinner(Roles.CREWMATE);
             gameOver = true;
         }
+        HashMap<String, Player> players = Lobbies.getLobby(lobbyId).getPlayers();
 
-        messagingTemplate.convertAndSend("/subscribe/getPlayers/" + lobbyId, lobby.getPlayers().values().toString());
+        if (Lobbies.getLobby(lobbyId).getChangeVotingNumberVisibility()){
+            for (Player player : players.values()) {
+                player.setNumberOfVotes(0);
+            }
+        }
+
+        messagingTemplate.convertAndSend("/subscribe/getPlayers/" + lobbyId, players.values().toString());
         if (gameOver){
             messagingTemplate.convertAndSend("/subscribe/gameEnd/" + lobbyId, gameEnd.toString());
             Rest.gameFinished(lobbyId);
@@ -112,19 +124,22 @@ public class VotingManagerController {
     }
 
     private static String findMostFrequentPlayerId(HashMap<String, Integer> votedPlayer) {
-        String mostFrequentPlayerId = "";
+        StringBuilder mostFrequentPlayerId = new StringBuilder();
         int maxCount = 0;
         int numberOfPeopleWithMaxCount = 0;
         for (Map.Entry<String, Integer> entry : votedPlayer.entrySet()) {
             int count = entry.getValue();
             if (count > maxCount) {
                 maxCount = count;
-                mostFrequentPlayerId = entry.getKey();
+                mostFrequentPlayerId.setLength(0);
+                mostFrequentPlayerId.append(entry.getKey().toString());
+                mostFrequentPlayerId.append(",");
                 numberOfPeopleWithMaxCount = 1;
             } else if (count == maxCount) {
                 numberOfPeopleWithMaxCount++;
+                mostFrequentPlayerId.append(entry.getKey().toString());
             }
         }
-        return (numberOfPeopleWithMaxCount == 1) ? mostFrequentPlayerId : "";
+        return String.valueOf(mostFrequentPlayerId);
     }
 }

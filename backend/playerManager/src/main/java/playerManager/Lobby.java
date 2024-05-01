@@ -14,6 +14,8 @@ public class Lobby {
     private final int bellCooldown;
     private int allowedToBellIn;
     private int votingTime;
+    private boolean killOne;
+    private boolean changeVotingNumberVisibility;
     private ScheduledExecutorService executorServiceKillCooldown;
 
     public Lobby(int bellCooldown) {
@@ -73,4 +75,19 @@ public class Lobby {
         }, 0, 1, TimeUnit.SECONDS);
     }
 
+    public void setKillOne(boolean killOne) {
+        this.killOne = killOne;
+    }
+
+    public boolean getKillOne() {
+        return killOne;
+    }
+
+    public boolean getChangeVotingNumberVisibility() {
+        return changeVotingNumberVisibility;
+    }
+
+    public void setChangeVotingNumberVisibility(boolean changeVotingNumberVisibility) {
+        this.changeVotingNumberVisibility = changeVotingNumberVisibility;
+    }
 }

@@ -1,8 +1,9 @@
 package lobbyManager.extern.jsonDataTransferTypes;
 
-public class ChangeVotingTime {
+
+public class KillOne {
     private String lobbyId;
-    private int votingTime;
+    private boolean killOne;
 
     public String getLobbyId() {
         return lobbyId;
@@ -12,19 +13,19 @@ public class ChangeVotingTime {
         this.lobbyId = lobbyId;
     }
 
-    public int getVotingTime() {
-        return votingTime;
+    public boolean getKillOne() {
+        return killOne;
     }
 
-    public void setVotingTime(int votingTime) {
-        this.votingTime = votingTime;
+    public void setKillOne(boolean killOne) {
+        this.killOne = killOne;
     }
 
     @Override
     public String toString() {
         return "{" +
                 "\"lobbyId\": \"" + lobbyId + "\"" +
-                "\" votingTime\": \"" + votingTime + "\"" +
-                "}";
+                ", \"killOne: \"" + killOne + "\"" +
+                '}';
     }
 }

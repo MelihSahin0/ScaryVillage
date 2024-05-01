@@ -58,7 +58,7 @@ export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: 
             <div className="-mt-5">
                 <input className="border rounded-md text-center"
                        id="joinSpecificLobby" type="text" minLength={32} maxLength={32} size={36}
-                       placeholder="Join a specefic lobby with the Looby Id"
+                       placeholder="Join a specific lobby with the Lobby Id"
                        onChange={(event) => {myPlayer.lobbyId = event.target.value}}
                 />
             </div>
