@@ -48,8 +48,6 @@ public class VotingManagerController {
         HashMap<String, Integer> votedPlayer = countVotedPlayers(lobby);
         String[] mFP = findMostFrequentPlayerId(votedPlayer).split(",");
 
-        System.out.println(Arrays.toString(mFP));
-
         if (mFP.length == 1 || (mFP.length > 1 && killOne)) {
                 Random random = new Random();
 
