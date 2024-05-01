@@ -8,6 +8,8 @@ public class LobbyIdPlayerHashMapString {
     private HashMap<String, Player> players = new HashMap<>();
     private String extra;
     private int votingTime;
+    private boolean killOne;
+    private boolean changeVotingNumberVisibility;
 
     public String getLobbyId() {
         return lobbyId;
@@ -41,5 +43,21 @@ public class LobbyIdPlayerHashMapString {
 
     public void setVotingTime(int votingTime) {
         this.votingTime = votingTime;
+    }
+
+    public boolean getKillOne() {
+        return killOne;
+    }
+
+    public void setKillOne(boolean killOne) {
+        this.killOne = killOne;
+    }
+
+    public boolean getChangeVotingNumberVisibility() {
+        return changeVotingNumberVisibility;
+    }
+
+    public void setChangeVotingNumberVisibility(boolean changeVotingNumberVisibility) {
+        this.changeVotingNumberVisibility = changeVotingNumberVisibility;
     }
 }

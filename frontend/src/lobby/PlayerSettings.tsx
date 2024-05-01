@@ -38,11 +38,11 @@ export default function PlayerSettings({myPlayer, lobbyId}: Props){
     }
 
     return (
-        <div className="ml-2  mt-2">
+        <div className="ml-2 mt-2 max-w-25">
             <p className="text-white text-xl">Player Settings:</p>
             <div className="flex mt-2">
                 <p className="w-20 text-white">Username:</p>
-                <input className={"justify-center items-center w-52 border-2 " + borderColor}
+                <input className={"justify-center items-center w-40 border-2 rounded " + borderColor}
                        type="text" id="setPlayerName"
                        defaultValue={myPlayer === undefined ? "" : myPlayer.name}
                        onChange={(event) => {

@@ -26,7 +26,9 @@ public class Rest {
         lobby.setVisibility(Visibility.PRIVATE);
         lobby.setKillCooldownTime(10);
         lobby.setBellCooldownTime(10);
+        lobby.setKillOne(false);
         lobby.setVotingTime(60);
+        lobby.setChangeVotingNumberVisibility(false);
         Lobbies.addLobby(message.getLobbyId(), lobby);
     }
 
@@ -103,13 +105,15 @@ public class Rest {
                 String.class);
     }
 
-    public static void addLobby(String lobbyId, HashMap<String, Player> players, int bellCooldown, int killCooldown, int votingTime){
+    public static void addLobby(String lobbyId, HashMap<String, Player> players, int bellCooldown,
+                                int killCooldown, int votingTime, boolean killOne, boolean changeVotingNumberVisibility){
         LobbyIdPlayerHashMap lobbyIdPlayerHashMap = new LobbyIdPlayerHashMap();
         lobbyIdPlayerHashMap.setLobbyId(lobbyId);
         lobbyIdPlayerHashMap.setBellCooldown(bellCooldown);
         lobbyIdPlayerHashMap.setKillCooldown(killCooldown);
         lobbyIdPlayerHashMap.setVotingTime(votingTime);
-
+        lobbyIdPlayerHashMap.setKillOne(killOne);
+        lobbyIdPlayerHashMap.setChangeVotingNumberVisibility(changeVotingNumberVisibility);
         for(Player player : players.values()){
             lobbyIdPlayerHashMap.setPlayer(player.getId(), new intern.Player(player.getId(),player.getName(),player.getColor(),player.getRole()));
         }

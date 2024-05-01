@@ -96,7 +96,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
     }, [lobbyId, myPlayerId]);
 
     return (
-        <div className="bg-gray-700 w-screen h-screen" >
+        <div className="bg-gray-700" >
             <div className="flex justify-items-center justify-center pt-10">
                 {winner !== undefined && <h1 className="text-white text-2xl">The winner of the previous round: {winner.toUpperCase()}</h1>}
             </div>
@@ -104,14 +104,15 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
                 <div className="col-span-1 grid-cols-subgrid w-80 min-h-80 justify-center items-center">
                     <PlayerList displayPlayers={displayPlayers}/>
                 </div>
-                <div className="col-span-1 grid-cols-subgrid w-80 min-h-82 justify-center items-center flex">
-                    <div className="border-white border-2 min-h-80 flex-1">
+                <div className="col-span-1 grid-cols-subgrid w-80 min-h-82 justify-center items-center">
+                    <div className="border-white border-2 min-h-80">
                         <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>
                         {myPlayer?.host && <LobbySettings lobbyId={lobbyId} maxNumberOfPlayers={displayPlayers.length}/>}
                     </div>
                 </div>
             </div>
-            <LobbyInfo myPlayer={myPlayer} lobbyId={lobbyId} onClickStart={() => {
+            <LobbyInfo myPlayer={myPlayer} lobbyId={lobbyId} players={displayPlayers} onClickStart={() => {
+
                 const gameStatus = {
                     lobbyId: lobbyId,
                     gameStatus: "inGame"

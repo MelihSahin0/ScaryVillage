@@ -40,6 +40,8 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
         SubscribeToLobby(lobbyId);
     }, [lobbyId]);
 
+
+
     useEffect(() => {
         let myPlayerSet = false;
 

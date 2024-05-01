@@ -108,7 +108,8 @@ public class LobbyController {
 
         if (message.getGameStatus() == GameStatus.INGAME) {
             lobby.setImposters();
-            Rest.addLobby(message.getLobbyId(), lobby.getPlayers(), lobby.getBellCooldownTime(), lobby.getKillCooldownTime(), lobby.getVotingTime());
+            Rest.addLobby(message.getLobbyId(), lobby.getPlayers(), lobby.getBellCooldownTime(),
+                    lobby.getKillCooldownTime(), lobby.getVotingTime(), lobby.getKillOne(), lobby.getChangeVotingNumberVisibility());
             lobby.setEveryoneCrewmate();
         }
 
@@ -208,6 +209,22 @@ public class LobbyController {
     public String setVotingTime(ChangeVotingTime message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
         lobby.setVotingTime(message.getVotingTime());
+        return lobby.toString();
+    }
+
+    @MessageMapping("/setKillOne/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String setKillOne(KillOne message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setKillOne(message.getKillOne());
+        return lobby.toString();
+    }
+
+    @MessageMapping("/changeVotingNumberVisibility/{stringLobbyId}")
+    @SendTo("/subscribe/lobbySettings/{stringLobbyId}")
+    public String changeVotingNumberVisibility(ChangeVotingNumberVisibility message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setChangeVotingNumberVisibility(message.getChangeVotingNumberVisibility());
         return lobby.toString();
     }
 }

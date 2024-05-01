@@ -9,6 +9,8 @@ public class LobbyIdPlayerHashMap {
     private int bellCooldown;
     private int killCooldown;
     private int votingTime;
+    private boolean killOne;
+    private boolean changeVotingNumberVisibility;
 
     public String getLobbyId() {
         return lobbyId;
@@ -50,5 +52,20 @@ public class LobbyIdPlayerHashMap {
 
     public void setVotingTime(int votingTime) {
         this.votingTime = votingTime;
+    }
+
+    public void setKillOne(boolean killOne) {
+        this.killOne = killOne;
+    }
+    public boolean getKillOne() {
+        return killOne;
+    }
+
+    public boolean getChangeVotingNumberVisibility() {
+        return changeVotingNumberVisibility;
+    }
+
+    public void setChangeVotingNumberVisibility(boolean changeVotingNumberVisibility) {
+        this.changeVotingNumberVisibility = changeVotingNumberVisibility;
     }
 }

@@ -24,6 +24,8 @@ public class Rest {
         Lobby lobby = new Lobby();
         lobby.setLobbyId(message.getLobbyId());
         lobby.setTimeLeft(message.getVotingTime());
+        lobby.setKillOne(message.getKillOne());
+        lobby.setChangeVotingNumberVisibility(message.getChangeVotingNumberVisibility());
         for (Map.Entry<String, Player> player : message.getPlayers().entrySet()){
             votingManager.Player votingPlayer = new votingManager.Player(player.getValue().getId(), player.getValue().getName(), player.getValue().getColor(),player.getValue().getRole());
             if (votingPlayer.getId().equals(message.getExtra())){

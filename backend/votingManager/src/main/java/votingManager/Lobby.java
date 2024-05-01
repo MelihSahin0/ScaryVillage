@@ -14,6 +14,8 @@ public class Lobby {
     private final HashMap<String, Player> players = new HashMap<>();
     private ScheduledExecutorService executorService;
     private int timeLeft;
+    private boolean killOne;
+    private boolean changeVotingNumberVisibility;
 
     public String getLobbyId() {
         return lobbyId;
@@ -37,6 +39,22 @@ public class Lobby {
 
     public void setTimeLeft(int timeLeft) {
         this.timeLeft = timeLeft;
+    }
+
+    public boolean getKillOne() {
+        return killOne;
+    }
+
+    public void setKillOne(boolean killOne) {
+        this.killOne = killOne;
+    }
+
+    public boolean getChangeVotingNumberVisibility() {
+        return changeVotingNumberVisibility;
+    }
+
+    public void setChangeVotingNumberVisibility(boolean changeVotingNumberVisibility) {
+        this.changeVotingNumberVisibility = changeVotingNumberVisibility;
     }
 
     public void startTimer() {
