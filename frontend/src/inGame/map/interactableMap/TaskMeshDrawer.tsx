@@ -57,7 +57,7 @@ export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: P
 
                         Publish("/send/doTaskRequest", JSON.stringify(doTaskRequest))
                         //TODO Delete this one down when tasks are playable
-                        Publish("/send/taskFinished", JSON.stringify(doTaskRequest));
+                        //Publish("/send/taskFinished", JSON.stringify(doTaskRequest));
                     }}>
                         <boxGeometry args={[0.6, 0.33, 1]}/>
                         <meshBasicMaterial transparent/>

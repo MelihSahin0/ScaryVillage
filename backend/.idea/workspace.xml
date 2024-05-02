@@ -5,7 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +169,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.StompWebsocketTaskManager">
+  <component name="RunManager" selected="Spring Boot.StompWebsocketVotingManager">
     <configuration name="StompWebsocketGameManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" temporary="true" nameIsGenerated="true">
       <module name="gameManager" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="gameManager.StompWebsocketGameManager" />
@@ -240,10 +244,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
@@ -315,6 +319,7 @@
       <workItem from="1714496516155" duration="10295000" />
       <workItem from="1714554767515" duration="7110000" />
       <workItem from="1714569475912" duration="2857000" />
+      <workItem from="1714669312993" duration="1850000" />
     </task>
     <servers />
   </component>
