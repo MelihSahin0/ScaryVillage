@@ -39,7 +39,7 @@ export default function TaskProgress({progress, myPlayer, tasks}: Props){
         <group>
             <group>
                 <mesh position={[x, y, 1]}>
-                    <boxGeometry args={[progress / 2, windowSize.height / 8000, 0.1]}/>
+                    <boxGeometry args={[progress / 2, windowSize.height / 8000, 2]}/>
                     <meshBasicMaterial attach="material" color="green"/>
                 </mesh>
                 <mesh position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 4), y, 1]}>
