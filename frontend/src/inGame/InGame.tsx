@@ -33,7 +33,7 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
 
     return (
         <>
-            <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={500} />
+            <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={cameraZoomFactor} />
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
             <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner}/>
