@@ -67,6 +67,8 @@ public abstract class Task {
         return Math.sqrt(Math.pow(position.getX() - playerPosi.getX(),2) + Math.pow(position.getY() - playerPosi.getY(),2)) <= radius;
     }
 
+    public abstract Task deepCopy();
+
     @Override
     public String toString() {
         return "{" +

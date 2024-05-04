@@ -3,7 +3,6 @@ import Map from "./map/Map";
 import PlayerManager, {Player} from "./PlayerManager";
 import {gameState, role} from "../types";
 import React, {useEffect, useState} from "react";
-import {useThree} from "@react-three/fiber";
 
 type Props = {
     lobbyId: string;
@@ -15,8 +14,7 @@ type Props = {
 export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: Props){
 
     const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight })
-
-
+    const [allowedToMove, setAllowedToMove] = useState<boolean>(true)
     const [myPlayer, setMyPlayer] = useState<Player>();
     const [previousX, setPreviousX] = useState(0)
     const [previousY, setPreviousY] = useState(0)
@@ -36,8 +34,8 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
             <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={cameraZoomFactor} />
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
-            <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner}/>
-            <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner} myPlayer={myPlayer} setMyPlayer={setMyPlayer}/>
+            <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner} setAllowedToMove={setAllowedToMove}/>
+            <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner} myPlayer={myPlayer} setMyPlayer={setMyPlayer} allowedToMove={allowedToMove}/>
         </>
     )
 }

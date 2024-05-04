@@ -31,23 +31,23 @@ export default function TaskProgress({progress, myPlayer, tasks}: Props){
     }, []);
 
     useEffect(() => {
-        setX((myPlayer ? myPlayer.x  : 0) - (windowSize.width / 1010 - progress/4));
-        setY((myPlayer ? myPlayer.y  : 0) + windowSize.height / 1100);
+        setX((myPlayer ? myPlayer.x  : 0) - (windowSize.width / 1010 + 0.188 - (progress/2) - (0.25 - 0.025 * progress/0.1)));
+        setY((myPlayer ? myPlayer.y  : 0) + windowSize.height / 1150);
     }, [progress, windowSize.height, windowSize.width, myPlayer]);
 
     return (
         <group>
             <group>
                 <mesh position={[x, y, 1]}>
-                    <boxGeometry args={[progress / 2, windowSize.height / 8000, 2]}/>
+                    <boxGeometry args={[progress/2, windowSize.height / 8000, 2]}/>
                     <meshBasicMaterial attach="material" color="green"/>
                 </mesh>
-                <mesh position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 4), y, 1]}>
+                <mesh position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 3.2), y, 1]}>
                     <boxGeometry args={[1 / 2, windowSize.height / 8000, 0.1]}/>
                     <meshBasicMaterial attach="material" color="gray"/>
                 </mesh>
                 <group>
-                    <lineSegments position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 4), y, 1]}>
+                    <lineSegments position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 3.2), y, 1]}>
                         <edgesGeometry attach="geometry"
                                        args={[new THREE.BoxGeometry(1 / 2, windowSize.height / 8000, 0.1)]}/>
                         <lineBasicMaterial attach="material" color={0x000000}/>
@@ -55,7 +55,7 @@ export default function TaskProgress({progress, myPlayer, tasks}: Props){
                 </group>
             </group>
             {tasks.map((task, index) => (
-                <Text key={task.taskId + "@"} position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 10), y - (index + 1)/15, 2]} scale={[0.04, 0.04, 0.04]}
+                <Text key={task.taskId + "@"} position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 7), y - (index + 1)/15, 2]} scale={[0.04, 0.04, 0.04]}
                       color={(task.gameType === "Flooding" || task.gameType === "Fountain") ? "red" : "green"}>{task.gameType}</Text>
             ))}
         </group>

@@ -1,22 +1,22 @@
 import {Player} from "../../PlayerManager";
-import {Task} from "../Map";
 import * as THREE from "three";
 import {useLoader, useThree} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {Publish} from "../../TaskmanagerSocket";
 import React, {useEffect, useState} from "react";
 import {Text} from "@react-three/drei";
+import {Task} from "../Map";
 
 type Props = {
     lobbyId: string;
     myPlayerId: string;
     myPlayer: Player | undefined;
-    tasks: Array<Task>
-    taskId: any,
-    setCurrentTask: any
+    taskId: string;
+    setCurrentTask:(setCurrentTask: Task | undefined) => void;
+    setAllowedToMove:(setAllowedToMove: boolean) => void;
 }
 
-export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, tasks, taskId, setCurrentTask}: Props){
+export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove}: Props){
     const viewport = useThree(state => state.viewport)
 
     const texture = useLoader(TextureLoader, 'src/Images/SleepingTask.png');
@@ -42,6 +42,7 @@ export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, tasks, task
             };
             Publish("/send/taskFinished", JSON.stringify(doTaskRequest));
             setCurrentTask(undefined);
+            setAllowedToMove(true);
         }
     }, [remainingTime, lobbyId, myPlayerId, taskId, setCurrentTask]);
 
@@ -52,7 +53,6 @@ export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, tasks, task
             <meshBasicMaterial map={texture}/>
         </mesh>
             {<Text position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 3)} scale={[viewport.width/8, viewport.height/8, 1]} color="#ffffff">{remainingTime/1000} sec</Text>}
-
         </group>
     )
 }

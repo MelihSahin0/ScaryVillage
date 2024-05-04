@@ -14,9 +14,10 @@ type Props = {
     myPlayer: Player | undefined;
     players: Array<Player>;
     killCooldown: number;
+    allowedToMove: boolean;
 }
 
-export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown}: Props){
+export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, allowedToMove}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
 
@@ -28,7 +29,7 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown}: P
         keyMap['KeyW'] && (keyPress.push("w"))
         keyMap['KeyS'] && (keyPress.push("s"))
 
-        if (keyPress.length > 0) {
+        if (keyPress.length > 0 && allowedToMove) {
             const movementData = {
                 lobbyId: lobbyId,
                 playerId: myPlayer?.id,

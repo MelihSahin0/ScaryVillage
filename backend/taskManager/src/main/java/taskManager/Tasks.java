@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class Tasks {
 
-    private HashMap<String, Task> tasks = new HashMap<>();
+    private final HashMap<String, Task> tasks = new HashMap<>();
 
     public Task getTask(String taskId){
         return tasks.get(taskId);
@@ -22,21 +22,11 @@ public class Tasks {
         tasks.put(taskId, task);
     }
 
-    public int getNumberOfTaskType(Class<? extends Task> taskClass){
-        int numberOfTasks = 0;
-        for(Task task : tasks.values()){
-            if (taskClass.isAssignableFrom(task.getClass())){
-                numberOfTasks++;
-            }
-        }
-        return numberOfTasks;
-    }
-
     @Override
     public String toString() {
         JSONArray jsonArray = new JSONArray();
         for (Task task : tasks.values()) {
-            if (task.getStatus() == TaskStatus.TODO) {
+            if (task.getStatus() == TaskStatus.TODO && task.getDifficulty() != TaskDifficulty.EXTENSION) {
                 jsonArray.put(task.toString());
             }
         }

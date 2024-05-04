@@ -9,7 +9,7 @@ type Props = {
     lobbyId: string;
     myPlayerId: string;
     myPlayer: Player | undefined;
-    tasks: Array<Task>
+    tasks: Array<Task>;
 }
 
 export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: Props){
@@ -55,11 +55,11 @@ export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: P
                             taskId: task.taskId
                         };
 
-                        Publish("/send/doTaskRequest", JSON.stringify(doTaskRequest))
-                        //TODO Delete this one down when tasks are playable
-                        //Publish("/send/taskFinished", JSON.stringify(doTaskRequest));
+                        if (isHovered[index] && insideBinDistance[index]) {
+                            Publish("/send/doTaskRequest", JSON.stringify(doTaskRequest));
+                        }
                     }}>
-                        <boxGeometry args={[0.6, 0.33, 1]}/>
+                        <boxGeometry args={[task.scale.width, task.scale.height, task.scale.depth]}/>
                         <meshBasicMaterial transparent/>
                     </mesh>
                     <group visible={isHovered[index] !== undefined && isHovered[index]}>

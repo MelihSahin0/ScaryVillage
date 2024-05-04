@@ -4,12 +4,32 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="">
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="i want to merge">
+      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cave.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/Tasks.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/Tasks.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/intern/Utility.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/intern/Utility.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Bin.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Bin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Cave.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Cave.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chicken.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chicken.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chopping.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Chopping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Cooking.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Cooking.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fishing.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fishing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Flooding.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Flooding.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fountain.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Fountain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Mining.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Mining.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Sleeping.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Sleeping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Bin.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -244,10 +264,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
-        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
@@ -321,6 +341,15 @@
       <workItem from="1714569475912" duration="2857000" />
       <workItem from="1714669312993" duration="1850000" />
     </task>
+    <task id="LOCAL-00001" summary="i want to merge">
+      <option name="closed" value="true" />
+      <created>1714818994477</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714818994477</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -329,7 +358,9 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="sync" />
     <MESSAGE value="&quot;&quot;" />
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="i want to pull" />
+    <MESSAGE value="i want to merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="i want to merge" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

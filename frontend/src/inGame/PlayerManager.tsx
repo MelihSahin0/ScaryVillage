@@ -34,9 +34,10 @@ type Props = {
     setWinner(setWinner: role): void;
     myPlayer: Player | undefined;
     setMyPlayer(setMyPlayer: Player): void;
+    allowedToMove: boolean;
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer ,setMyPlayer}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer ,setMyPlayer, allowedToMove}: Props){
 
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [killCooldown, setKillCooldown] = useState(0);
@@ -202,7 +203,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
 
     return (
         <>
-            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} />
+            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} allowedToMove={allowedToMove} />
         </>
     )
 }

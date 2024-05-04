@@ -15,6 +15,7 @@ import {games, gameState, role} from "../../types";
 import TaskProgress from "./TaskProgress";
 import TaskMeshDrawer from "./interactableMap/TaskMeshDrawer";
 import SleepingMesh from "./interactableMap/Sleeping";
+import CaveMesh from "./interactableMap/Cave";
 
 type Props = {
     lobbyId: string;
@@ -22,6 +23,7 @@ type Props = {
     myPlayer: Player | undefined;
     setGameState(newState: gameState): void;
     setWinner(setWinner: role): void;
+    setAllowedToMove:(setAllowedToMove: boolean) => void;
 }
 
 export type Task = {
@@ -40,7 +42,7 @@ export type Task = {
     radius: number;
 };
 
-export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner}: Props){
+export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner, setAllowedToMove}: Props){
 
     {/*TODO Idea for displaying the clicked task would be this use State. And when voting this would automatically be
         undefined because it unmounts. It would be set when the backend says you were in clickRange.
@@ -108,7 +110,9 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                     radius: taskJson.radius
                 }
                 setCurrentTask(task);
-                console.log(task);
+                if (task.gameType !== "Cave") {
+                    setAllowedToMove(false);
+                }
             }
         }
         SubscribeGetPlayerTodoTask(getPlayerTodoTask);
@@ -134,17 +138,16 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 <boxGeometry args={[9, 5, 0.1]}/>
                 <meshBasicMaterial map={texture}/>
             </mesh>
+            <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks}/>
             {/*TODO When doing a task dont draw the other meshes "Disable movement?" and show task*/}
             {currentTask === undefined && <>
-            <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks}/>
-            <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
-            <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks}/>
-            </>
+                <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
+                <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks}/>
+             </>
             }
             {/*TODO They dont draw meshes anymore, change it so they display the game itself maybe? They need a complete Rework*/}
-
-            {currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Sleeping")} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} />}
-
+            {currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
+            {currentTask?.gameType === "Cave" && <CaveMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} currentTask={currentTask} setCurrentTask={setCurrentTask}/> }
         </group>
     )
 }

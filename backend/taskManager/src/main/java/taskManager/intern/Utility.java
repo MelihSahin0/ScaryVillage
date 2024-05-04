@@ -33,13 +33,12 @@ public class Utility {
                 setTasks(tasks, availableTasks, 1);
 
                 if (tasks.getTasks().stream().anyMatch(option -> option.getValue() instanceof Bin)){
-                    Task task = villageMeshesDTO.getCave();
+                    Task task = villageMeshesDTO.getCave().deepCopy();
                     task.setStatus(TaskStatus.TODO);
                     String uuid = UUID.randomUUID().toString().replace("-", "");
                     task.setTaskId(uuid);
                     tasks.addTask(uuid, villageMeshesDTO.getCave());
                 }
-
                 lobby.setPlayersTask(player.getKey(), tasks);
             }
         }
@@ -52,7 +51,7 @@ public class Utility {
             do {
                 uuid = UUID.randomUUID().toString().replace("-", "");
                 Random r = new Random();
-                Task candidate = availableTasks.get(r.nextInt(availableTasks.size()));
+                Task candidate = availableTasks.get(r.nextInt(availableTasks.size())).deepCopy();
                 if (tasks.getTasks().stream().anyMatch(option -> option.getValue().getPosition().equals(candidate.getPosition()))) {
                     task = null;
                 } else {

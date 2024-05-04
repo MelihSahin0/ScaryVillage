@@ -8,9 +8,12 @@ import taskManager.*;
 import taskManager.extern.jsonDataTransferTypes.GetTasks;
 import taskManager.extern.jsonDataTransferTypes.TaskClicked;
 import taskManager.intern.Rest;
+import taskManager.tasks.Bin;
+import taskManager.tasks.Cave;
 import taskManager.tasks.Task;
 
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 public class TaskManagerController {
@@ -41,6 +44,21 @@ public class TaskManagerController {
             return null;
         }
 
+        if (task.getClass().getSimpleName().equals(Bin.class.getSimpleName())) {
+            for (Map.Entry<String, Task> cave : lobby.getPlayersTask(message.getPlayerId()).getTasks()){
+                if (cave.getValue().getClass().getSimpleName().equals(Cave.class.getSimpleName())){
+                    System.out.println(message.getTaskId());
+                    System.out.println(message.getTaskId() + "@");
+                    cave.getValue().setTaskId(message.getTaskId() + "@");
+                    return  "{" +
+                            "\"" + message.getPlayerId() + "\": "
+                                 + cave.getValue() +
+                            "}";
+                }
+            }
+            return null;
+        }
+
         return "{" +
                 "\"" + message.getPlayerId() + "\": "
                      + task +
@@ -55,9 +73,25 @@ public class TaskManagerController {
             return null;
         }
 
-        Task task = lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId());
+        //the @ is in there if it is a bin task. It is appended to its id when being sent back to frontend.
+        Task task = lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId().replace("@", "").trim());
         if (task.getDifficulty() == TaskDifficulty.EXTENSION && !task.insideRadius(Rest.getPlayerPosi(message.getLobbyId(), message.getPlayerId()))){
             return null;
+        }
+        if (message.getTaskId().contains("@")){
+            for (Map.Entry<String, Task> cave : lobby.getPlayersTask(message.getPlayerId()).getTasks()){
+                if (cave.getValue().getClass().getSimpleName().equals(Cave.class.getSimpleName())){
+                    if (!cave.getValue().insideRadius(Rest.getPlayerPosi(message.getLobbyId(), message.getPlayerId()))){
+                        return null;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        } else {
+            if (!task.insideRadius(Rest.getPlayerPosi(message.getLobbyId(), message.getPlayerId()))){
+                return null;
+            }
         }
 
         task.setStatus(TaskStatus.FINISHED);
