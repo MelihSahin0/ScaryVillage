@@ -14,6 +14,7 @@ import {
 import {games, gameState, role} from "../../types";
 import TaskProgress from "./TaskProgress";
 import TaskMeshDrawer from "./interactableMap/TaskMeshDrawer";
+import SleepingMesh from "./interactableMap/Sleeping";
 
 type Props = {
     lobbyId: string;
@@ -107,6 +108,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                     radius: taskJson.radius
                 }
                 setCurrentTask(task);
+                console.log(task);
             }
         }
         SubscribeGetPlayerTodoTask(getPlayerTodoTask);
@@ -133,19 +135,16 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 <meshBasicMaterial map={texture}/>
             </mesh>
             {/*TODO When doing a task dont draw the other meshes "Disable movement?" and show task*/}
+            {currentTask === undefined && <>
             <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks}/>
             <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
             <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks}/>
+            </>
+            }
             {/*TODO They dont draw meshes anymore, change it so they display the game itself maybe? They need a complete Rework*/}
-            {/*
-            <BinMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Bin" || task.gameType === "Cave")}/>
-            <ChickenMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Chicken")}/>
-            <ChoppingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Chopping")}/>
-            <CookingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Cooking")}/>
-            <FishingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Fishing")}/>
-            <MiningMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Mining")}/>
-            <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Sleeping")}/>
-            */}
+
+            {currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks.filter((task) => task.gameType === "Sleeping")} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} />}
+
         </group>
     )
 }
