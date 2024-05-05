@@ -35,12 +35,12 @@ export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
 
     useEffect(() => {
         if (remainingTime <= 0) {
-            const doTaskRequest = {
+            const taskFinished = {
                 lobbyId: lobbyId,
                 playerId: myPlayerId,
                 taskId: taskId
             };
-            Publish("/send/taskFinished", JSON.stringify(doTaskRequest));
+            Publish("/send/taskFinished", JSON.stringify(taskFinished));
             setCurrentTask(undefined);
             setAllowedToMove(true);
         }

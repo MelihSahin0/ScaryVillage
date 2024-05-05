@@ -16,6 +16,7 @@ import TaskProgress from "./TaskProgress";
 import TaskMeshDrawer from "./interactableMap/TaskMeshDrawer";
 import SleepingMesh from "./interactableMap/Sleeping";
 import CaveMesh from "./interactableMap/Cave";
+import FishingMesh from "./interactableMap/Fishing";
 
 type Props = {
     lobbyId: string;
@@ -148,6 +149,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             {/*TODO They dont draw meshes anymore, change it so they display the game itself maybe? They need a complete Rework*/}
             {currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
             {currentTask?.gameType === "Cave" && <CaveMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} currentTask={currentTask} setCurrentTask={setCurrentTask}/> }
+            {currentTask?.gameType === "Fishing" && <FishingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
         </group>
     )
 }
