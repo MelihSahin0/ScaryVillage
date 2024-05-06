@@ -562,10 +562,6 @@ video {
   position: absolute;
 }
 
-.relative {
-  position: relative;
-}
-
 .inset-y-0 {
   top: 0px;
   bottom: 0px;

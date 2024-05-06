@@ -7,8 +7,9 @@
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="i want to merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -320,7 +321,8 @@
       <workItem from="1714554767515" duration="7110000" />
       <workItem from="1714569475912" duration="2857000" />
       <workItem from="1714669312993" duration="1850000" />
-      <workItem from="1714911637774" duration="2443000" />
+      <workItem from="1714911637774" duration="2937000" />
+      <workItem from="1714991687121" duration="3207000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
