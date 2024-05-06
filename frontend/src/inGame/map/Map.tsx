@@ -20,6 +20,7 @@ import FishingMesh from "./interactableMap/Fishing";
 import ChickenMesh from "./interactableMap/Chicken";
 import CookingMesh from "./interactableMap/Cooking";
 import ChoppingMesh from "./interactableMap/Chopping";
+import MiningMesh from "./interactableMap/Mining";
 
 type Props = {
     lobbyId: string;
@@ -156,6 +157,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             {currentTask?.gameType === "Chicken" && <ChickenMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
             {currentTask?.gameType === "Cooking" && <CookingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
             {currentTask?.gameType === "Chopping" && <ChoppingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
+            {currentTask?.gameType === "Mining" && <MiningMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
         </group>
     )
 }
