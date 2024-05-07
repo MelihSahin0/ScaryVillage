@@ -108,7 +108,7 @@ public class TaskManagerController {
 
         for (Map.Entry<String, Tasks> tasks : lobby.getPlayerTasks()){
             for (Map.Entry<String, Task> task : tasks.getValue().getTasks()){
-                if (task.getValue().getDifficulty() != TaskDifficulty.EXTENSION || task.getValue().getDifficulty() != TaskDifficulty.REQUIRED) {
+                if (task.getValue().getDifficulty() != TaskDifficulty.EXTENSION && task.getValue().getDifficulty() != TaskDifficulty.REQUIRED) {
                     totalNumberOfTasks++;
 
                     if (task.getValue().getStatus() == TaskStatus.FINISHED) {

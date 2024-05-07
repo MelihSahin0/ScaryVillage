@@ -1,7 +1,6 @@
 import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import * as THREE from "three";
-import {Text} from "@react-three/drei";
 import React, {useState} from "react";
 import {useLoader, useThree} from "@react-three/fiber";
 import {TextureLoader} from "three";
@@ -45,8 +44,6 @@ export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setC
     texture.minFilter = THREE.NearestFilter;
 
     const handleClick = (gem: boolean) => {
-        //console.log('Mesh clicked! ', gem);
-
         const taskFinished = {
             lobbyId: lobbyId,
             playerId: myPlayerId,

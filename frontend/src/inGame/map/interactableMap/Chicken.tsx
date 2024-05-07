@@ -2,9 +2,9 @@ import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import {useFrame, useThree} from "@react-three/fiber";
 import * as THREE from "three";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {Publish} from "../../TaskmanagerSocket";
-import {Vector3} from "three";
+import {TextureLoader, Vector3} from "three";
 
 type Props = {
     lobbyId: string;
@@ -21,6 +21,14 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
         Array.from({ length: 4 }, () => new THREE.Vector3(myPlayer!.x, myPlayer!.y, 5))
     );
     const [chickenSpeed, setChickenSpeed] = useState<number>(1)
+    const [texture, setTexture] = useState<THREE.Texture | null>(null);
+
+    useState(() => {
+        const initialTexture = new TextureLoader().load('src/Images/chicken.png');
+        initialTexture.magFilter = THREE.NearestFilter;
+        initialTexture.minFilter = THREE.NearestFilter;
+        setTexture(initialTexture);
+    });
 
     useFrame(() => {
         setChickenPosition(prevPositions => {
@@ -89,11 +97,11 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
                               setAllowedToMove(true);
                               setCurrentTask(undefined);
                           } else {
-                            setChickenPosition(updatedPositions as any);
+                              setChickenPosition(updatedPositions as any);
                           }
                       }}>
-                    <sphereGeometry args={[0.05, 0.3, 0.1]} />
-                    <meshStandardMaterial color="orange" />
+                    <boxGeometry args={[0.05, 0.08, 0.1]}/>
+                    <meshBasicMaterial map={texture} transparent={true}/>
                 </mesh>
             ))}
         </group>

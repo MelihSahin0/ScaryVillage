@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="i want to merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +120,7 @@
     "Spring Boot.StompWebsocketTaskManager.executor": "Run",
     "Spring Boot.StompWebsocketVotingManager.executor": "Run",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "chopping",
+    "git-widget-placeholder": "main",
     "jdk.selected.JAVA_MODULE": "21",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/lenovo/Documents/4Semester/Enterprise Applikation/Projekt/ScaryVillage/backend",
@@ -242,10 +244,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
-        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+        <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
+        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
@@ -321,6 +323,7 @@
       <workItem from="1714911637774" duration="2443000" />
       <workItem from="1714991077942" duration="40000" />
       <workItem from="1714991130946" duration="1569000" />
+      <workItem from="1715102924970" duration="3115000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />

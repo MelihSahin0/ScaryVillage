@@ -4,6 +4,7 @@ import {useFrame, useThree} from "@react-three/fiber";
 import React, {useEffect, useState} from "react";
 import {Task} from "../Map";
 import {Publish} from "../../TaskmanagerSocket";
+import {TextureLoader} from "three";
 
 type Props = {
     lobbyId: string;
@@ -18,6 +19,14 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     const viewport = useThree(state => state.viewport)
     const [fishPosition, setFishPosition] = useState<THREE.Vector3>(new THREE.Vector3(myPlayer!.x, myPlayer!.y, 5));
     const [fishVisible, setFishVisible] = useState<boolean>(false)
+    const [texture, setTexture] = useState<THREE.Texture | null>(null);
+
+    useState(() => {
+        const initialTexture = new TextureLoader().load('src/Images/fish.png');
+        initialTexture.magFilter = THREE.NearestFilter;
+        initialTexture.minFilter = THREE.NearestFilter;
+        setTexture(initialTexture);
+    });
 
     useEffect(() => {
         let timeoutId: NodeJS.Timeout;
@@ -66,18 +75,18 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
             <mesh position={fishPosition} visible={fishVisible}
                   scale={[viewport.width - viewport.width / 10, viewport.height - viewport.height / 10, 1]}
                   onClick={() => {
-                    const taskFinished = {
-                        lobbyId: lobbyId,
-                        playerId: myPlayerId,
-                        taskId: taskId
-                    };
-                    Publish("/send/taskFinished", JSON.stringify(taskFinished));
+                      const taskFinished = {
+                          lobbyId: lobbyId,
+                          playerId: myPlayerId,
+                          taskId: taskId
+                      };
+                      Publish("/send/taskFinished", JSON.stringify(taskFinished));
 
-                    setAllowedToMove(true);
-                    setCurrentTask(undefined);
+                      setAllowedToMove(true);
+                      setCurrentTask(undefined);
                   }}>
-                <sphereGeometry args={[0.05, 0.3, 0.1]}/>
-                <meshStandardMaterial color="orange"/>
+                <boxGeometry args={[0.05, 0.08, 0.1]}/>
+                <meshBasicMaterial map={texture} transparent={true}/>
             </mesh>
         </group>
     )

@@ -34,8 +34,6 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
 
 
     const handleClick = () => {
-        // Handle the click event here
-        console.log('Mesh clicked! ' + count);
         setCount(count + 1);
         if (count >= 7) {
             setCount(1);
