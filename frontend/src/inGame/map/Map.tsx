@@ -58,6 +58,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     const texture = useLoader(TextureLoader, 'src/Images/newMap.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
+    const back = useLoader(TextureLoader, 'src/images/back.png');
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
@@ -139,6 +140,10 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
 
     return (
         <group>
+            <mesh position={new THREE.Vector3(0, 0, 0)}>
+                <boxGeometry args={[12, 6, 0.1]} />
+                <meshBasicMaterial attach="material" map={back}/>
+            </mesh>
             <mesh position={new THREE.Vector3(0, 0, 0)}>
                 <boxGeometry args={[9, 5, 0.1]}/>
                 <meshBasicMaterial map={texture}/>
