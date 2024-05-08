@@ -30,7 +30,7 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
         setTexture(initialTexture);
     });
 
-    useFrame(() => {
+    useFrame((state, delta) => {
         setChickenPosition(prevPositions => {
             return prevPositions.map((chickenPos, index) => {
                 if (chickenPos !== null) {
@@ -38,17 +38,17 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
                     let offsetX, offsetY;
 
                     if (index === 0) {
-                        offsetX = Math.sin(angle / (820 / chickenSpeed)) * (0.01 * chickenSpeed);
-                        offsetY = Math.sin(angle / (700 / chickenSpeed)) * (0.005 * chickenSpeed);
+                        offsetX = Math.sin(angle / (820 / chickenSpeed)) * (0.9 * chickenSpeed * delta);
+                        offsetY = Math.sin(angle / (700 / chickenSpeed)) * (0.7 * chickenSpeed * delta);
                     } else if (index === 1) {
-                        offsetX = Math.sin(angle / (790 / chickenSpeed)) *  (0.01 * chickenSpeed);
-                        offsetY = Math.cos(angle / (695 / chickenSpeed)) * (0.005 * chickenSpeed);
+                        offsetX = Math.sin(angle / (790 / chickenSpeed)) *  (0.9 * chickenSpeed * delta);
+                        offsetY = Math.cos(angle / (695 / chickenSpeed)) * (0.7 * chickenSpeed* delta);
                     } else if (index === 2) {
-                        offsetX = Math.cos(angle / (805 / chickenSpeed)) * (0.01 * chickenSpeed);
-                        offsetY = Math.sin(angle / (705 / chickenSpeed)) * (0.005 * chickenSpeed);
+                        offsetX = Math.cos(angle / (805 / chickenSpeed)) * (0.9 * chickenSpeed * delta);
+                        offsetY = Math.sin(angle / (705 / chickenSpeed)) * (0.7 * chickenSpeed * delta);
                     } else {
-                        offsetX = Math.cos(angle / (795 / chickenSpeed)) * (0.01 * chickenSpeed);
-                        offsetY = Math.cos(angle / (710 / chickenSpeed)) * (0.005 * chickenSpeed);
+                        offsetX = Math.cos(angle / (795 / chickenSpeed)) * (0.9 * chickenSpeed * delta);
+                        offsetY = Math.cos(angle / (710 / chickenSpeed)) * (0.7 * chickenSpeed * delta);
                     }
 
                     const newX = chickenPos.x + offsetX;

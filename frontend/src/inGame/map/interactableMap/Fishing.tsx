@@ -44,11 +44,11 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
         return () => clearTimeout(timeoutId);
     }, [fishVisible]);
 
-    useFrame(() => {
+    useFrame((state, delta) => {
         const angle = performance.now();
 
-        const offsetX = Math.sin(angle/400) * 0.022 + 0.00005;
-        const offsetY = Math.sin(angle/355) * 0.012;
+        const offsetX = Math.sin(angle/400) * 2.4 * delta + 0.00005;
+        const offsetY = Math.sin(angle/355) * 1.4 * delta;
 
         const newX = fishPosition.x + offsetX;
         const newY = fishPosition.y + offsetY;
@@ -75,15 +75,17 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
             <mesh position={fishPosition} visible={fishVisible}
                   scale={[viewport.width - viewport.width / 10, viewport.height - viewport.height / 10, 1]}
                   onClick={() => {
-                      const taskFinished = {
-                          lobbyId: lobbyId,
-                          playerId: myPlayerId,
-                          taskId: taskId
-                      };
-                      Publish("/send/taskFinished", JSON.stringify(taskFinished));
+                     if (fishVisible) {
+                         const taskFinished = {
+                             lobbyId: lobbyId,
+                             playerId: myPlayerId,
+                             taskId: taskId
+                         };
+                         Publish("/send/taskFinished", JSON.stringify(taskFinished));
 
-                      setAllowedToMove(true);
-                      setCurrentTask(undefined);
+                         setAllowedToMove(true);
+                         setCurrentTask(undefined);
+                     }
                   }}>
                 <boxGeometry args={[0.05, 0.08, 0.1]}/>
                 <meshBasicMaterial map={texture} transparent={true}/>
