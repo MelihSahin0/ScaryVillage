@@ -59,6 +59,8 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
     const back = useLoader(TextureLoader, 'src/images/back.png');
+    back.magFilter = THREE.NearestFilter;
+    back.minFilter = THREE.NearestFilter;
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
