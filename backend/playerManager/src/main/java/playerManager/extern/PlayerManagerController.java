@@ -38,7 +38,7 @@ public class PlayerManagerController {
 
 		Lobby lobby = Lobbies.getLobby(message.getLobbyId());
 		Player player = lobby.getPlayer(message.getPlayerId());
-		if (player != null){
+		if (player != null && message.getDeltaTime() < 0.02){
 			player.initiateMove(message.getMovement(), message.getDeltaTime());
 			return player.toString();
 		}
