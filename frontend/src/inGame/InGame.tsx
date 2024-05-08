@@ -20,6 +20,21 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
     const [previousY, setPreviousY] = useState(0)
 
     useEffect(() => {
+        function handleResize() {
+            setWindowSize({
+                width: window.innerWidth,
+                height: window.innerHeight
+            })
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        }
+    }, []);
+
+    useEffect(() => {
         if (myPlayer !== undefined){
             setPreviousX(myPlayer!.x);
             setPreviousY(myPlayer!.y);

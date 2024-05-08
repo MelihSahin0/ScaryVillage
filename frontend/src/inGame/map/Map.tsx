@@ -49,9 +49,6 @@ export type Task = {
 
 export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner, setAllowedToMove}: Props){
 
-    {/*TODO Idea for displaying the clicked task would be this use State. And when voting this would automatically be
-        undefined because it unmounts. It would be set when the backend says you were in clickRange.
-     */}
     const [currentTask, setCurrentTask] = useState<Task | undefined>(undefined);
     const [progress, setProgress] = useState<number>(0)
     const [tasks, setTasks] = useState<Array<Task>>([]);
@@ -151,13 +148,13 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 <meshBasicMaterial map={texture}/>
             </mesh>
             <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks}/>
-            {/*TODO When doing a task dont draw the other meshes "Disable movement?" and show task*/}
+
             {currentTask === undefined && <>
                 <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
                 <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks}/>
              </>
             }
-            {/*TODO They dont draw meshes anymore, change it so they display the game itself maybe? They need a complete Rework*/}
+
             {currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
             {currentTask?.gameType === "Cave" && <CaveMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} currentTask={currentTask} setCurrentTask={setCurrentTask}/> }
             {currentTask?.gameType === "Fishing" && <FishingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
