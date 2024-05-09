@@ -8,6 +8,8 @@ import {
     SubscribeToLobby, SubscribeVotingTime, UnsubscribeVotingTime, SubscribeGameEnd, UnsubscribeGameEnd
 } from "./VoteManagerSocket";
 import PlayerList from "./PlayerList";
+import TextChat from "./TextChat";
+import {SubscribeGetMessages, UnsubscribeGetMessages, Publish as LobbyPublish} from "../lobby/LobbyManagerSocket";
 
 export type Player = {
     id: string;
@@ -17,6 +19,12 @@ export type Player = {
     requester: boolean;
     numberOfVotes: number;
     killed: boolean;
+}
+
+export type Message = {
+    wasAlive: string;
+    playerName: string;
+    message: string;
 }
 
 type Props = {
@@ -35,12 +43,11 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
     const [killedPlayer, setKilledPlayer] = useState("");
     const [time, setTime] = useState<number>();
     const [timeoutId, setTimeoutId] = useState<any>(); // State to hold the timeout ID
+    const [messages, setMessages] = useState<Array<Message>>([])
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
     }, [lobbyId]);
-
-
 
     useEffect(() => {
         let myPlayerSet = false;
@@ -108,9 +115,9 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
     useEffect(() => {
         const time = (message: any) => {
             setTime(parseInt(message.timeLeft));
-            if (message.timeLeft === "0") {
-                setTimeoutId(setTimeout(() => setGameState("inGame"), 10000));
-            }
+           if (message.timeLeft === "0") {
+              setTimeoutId(setTimeout(() => setGameState("inGame"), 10000));
+           }
         };
         SubscribeVotingTime(time);
         return () => {
@@ -120,11 +127,26 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
     }, []);
 
     useEffect(() => {
+        const getMessages = (messages: any) => {
+            setMessages(messages)
+        }
+        SubscribeGetMessages(getMessages);
+
+        return () => {
+            UnsubscribeGetMessages();
+        }
+    }, []);
+
+    useEffect(() => {
         setTimeout(() => {
             const sendMyLobbyId = {
                 lobbyId: lobbyId
             };
             Publish("/send/players",  JSON.stringify(sendMyLobbyId));
+            const getMessages = {
+                lobbyId: lobbyId
+            }
+            LobbyPublish("/send/getMessages", JSON.stringify(getMessages));
         }, 500);
         return () => {
             CloseConnection();
@@ -164,9 +186,9 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
                         </button>
                     </div>
                 </div>
-                <div className="col-span-1 grid-cols-subgrid -mt-12 w-80 min-h-82 justify-center items-center flex">
-                    <div className="border-white border-2 min-h-80 flex-1">
-                        <p className="text-white">Placeholder</p>
+                <div className="col-span-1 grid-cols-subgrid -mt-12 w-80 min-h-80 justify-center items-center flex">
+                    <div className="border-white border-1 min-h-80 flex-1">
+                        <TextChat lobbyId={lobbyId} myPlayerId={myPlayerId} messages={messages} players={players} myPlayer={myPlayer}/>
                     </div>
                 </div>
             </div>

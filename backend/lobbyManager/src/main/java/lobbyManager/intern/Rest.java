@@ -34,7 +34,9 @@ public class Rest {
 
     @PostMapping(value = "/gameFinished")
     public void gameFinished(@RequestBody LobbyId message) {
-        Lobbies.getLobby(message.getLobbyId()).setGameStatus(GameStatus.LOBBY);
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        lobby.setGameStatus(GameStatus.LOBBY);
+        lobby.deleteMessages();
         changeGameState(message.getLobbyId(), GameStatus.LOBBY);
     }
 

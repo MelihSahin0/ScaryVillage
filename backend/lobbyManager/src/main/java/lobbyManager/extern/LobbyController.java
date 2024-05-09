@@ -3,6 +3,7 @@ package lobbyManager.extern;
 import extern.enumarators.GameStatus;
 import lobbyManager.Lobbies;
 import lobbyManager.Lobby;
+import lobbyManager.Message;
 import lobbyManager.Player;
 import extern.enumarators.Colors;
 import extern.enumarators.Roles;
@@ -226,5 +227,23 @@ public class LobbyController {
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
         lobby.setChangeVotingNumberVisibility(message.getChangeVotingNumberVisibility());
         return lobby.toString();
+    }
+
+    @MessageMapping("/getMessages/{stringLobbyId}")
+    public void getAllMessages(GetMessages message){
+        messagingTemplate.convertAndSend("/subscribe/getMessages/" + message.getLobbyId(), Lobbies.getLobby(message.getLobbyId()).getMessages().toString());
+    }
+
+    @MessageMapping("/addMessage/{stringLobbyId}")
+    public void addMessage(AddMessage message){
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        if (message.getMessage().isEmpty()){
+            return;
+        }
+        lobby.addMessage(new Message("true".equals(message.getIsAlive()), lobby.getPlayer(message.getPlayerId()).getName(), message.getMessage()));
+
+        GetMessages getMessages = new GetMessages();
+        getMessages.setLobbyId(lobby.getLobbyId());
+        getAllMessages(getMessages);
     }
 }

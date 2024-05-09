@@ -70,6 +70,25 @@ export function UnsubscribeGetLobbySettings(){
     StartConnection();
 }
 
+export function SubscribeGetMessages(joinLobby: (messages: any) => void){
+
+    const messageHandler: MessageHandler = {
+        id: 3,
+        destination: "/subscribe/getMessages/" + lobbyId,
+        function: joinLobby
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+
+    StartConnection();
+}
+export function UnsubscribeGetMessages(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 3);
+    StartConnection();
+}
+
 function StartConnection(){
     client.deactivate().then();
     client.configure({

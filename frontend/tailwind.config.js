@@ -10,6 +10,10 @@ export default {
     theme: {
         extend: {},
     },
-    safelist: usedColors.map((c) => `border-${c}${c !== "black" ? "-500" : ""}`),
+    safelist: [
+        ...usedColors.map((c) => `border-${c}${c !== "black" ? "-500" : ""}`),
+        ...usedColors.map((c) => `text-${c}${c !== "black" ? "-500" : ""}`),
+        // Add any other classes to the safelist if needed
+    ],
     plugins: [],
 }

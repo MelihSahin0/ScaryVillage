@@ -1,8 +1,6 @@
 package lobbyManager;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.*;
@@ -17,6 +15,7 @@ public class Lobby {
     private String lobbyId;
     private GameStatus gameStatus;
     private final HashMap<String, Player> players = new HashMap<>();
+    private final List<Message> messages = new ArrayList<>();
     private int maxNumberOfPlayers;
     private int maxImposter;
     private int votingTime;
@@ -57,6 +56,18 @@ public class Lobby {
 
     public void addPlayer(String playerId, Player player) {
         this.players.put(playerId, player);
+    }
+
+    public void addMessage(Message message) {
+        messages.add(message);
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void deleteMessages (){
+        messages.clear();
     }
 
     public int getMaxNumberOfPlayers() {

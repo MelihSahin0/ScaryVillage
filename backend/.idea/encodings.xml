@@ -3,6 +3,8 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/SingletonWebsocketEndPoint/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/SingletonWebsocketEndPoint/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chatManager/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chatManager/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gameManage/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gameManage/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/gameManager/src/main/java" charset="UTF-8" />
