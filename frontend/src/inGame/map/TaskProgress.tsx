@@ -42,12 +42,12 @@ export default function TaskProgress({progress, myPlayer, tasks}: Props){
                     <boxGeometry args={[progress/2, windowSize.height / 8000, 2]}/>
                     <meshBasicMaterial attach="material" color="green"/>
                 </mesh>
-                <mesh position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 3.2), y, 1]}>
+                <mesh position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1293), y, 1]}>
                     <boxGeometry args={[1 / 2, windowSize.height / 8000, 0.1]}/>
                     <meshBasicMaterial attach="material" color="gray"/>
                 </mesh>
                 <group>
-                    <lineSegments position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 3.2), y, 1]}>
+                    <lineSegments position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1293), y, 1]}>
                         <edgesGeometry attach="geometry"
                                        args={[new THREE.BoxGeometry(1 / 2, windowSize.height / 8000, 0.1)]}/>
                         <lineBasicMaterial attach="material" color={0x000000}/>

@@ -5,26 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="i want to merge">
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Message.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/AddMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/jsonDataTransferTypes/GetMessages.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/lobby/Message.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/lobby/TextChat.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/voting/Message.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/voting/TextChat.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/MiniMap.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/intern/Rest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbyManagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyManagerSocket.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbyTest.test.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/output.css" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/output.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/tailwind.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,51 +95,51 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.Upgrade Gradle wrapper.executor": "Run",
-    "Gradle.playerManager [assemble].executor": "Run",
-    "Gradle.playerManager [build].executor": "Run",
-    "Gradle.playerManager [clean].executor": "Run",
-    "Maven.backend [clean].executor": "Run",
-    "Maven.backend [compile].executor": "Run",
-    "Maven.backend [package].executor": "Run",
-    "Maven.backend [verify].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.MessagingStompWebsocketApplication.executor": "Run",
-    "Spring Boot.StompWebsocketGameManager (1).executor": "Run",
-    "Spring Boot.StompWebsocketGameManager.executor": "Run",
-    "Spring Boot.StompWebsocketLobbyManager.executor": "Run",
-    "Spring Boot.StompWebsocketPlayerManager (1).executor": "Run",
-    "Spring Boot.StompWebsocketPlayerManager (2).executor": "Run",
-    "Spring Boot.StompWebsocketPlayerManager.executor": "Run",
-    "Spring Boot.StompWebsocketTaskManager.executor": "Run",
-    "Spring Boot.StompWebsocketVotingManager.executor": "Run",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/chatManager/src/main/java/chatManager",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "ts.external.directory.path": "C:\\Anwenundgen\\Intellij\\IntelliJ IDEA 2023.2.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Upgrade Gradle wrapper.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.playerManager [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.playerManager [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.playerManager [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.backend [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.backend [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.backend [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.backend [verify].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.MessagingStompWebsocketApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketGameManager (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketGameManager.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketLobbyManager.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketPlayerManager (1).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketPlayerManager (2).executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketPlayerManager.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketTaskManager.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.StompWebsocketVotingManager.executor&quot;: &quot;Run&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/chatManager/src/main/java/chatManager&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.project.maven.repository.indices&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Anwenundgen\\Intellij\\IntelliJ IDEA 2023.2.3\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\chatManager\src\main\java\chatManager" />
@@ -260,10 +247,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
         <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-        <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
@@ -341,7 +328,8 @@
       <workItem from="1714991130946" duration="1569000" />
       <workItem from="1715102924970" duration="3115000" />
       <workItem from="1715167201955" duration="2107000" />
-      <workItem from="1715274295360" duration="10223000" />
+      <workItem from="1715274295360" duration="10575000" />
+      <workItem from="1715430912733" duration="2437000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />

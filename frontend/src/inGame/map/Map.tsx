@@ -21,6 +21,7 @@ import ChickenMesh from "./interactableMap/Chicken";
 import CookingMesh from "./interactableMap/Cooking";
 import ChoppingMesh from "./interactableMap/Chopping";
 import MiningMesh from "./interactableMap/Mining";
+import MiniMap from "./MiniMap";
 
 type Props = {
     lobbyId: string;
@@ -50,6 +51,7 @@ export type Task = {
 export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner, setAllowedToMove}: Props){
 
     const [currentTask, setCurrentTask] = useState<Task | undefined>(undefined);
+    const [showMinimap, setShowMinimap] = useState<boolean>(false)
     const [progress, setProgress] = useState<number>(0)
     const [tasks, setTasks] = useState<Array<Task>>([]);
     const texture = useLoader(TextureLoader, 'src/Images/newMap.png');
@@ -135,7 +137,24 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             };
             Publish("/send/tasks",  JSON.stringify(sendTaskRequest));
         }, 500);
-    }, [lobbyId]);
+    }, [lobbyId, myPlayerId]);
+
+    useEffect(() => {
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if ((currentTask === undefined || currentTask.gameType === "Cave") && (event.key === "m" || event.key === "e")) {
+                if (showMinimap) {
+                    setShowMinimap(false);
+                } else {
+                    setShowMinimap(true);
+                }
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [currentTask, showMinimap]);
 
     return (
         <group>
@@ -149,19 +168,23 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             </mesh>
             <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks}/>
 
-            {currentTask === undefined && <>
+            {currentTask === undefined && !showMinimap &&<>
                 <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
                 <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks}/>
              </>
             }
 
-            {currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
-            {currentTask?.gameType === "Cave" && <CaveMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} currentTask={currentTask} setCurrentTask={setCurrentTask}/> }
-            {currentTask?.gameType === "Fishing" && <FishingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
-            {currentTask?.gameType === "Chicken" && <ChickenMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
-            {currentTask?.gameType === "Cooking" && <CookingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
-            {currentTask?.gameType === "Chopping" && <ChoppingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
-            {currentTask?.gameType === "Mining" && <MiningMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>}
+            {showMinimap ?
+                <MiniMap myPlayer={myPlayer} tasks={tasks} currentTask={currentTask}/>
+                :
+                currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/> ||
+                currentTask?.gameType === "Cave" && <CaveMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} currentTask={currentTask} setCurrentTask={setCurrentTask}/> ||
+                currentTask?.gameType === "Fishing" && <FishingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/> ||
+                currentTask?.gameType === "Chicken" && <ChickenMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/> ||
+                currentTask?.gameType === "Cooking" && <CookingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/> ||
+                currentTask?.gameType === "Chopping" && <ChoppingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/> ||
+                currentTask?.gameType === "Mining" && <MiningMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove}/>
+            }
         </group>
     )
 }

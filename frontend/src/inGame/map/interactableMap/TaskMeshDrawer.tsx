@@ -10,6 +10,7 @@ type Props = {
     myPlayerId: string;
     myPlayer: Player | undefined;
     tasks: Array<Task>;
+
 }
 
 export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: Props){
