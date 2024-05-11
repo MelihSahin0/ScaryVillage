@@ -1,11 +1,12 @@
 import {Player} from "../../PlayerManager";
 import * as THREE from "three";
-import {useLoader, useThree} from "@react-three/fiber";
+import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {Publish} from "../../TaskmanagerSocket";
 import React, {useEffect, useState} from "react";
 import {Text} from "@react-three/drei";
 import {Task} from "../Map";
+import {Scale} from "../../InGame";
 
 type Props = {
     lobbyId: string;
@@ -14,11 +15,10 @@ type Props = {
     taskId: string;
     setCurrentTask:(setCurrentTask: Task | undefined) => void;
     setAllowedToMove:(setAllowedToMove: boolean) => void;
+    scale: Scale;
 }
 
-export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove}: Props){
-    const viewport = useThree(state => state.viewport)
-
+export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props){
     const texture = useLoader(TextureLoader, 'src/Images/SleepingTask.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
@@ -48,11 +48,13 @@ export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
 
     return(
         <group>
-        <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)} scale={[viewport.width-viewport.width/10, viewport.height-viewport.height/10, 1]}>
+        <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
+              scale={[scale.width/580, scale.height/580, scale.depth]}>
             <boxGeometry args={[1, 1, 0.1]}/>
             <meshBasicMaterial map={texture}/>
         </mesh>
-            {<Text position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 3)} scale={[viewport.width/8, viewport.height/8, 1]} color="#ffffff">{remainingTime/1000} sec</Text>}
+            {<Text position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 3)}
+                   scale={[scale.width/20000, scale.height/10000, scale.depth]} color="#ffffff">{remainingTime/1000} sec</Text>}
         </group>
     )
 }

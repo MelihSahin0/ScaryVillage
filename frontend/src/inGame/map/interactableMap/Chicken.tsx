@@ -1,10 +1,11 @@
 import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
-import {useFrame, useThree} from "@react-three/fiber";
+import {useFrame} from "@react-three/fiber";
 import * as THREE from "three";
 import React, {useState} from "react";
 import {Publish} from "../../TaskmanagerSocket";
 import {TextureLoader, Vector3} from "three";
+import {Scale} from "../../InGame";
 
 type Props = {
     lobbyId: string;
@@ -13,10 +14,10 @@ type Props = {
     taskId: string;
     setCurrentTask:(setCurrentTask: Task | undefined) => void;
     setAllowedToMove:(setAllowedToMove: boolean) => void;
+    scale: Scale;
 }
 
-export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove}: Props){
-    const viewport = useThree(state => state.viewport)
+export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props){
     const [chickenPosition, setChickenPosition] = useState<Array<THREE.Vector3>>(
         Array.from({ length: 4 }, () => new THREE.Vector3(myPlayer!.x, myPlayer!.y, 5))
     );
@@ -36,7 +37,6 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
                 if (chickenPos !== null) {
                     const angle = performance.now();
                     let offsetX, offsetY;
-
                     if (index === 0) {
                         offsetX = Math.sin(angle / (820 / chickenSpeed)) * (0.9 * chickenSpeed * delta);
                         offsetY = Math.sin(angle / (700 / chickenSpeed)) * (0.7 * chickenSpeed * delta);
@@ -51,16 +51,16 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
                         offsetY = Math.cos(angle / (710 / chickenSpeed)) * (0.7 * chickenSpeed * delta);
                     }
 
-                    const newX = chickenPos.x + offsetX;
-                    const newY = chickenPos.y + offsetY;
+                    const newX =  chickenPos.x + offsetX;
+                    const newY =  chickenPos.y + offsetY;
 
-                    const minX = myPlayer!.x - (viewport.width - viewport.width / 10) / 2.3;
-                    const maxX = myPlayer!.x + (viewport.width - viewport.width / 10) / 2.2;
-                    const minY = myPlayer!.y - 0.43 - (viewport.height - viewport.height / 10) / 14;
-                    const maxY = myPlayer!.y - 0.43 + (viewport.height - viewport.height / 10) / 1.3;
+                    const minX = myPlayer!.x - (scale.width - scale.width * 0.9992);
+                    const maxX = myPlayer!.x + (scale.width - scale.width * 0.9992);
+                    const maxY = myPlayer!.y - (scale.height - scale.height * 0.99925);
+                    const minY = myPlayer!.y + (scale.height - scale.height * 0.99922);
 
                     const boundedX = Math.min(Math.max(newX, minX), maxX);
-                    const boundedY = Math.min(Math.max(newY, minY), maxY);
+                    const boundedY = Math.min(Math.max(newY, maxY), minY);
 
                     return new THREE.Vector3(boundedX, boundedY, chickenPos.z);
                 } else {
@@ -73,13 +73,13 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     return(
         <group>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
-                scale={[viewport.width - viewport.width / 10, viewport.height - viewport.height / 10, 1]}>
+                  scale={[scale.width/580, scale.height/580, scale.depth]}>
                 <boxGeometry args={[1, 1, 0.1]}/>
                 <meshBasicMaterial color={"brown"}/>
             </mesh>
             {chickenPosition.map((chickenPosi, index) => (
                 <mesh key={index} position={chickenPosi}
-                      scale={[viewport.width - viewport.width / 10, viewport.height - viewport.height / 10, 1]}
+                      scale={[scale.width/580, scale.height/580, scale.depth]}
                       onClick={() => {
                           const updatedPositions = chickenPosition.map((pos, idx) =>
                               idx === index ? null : pos

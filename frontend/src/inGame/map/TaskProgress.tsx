@@ -3,59 +3,45 @@ import React, {useEffect, useState} from "react";
 import * as THREE from "three";
 import {Task} from "./Map";
 import {Text} from "@react-three/drei";
+import {Scale} from "../InGame";
 
 type Props = {
     progress: number;
     myPlayer: Player | undefined;
     tasks: Array<Task>;
+    scale: Scale;
 }
 
-export default function TaskProgress({progress, myPlayer, tasks}: Props){
+export default function TaskProgress({progress, myPlayer, tasks, scale}: Props){
     const [x, setX] = useState<number>(0)
     const [y, setY] = useState<number>(0)
-    const [windowSize, setWindowSize] = useState({ width: window.innerWidth, height: window.innerHeight })
 
     useEffect(() => {
-        function handleResize() {
-            setWindowSize({
-                width: window.innerWidth,
-                height: window.innerHeight
-            })
-        }
-
-        window.addEventListener('resize', handleResize)
-
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        }
-    }, []);
-
-    useEffect(() => {
-        setX((myPlayer ? myPlayer.x  : 0) - (windowSize.width / 1010 + 0.188 - (progress/2) - (0.25 - 0.025 * progress/0.1)));
-        setY((myPlayer ? myPlayer.y  : 0) + windowSize.height / 1150);
-    }, [progress, windowSize.height, windowSize.width, myPlayer]);
+        setX((myPlayer ? myPlayer.x  : 0) - ((scale.width - scale.width * 0.9988815) - (progress/2) - (0.25 - 0.025 * progress/0.1)));
+        setY((myPlayer ? myPlayer.y  : 0) + (scale.height - scale.height * 0.99913));
+    }, [progress, scale, myPlayer]);
 
     return (
         <group>
             <group>
                 <mesh position={[x, y, 1]}>
-                    <boxGeometry args={[progress/2, windowSize.height / 8000, 2]}/>
+                    <boxGeometry args={[progress/2, scale.height - scale.height * 0.999875, 2]}/>
                     <meshBasicMaterial attach="material" color="green"/>
                 </mesh>
-                <mesh position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1293), y, 1]}>
-                    <boxGeometry args={[1 / 2, windowSize.height / 8000, 0.1]}/>
+                <mesh position={[(myPlayer ? myPlayer.x : 0) - (scale.width - scale.width * 0.999226), y, 1]}>
+                    <boxGeometry args={[(scale.width - scale.width * 0.999657), (scale.height - scale.height * 0.999872), 0.1]}/>
                     <meshBasicMaterial attach="material" color="gray"/>
                 </mesh>
-                <group>
-                    <lineSegments position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1293), y, 1]}>
-                        <edgesGeometry attach="geometry"
-                                       args={[new THREE.BoxGeometry(1 / 2, windowSize.height / 8000, 0.1)]}/>
-                        <lineBasicMaterial attach="material" color={0x000000}/>
-                    </lineSegments>
-                </group>
+                <lineSegments position={[(myPlayer ? myPlayer.x : 0) - (scale.width - scale.width * 0.999226), y, 1]}>
+                    <edgesGeometry attach="geometry"
+                                   args={[new THREE.BoxGeometry((scale.width - scale.width * 0.999657), (scale.height - scale.height * 0.999872), 0.1)]}/>
+                    <lineBasicMaterial attach="material" color={0x000000}/>
+                </lineSegments>
             </group>
             {tasks.map((task, index) => (
-                <Text key={task.taskId + "@"} position={[(myPlayer ? myPlayer.x : 0) - (windowSize.width / 1010 - 1 / 7), y - (index + 1)/15, 2]} scale={[0.04, 0.04, 0.04]}
+                <Text key={task.taskId + "@"}
+                      position={[(myPlayer ? myPlayer.x : 0) - (scale.width - scale.width * 0.99912), (myPlayer ? myPlayer.y  : 0) + (scale.height - (scale.height * (0.99913 + (index + 1) * 0.0001 ))), 2]}
+                      scale={[0.04, 0.04, 0.04]}
                       color={(task.gameType === "Flooding" || task.gameType === "Fountain") ? "red" : "green"}>{task.gameType}</Text>
             ))}
         </group>

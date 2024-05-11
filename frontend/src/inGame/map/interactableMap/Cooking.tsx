@@ -5,6 +5,7 @@ import {Publish} from "../../TaskmanagerSocket";
 import React, {useEffect, useState} from "react";
 import { Text } from '@react-three/drei';
 import {useThree} from "@react-three/fiber";
+import {Scale} from "../../InGame";
 
 type Props = {
     lobbyId: string;
@@ -13,12 +14,12 @@ type Props = {
     taskId: string;
     setCurrentTask:(setCurrentTask: Task | undefined) => void;
     setAllowedToMove:(setAllowedToMove: boolean) => void;
+    scale: Scale;
 }
 
 type Ingredients = "Bread" | "Salad" | "Meat" | "Tomato" | "Cheese" | "Sea pimples";
 
-export default function CookingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove}: Props) {
-    const viewport = useThree(state => state.viewport)
+export default function CookingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props) {
     const [ingredientsPosition, setIngredientsPosition] = useState<Array<THREE.Vector3>>([
         new THREE.Vector3(myPlayer!.x -0.6, myPlayer!.y + 0.3, 5),
         new THREE.Vector3(myPlayer!.x -0.6, myPlayer!.y, 5),
@@ -51,7 +52,7 @@ export default function CookingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     return (
         <group>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
-                  scale={[viewport.width - viewport.width / 10, viewport.height - viewport.height / 10, 1]}>
+                  scale={[scale.width/580, scale.height/580, scale.depth]}>
                 <boxGeometry args={[1, 1, 0.1]}/>
                 <meshBasicMaterial color={"lightgray"}/>
             </mesh>

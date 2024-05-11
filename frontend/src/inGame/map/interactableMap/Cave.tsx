@@ -14,7 +14,6 @@ type Props = {
 }
 
 export default function CaveMesh({lobbyId, myPlayerId ,myPlayer, currentTask, setCurrentTask}: Props){
-
     const [isHovered, setIsHovered] = useState(false);
     const [insideBinDistance, setInsideBinDistance] = useState(false);
 

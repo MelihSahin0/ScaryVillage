@@ -4,15 +4,16 @@ import React from "react";
 import {useLoader, useThree} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {Task} from "./Map";
+import {Scale} from "../InGame";
 
 type Props = {
     myPlayer: Player | undefined;
     tasks: Array<Task>;
     currentTask: Task | undefined;
+    scale: Scale;
 }
 
-export default function MiniMap({myPlayer, tasks, currentTask}: Props) {
-    const { viewport } = useThree(state => state); // Destructure viewport from useThree directly
+export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
     const mapTexture = useLoader(TextureLoader, 'src/Images/newMap.png');
     mapTexture.magFilter = THREE.NearestFilter;
     mapTexture.minFilter = THREE.NearestFilter;
@@ -24,7 +25,7 @@ export default function MiniMap({myPlayer, tasks, currentTask}: Props) {
     return (
         <group>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
-                  scale={[viewport.width - viewport.width / 10, viewport.height - viewport.height / 10, 1]}>
+                  scale={[scale.width/580, scale.height/580, scale.depth]}>
                 <boxGeometry args={[1, 1, 0.1]}/>
                 <meshBasicMaterial map={mapTexture}/>
             </mesh>
@@ -58,7 +59,7 @@ export default function MiniMap({myPlayer, tasks, currentTask}: Props) {
                                         3
                                     )}>
                                     <edgesGeometry attach="geometry"
-                                                   args={[new THREE.BoxGeometry(task.scale.width / 3.5, task.scale.height / 4, task.scale.depth)]}/>
+                                                   args={[new THREE.BoxGeometry(task.scale.width / 3.5, task.scale.height / 3.5, task.scale.depth)]}/>
                                     <lineBasicMaterial attach="material" color={0xFFFF00}/>
                                 </lineSegments>
                             </group>

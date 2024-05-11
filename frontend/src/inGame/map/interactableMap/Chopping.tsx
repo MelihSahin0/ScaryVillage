@@ -2,10 +2,10 @@ import { Player } from "../../PlayerManager";
 import { Task } from "../Map";
 import * as THREE from "three";
 import React, { useState } from "react";
-import { useThree } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import { Publish } from "../../TaskmanagerSocket";
 import {Text} from "@react-three/drei";
+import {Scale} from "../../InGame";
 
 type Props = {
     lobbyId: string;
@@ -14,11 +14,10 @@ type Props = {
     taskId: string;
     setCurrentTask: (setCurrentTask: Task | undefined) => void;
     setAllowedToMove: (setAllowedToMove: boolean) => void;
+    scale: Scale;
 }
 
-export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, setCurrentTask, setAllowedToMove }: Props) {
-    const viewport = useThree(state => state.viewport)
-
+export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props) {
     const [texture, setTexture] = useState<THREE.Texture | null>(null);
 
     // Load initial texture
@@ -61,12 +60,13 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
 
     return (
         <group>
-            <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)} scale={[viewport.width - viewport.width / 10, viewport.height - viewport.height / 10, 1]} onClick={() => handleClick()}>
+            <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
+                  scale={[scale.width/580, scale.height/580, scale.depth]} onClick={() => handleClick()}>
                 <boxGeometry args={[1, 1, 0.1]} />
                 <meshBasicMaterial map={texture} />
             </mesh>
-            {<Text position={new THREE.Vector3(myPlayer?.x, (myPlayer?.y ?? 0) - 0.5, 3)} scale={[viewport.width/16, viewport.height/16, 1]} color="#ffffff">{amount} wood left to chop</Text>}
-
+            {<Text position={new THREE.Vector3(myPlayer?.x, (myPlayer?.y ?? 0) - 0.5, 3)}
+                   scale={[scale.width/20000, scale.height/10000, scale.depth]} color="#ffffff">{amount} wood left to chop</Text>}
         </group>
     )
 }

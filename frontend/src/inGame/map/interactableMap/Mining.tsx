@@ -2,9 +2,10 @@ import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import * as THREE from "three";
 import React, {useState} from "react";
-import {useLoader, useThree} from "@react-three/fiber";
+import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {Publish} from "../../TaskmanagerSocket";
+import {Scale} from "../../InGame";
 
 type Props = {
     lobbyId: string;
@@ -13,11 +14,11 @@ type Props = {
     taskId: string;
     setCurrentTask: (setCurrentTask: Task | undefined) => void;
     setAllowedToMove: (setAllowedToMove: boolean) => void;
+    scale: Scale;
 }
 
 function Stone(props: any) {
     const [isBroken, setIsBroken] = useState(false);
-
     const texture = useLoader(TextureLoader, isBroken ? 'src/Images/StoneBroken.png' : 'src/Images/Stone.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
@@ -35,10 +36,7 @@ function Stone(props: any) {
     );
 }
 
-export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setCurrentTask, setAllowedToMove }: Props){
-
-    const viewport = useThree(state => state.viewport)
-
+export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props){
     const texture = useLoader(TextureLoader, 'src/Images/MiningTask.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
@@ -50,14 +48,14 @@ export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setC
             taskId: taskId
         };
 
-        if(gem == true) {
+        if(gem) {
             Publish("/send/taskFinished", JSON.stringify(taskFinished));
             setCurrentTask(undefined);
             setAllowedToMove(true);
         }
     };
 
-    let stonesData = [
+    const stonesData = [
     ];
 
     for(let x = -3; x < 4; x++) {
@@ -67,15 +65,13 @@ export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setC
     }
 
     //set one stone to the chosen one
-    let randomGem = Math.floor(Math.random() * (34 - 0)) + 0
+    const randomGem = Math.floor(Math.random() * 34);
     stonesData[randomGem].gem = true;
-
 
     return (
         <group>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
-                  scale={[viewport.width - viewport.width / 10, viewport.height - viewport.height / 10, 1]}
-                  >
+                  scale={[scale.width/580, scale.height/580, scale.depth]}>
                 <boxGeometry args={[1, 1, 0.1]}/>
                 <meshBasicMaterial map={texture}/>
 
@@ -88,7 +84,6 @@ export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setC
                         onClick={() => handleClick(mesh.gem)}
                     />
                 ))}
-
             </mesh>
         </group>
     )
