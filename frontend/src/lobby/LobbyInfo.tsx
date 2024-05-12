@@ -12,7 +12,7 @@ export default function LobbyInfo({myPlayer, lobbyId, onClickStart, onClickLeave
     const [info, setInfo] = useState(false);
 
     return (
-        <div className="flex flex-col justify-center items-center -mt-20">
+        <div className="flex flex-col justify-center items-center">
             <p className="text-white pt-2">lobbyId: {lobbyId}</p>
             {info && players.length < 1 && <p className="text-red-500">Please wait until all the 5 needed players are there !</p>}
             <div className="flex">

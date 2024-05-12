@@ -123,14 +123,14 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
             <div className="flex justify-items-center justify-center pt-10">
                 {winner !== undefined && <h1 className="text-white text-2xl">The winner of the previous round: {winner.toUpperCase()}</h1>}
             </div>
-            <div className="grid grid-cols-3 pt-14 pb-32 justify-items-center">
-                <div className="col-span-1 grid-cols-subgrid w-80 min-h-80 justify-center items-center ml-32">
+            <div className="grid grid-cols-3 pt-5 justify-items-center">
+                <div className="col-span-1 grid-cols-subgrid w-80 justify-center items-center ml-32">
                     <PlayerList displayPlayers={displayPlayers}/>
                 </div>
-                <div className="col-span-1 grid-cols-subgrid w-80 min-h-80 justify-center items-center">
+                <div className="col-span-1 grid-cols-subgrid w-80 justify-center items-center">
                     <TextChat lobbyId={lobbyId} myPlayerId={myPlayerId} messages={messages} players={displayPlayers}/>
                 </div>
-                <div className="col-span-1 grid-cols-subgrid w-80 min-h-82 justify-center items-center mr-32">
+                <div className="col-span-1 grid-cols-subgrid w-80 justify-center items-center mr-32">
                     <div className="border-white border-2 min-h-80">
                         <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>
                         {myPlayer?.host &&

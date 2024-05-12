@@ -40,7 +40,6 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
                         0.1 / 3.62 + (myPlayer ? myPlayer.x * 1.28 : 0) - (myPlayer ? myPlayer.x * 1.28 : 0) / 4.57,
                         0.2 / 3.95 + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
                         3
-
                     )}>
                         <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.6 / 3.5, 0.5 / 4, 3)]}/>
                         <lineBasicMaterial attach="material" color={0xFFFF00}/>

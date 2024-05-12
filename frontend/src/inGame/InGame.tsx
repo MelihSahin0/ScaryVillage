@@ -58,10 +58,10 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
 
     }, [myPlayer?.x, myPlayer?.y]);
 
-    const cameraZoomFactor: number = Math.sqrt(Math.pow(windowSize.width, 2) + Math.pow(windowSize.height, 2)) / 3.1;
+    const cameraZoomFactor: number = Math.sqrt(Math.pow(windowSize.width, 2) + Math.pow(windowSize.height, 2)) / (3.1);
     return (
         <>
-            <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={cameraZoomFactor} />
+            <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={cameraZoomFactor}/>
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
             <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner} setAllowedToMove={setAllowedToMove} scale={scale}/>
