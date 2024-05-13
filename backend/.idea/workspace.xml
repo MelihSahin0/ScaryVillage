@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="i want to merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/MiniMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/MiniMap.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyInfo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,9 +242,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
+        <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
@@ -330,7 +325,9 @@
       <workItem from="1715167201955" duration="2107000" />
       <workItem from="1715274295360" duration="10575000" />
       <workItem from="1715430912733" duration="4927000" />
-      <workItem from="1715524067865" duration="1519000" />
+      <workItem from="1715524067865" duration="1585000" />
+      <workItem from="1715593347899" duration="1141000" />
+      <workItem from="1715622553643" duration="1385000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />

@@ -18,11 +18,9 @@ export default function TaskProgress({progress, myPlayer, tasks, scale}: Props){
     const [y, setY] = useState<number>(0)
 
     useEffect(() => {
-        setX((myPlayer ? myPlayer.x : 0) - scale.width/(7.447225998101889e-10*(scale.width**4)+(-0.000003066331427590448)*(scale.width**3)+0.004154373787658552*(scale.width**2)+(-1.1902304136294832)*(scale.width)+353.26802586077287));
-        setY((myPlayer ? myPlayer.y  : 0) + scale.height/((-1.2205784652067209e-8)*(scale.height**4)+0.000028236507376327234*(scale.height**3)+(-0.01867595178650694)*(scale.height**2)+4.774846240167487*(scale.height)+114.8629452562877));
+        setX((myPlayer ? myPlayer.x : 0) - scale.width/(6.380605492390803e-12*(scale.width**5)+(-5.383217133258679e-8)*(scale.width**4)+0.00017469940439592224*(scale.width**3)+(-0.2736269684198816)*(scale.width**2)+208.46531535584379*(scale.width)+(-61185.342862383186)));
+        setY((myPlayer ? myPlayer.y  : 0) + scale.height/((-2.7106488710419056e-9)*(scale.height**5)+0.000009532025745222727*(scale.height**4)+(-0.013111890971173337)*(scale.height**3)+8.816587259194831*(scale.height**2)+(-2895.242032601652)*(scale.height)+372096.4701636151));
     }, [progress, scale, myPlayer]);
-
-    console.log(scale.height)
 
     return (
         <group>
