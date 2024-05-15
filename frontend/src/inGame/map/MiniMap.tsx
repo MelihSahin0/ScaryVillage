@@ -54,7 +54,7 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
                                 <lineSegments
                                     position={new THREE.Vector3(
                                         task.position.x / (0.00014583333333333318*scale.width+3.41) + (myPlayer ? myPlayer.x * 1.28 : 0) - (myPlayer ? myPlayer.x * 1.28 : 0) / 4.57,
-                                        task.position.y / (0.000013938437860331358*(scale.height**2)+(-0.017159919680279148)*(scale.height)+9.045743692799533) + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
+                                        task.position.y / (0.000047402450041123594*(scale.height**2)+(-0.057330966320548724)*(scale.height)+20.528915773896273) + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
                                         3
                                     )}>
                                     <edgesGeometry attach="geometry"
