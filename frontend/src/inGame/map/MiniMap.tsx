@@ -25,11 +25,11 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
     return (
         <group>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
-                  scale={[scale.width/580, scale.height/580, scale.depth]}>
-                <boxGeometry args={[1, 1, 0.1]}/>
+                  scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
+            <boxGeometry args={[1, 1, 0.1]}/>
                 <meshBasicMaterial map={mapTexture}/>
             </mesh>
-            <mesh position={[myPlayer ? myPlayer.x * 1.28 : 0, myPlayer ? myPlayer.y * 1.25 : 0, 3]}>
+            <mesh position={[myPlayer ? myPlayer.x * ((-0.00001041666666666609)*scale.width+1.295) : 0, myPlayer ? myPlayer.y * ((-0.0000010357628500816756)*(scale.height**2)+0.001245800873609301*(scale.height)+0.8927908337240951) : 0, 3]}>
                 <planeGeometry attach="geometry" args={[0.07, 0.07, 1]}/>
                 <meshBasicMaterial transparent={true} map={playerTexture} color={myPlayer?.color}/>
             </mesh>
@@ -53,8 +53,8 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
                             <group>
                                 <lineSegments
                                     position={new THREE.Vector3(
-                                        task.position.x / 3.62 + (myPlayer ? myPlayer.x * 1.28 : 0) - (myPlayer ? myPlayer.x * 1.28 : 0) / 4.57,
-                                        task.position.y / 3.95 + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
+                                        task.position.x / (0.00014583333333333318*scale.width+3.41) + (myPlayer ? myPlayer.x * 1.28 : 0) - (myPlayer ? myPlayer.x * 1.28 : 0) / 4.57,
+                                        task.position.y / (0.000013938437860331358*(scale.height**2)+(-0.017159919680279148)*(scale.height)+9.045743692799533) + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
                                         3
                                     )}>
                                     <edgesGeometry attach="geometry"

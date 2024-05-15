@@ -73,7 +73,7 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     return(
         <group>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
-                  scale={[scale.width/580, scale.height/580, scale.depth]}>
+                  scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
                 <boxGeometry args={[1, 1, 0.1]}/>
                 <meshBasicMaterial color={"brown"}/>
             </mesh>

@@ -49,12 +49,12 @@ export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
     return(
         <group>
         <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
-              scale={[scale.width/580, scale.height/580, scale.depth]}>
-            <boxGeometry args={[1, 1, 0.1]}/>
+              scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
+        <boxGeometry args={[1, 1, 0.1]}/>
             <meshBasicMaterial map={texture}/>
         </mesh>
             {<Text position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 3)}
-                   scale={[scale.width/20000, scale.height/10000, scale.depth]} color="#ffffff">{remainingTime/1000} sec</Text>}
+                   scale={[scale.width/(12.5*scale.width+2000), scale.height/(0.026041087702004067*(scale.height**2)+(-18.48551443522764)*(scale.height)+9597.56938662081), scale.depth]} color="#ffffff">{remainingTime/1000} sec</Text>}
         </group>
     )
 }

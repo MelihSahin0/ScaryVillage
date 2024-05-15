@@ -4,9 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="i want to merge">
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="better scaling fpr Progressbar?">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/TaskProgress.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/MiniMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/MiniMap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -327,7 +333,8 @@
       <workItem from="1715430912733" duration="4927000" />
       <workItem from="1715524067865" duration="1585000" />
       <workItem from="1715593347899" duration="1141000" />
-      <workItem from="1715622553643" duration="1385000" />
+      <workItem from="1715622553643" duration="1517000" />
+      <workItem from="1715771085008" duration="628000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
@@ -337,7 +344,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714818994477</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="better scaling fpr Progressbar?">
+      <option name="closed" value="true" />
+      <created>1715630148917</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1715630148917</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -359,7 +374,8 @@
     <MESSAGE value="&quot;&quot;" />
     <MESSAGE value="i want to pull" />
     <MESSAGE value="i want to merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="i want to merge" />
+    <MESSAGE value="better scaling fpr Progressbar?" />
+    <option name="LAST_COMMIT_MESSAGE" value="better scaling fpr Progressbar?" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
