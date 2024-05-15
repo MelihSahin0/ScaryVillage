@@ -54,10 +54,12 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
                     const newX =  chickenPos.x + offsetX;
                     const newY =  chickenPos.y + offsetY;
 
-                    const minX = myPlayer!.x - (scale.width - scale.width * 0.9992);
-                    const maxX = myPlayer!.x + (scale.width - scale.width * 0.9992);
-                    const maxY = myPlayer!.y - (scale.height - scale.height * 0.99925);
-                    const minY = myPlayer!.y + (scale.height - scale.height * 0.99922);
+                    const deltaX = scale.width - scale.width * (9.374999999998175e-7*(scale.width)+0.9978500000000002);
+                    const deltaY = scale.height - scale.height * (1.037527047480838e-8*(scale.height**2)+(-0.000010938867847488142)*(scale.height)+1.0017021724903246);
+                    const minX = myPlayer!.x - deltaX;
+                    const maxX = myPlayer!.x + deltaX;
+                    const maxY = myPlayer!.y - deltaY;
+                    const minY = myPlayer!.y + deltaY;
 
                     const boundedX = Math.min(Math.max(newX, minX), maxX);
                     const boundedY = Math.min(Math.max(newY, maxY), minY);
@@ -79,7 +81,7 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
             </mesh>
             {chickenPosition.map((chickenPosi, index) => (
                 <mesh key={index} position={chickenPosi}
-                      scale={[scale.width/580, scale.height/580, scale.depth]}
+                      scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}
                       onClick={() => {
                           const updatedPositions = chickenPosition.map((pos, idx) =>
                               idx === index ? null : pos
