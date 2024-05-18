@@ -86,6 +86,10 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                 return prevPlayers.map((player) => {
                     if (player.id === myPlayerId){
                         myUpdatedPlayer = player;
+                        if (player.id === message.id) {
+                            myUpdatedPlayer.x = message.position.x;
+                            myUpdatedPlayer.y = message.position.y;
+                        }
                     }
                     if (player.id === message.id) {
                         if (player.role === "deadBody") {

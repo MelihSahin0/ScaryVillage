@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="better scaling fpr Progressbar?">
+      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Sewer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/PlayerTeleported.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sewer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,19 +249,18 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
+        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
         <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
-        <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
-        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
-        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
       </set>
     </attachedChunks>
   </component>
@@ -331,6 +336,7 @@
       <workItem from="1715622553643" duration="1517000" />
       <workItem from="1715771085008" duration="1220000" />
       <workItem from="1715776719845" duration="990000" />
+      <workItem from="1716033187242" duration="3932000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
