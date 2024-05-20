@@ -6,10 +6,10 @@ import {Player} from "../PlayerManager";
 import {useEffect, useState} from "react";
 import {
     Publish, SubscribeGetPlayerTodoTask, SubscribeGetProgress,
-    SubscribePlayerTasks,
+    SubscribePlayerTasks, SubscribeSabotageTask,
     SubscribeToLobby, UnsubscribeGetPlayerTodoTask,
     UnsubscribeGetProgress,
-    UnsubscribePlayerTasks
+    UnsubscribePlayerTasks, UnsubscribeSabotageTask
 } from "../TaskmanagerSocket";
 import {games, gameState, role} from "../../types";
 import TaskProgress from "./TaskProgress";
@@ -24,6 +24,7 @@ import MiningMesh from "./interactableMap/Mining";
 import MiniMap from "./MiniMap";
 import {Scale} from "../InGame";
 import Sewer from "./interactableMap/Sewer";
+import Flooding from "./interactableMap/Flooding";
 
 type Props = {
     lobbyId: string;
@@ -159,6 +160,27 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
         };
     }, [currentTask, showMinimap]);
 
+    useEffect(() => {
+        const getPlayerTodoTask = (message: any) => {
+            console.log("DOES THIS WORK? " + message.myPlayerId);
+            console.log("Am I getting in?");
+            const task: Task = {
+                taskId: message.taskId,
+                gameType: message.type,
+                position: message.position,
+                scale: message.scale,
+                radius: message.radius
+            }
+            // TODO: Figure out how to set the Tasks back
+            setTasks([task]);
+        }
+        SubscribeSabotageTask(getPlayerTodoTask);
+
+        return () => {
+            UnsubscribeSabotageTask();
+        }
+    }, [tasks]);
+
     return (
         <group>
             <mesh position={new THREE.Vector3(0, 0, 0)}>
@@ -171,6 +193,8 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             </mesh>
 
             <Sewer lobbyId={lobbyId} myPlayer={myPlayer}/>
+
+            <Flooding lobbyId={lobbyId} myPlayer={myPlayer}/>
 
             <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks} scale={scale}/>
 

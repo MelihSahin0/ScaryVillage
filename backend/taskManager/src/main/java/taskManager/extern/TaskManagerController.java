@@ -10,6 +10,7 @@ import taskManager.extern.jsonDataTransferTypes.TaskClicked;
 import taskManager.intern.Rest;
 import taskManager.tasks.Bin;
 import taskManager.tasks.Cave;
+import taskManager.tasks.Flooding;
 import taskManager.tasks.Task;
 
 import java.util.Map;
@@ -125,4 +126,28 @@ public class TaskManagerController {
             Lobbies.removeLobby(lobbyId);
         }
     }
+
+    @MessageMapping("/initiateSabotage/{stringLobbyId}")
+    @SendTo("/subscribe/sabotageTask/{stringLobbyId}")
+    public String sabotage(TaskClicked message){
+        System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHH " + message.getTaskId());
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+
+        Flooding flooding = new Flooding();
+        flooding.setTaskId(UUID.randomUUID().toString());
+        Task.Position position = new Task.Position();
+        position.setX(-3.85);
+        position.setY(0.16090551000000003);
+        flooding.setPosition(position);
+        Task.Scale scale = new Task.Scale();
+        scale.setHeight(0.3);
+        scale.setWidth(0.2);
+        flooding.setScale(scale);
+        flooding.setDifficulty(TaskDifficulty.MEDIUM);
+        flooding.setRadius(5);
+        flooding.setStatus(TaskStatus.TODO);
+        System.out.println(flooding.toString());
+        return flooding.toString();
+    }
+
 }
