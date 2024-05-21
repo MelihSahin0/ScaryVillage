@@ -38,10 +38,9 @@ type Props = {
 }
 
 export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer ,setMyPlayer, allowedToMove}: Props){
-
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [killCooldown, setKillCooldown] = useState(0);
-    const [play, setPlay] = useState(false)
+    const [play, setPlay] = useState(true)
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
@@ -85,6 +84,12 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
         const updatePlayer = (message: any) => {
             setPlayers(prevPlayers => {
                 return prevPlayers.map((player) => {
+
+                    if (message.id === myPlayerId &&
+                        (player.x != message.position.x || player.y != message.position.y))
+                    {setPlay(true)}
+                    else {setPlay(false)}
+
                     if (player.id === myPlayerId){
                         myUpdatedPlayer = player;
                         if (player.id === message.id) {
@@ -99,9 +104,6 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                             }
                         }
                         else {
-                            if (player.id === message.id && (player.x != message.position.x || player.y != message.position.y))
-                            {setPlay(true)}
-                            else {setPlay(false)}
                             return {
                                 ...player,
                                 x: message.position.x,

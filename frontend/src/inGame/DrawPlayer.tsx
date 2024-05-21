@@ -30,7 +30,6 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
     const ghostRef = useRef<THREE.PositionalAudio | null>(null);
 
 
-
     useFrame((_, delta) => {
         const keyPress = [];
 
@@ -45,10 +44,9 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
                 soundRef.current?.play();
             }
             if ((myPlayer?.role === "crewmateGhost" || myPlayer?.role === "imposterGhost") && playSound && !ghostRef.current?.isPlaying){
-                ghostRef.current?.setVolume(1);
                 ghostRef.current?.play();
             }
-            if (!playSound && !collisionRef.current?.isPlaying){
+            if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && !playSound && !collisionRef.current?.isPlaying){
                 collisionRef.current?.play();
             }
 
@@ -67,8 +65,8 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
     return (
         <>
             <PositionalAudio ref={soundRef}  distance={0.05} url= {steps} loop = {false} />
-            <PositionalAudio ref={collisionRef}  distance={0.07} url= {collision} loop = {false} />
-            <PositionalAudio ref={ghostRef}  distance={1} url= {ghostSrc} loop = {false} />
+            <PositionalAudio ref={collisionRef}  distance={0.4} url= {collision} loop = {false} />
+            <PositionalAudio ref={ghostRef}  distance={0.07} url= {ghostSrc} loop = {false} />
             {players.map((player: Player) => (
                 (
                     ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && (player.role === "crewmate" || player.role === "imposter" || player.role === "deadBody"))
