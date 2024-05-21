@@ -1,9 +1,10 @@
 import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import * as THREE from "three";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {calculateInsideClickRange} from "../../Utility";
 import {Publish} from "../../TaskmanagerSocket";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -17,6 +18,8 @@ export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: P
 
     const [isHovered, setIsHovered] = useState(Array.from({ length: tasks.length }, () => false));
     const [insideBinDistance, setInsideBinDistance] = useState(Array.from({ length: tasks.length }, () => false));
+    const audioSrc = "../../../public/sounds/click_effect.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handlePointerOver = (index: number) => {
         setIsHovered(prevIsHovered => {
@@ -48,19 +51,27 @@ export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: P
         <group>
             {tasks.map((task, index) => (
                 <group key={task.taskId}>
+
                     <mesh key={index} position={new THREE.Vector3(task.position.x, task.position.y, task.position.z)} onPointerOver={() => handlePointerOver(index)}
                           onPointerOut={() => handlePointerOut(index)} onClick={() => {
+                              if (isHovered[index] && insideBinDistance[index]) {
+                                  soundRef.current?.setVolume(1)
+                                  soundRef.current?.play();
+                              }
+
+                            setTimeout(() =>{
                         const doTaskRequest = {
                             lobbyId: lobbyId,
                             playerId: myPlayerId,
                             taskId: task.taskId
                         };
-
                         if (isHovered[index] && insideBinDistance[index]) {
                             Publish("/send/doTaskRequest", JSON.stringify(doTaskRequest));
-                        }
+                        }}
+                        ,1000);
                     }}>
                         <boxGeometry args={[task.scale.width, task.scale.height, task.scale.depth]}/>
+                        <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={1}/>
                         <meshBasicMaterial transparent/>
                     </mesh>
                     <group visible={isHovered[index] !== undefined && isHovered[index]}>

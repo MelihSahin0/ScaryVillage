@@ -1,11 +1,12 @@
 import {Player} from "../../PlayerManager";
 import * as THREE from "three";
 import {useFrame} from "@react-three/fiber";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Task} from "../Map";
 import {Publish} from "../../TaskmanagerSocket";
 import {TextureLoader} from "three";
 import {Scale} from "../../InGame";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -22,6 +23,12 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     const [fishVisible, setFishVisible] = useState<boolean>(false)
     const [texture, setTexture] = useState<THREE.Texture | null>(null);
 
+    const audioSrcFish = "../../../public/sounds/liquid-whoosh.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
+    const audioSrcFishPick = "../../../public/sounds/bloop.mp3";
+    const soundPickRef = useRef<THREE.PositionalAudio | null>(null);
+
+
     useState(() => {
         const initialTexture = new TextureLoader().load('src/Images/fish.png');
         initialTexture.magFilter = THREE.NearestFilter;
@@ -34,10 +41,13 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
         if (!fishVisible) {
             timeoutId = setTimeout(() => {
                 setFishVisible(true);
+                if (soundRef.current) {
+                    soundRef.current.play()
+                }
             }, 1000);
         } else {
             timeoutId = setTimeout(() => {
-                setFishVisible(false);
+               setFishVisible(false);
             }, 1000);
         }
         return () => clearTimeout(timeoutId);
@@ -69,13 +79,18 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
         <group>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
                   scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
-            <boxGeometry args={[1, 1, 0.1]}/>
+                <boxGeometry args={[1, 1, 0.1]}/>
+                <PositionalAudio ref={soundRef} url={audioSrcFish} loop={false} distance={0.5}/>
                 <meshBasicMaterial color={"blue"}/>
             </mesh>
             <mesh position={fishPosition} visible={fishVisible}
                   scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}
                   onClick={() => {
                      if (fishVisible) {
+                         if (soundPickRef.current){
+                             soundPickRef.current.play();
+                         }
+                         setTimeout(() => {
                          const taskFinished = {
                              lobbyId: lobbyId,
                              playerId: myPlayerId,
@@ -85,9 +100,11 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
 
                          setAllowedToMove(true);
                          setCurrentTask(undefined);
+                         }, 600);
                      }
                   }}>
                 <boxGeometry args={[0.05, 0.08, 0.1]}/>
+                <PositionalAudio ref={soundPickRef} url={audioSrcFishPick} loop={false} distance={1}/>
                 <meshBasicMaterial map={texture} transparent={true}/>
             </mesh>
         </group>

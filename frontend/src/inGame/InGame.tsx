@@ -1,4 +1,4 @@
-import {OrthographicCamera} from "@react-three/drei";
+import {OrthographicCamera, PositionalAudio} from "@react-three/drei";
 import Map from "./map/Map";
 import PlayerManager, {Player} from "./PlayerManager";
 import {gameState, role} from "../types";
@@ -64,6 +64,7 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
             <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={cameraZoomFactor}/>
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
+            <PositionalAudio url={"../../../public/sounds/game-ambient-music.mp3"} autoplay loop={true} distance={0.15}/>
             <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner} setAllowedToMove={setAllowedToMove} scale={scale}/>
             <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner} myPlayer={myPlayer} setMyPlayer={setMyPlayer} allowedToMove={allowedToMove}/>
         </>

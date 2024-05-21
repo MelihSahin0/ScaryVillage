@@ -47,8 +47,6 @@ public class TaskManagerController {
         if (task.getClass().getSimpleName().equals(Bin.class.getSimpleName())) {
             for (Map.Entry<String, Task> cave : lobby.getPlayersTask(message.getPlayerId()).getTasks()){
                 if (cave.getValue().getClass().getSimpleName().equals(Cave.class.getSimpleName())){
-                    System.out.println(message.getTaskId());
-                    System.out.println(message.getTaskId() + "@");
                     cave.getValue().setTaskId(message.getTaskId() + "@");
                     return  "{" +
                             "\"" + message.getPlayerId() + "\": "

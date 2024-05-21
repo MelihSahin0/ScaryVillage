@@ -170,6 +170,11 @@ public class Player {
         return false;
     }
 
+    public void teleport(int sewerFrom) {
+        x = Map.getSewer((sewerFrom + 2) % 4).getX();
+        y = Map.getSewer((sewerFrom + 2) % 4).getY();
+    }
+
     public void killed() {
         switch (role) {
             case CREWMATE:

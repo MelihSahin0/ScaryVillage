@@ -221,5 +221,4 @@ public class Lobby {
                 ", \"changeVotingNumberVisibility\": \"" + changeVotingNumberVisibility + "\"" +
                 '}';
     }
-
 }

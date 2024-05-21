@@ -5,8 +5,14 @@ import java.util.ArrayList;
 public class Map {
 
     private static ArrayList<Wall> walls = new ArrayList<>();
+    private static ArrayList<Sewer> sewers = new ArrayList<>();
 
     public Map() {
+
+        sewers.add(new Sewer(-3.4, 1.6));
+        sewers.add(new Sewer(3, 1.7));
+        sewers.add(new Sewer(3.7, -2));
+        sewers.add(new Sewer(-3.3, -2.1));
 
         //Fountain top
         walls.add(new Wall(-0.3255619999999995, 1.175295000000004,0.4417759999999973, 1.175295000000004));
@@ -105,4 +111,10 @@ public class Map {
     public static void addWall(Wall w) {
         Map.walls.add(w);
     }
+
+
+    public static Sewer getSewer(int pos) {
+        return sewers.get(pos);
+    }
+
 }

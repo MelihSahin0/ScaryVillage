@@ -4,7 +4,51 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="better scaling fpr Progressbar?" />
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="better scaling fpr Progressbar?">
+      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Sewer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/jsonDataTransferTypes/PlayerTeleported.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/ambient-metal-whoosh.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/bell.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/bloop.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/chicken-noise.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/chicken-soundscape.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/click.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/click_effect.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/cooking-sound.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/game-ambient-music.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/jug-pop.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/knock.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/liquid-whoosh.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/metal-whoosh.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/mysterious.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/rock_break.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/single_snore.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/snare.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/whoosh-cinematic.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/public/sounds/whoosh.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/images/sewer.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sewer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Map.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Map.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cave.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cave.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Emergency.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Emergency.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -114,7 +158,7 @@
     &quot;Spring Boot.StompWebsocketTaskManager.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketVotingManager.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;Merging main&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/chatManager/src/main/java/chatManager&quot;,
@@ -230,19 +274,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Spring Boot.StompWebsocketGameManager" />
-      <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
-      <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-      <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
-      <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
-        <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
+        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+        <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
@@ -327,6 +364,8 @@
       <workItem from="1715622553643" duration="1517000" />
       <workItem from="1715771085008" duration="1220000" />
       <workItem from="1715776719845" duration="990000" />
+      <workItem from="1716033187242" duration="3932000" />
+      <workItem from="1716313774507" duration="853000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
@@ -365,9 +404,9 @@
     <MESSAGE value="sync" />
     <MESSAGE value="&quot;&quot;" />
     <MESSAGE value="i want to pull" />
-    <MESSAGE value="i want to merge" />
     <MESSAGE value="better scaling fpr Progressbar?" />
-    <option name="LAST_COMMIT_MESSAGE" value="better scaling fpr Progressbar?" />
+    <MESSAGE value="i want to merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="i want to merge" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
