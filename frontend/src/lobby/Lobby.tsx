@@ -1,5 +1,5 @@
 import {gameState, role} from "../types";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     Publish, SubscribeGetMessages,
     SubscribeJoinLobby,
@@ -42,6 +42,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
     const [displayPlayers, setDisplayPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
     const [messages, setMessages] = useState<Array<Message>>([])
+    const audioRef = useRef<HTMLAudioElement>(null);
     
     ClosePlayermanagerConnection();
     CloseTaskmanagerConnection();
@@ -118,8 +119,19 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
         }, 500);
     }, [lobbyId, myPlayerId]);
 
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = 0.03;
+            audioRef.current.loop = true;
+            audioRef.current.play();
+        }
+    }, []);
+
     return (
         <div className="bg-gray-700 w-screen h-screen" >
+            <audio ref={audioRef}>
+                <source src="../../../public/sounds/mysterious.mp3" type="audio/mpeg" />
+            </audio>
             <div className="flex justify-items-center justify-center pt-10">
                 {winner !== undefined && <h1 className="text-white text-2xl">The winner of the previous round: {winner.toUpperCase()}</h1>}
             </div>
