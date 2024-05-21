@@ -25,6 +25,7 @@ import MiniMap from "./MiniMap";
 import {Scale} from "../InGame";
 import Sewer from "./interactableMap/Sewer";
 import Flooding from "./interactableMap/Flooding";
+import FloodingMesh from "./interactableMap/FloodingTask";
 
 type Props = {
     lobbyId: string;
@@ -161,9 +162,8 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     }, [currentTask, showMinimap]);
 
     useEffect(() => {
-        const getPlayerTodoTask = (message: any) => {
+        const getPlayerSabotage = (message: any) => {
             console.log("DOES THIS WORK? " + message.myPlayerId);
-            console.log("Am I getting in?");
             const task: Task = {
                 taskId: message.taskId,
                 gameType: message.type,
@@ -174,11 +174,12 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             // TODO: Figure out how to set the Tasks back
             setTasks([task]);
         }
-        SubscribeSabotageTask(getPlayerTodoTask);
-
+        SubscribeSabotageTask(getPlayerSabotage);
+        console.log("CALL OUT");
         return () => {
             UnsubscribeSabotageTask();
         }
+        // TODO: Figure out how to make task list normal
     }, [tasks]);
 
     return (
@@ -194,7 +195,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
 
             <Sewer lobbyId={lobbyId} myPlayer={myPlayer}/>
 
-            {(myPlayer?.role === "imposter" || tasks.some(task => task.gameType === "Flooding" /* Checks if the Flooding Task is set */)) && <Flooding lobbyId={lobbyId} myPlayer={myPlayer}/>}
+            {(myPlayer?.role === "imposter" || tasks.some(task => task.gameType === "Flooding" /* Checks if the Flooding Task is set */)) && <Flooding lobbyId={lobbyId} myPlayer={myPlayer} setCurrentTask={setCurrentTask} tasks={tasks}/>}
 
             <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks} scale={scale}/>
 
@@ -213,8 +214,12 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 currentTask?.gameType === "Chicken" && <ChickenMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
                 currentTask?.gameType === "Cooking" && <CookingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
                 currentTask?.gameType === "Chopping" && <ChoppingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
-                currentTask?.gameType === "Mining" && <MiningMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/>
-            }
+                currentTask?.gameType === "Mining" && <MiningMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
+
+                // Sabotage Tasks
+                currentTask?.gameType === "Flooding" && <FloodingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/>
+
+}
         </group>
     )
 }

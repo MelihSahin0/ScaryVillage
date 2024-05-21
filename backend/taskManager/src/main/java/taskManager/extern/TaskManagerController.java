@@ -39,7 +39,7 @@ public class TaskManagerController {
         if (lobby == null) {
             return null;
         }
-
+        if (lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId()) == null) {return null;} // Otherwise throws error for sabotage
         Task task = lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId());
         if (!task.insideRadius(Rest.getPlayerPosi(message.getLobbyId(), message.getPlayerId()))){
             return null;
@@ -146,7 +146,7 @@ public class TaskManagerController {
         flooding.setDifficulty(TaskDifficulty.MEDIUM);
         flooding.setRadius(5);
         flooding.setStatus(TaskStatus.TODO);
-        System.out.println(flooding.toString());
+
         return flooding.toString();
     }
 

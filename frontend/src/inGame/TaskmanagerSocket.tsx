@@ -68,7 +68,6 @@ export function UnsubscribeGetPlayerTodoTask(){
 }
 
 export function SubscribeSabotageTask(updatePlayers: (message: any) => void) {
-
     const messageHandler: MessageHandler = {
         id: 0,
         destination: "/subscribe/sabotageTask/" + lobbyId,

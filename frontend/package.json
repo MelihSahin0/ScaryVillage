@@ -13,6 +13,7 @@
     "@react-three/drei": "^9.102.6",
     "@react-three/fiber": "^8.15.19",
     "@react-three/postprocessing": "^2.16.2",
+    "@use-gesture/react": "^10.3.1",
     "autoprefixer": "^10.4.19",
     "postcss-cli": "^11.0.0",
     "react": "^18.2.0",

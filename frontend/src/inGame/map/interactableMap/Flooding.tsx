@@ -2,13 +2,16 @@ import * as THREE from "three";
 import React, {useState} from "react";
 import {Player} from "../../PlayerManager";
 import {Publish} from "../../TaskmanagerSocket";
+import {Task} from "../Map";
 
 type Props = {
     lobbyId: string;
     myPlayer: Player | undefined;
+    setCurrentTask:(setCurrentTask: Task | undefined) => void;
+    tasks: undefined;
 }
 
-export default function Flooding({lobbyId, myPlayer}: Props) {
+export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Props) {
 
     const [isHovered, setIsHovered] = useState(false);
 
@@ -33,7 +36,12 @@ export default function Flooding({lobbyId, myPlayer}: Props) {
             };
             Publish("/send/initiateSabotage", JSON.stringify(sabotageData));
         }
-        console.log("CREWMATE");
+        console.log("CREWMATE " + tasks[0].gameType);
+        // safety check that tasks are defined
+        if (tasks) {
+            setCurrentTask(tasks[0]);
+        }
+
     };
 
     return (
@@ -48,7 +56,7 @@ export default function Flooding({lobbyId, myPlayer}: Props) {
                 <boxGeometry args={[0.15, 0.15, 0.1]} />
                 <meshBasicMaterial transparent={true} opacity={0} />
             </mesh>
-            {isHovered && myPlayer?.role == "imposter" && (
+            {isHovered && (
                 <lineSegments position={[shovel.x, shovel.y, 0.2]}>
                     <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.15, 0.4, 1)]} />
                     <lineBasicMaterial attach="material" color={0xffff00} />
