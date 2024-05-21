@@ -2,10 +2,11 @@ import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import {useFrame} from "@react-three/fiber";
 import * as THREE from "three";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {Publish} from "../../TaskmanagerSocket";
 import {TextureLoader, Vector3} from "three";
 import {Scale} from "../../InGame";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -23,6 +24,10 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     );
     const [chickenSpeed, setChickenSpeed] = useState<number>(1)
     const [texture, setTexture] = useState<THREE.Texture | null>(null);
+    const audioSrc = "../../../public/sounds/chicken-soundscape.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
+    const audioPickSrc = "../../../public/sounds/chicken-noise.mp3";
+    const soundPickRef = useRef<THREE.PositionalAudio | null>(null);
 
     useState(() => {
         const initialTexture = new TextureLoader().load('src/Images/chicken.png');
@@ -74,6 +79,7 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
 
     return(
         <group>
+            <PositionalAudio ref={soundRef} url={audioSrc} loop={true} distance={0.5} autoplay={true} />
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
                   scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
                 <boxGeometry args={[1, 1, 0.1]}/>
@@ -83,11 +89,13 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
                 <mesh key={index} position={chickenPosi}
                       scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}
                       onClick={() => {
+
+                          soundPickRef.current?.play();
+
                           const updatedPositions = chickenPosition.map((pos, idx) =>
                               idx === index ? null : pos
                           );
                           setChickenSpeed(1 + updatedPositions.filter(option => option === null).length / 2)
-
                           if (updatedPositions.every(pos => pos === null)) {
                               const taskFinished = {
                                   lobbyId: lobbyId,
@@ -104,6 +112,7 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
                       }}>
                     <boxGeometry args={[0.05, 0.08, 0.1]}/>
                     <meshBasicMaterial map={texture} transparent={true}/>
+                    <PositionalAudio ref={soundPickRef} url={audioPickSrc} loop={false} distance={0.5}/>
                 </mesh>
             ))}
         </group>

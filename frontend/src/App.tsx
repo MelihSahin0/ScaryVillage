@@ -6,6 +6,7 @@ import InGame from "./inGame/InGame";
 import Lobby from "./lobby/Lobby";
 import {v4 as uuidv4} from "uuid";
 import Voting from "./voting/Voting";
+import {AdaptiveDpr} from "@react-three/drei";
 
 export default function App() {
 
@@ -20,6 +21,7 @@ export default function App() {
             {gameState === 'lobby' && <Lobby myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState} setWinner={setWinner} winner={winner}/>}
             <Canvas style={{height: '100vh', display: gameState === 'inGame' ? 'block' : 'none'}}>
                 {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner}/>}
+                <AdaptiveDpr pixelated />
             </Canvas>
             {gameState === 'voting' && <Voting lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner}/>}
         </>

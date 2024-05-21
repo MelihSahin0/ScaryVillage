@@ -1,9 +1,10 @@
 import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {calculateInsideClickRange} from "../../Utility";
 import * as THREE from "three";
 import {Publish} from "../../TaskmanagerSocket";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -16,6 +17,8 @@ type Props = {
 export default function CaveMesh({lobbyId, myPlayerId ,myPlayer, currentTask, setCurrentTask}: Props){
     const [isHovered, setIsHovered] = useState(false);
     const [insideBinDistance, setInsideBinDistance] = useState(false);
+    const audioSrc = "../../../public/sounds/snare.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handlePointerOver = () => {
         setIsHovered(true);
@@ -37,6 +40,12 @@ export default function CaveMesh({lobbyId, myPlayerId ,myPlayer, currentTask, se
             <group key={currentTask.taskId}>
                 <mesh key={currentTask.taskId} position={new THREE.Vector3(currentTask.position.x, currentTask.position.y, currentTask.position.z)} onPointerOver={() => handlePointerOver()}
                       onPointerOut={() => handlePointerOut()} onClick={() => {
+                    if (isHovered && insideBinDistance) {
+                        soundRef.current?.setVolume(1)
+                        soundRef.current?.play();
+                    }
+
+                    setTimeout(() =>{
                     const doTaskRequest = {
                         lobbyId: lobbyId,
                         playerId: myPlayerId,
@@ -46,9 +55,11 @@ export default function CaveMesh({lobbyId, myPlayerId ,myPlayer, currentTask, se
                     if (isHovered && insideBinDistance) {
                         Publish("/send/taskFinished", JSON.stringify(doTaskRequest));
                         setCurrentTask(undefined);
-                    }
+                    }}
+                    ,1000);
                 }}>
                     <boxGeometry args={[currentTask.scale.width, currentTask.scale.height, currentTask.scale.depth]}/>
+                    <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={1}/>
                     <meshBasicMaterial transparent/>
                 </mesh>
                 <group visible={isHovered !== undefined && isHovered}>

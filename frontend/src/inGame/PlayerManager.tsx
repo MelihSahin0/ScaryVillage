@@ -41,6 +41,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
 
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [killCooldown, setKillCooldown] = useState(0);
+    const [play, setPlay] = useState(false)
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
@@ -94,6 +95,9 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                             }
                         }
                         else {
+                            if (player.id === message.id && (player.x != message.position.x || player.y != message.position.y))
+                            {setPlay(true)}
+                            else {setPlay(false)}
                             return {
                                 ...player,
                                 x: message.position.x,
@@ -203,7 +207,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
 
     return (
         <>
-            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} allowedToMove={allowedToMove} />
+            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} allowedToMove={allowedToMove} playSound={play} />
         </>
     )
 }

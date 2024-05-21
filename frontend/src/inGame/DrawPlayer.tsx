@@ -4,7 +4,7 @@ import {useFrame, useLoader} from "@react-three/fiber";
 import {BufferGeometry, Mesh, NormalBufferAttributes, TextureLoader} from "three";
 import {Publish} from "./PlayermanagerSocket";
 import useKeyboard from "./KeyBoard";
-import { Text } from '@react-three/drei';
+import {PositionalAudio, Text} from '@react-three/drei';
 import * as THREE from 'three';
 import {calculateInsideClickRange} from "./Utility";
 
@@ -15,11 +15,21 @@ type Props = {
     players: Array<Player>;
     killCooldown: number;
     allowedToMove: boolean;
+    playSound: boolean;
 }
 
-export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, allowedToMove}: Props){
+
+export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, allowedToMove, playSound}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
+    const steps = "../../../public/sounds/knock.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
+    const collision = "../../../public/sounds/jug-pop.mp3";
+    const collisionRef = useRef<THREE.PositionalAudio | null>(null);
+    const ghostSrc = "../../../public/sounds/whoosh.mp3";
+    const ghostRef = useRef<THREE.PositionalAudio | null>(null);
+
+
 
     useFrame((_, delta) => {
         const keyPress = [];
@@ -30,6 +40,18 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
         keyMap['KeyS'] && (keyPress.push("s"))
 
         if (keyPress.length > 0 && allowedToMove) {
+
+            if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && playSound && !soundRef.current?.isPlaying){
+                soundRef.current?.play();
+            }
+            if ((myPlayer?.role === "crewmateGhost" || myPlayer?.role === "imposterGhost") && playSound && !ghostRef.current?.isPlaying){
+                ghostRef.current?.setVolume(1);
+                ghostRef.current?.play();
+            }
+            if (!playSound && !collisionRef.current?.isPlaying){
+                collisionRef.current?.play();
+            }
+
             const movementData = {
                 lobbyId: lobbyId,
                 playerId: myPlayer?.id,
@@ -41,8 +63,12 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
         }
     })
 
+
     return (
         <>
+            <PositionalAudio ref={soundRef}  distance={0.05} url= {steps} loop = {false} />
+            <PositionalAudio ref={collisionRef}  distance={0.07} url= {collision} loop = {false} />
+            <PositionalAudio ref={ghostRef}  distance={1} url= {ghostSrc} loop = {false} />
             {players.map((player: Player) => (
                 (
                     ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && (player.role === "crewmate" || player.role === "imposter" || player.role === "deadBody"))
@@ -63,6 +89,11 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
     texture.minFilter = THREE.NearestFilter;
     const [isHovered, setIsHovered] = useState(false);
     const [insideClickRange, setInsideClickRange] = useState<boolean>()
+    const killSound = "../../../public/sounds/ambient-metal-whoosh.mp3";
+    const killRef = useRef<THREE.PositionalAudio | null>(null);
+    const reportSound = "../../../public/sounds/bell.mp3";
+    const reportRef = useRef<THREE.PositionalAudio | null>(null);
+
 
     useEffect(() => {
         if (myPlayer !== null && myPlayer !== undefined) {
@@ -98,7 +129,18 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
             <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}
                   color={myPlayer?.role === "crewmate" ? "white": player.role === "imposter" ? "red" : "white"}
             >{player.name}</Text>
-            <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={handleClick}
+            {myPlayer?.role === "imposter" && <PositionalAudio ref={killRef} distance={0.5} url= {killSound} loop = {false} />}
+            {myPlayer?.role === "crewmate" && <PositionalAudio ref={reportRef} distance={0.5} url = {reportSound} loop = {false}/>}
+            <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={()=>{
+                if (myPlayer?.role === "imposter" && myPlayer?.id != player.id.slice(0, 32)) {
+                    killRef.current?.play();
+                }
+                if (myPlayer?.role === "crewmate" && myPlayer?.id != player.id.slice(0, 32)) {
+                    reportRef.current?.play();
+                }
+                setTimeout(() => {
+                    handleClick()
+                }, 1000);}}
                   onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
                 <planeGeometry attach="geometry" args={[0.3, 0.3, 1]}/>
                 <meshBasicMaterial transparent map={texture} color={player.color}/>
