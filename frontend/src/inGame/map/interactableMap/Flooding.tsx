@@ -32,8 +32,8 @@ export default function Flooding({lobbyId, myPlayer}: Props) {
                 taskId: "Flooding",
             };
             Publish("/send/initiateSabotage", JSON.stringify(sabotageData));
-
         }
+        console.log("CREWMATE");
     };
 
     return (
@@ -48,7 +48,7 @@ export default function Flooding({lobbyId, myPlayer}: Props) {
                 <boxGeometry args={[0.15, 0.15, 0.1]} />
                 <meshBasicMaterial transparent={true} opacity={0} />
             </mesh>
-            {isHovered && myPlayer?.role === "imposter" && (
+            {isHovered && myPlayer?.role == "imposter" && (
                 <lineSegments position={[shovel.x, shovel.y, 0.2]}>
                     <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.15, 0.4, 1)]} />
                     <lineBasicMaterial attach="material" color={0xffff00} />

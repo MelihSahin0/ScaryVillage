@@ -194,7 +194,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
 
             <Sewer lobbyId={lobbyId} myPlayer={myPlayer}/>
 
-            <Flooding lobbyId={lobbyId} myPlayer={myPlayer}/>
+            {(myPlayer?.role === "imposter" || tasks.some(task => task.gameType === "Flooding" /* Checks if the Flooding Task is set */)) && <Flooding lobbyId={lobbyId} myPlayer={myPlayer}/>}
 
             <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks} scale={scale}/>
 
