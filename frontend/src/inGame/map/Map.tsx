@@ -23,6 +23,7 @@ import ChoppingMesh from "./interactableMap/Chopping";
 import MiningMesh from "./interactableMap/Mining";
 import MiniMap from "./MiniMap";
 import {Scale} from "../InGame";
+import Sewer from "./interactableMap/Sewer";
 
 type Props = {
     lobbyId: string;
@@ -168,6 +169,9 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 <boxGeometry args={[9, 5, 0.1]}/>
                 <meshBasicMaterial map={texture}/>
             </mesh>
+
+            <Sewer lobbyId={lobbyId} myPlayer={myPlayer}/>
+
             <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks} scale={scale}/>
 
             {currentTask === undefined && !showMinimap &&<>

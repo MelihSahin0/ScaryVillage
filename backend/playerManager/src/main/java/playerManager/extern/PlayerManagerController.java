@@ -3,6 +3,7 @@ package playerManager.extern;
 import extern.enumarators.Colors;
 import intern.LobbyId;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import playerManager.Map;
 import playerManager.Player;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -40,6 +41,30 @@ public class PlayerManagerController {
 		Player player = lobby.getPlayer(message.getPlayerId());
 		if (player != null && message.getDeltaTime() < 0.02){
 			player.initiateMove(message.getMovement(), message.getDeltaTime());
+			return player.toString();
+		}
+
+		return null;
+	}
+
+	@MessageMapping("/playerTeleport/{stringLobbyId}")
+	@SendTo("/subscribe/playerPosition/{stringLobbyId}")
+	public String handlePlayersTeleport(PlayerTeleported message) {
+		if (Lobbies.getLobby(message.getLobbyId()) == null){
+			return null;
+		}
+
+		Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+		Player player = lobby.getPlayer(message.getPlayerId());
+		if (player != null) {
+			int sewerFromNr = message.getSewerFrom();;
+
+			double distance = Math.sqrt(Math.pow(message.getPlayerX() - Map.getSewer(sewerFromNr).getX(), 2) + Math.pow(message.getPlayerY() - Map.getSewer(sewerFromNr).getY(), 2));
+			if (distance > 0.3){
+				return null;
+			}
+
+			player.teleport(message.getSewerFrom());
 			return player.toString();
 		}
 
