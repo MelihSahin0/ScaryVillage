@@ -3,8 +3,6 @@ package votingManager.extern;
 import extern.enumarators.Colors;
 import extern.enumarators.Roles;
 import intern.LobbyId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -17,7 +15,6 @@ import votingManager.extern.jsonDataTransferTypes.Voting;
 import votingManager.extern.jsonDataTransferTypes.VotingTime;
 import votingManager.intern.Rest;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -25,7 +22,7 @@ import java.util.Random;
 @RestController
 public class VotingManagerController {
 
-    //When Endpoints can be called internally too, use this. (Reference: removePlayer)
+    //When Endpoints can be called internally too, use this.
     private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
 
     @MessageMapping("/players/{stringLobbyId}")

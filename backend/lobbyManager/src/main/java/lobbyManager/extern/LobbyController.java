@@ -20,7 +20,7 @@ import java.util.Random;
 @RestController
 public class LobbyController {
 
-    //When Endpoints can be called internally too, use this. (Reference: removePlayer)
+    //When Endpoints can be called internally too, use this.
     private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
 
     @MessageMapping("/registerPlayer/{stringLobbyId}")

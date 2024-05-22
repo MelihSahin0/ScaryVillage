@@ -17,7 +17,7 @@ import playerManager.intern.Rest;
 @RestController
 public class PlayerManagerController {
 
-	//When Endpoints can be called internally too, use this. (Reference: removePlayer)
+	//When Endpoints can be called internally too, use this.
 	private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
 
 	@MessageMapping("/players/{stringLobbyId}")
