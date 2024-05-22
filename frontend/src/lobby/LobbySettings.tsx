@@ -212,7 +212,6 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
                                    const checkVotingNumber = {
                                        lobbyId: lobbyId,
                                        changeVotingNumberVisibility: !votingNumberHidden}
-                                   console.log(checkVotingNumber)
 
                                    Publish("/send/changeVotingNumberVisibility", JSON.stringify(checkVotingNumber));
 

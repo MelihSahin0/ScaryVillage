@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import React, {useEffect, useRef, useState} from "react";
-import {useFrame, useLoader} from "@react-three/fiber";
+import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {calculateInsideClickRange} from "../../Utility";
 import {Player} from "../../PlayerManager";
