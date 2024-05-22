@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="merge conflicts">
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="removed logs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sewer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sewer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gameManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/gameManager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/globalClasses/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/globalClasses/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/votingManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,6 +239,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <list>
+      <item itemvalue="Spring Boot.StompWebsocketGameManager" />
+      <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
+      <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
+      <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+      <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
+    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
@@ -326,7 +338,8 @@
       <workItem from="1715776719845" duration="990000" />
       <workItem from="1716033187242" duration="3932000" />
       <workItem from="1716313774507" duration="912000" />
-      <workItem from="1716375681929" duration="738000" />
+      <workItem from="1716375681929" duration="1947000" />
+      <workItem from="1716403703104" duration="1514000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
@@ -352,7 +365,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716314817422</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="removed logs">
+      <option name="closed" value="true" />
+      <created>1716378332627</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716378332627</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -376,7 +397,8 @@
     <MESSAGE value="better scaling fpr Progressbar?" />
     <MESSAGE value="i want to merge" />
     <MESSAGE value="merge conflicts" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge conflicts" />
+    <MESSAGE value="removed logs" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed logs" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
