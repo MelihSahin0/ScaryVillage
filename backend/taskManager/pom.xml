@@ -48,6 +48,10 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>3.2.4</version>
+                <configuration>
+                    <mainClass>taskManager.StompWebsocketTaskManager</mainClass>
+                    <layout>JAR</layout>
+                </configuration>
             </plugin>
         </plugins>
     </build>
