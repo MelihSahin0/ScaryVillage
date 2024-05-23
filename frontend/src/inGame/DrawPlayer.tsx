@@ -44,7 +44,7 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
         if (keyPress.length > 0 && allowedToMove) {
 
             const n = new Date()
-            const num = (n.getMinutes() * 60 + n.getSeconds()) * 600
+            const num = (n.getMinutes() * 60 + n.getSeconds()) * 60
 
             if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && playSound  && !soundRef.current?.isPlaying){
                 soundRef.current?.play();
@@ -53,13 +53,13 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
                 ghostRef.current?.play();
             }
             if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") &&
-                !playSound && (num-time < 1)
+                !playSound && (num-time < 0.5)
                 && !collisionRef.current?.isPlaying){
                 collisionRef.current?.play();
             }
 
             setTime(()=> {const now = new Date()
-            return (now.getMinutes() * 60 + now.getSeconds()) * 600})
+            return (now.getMinutes() * 60 + now.getSeconds()) * 60})
 
             const movementData = {
                 lobbyId: lobbyId,
