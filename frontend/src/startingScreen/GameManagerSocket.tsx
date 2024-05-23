@@ -12,10 +12,9 @@ const isDebug = process.env.NODE_ENV === 'development';
 
 function getBrokerURL() {
     if (isDebug) {
-        return 'ws://localhost:8083/gameManagerWebsocket';
+        return 'ws://localhost:8081/gameManagerWebsocket';
     } else {
-        // Specify your production URL here
-        return 'ws://10.0.40.168:5173/gameManagerWebsocket';
+        return 'ws://10.0.40.168:8081/gameManagerWebsocket';
     }
 }
 

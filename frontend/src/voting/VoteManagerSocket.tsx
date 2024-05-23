@@ -15,8 +15,7 @@ function getBrokerURL() {
     if (isDebug) {
         return 'ws://localhost:8083/votingManagerWebsocket';
     } else {
-        // Specify your production URL here
-        return 'ws://10.0.40.168:5173/votingManagerWebsocket';
+        return 'ws://10.0.40.168:8083/votingManagerWebsocket';
     }
 }
 

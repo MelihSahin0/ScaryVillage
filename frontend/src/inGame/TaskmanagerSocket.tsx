@@ -13,10 +13,9 @@ const isDebug = process.env.NODE_ENV === 'development';
 
 function getBrokerURL() {
     if (isDebug) {
-        return 'ws://localhost:8083/taskManagerWebsocket';
+        return 'ws://localhost:8084/taskManagerWebsocket';
     } else {
-        // Specify your production URL here
-        return 'ws://10.0.40.168:5173/taskManagerWebsocket';
+        return 'ws://10.0.40.168:8084/taskManagerWebsocket';
     }
 }
 
