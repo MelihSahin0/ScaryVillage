@@ -32,7 +32,7 @@ export default function CookingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     );
     const [clickOnIngredient, setClickOnIngredient] = useState(respectiveIngredient[Math.floor(Math.random() * respectiveIngredient.length)]);
     const audioSrc = "/sounds/cooking-sound.mp3";
-    const audioPickSrc = "/public/sounds/click.mp3";
+    const audioPickSrc = "/sounds/click.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     useEffect(() => {
