@@ -7,6 +7,7 @@ import playerManager.extern.jsonDataTransferTypes.KillCooldown;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import playerManager.extern.ApplicationContextHolder;
 
 public class Player {
     private final String id;
@@ -198,7 +199,7 @@ public class Player {
                 KillCooldown message = new KillCooldown();
                 message.setLobbyId(lobbyId);
                 message.setKillCooldown(allowedToKillIn);
-                PlayerManagerController playerManagerController = new PlayerManagerController();
+                PlayerManagerController playerManagerController = ApplicationContextHolder.getContext().getBean(PlayerManagerController.class);
                 playerManagerController.killCooldown(message);
             } else {
                 executorServiceKillCooldown.shutdown();

@@ -4,6 +4,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import taskManager.*;
 import taskManager.extern.jsonDataTransferTypes.GetTasks;
 import taskManager.extern.jsonDataTransferTypes.TaskClicked;
@@ -13,13 +14,16 @@ import taskManager.tasks.Cave;
 import taskManager.tasks.Task;
 
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 public class TaskManagerController {
 
-    //When Endpoints can be called internally too, use this. (Reference: removePlayer)
-    private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
+    private final SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    public TaskManagerController(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
 
     @MessageMapping("/tasks/{stringLobbyId}")
     @SendTo("/subscribe/getPlayerTasks/{stringLobbyId}")

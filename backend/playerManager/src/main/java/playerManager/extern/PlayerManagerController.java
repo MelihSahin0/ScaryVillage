@@ -2,6 +2,7 @@ package playerManager.extern;
 
 import extern.enumarators.Colors;
 import intern.LobbyId;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import playerManager.Map;
 import playerManager.Player;
@@ -17,8 +18,12 @@ import playerManager.intern.Rest;
 @RestController
 public class PlayerManagerController {
 
-	//When Endpoints can be called internally too, use this.
-	private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
+	private final SimpMessagingTemplate messagingTemplate;
+
+	@Autowired
+	public PlayerManagerController(SimpMessagingTemplate messagingTemplate) {
+		this.messagingTemplate = messagingTemplate;
+	}
 
 	@MessageMapping("/players/{stringLobbyId}")
 	@SendTo("/subscribe/getPlayers/{stringLobbyId}")

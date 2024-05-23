@@ -9,6 +9,7 @@ import extern.enumarators.Roles;
 import extern.enumarators.Visibility;
 import lobbyManager.extern.LobbyController;
 import lobbyManager.extern.jsonDataTransferTypes.RemovePlayer;
+import lobbyManager.extern.ApplicationContextHolder;
 
 public class Lobby {
 
@@ -157,7 +158,7 @@ public class Lobby {
                     if (timeLeft > 0) {
                         player.getValue().setTimeLeftInSeconds(timeLeft - 1);
                     } else {
-                        LobbyController lobbyController = new LobbyController();
+                        LobbyController lobbyController = ApplicationContextHolder.getContext().getBean(LobbyController.class);
                         RemovePlayer removePlayer = new RemovePlayer();
                         removePlayer.setLobbyId(lobbyId);
                         removePlayer.setPlayerId(player.getKey());
