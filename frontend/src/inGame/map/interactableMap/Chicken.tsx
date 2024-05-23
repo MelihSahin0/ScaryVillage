@@ -24,13 +24,13 @@ export default function ChickenMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     );
     const [chickenSpeed, setChickenSpeed] = useState<number>(1)
     const [texture, setTexture] = useState<THREE.Texture | null>(null);
-    const audioSrc = "../../../public/sounds/chicken-soundscape.mp3";
+    const audioSrc = "/sounds/chicken-soundscape.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
-    const audioPickSrc = "../../../public/sounds/chicken-noise.mp3";
+    const audioPickSrc = "/sounds/chicken-noise.mp3";
     const soundPickRef = useRef<THREE.PositionalAudio | null>(null);
 
     useState(() => {
-        const initialTexture = new TextureLoader().load('src/Images/chicken.png');
+        const initialTexture = new TextureLoader().load('/images/chicken.png');
         initialTexture.magFilter = THREE.NearestFilter;
         initialTexture.minFilter = THREE.NearestFilter;
         setTexture(initialTexture);

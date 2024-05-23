@@ -6,7 +6,42 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/Map.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/Map.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/MiningTask.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/MiningTask.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/Purple.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/Purple.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/SleepingTask.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/SleepingTask.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/Stone.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/Stone.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/StoneBroken.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/StoneBroken.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/back.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/back.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/chicken.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/chicken.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/chopping1.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/chopping1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/chopping2.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/chopping2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/chopping3.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/chopping3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/chopping4.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/chopping4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/chopping5.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/chopping5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/chopping6.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/chopping6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/chopping7.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/chopping7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/fish.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/fish.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/newMap.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/newMap.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/pixi.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/pixi.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/report.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/report.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/images/sewer.png" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/public/images/sewer.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/MiniMap.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/MiniMap.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cave.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cave.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chicken.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Chopping.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Cooking.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Emergency.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Emergency.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fishing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Mining.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sewer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sewer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Sleeping.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/TaskMeshDrawer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

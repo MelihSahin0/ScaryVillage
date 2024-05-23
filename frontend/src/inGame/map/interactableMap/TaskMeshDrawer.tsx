@@ -18,7 +18,7 @@ export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: P
 
     const [isHovered, setIsHovered] = useState(Array.from({ length: tasks.length }, () => false));
     const [insideBinDistance, setInsideBinDistance] = useState(Array.from({ length: tasks.length }, () => false));
-    const audioSrc = "../../../public/sounds/click_effect.mp3";
+    const audioSrc = "/sounds/click_effect.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handlePointerOver = (index: number) => {

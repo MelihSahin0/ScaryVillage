@@ -23,14 +23,14 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     const [fishVisible, setFishVisible] = useState<boolean>(false)
     const [texture, setTexture] = useState<THREE.Texture | null>(null);
 
-    const audioSrcFish = "../../../public/sounds/liquid-whoosh.mp3";
+    const audioSrcFish = "/sounds/liquid-whoosh.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
-    const audioSrcFishPick = "../../../public/sounds/bloop.mp3";
+    const audioSrcFishPick = "/sounds/bloop.mp3";
     const soundPickRef = useRef<THREE.PositionalAudio | null>(null);
 
 
     useState(() => {
-        const initialTexture = new TextureLoader().load('src/Images/fish.png');
+        const initialTexture = new TextureLoader().load('/images/fish.png');
         initialTexture.magFilter = THREE.NearestFilter;
         initialTexture.minFilter = THREE.NearestFilter;
         setTexture(initialTexture);

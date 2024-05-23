@@ -17,7 +17,7 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
     const [bellCooldown, setBellCooldown] = useState<number>()
     const [insideBellDistance, setInsideBellDistance] = useState<boolean>();
     const meshPosition = new THREE.Vector3(0.1, 0.2, -1);
-    const audioSrc = "../../../public/sounds/bell.mp3";
+    const audioSrc = "/sounds/bell.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handlePointerOver = () => {

@@ -53,7 +53,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
             messages.forEach((message: any) => {
                 const newPlayer: Player = {
                     id: message.id,
-                    src: "src/images/pixi.png",
+                    src: "/images/pixi.png",
                     name: message.name,
                     color: message.color,
                     x: message.position.x,
@@ -171,7 +171,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                     ...prevPlayers,
                     {
                         id: id + "@",
-                        src: "src/images/pixi.png",
+                        src: "/images/pixi.png",
                         name: message.name,
                         color: "black",
                         x: x,

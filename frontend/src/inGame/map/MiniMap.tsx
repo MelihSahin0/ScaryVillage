@@ -14,7 +14,7 @@ type Props = {
 }
 
 export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
-    const mapTexture = useLoader(TextureLoader, 'src/Images/newMap.png');
+    const mapTexture = useLoader(TextureLoader, 'images/newMap.png');
     mapTexture.magFilter = THREE.NearestFilter;
     mapTexture.minFilter = THREE.NearestFilter;
     const playerTexture = useLoader(TextureLoader, myPlayer!.src);

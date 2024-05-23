@@ -16,10 +16,10 @@ export default function Sewer({lobbyId, myPlayer}: Props) {
 
     const [isHovered, setIsHovered] = useState(false);
     const [insideSewerDistances, setInsideSewerDistances] = useState<boolean[]>([]);
-    const audioSrc = "../../../public/sounds/whoosh-cinematic.mp3";
+    const audioSrc = "/sounds/whoosh-cinematic.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
-    const texture = useLoader(TextureLoader, 'src/Images/sewer.png');
+    const texture = useLoader(TextureLoader, '/images/sewer.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
 

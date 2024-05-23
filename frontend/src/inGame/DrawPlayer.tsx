@@ -22,11 +22,11 @@ type Props = {
 export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, allowedToMove, playSound}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
-    const steps = "../../../public/sounds/knock.mp3";
+    const steps = "/sounds/knock.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
-    const collision = "../../../public/sounds/jug-pop.mp3";
+    const collision = "/sounds/jug-pop.mp3";
     const collisionRef = useRef<THREE.PositionalAudio | null>(null);
-    const ghostSrc = "../../../public/sounds/whoosh.mp3";
+    const ghostSrc = "/sounds/whoosh.mp3";
     const ghostRef = useRef<THREE.PositionalAudio | null>(null);
 
 
@@ -87,9 +87,9 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
     texture.minFilter = THREE.NearestFilter;
     const [isHovered, setIsHovered] = useState(false);
     const [insideClickRange, setInsideClickRange] = useState<boolean>()
-    const killSound = "../../../public/sounds/ambient-metal-whoosh.mp3";
+    const killSound = "/sounds/ambient-metal-whoosh.mp3";
     const killRef = useRef<THREE.PositionalAudio | null>(null);
-    const reportSound = "../../../public/sounds/bell.mp3";
+    const reportSound = "/sounds/bell.mp3";
     const reportRef = useRef<THREE.PositionalAudio | null>(null);
 
 

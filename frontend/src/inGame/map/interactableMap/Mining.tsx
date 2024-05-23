@@ -20,7 +20,7 @@ type Props = {
 
 function Stone(props: any) {
     const [isBroken, setIsBroken] = useState(false);
-    const texture = useLoader(TextureLoader, isBroken ? 'src/Images/StoneBroken.png' : 'src/Images/Stone.png');
+    const texture = useLoader(TextureLoader, isBroken ? '/images/StoneBroken.png' : '/images/Stone.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
 
@@ -38,10 +38,10 @@ function Stone(props: any) {
 }
 
 export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props){
-    const texture = useLoader(TextureLoader, 'src/Images/MiningTask.png');
+    const texture = useLoader(TextureLoader, '/images/MiningTask.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
-    const audioSrc = "../../../public/sounds/rock_break.mp3";
+    const audioSrc = "/sounds/rock_break.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handleClick = (gem: boolean) => {

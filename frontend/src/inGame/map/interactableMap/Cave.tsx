@@ -17,7 +17,7 @@ type Props = {
 export default function CaveMesh({lobbyId, myPlayerId ,myPlayer, currentTask, setCurrentTask}: Props){
     const [isHovered, setIsHovered] = useState(false);
     const [insideBinDistance, setInsideBinDistance] = useState(false);
-    const audioSrc = "../../../public/sounds/snare.mp3";
+    const audioSrc = "/sounds/snare.mp3";
     const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handlePointerOver = () => {

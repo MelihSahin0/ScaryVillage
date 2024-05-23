@@ -19,7 +19,7 @@ type Props = {
 }
 
 export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props){
-    const texture = useLoader(TextureLoader, 'src/Images/SleepingTask.png');
+    const texture = useLoader(TextureLoader, '/images/SleepingTask.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
 
@@ -48,7 +48,7 @@ export default function SleepingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
 
     return(
         <group>
-            <PositionalAudio url={"../../../public/sounds/single_snore.mp3"} autoplay loop={true} distance={0.5}/>
+            <PositionalAudio url={"/sounds/single_snore.mp3"} autoplay loop={true} distance={0.5}/>
         <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
               scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
         <boxGeometry args={[1, 1, 0.1]}/>
