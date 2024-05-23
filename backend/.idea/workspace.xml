@@ -6,14 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -342,7 +334,7 @@
       <workItem from="1716375681929" duration="1947000" />
       <workItem from="1716403703104" duration="5720000" />
       <workItem from="1716463377199" duration="2831000" />
-      <workItem from="1716466240750" duration="1945000" />
+      <workItem from="1716466240750" duration="3160000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
@@ -464,7 +456,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716468997505</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="ApplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716470152290</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1716470152290</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
