@@ -130,7 +130,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
     return (
         <div className="bg-gray-700 w-screen h-screen" >
             <audio ref={audioRef}>
-                <source src="../../../public/sounds/mysterious.mp3" type="audio/mpeg" />
+                <source src="/sounds/mysterious.mp3" type="audio/mpeg" />
             </audio>
             <div className="flex justify-items-center justify-center pt-10">
                 {winner !== undefined && <h1 className="text-white text-2xl">The winner of the previous round: {winner.toUpperCase()}</h1>}
