@@ -4,8 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
-@ComponentScan(basePackages = "taskManager.extern")
+@SpringBootApplication(scanBasePackages = "taskManager")
 public class StompWebsocketTaskManager {
 
 	public static void main(String[] args) {

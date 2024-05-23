@@ -4,8 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
-@ComponentScan(basePackages = "lobbyManager.extern")
+@SpringBootApplication(scanBasePackages = "lobbyManager")
 public class StompWebsocketLobbyManager {
 
 	public static void main(String[] args) {
