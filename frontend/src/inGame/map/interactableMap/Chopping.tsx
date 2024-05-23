@@ -22,7 +22,7 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
 
     // Load initial texture
     useState(() => {
-        const initialTexture = new TextureLoader().load('/images/Chopping1.png');
+        const initialTexture = new TextureLoader().load("/images/chopping1.png");
         initialTexture.magFilter = THREE.NearestFilter;
         initialTexture.minFilter = THREE.NearestFilter;
         setTexture(initialTexture);
@@ -53,7 +53,7 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
             soundRef.current?.play()
         }
 
-        const newTexturePath = `/images/Chopping${count}.png`;
+        const newTexturePath = "/images/chopping${count}.png";
         const newTexture = new TextureLoader().load(newTexturePath);
         newTexture.magFilter = THREE.NearestFilter;
         newTexture.minFilter = THREE.NearestFilter;
