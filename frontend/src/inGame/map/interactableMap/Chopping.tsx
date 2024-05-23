@@ -53,14 +53,13 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
             soundRef.current?.play()
         }
 
-        const newTexturePath = `images/Chopping${count}.png`;
+        const newTexturePath = `/images/Chopping${count}.png`;
         const newTexture = new TextureLoader().load(newTexturePath);
         newTexture.magFilter = THREE.NearestFilter;
         newTexture.minFilter = THREE.NearestFilter;
         setTexture(newTexture);
 
     };
-
 
     return (
         <group>
