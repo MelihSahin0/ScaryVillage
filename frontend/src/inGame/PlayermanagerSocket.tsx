@@ -13,7 +13,7 @@ const isDebug = process.env.NODE_ENV === 'development';
 
 function getBrokerURL() {
     if (isDebug) {
-        return 'ws://localhost:8083/playerManagerWebsocket';
+        return 'ws://localhost:8080/playerManagerWebsocket';
     } else {
         return 'ws://10.0.40.168:8080/playerManagerWebsocket';
     }
