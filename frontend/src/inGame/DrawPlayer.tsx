@@ -40,7 +40,6 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
         keyMap['KeyW'] && (keyPress.push("w"))
         keyMap['KeyS'] && (keyPress.push("s"))
 
-        console.log(keyPress.toString())
         if (keyPress.length > 0 && allowedToMove) {
 
             const n = new Date()
@@ -142,10 +141,11 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
             {myPlayer?.role === "imposter" && <PositionalAudio ref={killRef} distance={0.5} url= {killSound} loop = {false} />}
             {myPlayer?.role === "crewmate" && <PositionalAudio ref={reportRef} distance={0.5} url = {reportSound} loop = {false}/>}
             <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={()=>{
-                if (myPlayer?.role === "imposter" && myPlayer?.id != player.id.slice(0, 32)) {
+                if (myPlayer?.role === "imposter" && myPlayer?.id != player.id.slice(0, 32) && insideClickRange) {
                     killRef.current?.play();
                 }
-                if (myPlayer?.role === "crewmate" && myPlayer?.id != player.id.slice(0, 32) && player.role === "deadBody") {
+                if (myPlayer?.role === "crewmate" && myPlayer?.id != player.id.slice(0, 32)
+                    && player.role === "deadBody" && insideClickRange) {
                     reportRef.current?.play();
                 }
                 setTimeout(() => {
