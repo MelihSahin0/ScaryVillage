@@ -9,6 +9,7 @@ import extern.enumarators.Colors;
 import extern.enumarators.Roles;
 import lobbyManager.extern.jsonDataTransferTypes.*;
 import lobbyManager.intern.Rest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;

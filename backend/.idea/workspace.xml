@@ -4,15 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="changed pom Files">
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="AplicationContext Problems">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/StompWebsocketLobbyManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/StompWebsocketLobbyManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/ApplicationContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/ApplicationContextHolder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/StompWebsocketPlayerManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/StompWebsocketPlayerManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/ApplicationContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/ApplicationContextHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/PlayerManagerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/StompWebsocketTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/StompWebsocketTaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/ApplicationContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/ApplicationContextHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/StompWebsocketVotingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/StompWebsocketVotingManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/ApplicationContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/ApplicationContextHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/VotingManagerController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -339,7 +341,8 @@
       <workItem from="1716033187242" duration="3932000" />
       <workItem from="1716313774507" duration="912000" />
       <workItem from="1716375681929" duration="1947000" />
-      <workItem from="1716403703104" duration="5519000" />
+      <workItem from="1716403703104" duration="5720000" />
+      <workItem from="1716463377199" duration="849000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
@@ -421,7 +424,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716412518343</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="AplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716414234126</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1716414234126</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -447,7 +458,8 @@
     <MESSAGE value="merge conflicts" />
     <MESSAGE value="removed logs" />
     <MESSAGE value="changed pom Files" />
-    <option name="LAST_COMMIT_MESSAGE" value="changed pom Files" />
+    <MESSAGE value="AplicationContext Problems" />
+    <option name="LAST_COMMIT_MESSAGE" value="AplicationContext Problems" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

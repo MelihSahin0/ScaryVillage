@@ -3,11 +3,9 @@ package playerManager.extern;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 @Component
-@ComponentScan(basePackages = "playerManager.extern")
 public class ApplicationContextHolder implements ApplicationContextAware {
     private static ApplicationContext context;
 
