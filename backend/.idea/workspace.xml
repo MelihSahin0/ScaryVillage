@@ -6,8 +6,15 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/playerManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/votingManager/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/ApplicationContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/ApplicationContextHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/LobbyController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/ApplicationContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/playerManager/src/main/java/playerManager/extern/ApplicationContextHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/ApplicationContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/ApplicationContextHolder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/StompWebsocketVotingManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/StompWebsocketVotingManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/ApplicationContextHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/votingManager/src/main/java/votingManager/extern/ApplicationContextHolder.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -336,6 +343,7 @@
       <workItem from="1716375681929" duration="1947000" />
       <workItem from="1716403703104" duration="5720000" />
       <workItem from="1716463377199" duration="2831000" />
+      <workItem from="1716466240750" duration="864000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
@@ -441,7 +449,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716465716958</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="ApplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716466262075</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1716466262075</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -478,6 +494,11 @@
           <properties class="java.lang.IllegalArgumentException" package="java.lang" />
           <option name="timeStamp" value="1" />
         </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/extern/ApplicationContextHolder.java</url>
+          <line>7</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
