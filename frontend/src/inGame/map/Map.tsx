@@ -57,10 +57,10 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     const [showMinimap, setShowMinimap] = useState<boolean>(false)
     const [progress, setProgress] = useState<number>(0)
     const [tasks, setTasks] = useState<Array<Task>>([]);
-    const texture = useLoader(TextureLoader, 'src/Images/newMap.png');
+    const texture = useLoader(TextureLoader, '/src/Images/newMap.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
-    const back = useLoader(TextureLoader, 'src/images/back.png');
+    const back = useLoader(TextureLoader, '/src/images/back.png');
     back.magFilter = THREE.NearestFilter;
     back.minFilter = THREE.NearestFilter;
 
