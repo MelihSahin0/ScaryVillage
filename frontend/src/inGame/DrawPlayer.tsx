@@ -28,8 +28,10 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
     const collisionRef = useRef<THREE.PositionalAudio | null>(null);
     const ghostSrc = "/sounds/whoosh.mp3";
     const ghostRef = useRef<THREE.PositionalAudio | null>(null);
+    const [time, setTime] = useState(0)
 
 
+    console.log(new Date().getSeconds())
     useFrame((_, delta) => {
         const keyPress = [];
 
@@ -38,17 +40,26 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
         keyMap['KeyW'] && (keyPress.push("w"))
         keyMap['KeyS'] && (keyPress.push("s"))
 
+        console.log(keyPress.toString())
         if (keyPress.length > 0 && allowedToMove) {
 
-            if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && playSound && !soundRef.current?.isPlaying){
+            const n = new Date()
+            const num = (n.getMinutes() * 60 + n.getSeconds()) * 60
+
+            if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && playSound  && !soundRef.current?.isPlaying){
                 soundRef.current?.play();
             }
             if ((myPlayer?.role === "crewmateGhost" || myPlayer?.role === "imposterGhost") && playSound && !ghostRef.current?.isPlaying){
                 ghostRef.current?.play();
             }
-            if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && !playSound && !collisionRef.current?.isPlaying){
+            if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") &&
+                !playSound && (num-time < 1)
+                && !collisionRef.current?.isPlaying){
                 collisionRef.current?.play();
             }
+
+            setTime(()=> {const now = new Date()
+            return (now.getMinutes() * 60 + now.getSeconds()) * 60})
 
             const movementData = {
                 lobbyId: lobbyId,
@@ -58,6 +69,7 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
             };
 
             Publish("/send/playerMovement", JSON.stringify(movementData));
+
         }
     })
 
@@ -65,7 +77,7 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
     return (
         <>
             <PositionalAudio ref={soundRef}  distance={0.05} url= {steps} loop = {false} />
-            <PositionalAudio ref={collisionRef}  distance={0.4} url= {collision} loop = {false} />
+            <PositionalAudio ref={collisionRef}  distance={0.3} url= {collision} loop = {false} />
             <PositionalAudio ref={ghostRef}  distance={0.07} url= {ghostSrc} loop = {false} />
             {players.map((player: Player) => (
                 (
@@ -130,10 +142,10 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
             {myPlayer?.role === "imposter" && <PositionalAudio ref={killRef} distance={0.5} url= {killSound} loop = {false} />}
             {myPlayer?.role === "crewmate" && <PositionalAudio ref={reportRef} distance={0.5} url = {reportSound} loop = {false}/>}
             <mesh ref={meshRef} position={[player.x, player.y, player.z]} onClick={()=>{
-                if (myPlayer?.role === "imposter" && myPlayer?.id != player.id.slice(0, 32)) {
+                if (myPlayer?.role === "imposter") {
                     killRef.current?.play();
                 }
-                if (myPlayer?.role === "crewmate" && myPlayer?.id != player.id.slice(0, 32)) {
+                if (myPlayer?.role === "crewmate") {
                     reportRef.current?.play();
                 }
                 setTimeout(() => {
