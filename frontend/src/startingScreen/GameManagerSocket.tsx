@@ -8,6 +8,17 @@ type MessageHandler = {
 let subscriptionHandlers: MessageHandler[] = [];
 const client = new Client();
 
+const isDebug = process.env.NODE_ENV === 'development';
+
+function getBrokerURL() {
+    if (isDebug) {
+        return 'ws://localhost:8083/gameManagerWebsocket';
+    } else {
+        // Specify your production URL here
+        return 'ws://http://10.0.40.168:5173/gameManagerWebsocket';
+    }
+}
+
 export function SubscribeGetLobby(lobbyId: (message: any) => void) {
 
     const messageHandler: MessageHandler = {
@@ -29,7 +40,7 @@ export function UnsubscribeGetLobby(){
 function StartConnection(){
     client.deactivate().then();
     client.configure({
-        brokerURL: 'ws://localhost:8081/gameManagerWebsocket',
+        brokerURL: getBrokerURL(),
         onConnect: () => {
             subscriptionHandlers.forEach((subscription) => {
                 client.subscribe(subscription.destination, message => {

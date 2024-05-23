@@ -9,6 +9,17 @@ let subscriptionHandlers: MessageHandler[] = [];
 const client = new Client();
 let lobbyId = "";
 
+const isDebug = process.env.NODE_ENV === 'development';
+
+function getBrokerURL() {
+    if (isDebug) {
+        return 'ws://localhost:8083/playerManagerWebsocket';
+    } else {
+        // Specify your production URL here
+        return 'ws://http://10.0.40.168:5173/playerManagerWebsocket';
+    }
+}
+
 export function SubscribeToLobby(id: string){
     lobbyId = id;
 }
@@ -129,7 +140,7 @@ export function UnsubscribeBellCooldown(){
 function StartConnection(){
     client.deactivate().then();
     client.configure({
-        brokerURL: 'ws://localhost:8080/playerManagerWebsocket',
+        brokerURL: getBrokerURL(),
         onConnect: () => {
             subscriptionHandlers.forEach((subscription) => {
                 client.subscribe(subscription.destination, message => {
