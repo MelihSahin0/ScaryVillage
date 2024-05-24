@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {gameState, role} from "../types";
 import {
     CloseConnection,
@@ -44,6 +44,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
     const [time, setTime] = useState<number>();
     const [timeoutId, setTimeoutId] = useState<any>(); // State to hold the timeout ID
     const [messages, setMessages] = useState<Array<Message>>([])
+    const audioRef = useRef<HTMLAudioElement>(null);
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
@@ -153,10 +154,21 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
         }
     }, []);
 
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = 0.1;
+            audioRef.current.loop = true;
+            audioRef.current.play();
+        }
+    }, []);
+
     return (
         <div className="bg-gray-700 w-screen h-screen flex flex-col justify-between items-center">
             <h1 className="text-4xl self-center pt-5 text-white">Voting</h1>
             <h1 className="text-xl self-center -mt-40 text-white">Time left to vote: {time} seconds</h1>
+            <audio ref={audioRef}>
+                <source src="/sounds/kick-bass-drums.mp3" type="audio/mpeg" />
+            </audio>
             <div className="grid grid-cols-2 gap-4 -mt-40 -mb-40 justify-items-center">
                 <div className="col-span-1 grid-cols-subgrid w-80 min-h-80 justify-center items-center">
                     <PlayerList
@@ -169,6 +181,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
                     />
                     <div className="flex justify-center mt-5">
                         <button onClick={() => {
+
                                 if ((myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && time !== 0) {
                                     setVotedPlayer("");
 
@@ -187,7 +200,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
                     </div>
                 </div>
                 <div className="col-span-1 grid-cols-subgrid -mt-12 w-80 min-h-80 justify-center items-center flex">
-                    <div className="border-white border-1 min-h-80 flex-1">
+                    <div className="border-white border-1 min-h-80 flex-1 rounded-lg">
                         <TextChat lobbyId={lobbyId} myPlayerId={myPlayerId} messages={messages} players={players} myPlayer={myPlayer}/>
                     </div>
                 </div>

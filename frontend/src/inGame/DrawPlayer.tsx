@@ -137,6 +137,8 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
         <group>
             <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}
                   color={myPlayer?.role === "crewmate" ? "white": player.role === "imposter" ? "red" : "white"}
+                  outlineWidth={0.05}
+                  outlineColor="black"
             >{player.name}</Text>
             {myPlayer?.role === "imposter" && <PositionalAudio ref={killRef} distance={0.5} url= {killSound} loop = {false} />}
             {myPlayer?.role === "crewmate" && <PositionalAudio ref={reportRef} distance={0.5} url = {reportSound} loop = {false}/>}

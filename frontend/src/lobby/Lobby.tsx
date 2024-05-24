@@ -128,7 +128,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
     }, []);
 
     return (
-        <div className="bg-gray-700 w-screen h-screen" >
+        <div className="bg-gray-700" >
             <audio ref={audioRef}>
                 <source src="/sounds/mysterious.mp3" type="audio/mpeg" />
             </audio>
@@ -143,7 +143,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
                     <TextChat lobbyId={lobbyId} myPlayerId={myPlayerId} messages={messages} players={displayPlayers}/>
                 </div>
                 <div className="col-span-1 grid-cols-subgrid w-80 justify-center items-center mr-32">
-                    <div className="border-white border-2 min-h-80">
+                    <div className="border-white border-2 rounded-md min-h-[500px]">
                         <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>
                         {myPlayer?.host &&
                             <LobbySettings lobbyId={lobbyId} maxNumberOfPlayers={displayPlayers.length}/>}
