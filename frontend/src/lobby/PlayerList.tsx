@@ -8,7 +8,7 @@ type Props = {
 export default function PlayerList({displayPlayers}: Props){
 
     return (
-        <div className="border-white border-2 min-h-80">
+        <div className="border-white divide-y divide-gray-200 border-2 rounded-md min-h-[500px]">
             {displayPlayers.map((player) => (
                 <PlayerListItem key={player.id} displayPlayer={player}/>
             ))}

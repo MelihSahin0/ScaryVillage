@@ -44,8 +44,10 @@ export default function TaskProgress({progress, myPlayer, tasks, scale}: Props){
             {tasks.map((task, index) => (
                 <Text key={task.taskId + "@"}
                       position={[x - scale.width/12000, y - (0.02 + (index + 1) * 0.06 ), 2]}
-                      scale={[0.04, 0.04, 0.04]}
-                      color={(task.gameType === "Flooding" || task.gameType === "Fountain") ? "red" : "green"}>{task.gameType}</Text>
+                      scale={[0.045, 0.04, 0.04]}
+                      color={(task.gameType === "Flooding" || task.gameType === "Fountain") ? "red" : "green"}
+                      outlineWidth={0.1}
+                      outlineColor="black">{task.gameType}</Text>
             ))}
         </group>
     );
