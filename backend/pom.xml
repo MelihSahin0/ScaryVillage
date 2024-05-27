@@ -16,6 +16,7 @@
         <module>globalClasses</module>
         <module>votingManager</module>
         <module>taskManager</module>
+        <module>voiceChatManager</module>
     </modules>
 
     <properties>

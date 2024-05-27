@@ -4,7 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems" />
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems">
+      <change afterPath="$PROJECT_DIR$/voiceChatManager/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/WebSocketConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/WebsocketVoiceManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/VoiceChatController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/jsonDataTransferTypes/LobbyIdPlayerId.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/jsonDataTransferTypes/LobbyIdPlayerIdMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/jsonDataTransferTypes/WebRTC.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/resources/application.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,11 +131,12 @@
     &quot;Spring Boot.StompWebsocketPlayerManager.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketTaskManager.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketVotingManager.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.WebsocketVoiceManager.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/chatManager/src/main/java/chatManager&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/voiceChatManager/src/main/java/voiceManager/extern&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -134,11 +153,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\java\voiceManager\extern" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\resources" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\java\voiceManager" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\chatManager\src\main\java\chatManager" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\chatManager\src\main\resources" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\java\taskManager\extern" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\java\taskManager" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\lobbyManager\src\main\java\lobbyManager" />
@@ -230,7 +249,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WebsocketVoiceManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="voiceChatManager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="voiceManager.WebsocketVoiceManager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Spring Boot.WebsocketVoiceManager" />
       <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
       <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
@@ -242,8 +269,8 @@
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
         <item itemvalue="Spring Boot.StompWebsocketGameManager" />
+        <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
       </list>
     </recent_temporary>
   </component>
@@ -332,7 +359,12 @@
       <workItem from="1716375681929" duration="1947000" />
       <workItem from="1716403703104" duration="5720000" />
       <workItem from="1716463377199" duration="2831000" />
-      <workItem from="1716466240750" duration="5972000" />
+      <workItem from="1716466240750" duration="6032000" />
+      <workItem from="1716575916548" duration="5134000" />
+      <workItem from="1716631887959" duration="13569000" />
+      <workItem from="1716752359557" duration="6366000" />
+      <workItem from="1716800385667" duration="5893000" />
+      <workItem from="1716820912025" duration="2040000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />

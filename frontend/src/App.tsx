@@ -7,6 +7,7 @@ import Lobby from "./lobby/Lobby";
 import {v4 as uuidv4} from "uuid";
 import Voting from "./voting/Voting";
 import {AdaptiveDpr} from "@react-three/drei";
+import VoiceChat from "./voiceChat/voiceChatWebsocket";
 
 export default function App() {
 
@@ -24,6 +25,7 @@ export default function App() {
                 <AdaptiveDpr pixelated />
             </Canvas>
             {gameState === 'voting' && <Voting lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner}/>}
+            {gameState !== 'startingScreen' && <VoiceChat lobbyId={lobbyId} myPlayerId={myPlayerId}/>}
         </>
     );
 }
