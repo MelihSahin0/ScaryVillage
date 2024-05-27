@@ -16,6 +16,7 @@ export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: 
         playerId: myPlayerId,
         lobbyId: ""
     });
+    const [buttonMessage, setButtonMessage] = useState(false);
 
     StopHeartbeat();
     LobbyCloseConnection();
@@ -44,24 +45,37 @@ export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: 
                 Scary Village
             </h1>
             <div>
-                <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24 hover:bg-amber-100"
+                <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24 rounded-md hover:bg-amber-100"
                         onClick={() => {
                             Publish("/send/registerLobby", JSON.stringify(myPlayer))
                         }
                 }>Host</button>
-                <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24 hover:bg-amber-100"
+                <button className="bg-white text-4xl text-gray700 font-serif m-10 w-24 rounded-md hover:bg-amber-100"
                         onClick={() => {
-                            Publish("/send/joinLobby",JSON.stringify(myPlayer));
+                            if (!myPlayer.lobbyId) {
+                                Publish("/send/joinLobby", JSON.stringify(myPlayer));
+                            }
                         }
                 }>Join</button>
             </div>
-            <div className="-mt-5">
+                <label className="text-white text-2xl">Join to a specific lobby with Id:</label>
+            <div className="-mt-5 ml-10">
                 <input className="border rounded-md text-center"
                        id="joinSpecificLobby" type="text" minLength={32} maxLength={32} size={36}
-                       placeholder="Join a specific lobby with the Lobby Id"
+                       placeholder="Enter lobby Id"
                        onChange={(event) => {myPlayer.lobbyId = event.target.value}}
                 />
+                <button className="bg-white text-xl text-gray700 font-serif m-10 w-24 rounded-md hover:bg-amber-100"
+                        onClick={() => {
+                            if (myPlayer.lobbyId) {
+                                Publish("/send/joinLobby", JSON.stringify(myPlayer));
+                            } else {
+                                setButtonMessage(true)
+                            }
+                        }
+                        }>Join</button>
             </div>
+                {buttonMessage && <p className="text-red-800">Please enter a lobby Id or join to a public lobby</p>}
             <p className="text-red-800">{lobbyMessage}</p>
         </div>
     );

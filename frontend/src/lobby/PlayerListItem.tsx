@@ -7,8 +7,9 @@ type Props = {
 export default function PlayerListItem({displayPlayer}: Props){
 
     return (
-        <div className={`border-${displayPlayer.color}-500 border-2 w-78 h-8`}>
-            <p className="text-white">{displayPlayer.name}</p>
+        <div className= "w-78 h-12 flex items-center">
+            <div className={`border-${displayPlayer.color}-500 rounded-full border-8 h-7 w-7 ml-2`}/>
+            <p className="text-white text-xl ml-2 rounded-full">{displayPlayer.name}</p>
         </div>
     )
 }

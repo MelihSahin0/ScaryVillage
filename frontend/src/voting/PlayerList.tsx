@@ -14,7 +14,7 @@ type Props = {
 export default function PlayerList({displayPlayers, lobbyId, myPlayer, votedPlayer, setVotedPlayer, time}: Props){
 
     return (
-        <div className="border-white border-2 min-h-80">
+        <div className="border-white border-2 min-h-80 rounded-lg">
             {displayPlayers.map((player) => (
                 <PlayerListItem key={player.id} displayPlayer={player} lobbyId={lobbyId}
                                 myPlayer={myPlayer} votedPlayer={votedPlayer} setVotedPlayer={setVotedPlayer}

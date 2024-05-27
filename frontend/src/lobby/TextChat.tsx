@@ -36,8 +36,8 @@ export default function TextChat({lobbyId, myPlayerId, messages, players}: Props
     }, [messages, myPlayerId]);
 
     return (
-        <div className="border-white border-2 min-h-80 relative">
-            <div className="overflow-y-auto overflow-x-hidden h-[280px]" ref={messagesContainerRef}>
+        <div className="border-white rounded-md border-2 min-h-[500px] relative">
+            <div className="overflow-y-auto divide-y divide-gray-200 overflow-x-hidden h-[440px]" ref={messagesContainerRef}>
                 {messages.map((message, index) => {
                     const player = players.find((player) => player.name === message.playerName);
 
@@ -52,13 +52,13 @@ export default function TextChat({lobbyId, myPlayerId, messages, players}: Props
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
-                    className="w-56 ml-1 pl-1 rounded-2xl"
-                    placeholder="Your message"
+                    className="w-[255px] h-8 ml-1 pl-1 rounded-lg"
+                    placeholder=" Your message"
                     minLength={1}
                     maxLength={200}
                 />
                 <button
-                    className="w-20 bg-white border-black border-1 rounded-2xl ml-1 mr-1"
+                    className="w-12 h-8 bg-white border-black border-1 rounded-lg ml-1 mr-1 items-center"
                     onClick={handleSendClick}
                 >Send
                 </button>
