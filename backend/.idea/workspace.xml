@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="mini ui fix" />
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="mini ui fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/vite.config.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -251,8 +254,8 @@
         <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
         <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
         <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
         <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
+        <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       </list>
     </recent_temporary>
   </component>
@@ -347,6 +350,7 @@
       <workItem from="1716752359557" duration="6366000" />
       <workItem from="1716800385667" duration="5893000" />
       <workItem from="1716820912025" duration="3148000" />
+      <workItem from="1716830860361" duration="167000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
