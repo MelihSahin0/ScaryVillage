@@ -179,13 +179,13 @@ export default function VoiceChat({ lobbyId, myPlayerId }: Props) {
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.code === 'Space') {
+            if (event.code === 'Space' || event.code === 'v') {
                 setIsMicrophoneEnabled(true);
             }
         };
 
         const handleKeyUp = (event: KeyboardEvent) => {
-            if (event.code === 'Space') {
+            if (event.code === 'Space' || event.code === 'v') {
                 setIsMicrophoneEnabled(false);
             }
         };
