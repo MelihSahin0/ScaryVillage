@@ -11,7 +11,7 @@ const isDebug = process.env.NODE_ENV === 'development';
 function getBrokerURL() {
     return isDebug
         ? 'ws://localhost:8085/voiceChatManagerWebsocket'
-        : 'ws://10.0.40.168:8085/voiceChatManagerWebsocket';
+        : 'wss://10.0.40.168:8085/voiceChatManagerWebsocket';
 }
 
 export default function VoiceChat({ lobbyId, myPlayerId }: Props) {
