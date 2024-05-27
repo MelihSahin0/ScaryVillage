@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems" />
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="mini ui fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -346,7 +348,7 @@
       <workItem from="1716631887959" duration="13569000" />
       <workItem from="1716752359557" duration="6366000" />
       <workItem from="1716800385667" duration="5893000" />
-      <workItem from="1716820912025" duration="2104000" />
+      <workItem from="1716820912025" duration="2767000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
@@ -476,7 +478,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716470152290</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="mini ui fix">
+      <option name="closed" value="true" />
+      <created>1716824001050</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1716824001050</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -504,7 +514,8 @@
     <MESSAGE value="changed pom Files" />
     <MESSAGE value="AplicationContext Problems" />
     <MESSAGE value="ApplicationContext Problems" />
-    <option name="LAST_COMMIT_MESSAGE" value="ApplicationContext Problems" />
+    <MESSAGE value="mini ui fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="mini ui fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
