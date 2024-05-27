@@ -35,9 +35,10 @@ type Props = {
     myPlayer: Player | undefined;
     setMyPlayer(setMyPlayer: Player): void;
     allowedToMove: boolean;
+    mySrc: string;
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer ,setMyPlayer, allowedToMove}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer ,setMyPlayer, allowedToMove, mySrc}: Props){
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [killCooldown, setKillCooldown] = useState(0);
     const [play, setPlay] = useState(true)
@@ -53,14 +54,14 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
             messages.forEach((message: any) => {
                 const newPlayer: Player = {
                     id: message.id,
-                    src: "/images/pixi.png",
+                    src: mySrc,
                     name: message.name,
                     color: message.color,
                     x: message.position.x,
                     y: message.position.y,
                     z: 0.5,
                     role: message.role,
-                    host: message.host === "true",
+                    host: message.host === "true"
                 };
                 if (message.id === myPlayerId){
                     foundMyPlayer = true;
@@ -178,7 +179,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
                         y: y,
                         z: 0.5,
                         role: "deadBody",
-                        host: false,
+                        host: false
                     }
                 ]);
             }
@@ -213,7 +214,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
 
     return (
         <>
-            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} allowedToMove={allowedToMove} playSound={play} />
+            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} allowedToMove={allowedToMove} playSound={play} mySrc={mySrc} />
         </>
     )
 }

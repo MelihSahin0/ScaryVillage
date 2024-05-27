@@ -12,9 +12,10 @@ type Props = {
     myPlayer: Player | undefined;
     currentTask: Task;
     setCurrentTask:(setCurrentTask: Task | undefined) => void;
+    setSrc(pic: string): void;
 }
 
-export default function CaveMesh({lobbyId, myPlayerId ,myPlayer, currentTask, setCurrentTask}: Props){
+export default function CaveMesh({lobbyId, myPlayerId ,myPlayer, currentTask, setCurrentTask, setSrc}: Props){
     const [isHovered, setIsHovered] = useState(false);
     const [insideBinDistance, setInsideBinDistance] = useState(false);
     const audioSrc = "/sounds/snare.mp3";
@@ -43,6 +44,7 @@ export default function CaveMesh({lobbyId, myPlayerId ,myPlayer, currentTask, se
                     if (isHovered && insideBinDistance) {
                         soundRef.current?.setVolume(1)
                         soundRef.current?.play();
+                        setSrc("/images/pixi.png")
                     }
 
                     setTimeout(() =>{
