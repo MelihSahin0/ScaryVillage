@@ -128,7 +128,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
     }, []);
 
     return (
-        <div className="bg-gray-700" >
+        <div className="bg-gray-700 w-screen h-screen" >
             <audio ref={audioRef}>
                 <source src="/sounds/mysterious.mp3" type="audio/mpeg" />
             </audio>

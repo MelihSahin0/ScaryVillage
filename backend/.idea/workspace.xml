@@ -4,25 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems">
-      <change afterPath="$PROJECT_DIR$/voiceChatManager/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/WebSocketConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/WebsocketVoiceManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/VoiceChatController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/jsonDataTransferTypes/LobbyIdPlayerId.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/jsonDataTransferTypes/LobbyIdPlayerIdMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/jsonDataTransferTypes/WebRTC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/voiceChatManager/src/main/resources/application.properties" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/lobbyManager/src/main/java/lobbyManager/WebSocketConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -364,7 +346,7 @@
       <workItem from="1716631887959" duration="13569000" />
       <workItem from="1716752359557" duration="6366000" />
       <workItem from="1716800385667" duration="5893000" />
-      <workItem from="1716820912025" duration="2040000" />
+      <workItem from="1716820912025" duration="2104000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
