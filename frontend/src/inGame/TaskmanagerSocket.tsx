@@ -15,7 +15,7 @@ function getBrokerURL() {
     if (isDebug) {
         return 'ws://localhost:8084/taskManagerWebsocket';
     } else {
-        return 'wss://10.0.40.168:8084/taskManagerWebsocket';
+        return 'ws://10.0.40.168:8084/taskManagerWebsocket';
     }
 }
 

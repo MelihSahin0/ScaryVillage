@@ -15,7 +15,7 @@ function getBrokerURL() {
     if (isDebug) {
         return 'ws://localhost:8082/lobbyManagerWebsocket';
     } else {
-        return 'wss://10.0.40.168:8082/lobbyManagerWebsocket';
+        return 'ws://10.0.40.168:8082/lobbyManagerWebsocket';
     }
 }
 

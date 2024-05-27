@@ -15,7 +15,7 @@ function getBrokerURL() {
     if (isDebug) {
         return 'ws://localhost:8080/playerManagerWebsocket';
     } else {
-        return 'wss://10.0.40.168:8080/playerManagerWebsocket';
+        return 'ws://10.0.40.168:8080/playerManagerWebsocket';
     }
 }
 
