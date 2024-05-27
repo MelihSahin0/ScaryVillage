@@ -11,10 +11,11 @@ type Props = {
     myPlayerId: string;
     myPlayer: Player | undefined;
     tasks: Array<Task>;
+    setSrc(pic: string): void
 
 }
 
-export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: Props){
+export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks, setSrc}: Props){
 
     const [isHovered, setIsHovered] = useState(Array.from({ length: tasks.length }, () => false));
     const [insideBinDistance, setInsideBinDistance] = useState(Array.from({ length: tasks.length }, () => false));
@@ -54,9 +55,14 @@ export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks}: P
 
                     <mesh key={index} position={new THREE.Vector3(task.position.x, task.position.y, task.position.z)} onPointerOver={() => handlePointerOver(index)}
                           onPointerOut={() => handlePointerOut(index)} onClick={() => {
+
                               if (isHovered[index] && insideBinDistance[index]) {
                                   soundRef.current?.setVolume(1)
                                   soundRef.current?.play();
+                              }
+
+                              if (task.gameType === "Bin"){
+                                  setSrc("/images/pixiTrash.png")
                               }
 
                             setTimeout(() =>{
