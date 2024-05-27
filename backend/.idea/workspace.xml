@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="ApplicationContext Problems" />
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="mini ui fix">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/vite.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/vite.config.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,11 +116,12 @@
     &quot;Spring Boot.StompWebsocketPlayerManager.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketTaskManager.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketVotingManager.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.WebsocketVoiceManager.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/chatManager/src/main/java/chatManager&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/voiceChatManager/src/main/java/voiceManager/extern&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -134,11 +138,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\java\voiceManager\extern" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\resources" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\java\voiceManager" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\chatManager\src\main\java\chatManager" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\chatManager\src\main\resources" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\java\taskManager\extern" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\java\taskManager" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\lobbyManager\src\main\java\lobbyManager" />
@@ -230,7 +234,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WebsocketVoiceManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="voiceChatManager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="voiceManager.WebsocketVoiceManager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Spring Boot.WebsocketVoiceManager" />
       <item itemvalue="Spring Boot.StompWebsocketGameManager" />
       <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
       <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
@@ -332,7 +344,13 @@
       <workItem from="1716375681929" duration="1947000" />
       <workItem from="1716403703104" duration="5720000" />
       <workItem from="1716463377199" duration="2831000" />
-      <workItem from="1716466240750" duration="5972000" />
+      <workItem from="1716466240750" duration="6032000" />
+      <workItem from="1716575916548" duration="5134000" />
+      <workItem from="1716631887959" duration="13569000" />
+      <workItem from="1716752359557" duration="6366000" />
+      <workItem from="1716800385667" duration="5893000" />
+      <workItem from="1716820912025" duration="3148000" />
+      <workItem from="1716830860361" duration="167000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
@@ -462,7 +480,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716470152290</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="mini ui fix">
+      <option name="closed" value="true" />
+      <created>1716824001050</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1716824001050</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -490,7 +516,8 @@
     <MESSAGE value="changed pom Files" />
     <MESSAGE value="AplicationContext Problems" />
     <MESSAGE value="ApplicationContext Problems" />
-    <option name="LAST_COMMIT_MESSAGE" value="ApplicationContext Problems" />
+    <MESSAGE value="mini ui fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="mini ui fix" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

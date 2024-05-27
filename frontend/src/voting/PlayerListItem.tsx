@@ -52,7 +52,7 @@ export default function PlayerListItem({displayPlayer, lobbyId, myPlayer, votedP
                     />}
                     {displayPlayer.requester && (
                         <img
-                            src="../../public/images/report.png"
+                            src="/images/report.png"
                             alt="Image"
                             style={{width: 'auto', height: '20px'}}
                             className="pl-1 pt-[4px]"
