@@ -1,7 +1,9 @@
 package playerManager.intern;
 
 import intern.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +61,11 @@ public class Rest {
             player1.setRole(player.getValue().getRole());
             player1.setColor(player.getValue().getColor());
         }
+        for (Player player :Lobbies.getLobby(message.getLobbyId()).getPlayers().values()) {
+            player.newPosition(0,0);
+        }
         lobby.startBellCooldown(message.getLobbyId(),10);
+
     }
 
     @PostMapping(value = "/getPlayerPosition")
