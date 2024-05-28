@@ -38,11 +38,22 @@ export type Message = {
     message: string;
 }
 
+const tabStyle = [
+    "text-white ml-2 text-center text-xl w-20 border-solid border-4 rounded-md border-indigo-200 ",
+    "text-white ml-2 text-center text-xl w-20 border-solid border-4 rounded-md border-indigo-600",
+    "text-white ml-2 mr-2 text-center text-xl w-32 border-solid border-4 rounded-md border-indigo-200",
+    "text-white ml-2 mr-2 text-center text-xl w-32 border-solid border-4 rounded-md border-indigo-600",
+]
+
 export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, winner}: Props){
     const [displayPlayers, setDisplayPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
     const [messages, setMessages] = useState<Array<Message>>([])
     const audioRef = useRef<HTMLAudioElement>(null);
+    const [activeTab, setActiveTab] = useState("player");
+    const [playerTabStyle, setPlayerTabStyle] = useState(tabStyle[1])
+    const [lobbyTabStyle, setLobbyTabStyle] = useState(tabStyle[0])
+    const [voiceTabStyle, setVoiceTabStyle] = useState(tabStyle[2])
     
     ClosePlayermanagerConnection();
     CloseTaskmanagerConnection();
@@ -128,7 +139,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
     }, []);
 
     return (
-        <div className="bg-gray-700 w-screen h-screen" >
+        <div className="bg-gray-700 w-screen h-screen bg-blend-multiply" >
             <audio ref={audioRef}>
                 <source src="/sounds/mysterious.mp3" type="audio/mpeg" />
             </audio>
@@ -144,9 +155,30 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
                 </div>
                 <div className="col-span-1 grid-cols-subgrid w-80 justify-center items-center mr-32">
                     <div className="border-white border-2 rounded-md min-h-[500px]">
-                        <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>
-                        {myPlayer?.host &&
+                        <p className="text-white ml-2 mb-4 mt-2 text-xl">Settings:</p>
+                        <div className="flex ">
+                        <p className={playerTabStyle}
+                        onClick={()=>{setActiveTab("player")
+                        setPlayerTabStyle(tabStyle[1])
+                        setLobbyTabStyle(tabStyle[0])
+                        setVoiceTabStyle(tabStyle[2])}}> Player </p>
+                            {myPlayer?.host &&
+                                <p className={lobbyTabStyle}
+                                                  onClick={()=>{setActiveTab("lobby")
+                                                      setPlayerTabStyle(tabStyle[0])
+                                                      setLobbyTabStyle(tabStyle[1])
+                                                      setVoiceTabStyle(tabStyle[2])}}>Lobby </p>}
+                            {myPlayer?.host &&
+                                <p className={voiceTabStyle}
+                                                  onClick={()=>{setActiveTab("voice")
+                                                      setPlayerTabStyle(tabStyle[0])
+                                                      setLobbyTabStyle(tabStyle[0])
+                                                      setVoiceTabStyle(tabStyle[3])}}>Voice chat </p>}
+                        </div>
+                            {activeTab=== "player" && <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>}
+                        {myPlayer?.host && activeTab=== "lobby" &&
                             <LobbySettings lobbyId={lobbyId} maxNumberOfPlayers={displayPlayers.length}/>}
+                            {/*placeholder for chat*/myPlayer?.host && activeTab=== "voice" && <p>Hello world!</p>}
                     </div>
                 </div>
             </div>
