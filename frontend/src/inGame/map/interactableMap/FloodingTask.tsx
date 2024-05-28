@@ -4,7 +4,6 @@ import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {Publish} from "../../TaskmanagerSocket";
 import React, {useEffect, useState} from "react";
-import {Text} from "@react-three/drei";
 import {Task} from "../Map";
 import {Scale} from "../../InGame";
 
@@ -64,6 +63,13 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
         if(expansionFactor <= 0.1) {
             setAllowedToMove(true);
             // TODO: Make call to backend
+            const taskFinished = {
+                lobbyId: lobbyId,
+                playerId: myPlayerId,
+                taskId: taskId
+            };
+            Publish("/send/sabotageDone", JSON.stringify(taskFinished));
+            console.log("Sabotage Done");
             setCurrentTask(undefined);
         }
     };

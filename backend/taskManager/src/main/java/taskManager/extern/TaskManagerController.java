@@ -150,4 +150,14 @@ public class TaskManagerController {
         return flooding.toString();
     }
 
+    @MessageMapping("/sabotageDone/{stringLobbyId}")
+    @SendTo("/subscribe/sabotageDone/{stringLobbyId}")
+    public String sabotageDone(TaskClicked message) {
+        System.out.println("SABOTAGE FINISHED");
+        Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+
+        return lobby.toString();
+
+    }
+
 }

@@ -6,10 +6,10 @@ import {Player} from "../PlayerManager";
 import {useEffect, useState} from "react";
 import {
     Publish, SubscribeGetPlayerTodoTask, SubscribeGetProgress,
-    SubscribePlayerTasks, SubscribeSabotageTask,
+    SubscribePlayerTasks, SubscribeSabotageDone, SubscribeSabotageTask,
     SubscribeToLobby, UnsubscribeGetPlayerTodoTask,
     UnsubscribeGetProgress,
-    UnsubscribePlayerTasks, UnsubscribeSabotageTask
+    UnsubscribePlayerTasks, UnsubscribeSabotageDone, UnsubscribeSabotageTask
 } from "../TaskmanagerSocket";
 import {games, gameState, role} from "../../types";
 import TaskProgress from "./TaskProgress";
@@ -164,6 +164,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     useEffect(() => {
         const getPlayerSabotage = (message: any) => {
             console.log("DOES THIS WORK? " + message.myPlayerId);
+
             const task: Task = {
                 taskId: message.taskId,
                 gameType: message.type,
@@ -171,7 +172,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 scale: message.scale,
                 radius: message.radius
             }
-            // TODO: Figure out how to set the Tasks back
             setTasks([task]);
         }
         SubscribeSabotageTask(getPlayerSabotage);
@@ -179,8 +179,35 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
         return () => {
             UnsubscribeSabotageTask();
         }
-        // TODO: Figure out how to make task list normal
-    }, [tasks]);
+    }, []);
+
+
+
+    useEffect(() => {
+        const getPlayerSabotage = (message: any) => {
+            // TODO: Figure out how to not set sabotage for imposter ... cant access playerrole for some reason
+            if (message[myPlayerId] != undefined){
+                const updatedTasks: Array<Task> = [];
+                JSON.parse(message[myPlayerId]).forEach((message: any) => {
+                    const taskJson = JSON.parse(message)
+                    const task: Task = {
+                        taskId: taskJson.taskId,
+                        gameType: taskJson.type,
+                        position: taskJson.position,
+                        scale: taskJson.scale,
+                        radius: taskJson.radius
+                    }
+                    updatedTasks.push(task);
+                });
+                setTasks(updatedTasks);
+            }
+        }
+        SubscribeSabotageDone(getPlayerSabotage);
+        console.log("CALL OUT");
+        return () => {
+            UnsubscribeSabotageDone();
+        }
+    }, []);
 
     return (
         <group>
