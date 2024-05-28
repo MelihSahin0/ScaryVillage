@@ -163,8 +163,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
 
     useEffect(() => {
         const getPlayerSabotage = (message: any) => {
-            console.log("DOES THIS WORK? " + message.myPlayerId);
-
             const task: Task = {
                 taskId: message.taskId,
                 gameType: message.type,
@@ -184,30 +182,34 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
 
 
     useEffect(() => {
-        const getPlayerSabotage = (message: any) => {
-            // TODO: Figure out how to not set sabotage for imposter ... cant access playerrole for some reason
-            if (message[myPlayerId] != undefined){
-                const updatedTasks: Array<Task> = [];
-                JSON.parse(message[myPlayerId]).forEach((message: any) => {
-                    const taskJson = JSON.parse(message)
-                    const task: Task = {
-                        taskId: taskJson.taskId,
-                        gameType: taskJson.type,
-                        position: taskJson.position,
-                        scale: taskJson.scale,
-                        radius: taskJson.radius
-                    }
-                    updatedTasks.push(task);
-                });
-                setTasks(updatedTasks);
-            }
+        if (myPlayer) {
+            const getPlayerSabotage = (message: any) => {
+                if (myPlayer.role == "imposter") {
+                    setTasks([]); // set Imposter Tasklist empty
+                }
+                else if (message[myPlayerId] != undefined){
+                    const updatedTasks: Array<Task> = [];
+                    JSON.parse(message[myPlayerId]).forEach((message: any) => {
+                        const taskJson = JSON.parse(message);
+                        const task: Task = {
+                            taskId: taskJson.taskId,
+                            gameType: taskJson.type,
+                            position: taskJson.position,
+                            scale: taskJson.scale,
+                            radius: taskJson.radius
+                        };
+                        updatedTasks.push(task);
+                    });
+                    setTasks(updatedTasks);
+                }
+            };
+            SubscribeSabotageDone(getPlayerSabotage);
+            return () => {
+                UnsubscribeSabotageDone();
+            };
         }
-        SubscribeSabotageDone(getPlayerSabotage);
-        console.log("CALL OUT");
-        return () => {
-            UnsubscribeSabotageDone();
-        }
-    }, []);
+    }, [myPlayer?.role]);
+
 
     return (
         <group>
