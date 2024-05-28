@@ -82,7 +82,6 @@ public class Player {
     public int getAllowedToKillIn() {
         return allowedToKillIn;
     }
-
     public void initiateMove(String[] stringArray, double deltaTime) {
 
         double diagonalFac = 1;
@@ -169,6 +168,11 @@ public class Player {
             }
         }
         return false;
+    }
+
+    public void newPosition(int newX, int newY) {
+        x = newX;
+        y = newY;
     }
 
     public void teleport(int sewerFrom) {
