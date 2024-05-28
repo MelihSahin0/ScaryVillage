@@ -81,8 +81,7 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
 
 
     return (
-        <div className="ml-2">
-            <p className="text-white mt-4 text-xl">Lobby Settings:</p>
+        <div className="ml-2 mt-2">
             <div className="">
                 <div className="flex" >
                     <p className="w-52 pt-2 text-white mt-1">Visibility:</p>
