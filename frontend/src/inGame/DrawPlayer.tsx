@@ -16,10 +16,11 @@ type Props = {
     killCooldown: number;
     allowedToMove: boolean;
     playSound: boolean;
+    mySrc: string
 }
 
 
-export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, allowedToMove, playSound}: Props){
+export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, allowedToMove, playSound, mySrc}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
     const steps = "/sounds/knock.mp3";
@@ -30,8 +31,6 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
     const ghostRef = useRef<THREE.PositionalAudio | null>(null);
     const [time, setTime] = useState(0)
 
-
-    console.log(new Date().getSeconds())
     useFrame((_, delta) => {
         const keyPress = [];
 
@@ -85,15 +84,15 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
                     (myPlayer?.role === "imposterGhost" || myPlayer?.role === "crewmateGhost")
                 )
                 &&
-                <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={myPlayer} meshRef={player.id === myPlayer?.id ? meshRef : undefined} killCooldown={killCooldown}/>
+                <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={myPlayer} meshRef={player.id === myPlayer?.id ? meshRef : undefined} killCooldown={killCooldown} mySrc={mySrc}/>
            ))}
         </>
     );
 }
 
 
-function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lobbyId: string, player: Player, myPlayer: Player | undefined, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined, killCooldown: number }) {
-    const texture = useLoader(TextureLoader, player.src);
+function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown, mySrc}: { mySrc:string,  lobbyId: string, player: Player, myPlayer: Player | undefined, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined, killCooldown: number }) {
+    const texture = useLoader(TextureLoader, mySrc);
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
     const [isHovered, setIsHovered] = useState(false);
@@ -132,7 +131,7 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown}: { lo
             Publish("/send/killPlayer", JSON.stringify(message));
         }
     };
-
+    
     return (
         <group>
             <Text position={[player.x, player.y + 0.25, player.z]} scale={[0.1, 0.1, 0.1]}

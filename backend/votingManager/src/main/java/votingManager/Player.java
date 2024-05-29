@@ -105,6 +105,7 @@ public class Player {
                 ", \"requester\": " + "\"" + requester + "\"" +
                 ", \"numberOfVotes\": " + "\"" + numberOfVotes + "\"" +
                 ", \"killed\": " + "\"" + killed + "\"" +
+                ", \"votedFor\": " + "\"" + votedFor + "\"" +
                 '}';
     }
 }
