@@ -147,6 +147,9 @@ public class TaskManagerController {
         flooding.setRadius(5);
         flooding.setStatus(TaskStatus.TODO);
 
+        lobby.setSabotage(0, true);
+        lobby.checkSabotage(message.getLobbyId());
+
         return flooding.toString();
     }
 
@@ -156,6 +159,8 @@ public class TaskManagerController {
         System.out.println("SABOTAGE FINISHED");
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
 
+        // TODO: make it go for a specific value in the array of sabotage
+        lobby.setSabotage(0, false);
         return lobby.toString();
 
     }
