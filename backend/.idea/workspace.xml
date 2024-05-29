@@ -6,9 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="mini ui fix">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/VoiceChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/VoiceChatController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/jsonDataTransferTypes/WebRTC.java" beforeDir="false" afterPath="$PROJECT_DIR$/voiceChatManager/src/main/java/voiceManager/extern/jsonDataTransferTypes/WebRTC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -354,7 +352,7 @@
       <workItem from="1716820912025" duration="3148000" />
       <workItem from="1716830860361" duration="962000" />
       <workItem from="1716982875875" duration="724000" />
-      <workItem from="1716998063929" duration="2526000" />
+      <workItem from="1716998063929" duration="3043000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
