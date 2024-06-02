@@ -79,7 +79,6 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
     const [killOneChecked, setKillOneChecked] = useState(false);
     const [votingNumberHidden, setVotingNumberHidden] = useState(false);
 
-
     return (
         <div className="ml-2 mt-2">
             <div className="">

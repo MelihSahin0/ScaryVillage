@@ -4,6 +4,7 @@ import { Client } from '@stomp/stompjs';
 type Props = {
     lobbyId: string;
     myPlayerId: string;
+    masterVolume: number;
 };
 
 const isDebug = process.env.NODE_ENV === 'development';
@@ -14,7 +15,7 @@ function getBrokerURL() {
         : 'ws://10.0.40.168:8085/voiceChatManagerWebsocket';
 }
 
-export default function VoiceChat({ lobbyId, myPlayerId }: Props) {
+export default function VoiceChat({ lobbyId, myPlayerId, masterVolume }: Props) {
     const [localStream, setLocalStream] = useState<MediaStream | null>(null);
     const [isMicrophoneEnabled, setIsMicrophoneEnabled] = useState(false);
     const remoteStreamRef = useRef<HTMLAudioElement>(null);
@@ -78,6 +79,8 @@ export default function VoiceChat({ lobbyId, myPlayerId }: Props) {
         peer.ontrack = (event) => {
             if (remoteStreamRef.current) {
                 remoteStreamRef.current.srcObject = event.streams[0];
+                remoteStreamRef.current.volume = masterVolume;
+                console.log(masterVolume)
             }
         };
 
@@ -99,6 +102,8 @@ export default function VoiceChat({ lobbyId, myPlayerId }: Props) {
 
         peerConnectionRef.current = peer;
     };
+
+
 
     const handleOfferMessage = async (message: any) => {
         const offer = new RTCSessionDescription(message.sdp);
@@ -175,7 +180,7 @@ export default function VoiceChat({ lobbyId, myPlayerId }: Props) {
             }
             stopMicrophone();
         };
-    }, []);
+    }, [masterVolume]);
 
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {

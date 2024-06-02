@@ -15,6 +15,7 @@ import {StartHeartbeat} from "./Heartbeat";
 import {CloseConnection as ClosePlayermanagerConnection} from "../inGame/PlayermanagerSocket";
 import {CloseConnection as CloseTaskmanagerConnection} from "../inGame/TaskmanagerSocket";
 import TextChat from "./TextChat";
+import VoiceSettings from "./VoiceSettings";
 
 type Props = {
     myPlayerId: string;
@@ -22,6 +23,7 @@ type Props = {
     setGameState(newState: gameState): void;
     setWinner(winner: role | undefined): void;
     winner: role | undefined;
+    setMasterVolume(setMasterVolume: number): void;
 };
 
 export type Player = {
@@ -45,7 +47,7 @@ const tabStyle = [
     "text-white ml-2 text-center text-xl w-32 border-solid border-4 rounded-md border-indigo-600",
 ]
 
-export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, winner}: Props){
+export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, winner, setMasterVolume}: Props){
     const [displayPlayers, setDisplayPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
     const [messages, setMessages] = useState<Array<Message>>([])
@@ -176,7 +178,7 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
                         </div>
                             {activeTab=== "player" && <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>}
                             {myPlayer?.host && activeTab=== "lobby" && <LobbySettings lobbyId={lobbyId} maxNumberOfPlayers={displayPlayers.length}/>}
-                            {/*placeholder for chat*/myPlayer?.host && activeTab=== "voice" && <p></p>}
+                            {activeTab=== "voice" && <VoiceSettings setMasterVolume={setMasterVolume}/>}
                     </div>
                 </div>
             </div>

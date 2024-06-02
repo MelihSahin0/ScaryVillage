@@ -15,17 +15,18 @@ export default function App() {
     const [myPlayerId] = useState(uuidv4().toString().replaceAll("-",""));
     const [lobbyId, setLobbyId] = useState("");
     const [winner, setWinner] = useState<role | undefined>();
+    const [masterVoiceVolume, setMasterVoiceVolume] = useState<number>(1);
 
     return (
         <>
             {gameState === 'startingScreen' && <StartingScreen myPlayerId={myPlayerId} setLobbyId={setLobbyId} setGameState={setGameState}/>}
-            {gameState === 'lobby' && <Lobby myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState} setWinner={setWinner} winner={winner}/>}
+            {gameState === 'lobby' && <Lobby myPlayerId={myPlayerId} lobbyId={lobbyId} setGameState={setGameState} setWinner={setWinner} winner={winner} setMasterVolume={setMasterVoiceVolume}/>}
             <Canvas style={{height: '100vh', display: gameState === 'inGame' ? 'block' : 'none'}}>
                 {gameState === 'inGame' && <InGame lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner}/>}
                 <AdaptiveDpr pixelated />
             </Canvas>
             {gameState === 'voting' && <Voting lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner}/>}
-            {gameState !== 'startingScreen' && <VoiceChat lobbyId={lobbyId} myPlayerId={myPlayerId}/>}
+            {gameState !== 'startingScreen' && <VoiceChat lobbyId={lobbyId} myPlayerId={myPlayerId} masterVolume={masterVoiceVolume}/>}
         </>
     );
 }
