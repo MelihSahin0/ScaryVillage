@@ -15,9 +15,11 @@ type Props = {
     setCurrentTask:(setCurrentTask: Task | undefined) => void;
     setAllowedToMove:(setAllowedToMove: boolean) => void;
     scale: Scale;
+    setTasks: (setTasks: any | undefined) => void;
+    tasks: any | undefined;
 }
 
-export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props){
+export default function FountainMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove, scale, setTasks, tasks}: Props){
     setAllowedToMove(false);
 
     const texture1 = useLoader(TextureLoader, 'src/Images/flooding_empty.png');
@@ -61,7 +63,6 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
             setTexture(texture1);
         }
         if(expansionFactor <= 0.1) {
-            setAllowedToMove(true);
             const taskFinished = {
                 lobbyId: lobbyId,
                 playerId: myPlayerId,
@@ -69,7 +70,6 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
             };
             Publish("/send/sabotageDone", JSON.stringify(taskFinished));
             console.log("Sabotage Done");
-            setCurrentTask(undefined);
         }
     };
 

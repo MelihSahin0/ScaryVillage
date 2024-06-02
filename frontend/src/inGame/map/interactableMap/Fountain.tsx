@@ -9,14 +9,16 @@ type Props = {
     myPlayer: Player | undefined;
     setCurrentTask:(setCurrentTask: Task | undefined) => void;
     tasks: undefined;
+    xCoor: number;
+    yCoor: number;
+    i: number;
 }
 
-export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Props) {
+export default function Fountain({lobbyId, myPlayer, setCurrentTask, tasks, xCoor, yCoor, i}: Props) {
 
     const [isHovered, setIsHovered] = useState(false);
 
-    const shovel = {x: -3.8, y: 0.16090551000000003 };
-
+    const fountain = {x: xCoor, y: yCoor };
     const handlePointerOver = () => {
         setIsHovered(true);
     };
@@ -32,14 +34,14 @@ export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
             const sabotageData = {
                 lobbyId: lobbyId,
                 playerId: myPlayer?.id,
-                taskId: "Flooding",
+                taskId: "Fountain",
             };
             Publish("/send/initiateSabotage", JSON.stringify(sabotageData));
         }
         console.log("CREWMATE " + tasks[0].gameType);
         // safety check that tasks are defined
         if (tasks && myPlayer.role == "crewmate") {
-            setCurrentTask(tasks[0]);
+            setCurrentTask(tasks[i]);
         }
 
     };
@@ -47,18 +49,18 @@ export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
     return (
         <group>
             <mesh
-                position={new THREE.Vector3(shovel.x, shovel.y, 0.1)}
+                position={new THREE.Vector3(fountain.x, fountain.y, 0.1)}
                 onClick={handleClick}
                 onPointerOver={handlePointerOver}
                 onPointerOut={handlePointerOut}
                 visible={false}
             >
-                <boxGeometry args={[0.15, 0.15, 0.1]} />
+                <boxGeometry args={[0.56, 0.5, 0.1]} />
                 <meshBasicMaterial transparent={true} opacity={0} />
             </mesh>
             {isHovered && (
-                <lineSegments position={[shovel.x, shovel.y, 0.2]}>
-                    <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.15, 0.4, 1)]} />
+                <lineSegments position={[fountain.x, fountain.y, 0.2]}>
+                    <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.56, 0.5, 1)]} />
                     <lineBasicMaterial attach="material" color={0xffff00} />
                 </lineSegments>
             )}

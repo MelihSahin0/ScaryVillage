@@ -8,10 +8,7 @@ import taskManager.*;
 import taskManager.extern.jsonDataTransferTypes.GetTasks;
 import taskManager.extern.jsonDataTransferTypes.TaskClicked;
 import taskManager.intern.Rest;
-import taskManager.tasks.Bin;
-import taskManager.tasks.Cave;
-import taskManager.tasks.Flooding;
-import taskManager.tasks.Task;
+import taskManager.tasks.*;
 
 import java.util.Map;
 import java.util.UUID;
@@ -39,6 +36,8 @@ public class TaskManagerController {
         if (lobby == null) {
             return null;
         }
+        System.out.println(message);
+        if (lobby.getPlayersTask(message.getPlayerId()) == null) {return null;} // Otherwise throws error for imposter trying to do sabotage task
         if (lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId()) == null) {return null;} // Otherwise throws error for sabotage
         Task task = lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId());
         if (!task.insideRadius(Rest.getPlayerPosi(message.getLobbyId(), message.getPlayerId()))){
@@ -133,36 +132,111 @@ public class TaskManagerController {
         System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHH " + message.getTaskId());
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
 
-        Flooding flooding = new Flooding();
-        flooding.setTaskId(UUID.randomUUID().toString());
-        Task.Position position = new Task.Position();
-        position.setX(-3.85);
-        position.setY(0.16090551000000003);
-        flooding.setPosition(position);
-        Task.Scale scale = new Task.Scale();
-        scale.setHeight(0.3);
-        scale.setWidth(0.2);
-        flooding.setScale(scale);
-        flooding.setDifficulty(TaskDifficulty.MEDIUM);
-        flooding.setRadius(5);
-        flooding.setStatus(TaskStatus.TODO);
+        if(lobby.getActiveSabotage()) {
+            System.out.println("NOTHING HAPPENED");
+            return null;
+        }
+        if(lobby.getSabotageCooldown()) {
+            System.out.println("Still on Cooldown");
+            return null;
+        }
 
-        lobby.setSabotage(0, true);
-        lobby.checkSabotage(message.getLobbyId());
+        if(message.getTaskId().equals("Fountain")) {
+            // TODO: Implement Fountain shenanigans
+            System.out.println("FOUNTAIN DETECTED");
 
-        return flooding.toString();
+            // Fountain 1
+            Fountain fountain = new Fountain();
+            fountain.setTaskId((UUID.randomUUID().toString()));
+            Task.Position position = new Task.Position();
+            position.setX(0.08);
+            position.setY(1.3);
+            fountain.setPosition(position);
+            Task.Scale scale = new Task.Scale();
+            scale.setHeight(0.5);
+            scale.setWidth(0.5);
+            fountain.setScale(scale);
+            fountain.setDifficulty(TaskDifficulty.MEDIUM);
+            fountain.setRadius(5);
+            fountain.setStatus(TaskStatus.TODO);
+
+            // Fountain 2
+            Fountain fountain2 = new Fountain();
+            fountain2.setTaskId((UUID.randomUUID().toString()));
+            Task.Position position2 = new Task.Position();
+            position2.setX(0.11);
+            position2.setY(-0.95);
+            fountain2.setPosition(position2);
+            Task.Scale scale2 = new Task.Scale();
+            scale2.setHeight(0.5);
+            scale2.setWidth(0.5);
+            fountain2.setScale(scale2);
+            fountain2.setDifficulty(TaskDifficulty.MEDIUM);
+            fountain2.setRadius(5);
+            fountain2.setStatus(TaskStatus.TODO);
+
+            // Set both fountains to true
+            lobby.setSabotage(1, true);
+            lobby.setSabotage(2, true);
+
+            lobby.checkSabotage(message.getLobbyId());
+
+            return fountain.toString();
+        }
+
+        if(message.getTaskId().equals("Flooding")) {
+            Flooding flooding = new Flooding();
+            flooding.setTaskId(UUID.randomUUID().toString());
+            Task.Position position = new Task.Position();
+            position.setX(-3.85);
+            position.setY(0.16090551000000003);
+            flooding.setPosition(position);
+            Task.Scale scale = new Task.Scale();
+            scale.setHeight(0.3);
+            scale.setWidth(0.2);
+            flooding.setScale(scale);
+            flooding.setDifficulty(TaskDifficulty.MEDIUM);
+            flooding.setRadius(5);
+            flooding.setStatus(TaskStatus.TODO);
+
+            lobby.setSabotage(0, true);
+            lobby.checkSabotage(message.getLobbyId());
+
+            return flooding.toString();
+        }
+            return null;
     }
 
     @MessageMapping("/sabotageDone/{stringLobbyId}")
     @SendTo("/subscribe/sabotageDone/{stringLobbyId}")
     public String sabotageDone(TaskClicked message) {
-        System.out.println("SABOTAGE FINISHED");
+        System.out.println("SABOTAGE FINISHED " + message);
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
+        // TODO: make it go for a specific value in the array of sabotage for fountain
 
-        // TODO: make it go for a specific value in the array of sabotage
-        lobby.setSabotage(0, false);
-        return lobby.toString();
-
+        if(message.getTaskId().equals("Fountain1")) {
+            System.out.println("FOUNTAIN 1 COMPLETED");
+            lobby.setSabotage(1, false);
+            if(!lobby.getActiveSabotage()) {
+                lobby.setSabotageCooldown();
+                return lobby.toString();
+            }
+        }
+        else if(message.getTaskId().equals("Fountain2")) {
+            System.out.println("FOUNTAIN 2 COMPLETED");
+            lobby.setSabotage(2, false);
+            if(!lobby.getActiveSabotage()) {
+                lobby.setSabotageCooldown();
+                return lobby.toString();
+            }
+        }
+        else {
+            System.out.println("Flooding COMPLETED");
+            lobby.setSabotage(0, false);
+            lobby.setSabotageCooldown();
+            return lobby.toString();
+        }
+        return null;
     }
 
 }
