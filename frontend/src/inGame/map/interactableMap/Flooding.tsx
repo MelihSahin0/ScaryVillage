@@ -8,7 +8,7 @@ type Props = {
     lobbyId: string;
     myPlayer: Player | undefined;
     setCurrentTask:(setCurrentTask: Task | undefined) => void;
-    tasks: undefined;
+    tasks: any;
 }
 
 export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Props) {
@@ -28,7 +28,6 @@ export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
     const handleClick = () => {
 
         if(myPlayer?.role == "imposter") {
-            console.log("TESTERS")
             const sabotageData = {
                 lobbyId: lobbyId,
                 playerId: myPlayer?.id,
@@ -36,9 +35,8 @@ export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
             };
             Publish("/send/initiateSabotage", JSON.stringify(sabotageData));
         }
-        console.log("CREWMATE " + tasks[0].gameType);
         // safety check that tasks are defined
-        if (tasks && myPlayer.role == "crewmate") {
+        if (tasks && myPlayer!.role == "crewmate") {
             setCurrentTask(tasks[0]);
         }
 

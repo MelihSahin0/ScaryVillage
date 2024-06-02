@@ -27,10 +27,8 @@ public class Lobby {
             try {
                 Thread.sleep(30000); // Wait for 30 seconds
                 sabotageCooldown = false;
-                System.out.println("Sabotage cooldown reset.");
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.out.println("Thread was interrupted, failed to reset sabotage cooldown.");
             }
         }).start();
     }
@@ -39,7 +37,6 @@ public class Lobby {
 
     public void setSabotage(int i, boolean bool) {
         sabotage[i] = bool;
-        System.out.println(sabotage[0] +" "+ sabotage[1] +" "+ sabotage[2]);
     }
 
     public void checkSabotage(String lobbyId) {
@@ -54,16 +51,13 @@ public class Lobby {
                     }
                 }
                 if (anySabotageActive) {
-                    System.out.println("Sabotage detected!");
-                    // TODO: make finishing call to frontend
                     Rest.gameFinished(lobbyId);
                     Lobbies.removeLobby(lobbyId);
                 } else {
-                    System.out.println("No sabotage detected.");
+
                 }
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
-                System.out.println("Thread was interrupted, failed to complete operation");
             }
         }).start();
     }

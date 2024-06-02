@@ -68,7 +68,6 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
                 taskId: taskId
             };
             Publish("/send/sabotageDone", JSON.stringify(taskFinished));
-            console.log("Sabotage Done");
             setCurrentTask(undefined);
         }
     };
@@ -91,14 +90,14 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
                 <meshBasicMaterial map={texture} transparent={true}/>
             </mesh>
             <mesh
-                position={new THREE.Vector3(myPlayer?.x + (scaleX - scale.width / (0.4270833333333333 * scale.width + -35)) / 2, myPlayer?.y, 3)}
+                position={new THREE.Vector3(myPlayer!.x + (scaleX - scale.width / (0.4270833333333333 * scale.width + -35)) / 2, myPlayer!.y, 3)}
                 scale={[scaleX, scaleY, scale.depth]}
                 onClick={emptyShovel}
             >
                 <boxGeometry args={[1, 1, 0.1]} />
                 <meshBasicMaterial map={textureFlood} transparent={true} />
             </mesh>
-            <mesh position={new THREE.Vector3(myPlayer?.x+0.9, myPlayer?.y, 4)}
+            <mesh position={new THREE.Vector3(myPlayer!.x+0.9, myPlayer!.y, 4)}
                   scale={[0.6, 0.4, 0.5]}
                   onClick={loadShovel}
             >

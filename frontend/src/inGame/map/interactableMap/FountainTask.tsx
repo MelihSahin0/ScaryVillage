@@ -1,110 +1,109 @@
-import {Player} from "../../PlayerManager";
+import { Player } from "../../PlayerManager";
 import * as THREE from "three";
-import {useLoader} from "@react-three/fiber";
-import {TextureLoader} from "three";
-import {Publish} from "../../TaskmanagerSocket";
-import React, {useEffect, useState} from "react";
-import {Task} from "../Map";
-import {Scale} from "../../InGame";
+import { useLoader } from "@react-three/fiber";
+import { TextureLoader } from "three";
+import { Publish } from "../../TaskmanagerSocket";
+import React, { useEffect, useState } from "react";
+import { Task } from "../Map";
+import { Scale } from "../../InGame";
 
 type Props = {
     lobbyId: string;
     myPlayerId: string;
-    myPlayer: Player | undefined;
+    myPlayer: any;
     taskId: string;
-    setCurrentTask:(setCurrentTask: Task | undefined) => void;
-    setAllowedToMove:(setAllowedToMove: boolean) => void;
+    setCurrentTask: (setCurrentTask: Task | undefined) => void;
+    setAllowedToMove: (setAllowedToMove: boolean) => void;
     scale: Scale;
     setTasks: (setTasks: any | undefined) => void;
     tasks: any | undefined;
-}
+};
 
-export default function FountainMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove, scale, setTasks, tasks}: Props){
+export default function FountainMesh({ lobbyId, myPlayerId, myPlayer, taskId, setCurrentTask, setAllowedToMove, scale, setTasks, tasks }: Props) {
     setAllowedToMove(false);
 
-    const texture1 = useLoader(TextureLoader, 'src/Images/flooding_empty.png');
-    const texture2 = useLoader(TextureLoader, 'src/Images/flooding_full.png');
+    const textureBackground = useLoader(TextureLoader, 'src/Images/fountain_background.png');
+    const texture1 = useLoader(TextureLoader, 'src/Images/fountain_house_burning.png');
+    const texture2 = useLoader(TextureLoader, 'src/Images/fountain_house.png');
+    textureBackground.magFilter = THREE.NearestFilter;
+    textureBackground.minFilter = THREE.NearestFilter;
     texture1.magFilter = THREE.NearestFilter;
     texture1.minFilter = THREE.NearestFilter;
     texture2.magFilter = THREE.NearestFilter;
     texture2.minFilter = THREE.NearestFilter;
 
-    const [expansionFactor, setExpansionFactor] = useState(0.3);
-    const [shovelLoaded, setShovelLoaded] = useState(false);
-    const [texture, setTexture] = useState<THREE.Texture | null>(texture1);
+    const initialHouseTextures = Array.from({ length: 9 }, (_, index) => index < 6 ? texture1 : texture2);
+    const [houseTextures, setHouseTextures] = useState(initialHouseTextures);
 
-    const textureBackground = useLoader(TextureLoader, 'src/Images/flooding_background.png');
-    textureBackground.magFilter = THREE.NearestFilter;
-    textureBackground.minFilter = THREE.NearestFilter;
-
-    const textureFlood = useLoader(TextureLoader, 'src/Images/flooding_ocean.png');
-    textureFlood.magFilter = THREE.NearestFilter;
-    textureFlood.minFilter = THREE.NearestFilter;
-
-    const texturePile = useLoader(TextureLoader, 'src/Images/flooding_pile_of_earth.png');
-    texturePile.magFilter = THREE.NearestFilter;
-    texturePile.minFilter = THREE.NearestFilter;
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setExpansionFactor((prev) => prev + 0.01 <= 1 ? prev + 0.01 : prev);
-        }, 100);
-
-        return () => clearInterval(interval);
-    }, []);
-
-    const scaleX = (scale.width / (0.4270833333333333 * scale.width + -35)) * expansionFactor;
-    const scaleY = scale.height / (0.004669753812365262 * (scale.height ** 2) + (-4.846533486941553) * scale.height + 1627.4816620249615);
-
-    const emptyShovel = () => {
-        if(shovelLoaded == true) {
-            setExpansionFactor((prev) => Math.max(prev - 0.15, 0));
-            setShovelLoaded(false);
-            setTexture(texture1);
-        }
-        if(expansionFactor <= 0.1) {
-            const taskFinished = {
-                lobbyId: lobbyId,
-                playerId: myPlayerId,
-                taskId: taskId
-            };
-            Publish("/send/sabotageDone", JSON.stringify(taskFinished));
-            console.log("Sabotage Done");
-        }
+    const onClick = () => {
+        const taskFinished = {
+            lobbyId: lobbyId,
+            playerId: myPlayerId,
+            taskId: taskId
+        };
+        Publish("/send/sabotageDone", JSON.stringify(taskFinished));
     };
 
-    const loadShovel = () => {
-        setShovelLoaded(true);
-        setTexture(texture2);
-    }
+    const handleHouseClick = (index: number) => {
+        setHouseTextures((prevTextures) =>
+            prevTextures.map((texture, i) => (i === index ? texture2 : texture))
+        );
+    };
 
-    return(
+    useEffect(() => {
+        if (areAllHousesAtTexture2()) {
+            onClick();
+        }
+    }, [houseTextures]);
+
+    const areAllHousesAtTexture2 = () => {
+        return houseTextures.every((texture) => texture === texture2);
+    };
+
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            const randomIndex = Math.floor(Math.random() * 9);
+            setHouseTextures((prevTextures) =>
+                prevTextures.map((texture, index) => (index === randomIndex ? texture1 : texture))
+            );
+        }, 500);
+
+        return () => clearInterval(intervalId);
+    }, []);
+
+    return (
         <group>
-            <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
-                  scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
-                <boxGeometry args={[1, 1, 0.1]}/>
-                <meshBasicMaterial map={textureBackground} transparent={true}/>
-            </mesh>
-            <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 4)}
-                  scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
-                <boxGeometry args={[0.3, 0.3, 0.1]}/>
-                <meshBasicMaterial map={texture} transparent={true}/>
-            </mesh>
+            {/* Background Mesh */}
             <mesh
-                position={new THREE.Vector3(myPlayer?.x + (scaleX - scale.width / (0.4270833333333333 * scale.width + -35)) / 2, myPlayer?.y, 3)}
-                scale={[scaleX, scaleY, scale.depth]}
-                onClick={emptyShovel}
+                position={new THREE.Vector3(myPlayer!.x, myPlayer!.y, 2)}
+                scale={[scale.width / (0.4270833333333333 * scale.width + (-35)), scale.height / (0.004669753812365262 * (scale.height ** 2) + (-4.846533486941553) * scale.height + 1627.4816620249615), scale.depth]}
             >
                 <boxGeometry args={[1, 1, 0.1]} />
-                <meshBasicMaterial map={textureFlood} transparent={true} />
+                <meshBasicMaterial map={textureBackground} transparent={true} />
             </mesh>
-            <mesh position={new THREE.Vector3(myPlayer?.x+0.9, myPlayer?.y, 4)}
-                  scale={[0.6, 0.4, 0.5]}
-                  onClick={loadShovel}
-            >
-                <boxGeometry args={[1, 1, 0.1]}/>
-                <meshBasicMaterial map={texturePile} transparent={true} />
-            </mesh>
+
+            {/* House Meshes */}
+            {[
+                { position: new THREE.Vector3(myPlayer!.x-0.6, myPlayer!.y+0.2, 4) },
+                { position: new THREE.Vector3(myPlayer!.x-0.3, myPlayer!.y-0.1, 4) },
+                { position: new THREE.Vector3(myPlayer!.x+0.6, myPlayer!.y, 4) },
+                { position: new THREE.Vector3(myPlayer!.x-0.2, myPlayer!.y-0.4, 4) },
+                { position: new THREE.Vector3(myPlayer!.x, myPlayer!.y+0.3, 4) },
+                { position: new THREE.Vector3(myPlayer!.x+0.4, myPlayer!.y-0.3, 4) },
+                { position: new THREE.Vector3(myPlayer!.x+0.8, myPlayer!.y+0.4, 4) },
+                { position: new THREE.Vector3(myPlayer!.x+0.9, myPlayer!.y-0.25, 4) },
+                { position: new THREE.Vector3(myPlayer!.x-0.9, myPlayer!.y-0.3, 4) }
+            ].map((meshProps, index) => (
+                <mesh
+                    key={index}
+                    position={meshProps.position}
+                    scale={[scale.width / (0.4270833333333333 * scale.width + (-35)) * 0.75, scale.height / (0.004669753812365262 * (scale.height ** 2) + (-4.846533486941553) * scale.height + 1627.4816620249615) * 0.75, scale.depth]}
+                    onClick={() => handleHouseClick(index)}
+                >
+                    <boxGeometry args={[0.3, 0.4, 0.1]} />
+                    <meshBasicMaterial map={houseTextures[index]} transparent={true} />
+                </mesh>
+            ))}
         </group>
-    )
+    );
 }

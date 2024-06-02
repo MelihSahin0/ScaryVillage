@@ -129,22 +129,16 @@ public class TaskManagerController {
     @MessageMapping("/initiateSabotage/{stringLobbyId}")
     @SendTo("/subscribe/sabotageTask/{stringLobbyId}")
     public String sabotage(TaskClicked message){
-        System.out.println("AHHHHHHHHHHHHHHHHHHHHHHHHHHHHH " + message.getTaskId());
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
 
         if(lobby.getActiveSabotage()) {
-            System.out.println("NOTHING HAPPENED");
             return null;
         }
-        if(lobby.getSabotageCooldown()) {
-            System.out.println("Still on Cooldown");
+        else if(lobby.getSabotageCooldown()) {
             return null;
         }
 
-        if(message.getTaskId().equals("Fountain")) {
-            // TODO: Implement Fountain shenanigans
-            System.out.println("FOUNTAIN DETECTED");
-
+        else if(message.getTaskId().equals("Fountain")) {
             // Fountain 1
             Fountain fountain = new Fountain();
             fountain.setTaskId((UUID.randomUUID().toString()));
@@ -160,21 +154,6 @@ public class TaskManagerController {
             fountain.setRadius(5);
             fountain.setStatus(TaskStatus.TODO);
 
-            // Fountain 2
-            Fountain fountain2 = new Fountain();
-            fountain2.setTaskId((UUID.randomUUID().toString()));
-            Task.Position position2 = new Task.Position();
-            position2.setX(0.11);
-            position2.setY(-0.95);
-            fountain2.setPosition(position2);
-            Task.Scale scale2 = new Task.Scale();
-            scale2.setHeight(0.5);
-            scale2.setWidth(0.5);
-            fountain2.setScale(scale2);
-            fountain2.setDifficulty(TaskDifficulty.MEDIUM);
-            fountain2.setRadius(5);
-            fountain2.setStatus(TaskStatus.TODO);
-
             // Set both fountains to true
             lobby.setSabotage(1, true);
             lobby.setSabotage(2, true);
@@ -184,7 +163,7 @@ public class TaskManagerController {
             return fountain.toString();
         }
 
-        if(message.getTaskId().equals("Flooding")) {
+        else if(message.getTaskId().equals("Flooding")) {
             Flooding flooding = new Flooding();
             flooding.setTaskId(UUID.randomUUID().toString());
             Task.Position position = new Task.Position();
@@ -210,12 +189,9 @@ public class TaskManagerController {
     @MessageMapping("/sabotageDone/{stringLobbyId}")
     @SendTo("/subscribe/sabotageDone/{stringLobbyId}")
     public String sabotageDone(TaskClicked message) {
-        System.out.println("SABOTAGE FINISHED " + message);
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
-        // TODO: make it go for a specific value in the array of sabotage for fountain
 
         if(message.getTaskId().equals("Fountain1")) {
-            System.out.println("FOUNTAIN 1 COMPLETED");
             lobby.setSabotage(1, false);
             if(!lobby.getActiveSabotage()) {
                 lobby.setSabotageCooldown();
@@ -223,7 +199,6 @@ public class TaskManagerController {
             }
         }
         else if(message.getTaskId().equals("Fountain2")) {
-            System.out.println("FOUNTAIN 2 COMPLETED");
             lobby.setSabotage(2, false);
             if(!lobby.getActiveSabotage()) {
                 lobby.setSabotageCooldown();
@@ -231,7 +206,6 @@ public class TaskManagerController {
             }
         }
         else {
-            System.out.println("Flooding COMPLETED");
             lobby.setSabotage(0, false);
             lobby.setSabotageCooldown();
             return lobby.toString();
