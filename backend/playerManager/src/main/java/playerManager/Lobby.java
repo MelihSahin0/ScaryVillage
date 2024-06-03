@@ -1,8 +1,8 @@
 package playerManager;
 
+import playerManager.extern.ApplicationContextHolder;
 import playerManager.extern.PlayerManagerController;
 import playerManager.extern.jsonDataTransferTypes.BellCooldown;
-
 import java.util.HashMap;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -62,7 +62,7 @@ public class Lobby {
                 BellCooldown message = new BellCooldown();
                 message.setLobbyId(lobbyId);
                 message.setBellCooldown(allowedToBellIn);
-                PlayerManagerController playerManagerController = new PlayerManagerController();
+                PlayerManagerController playerManagerController = ApplicationContextHolder.getContext().getBean(PlayerManagerController.class);;
                 playerManagerController.bellCooldown(message);
             } else {
                 executorServiceKillCooldown.shutdown();

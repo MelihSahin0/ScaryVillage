@@ -1,5 +1,5 @@
 import {gameState, role} from "../types";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     Publish, SubscribeGetMessages,
     SubscribeJoinLobby,
@@ -15,6 +15,7 @@ import {StartHeartbeat} from "./Heartbeat";
 import {CloseConnection as ClosePlayermanagerConnection} from "../inGame/PlayermanagerSocket";
 import {CloseConnection as CloseTaskmanagerConnection} from "../inGame/TaskmanagerSocket";
 import TextChat from "./TextChat";
+import VoiceSettings from "./VoiceSettings";
 
 type Props = {
     myPlayerId: string;
@@ -22,6 +23,7 @@ type Props = {
     setGameState(newState: gameState): void;
     setWinner(winner: role | undefined): void;
     winner: role | undefined;
+    setMasterVolume(setMasterVolume: number): void;
 };
 
 export type Player = {
@@ -38,10 +40,22 @@ export type Message = {
     message: string;
 }
 
-export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, winner}: Props){
+const tabStyle = [
+    "text-white ml-2 text-center text-xl w-20 border-solid border-4 rounded-md border-indigo-200 ",
+    "text-white ml-2 text-center text-xl w-20 border-solid border-4 rounded-md border-indigo-600",
+    "text-white ml-2 text-center text-xl w-32 border-solid border-4 rounded-md border-indigo-200",
+    "text-white ml-2 text-center text-xl w-32 border-solid border-4 rounded-md border-indigo-600",
+]
+
+export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, winner, setMasterVolume}: Props){
     const [displayPlayers, setDisplayPlayers] = useState<Array<Player>>([]);
     const [myPlayer, setMyPlayer] = useState<Player | undefined>();
     const [messages, setMessages] = useState<Array<Message>>([])
+    const audioRef = useRef<HTMLAudioElement>(null);
+    const [activeTab, setActiveTab] = useState("player");
+    const [playerTabStyle, setPlayerTabStyle] = useState(tabStyle[1])
+    const [lobbyTabStyle, setLobbyTabStyle] = useState(tabStyle[0])
+    const [voiceTabStyle, setVoiceTabStyle] = useState(tabStyle[2])
     
     ClosePlayermanagerConnection();
     CloseTaskmanagerConnection();
@@ -118,8 +132,19 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
         }, 500);
     }, [lobbyId, myPlayerId]);
 
+    useEffect(() => {
+        if (audioRef.current) {
+            audioRef.current.volume = 0.03;
+            audioRef.current.loop = true;
+            audioRef.current.play();
+        }
+    }, []);
+
     return (
-        <div className="bg-gray-700 w-screen h-screen" >
+        <div className="bg-gray-700 w-screen h-screen bg-blend-multiply" >
+            <audio ref={audioRef}>
+                <source src="/sounds/mysterious.mp3" type="audio/mpeg" />
+            </audio>
             <div className="flex justify-items-center justify-center pt-10">
                 {winner !== undefined && <h1 className="text-white text-2xl">The winner of the previous round: {winner.toUpperCase()}</h1>}
             </div>
@@ -131,10 +156,29 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
                     <TextChat lobbyId={lobbyId} myPlayerId={myPlayerId} messages={messages} players={displayPlayers}/>
                 </div>
                 <div className="col-span-1 grid-cols-subgrid w-80 justify-center items-center mr-32">
-                    <div className="border-white border-2 min-h-80">
-                        <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>
-                        {myPlayer?.host &&
-                            <LobbySettings lobbyId={lobbyId} maxNumberOfPlayers={displayPlayers.length}/>}
+                    <div className="border-white border-2 rounded-md min-h-[500px]">
+                        <p className="text-white ml-2 mb-4 mt-2 text-xl">Settings:</p>
+                        <div className="flex ">
+                        <p className={playerTabStyle}
+                        onClick={()=>{setActiveTab("player")
+                        setPlayerTabStyle(tabStyle[1])
+                        setLobbyTabStyle(tabStyle[0])
+                        setVoiceTabStyle(tabStyle[2])}}> Player </p>
+                            <p className={voiceTabStyle}
+                               onClick={()=>{setActiveTab("voice")
+                                   setPlayerTabStyle(tabStyle[0])
+                                   setLobbyTabStyle(tabStyle[0])
+                                   setVoiceTabStyle(tabStyle[3])}}>Voice chat </p>
+                            {myPlayer?.host &&
+                                <p className={lobbyTabStyle}
+                                                  onClick={()=>{setActiveTab("lobby")
+                                                      setPlayerTabStyle(tabStyle[0])
+                                                      setLobbyTabStyle(tabStyle[1])
+                                                      setVoiceTabStyle(tabStyle[2])}}>Lobby </p>}
+                        </div>
+                            {activeTab=== "player" && <PlayerSettings myPlayer={myPlayer} lobbyId={lobbyId}/>}
+                            {myPlayer?.host && activeTab=== "lobby" && <LobbySettings lobbyId={lobbyId} maxNumberOfPlayers={displayPlayers.length}/>}
+                            {activeTab=== "voice" && <VoiceSettings setMasterVolume={setMasterVolume}/>}
                     </div>
                 </div>
             </div>

@@ -9,6 +9,7 @@ import extern.enumarators.Colors;
 import extern.enumarators.Roles;
 import lobbyManager.extern.jsonDataTransferTypes.*;
 import lobbyManager.intern.Rest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -20,8 +21,12 @@ import java.util.Random;
 @RestController
 public class LobbyController {
 
-    //When Endpoints can be called internally too, use this. (Reference: removePlayer)
-    private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
+    private final SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    public LobbyController(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
 
     @MessageMapping("/registerPlayer/{stringLobbyId}")
     @SendTo("/subscribe/lobby/{stringLobbyId}")

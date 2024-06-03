@@ -1,10 +1,10 @@
 import { Player } from "../../PlayerManager";
 import { Task } from "../Map";
 import * as THREE from "three";
-import React, { useState } from "react";
+import React, {useRef, useState} from "react";
 import { TextureLoader } from "three";
 import { Publish } from "../../TaskmanagerSocket";
-import {Text} from "@react-three/drei";
+import {PositionalAudio, Text} from "@react-three/drei";
 import {Scale} from "../../InGame";
 
 type Props = {
@@ -22,7 +22,7 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
 
     // Load initial texture
     useState(() => {
-        const initialTexture = new TextureLoader().load('src/Images/Chopping1.png');
+        const initialTexture = new TextureLoader().load("/images/chopping1.png");
         initialTexture.magFilter = THREE.NearestFilter;
         initialTexture.minFilter = THREE.NearestFilter;
         setTexture(initialTexture);
@@ -30,7 +30,8 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
 
     const [count, setCount] = useState<number>(1);
     const [amount, setAmount] = useState<number>(10);
-
+    const audioSrc = "/sounds/metal-whoosh.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handleClick = () => {
         setCount(count + 1);
@@ -48,15 +49,17 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
             setCurrentTask(undefined);
             setAllowedToMove(true);
         }
+        if (count%8 != 1 && !soundRef.current?.isPlaying) {
+            soundRef.current?.play()
+        }
 
-        const newTexturePath = `src/Images/Chopping${count}.png`;
+        const newTexturePath = `/images/chopping${count}.png`;
         const newTexture = new TextureLoader().load(newTexturePath);
         newTexture.magFilter = THREE.NearestFilter;
         newTexture.minFilter = THREE.NearestFilter;
         setTexture(newTexture);
 
     };
-
 
     return (
         <group>
@@ -65,6 +68,7 @@ export default function ChoppingMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
                   onClick={() => handleClick()}>
                 <boxGeometry args={[1, 1, 0.1]} />
                 <meshBasicMaterial map={texture} />
+                <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={0.1}/>
             </mesh>
             {<Text position={new THREE.Vector3(myPlayer?.x, (myPlayer?.y ?? 0) - 0.5, 3)}
                    scale={[scale.width/(12.5*scale.width+2000), scale.height/(0.026041087702004067*(scale.height**2)+(-18.48551443522764)*(scale.height)+9597.56938662081), scale.depth]} color="#ffffff">{amount} wood left to chop</Text>}

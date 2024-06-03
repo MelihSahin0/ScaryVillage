@@ -1,8 +1,9 @@
 import * as THREE from "three";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Publish, SubscribeBellCooldown, UnsubscribeBellCooldown,} from "../../PlayermanagerSocket";
 import {Player} from "../../PlayerManager";
 import {calculateInsideClickRange} from "../../Utility";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -16,6 +17,8 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
     const [bellCooldown, setBellCooldown] = useState<number>()
     const [insideBellDistance, setInsideBellDistance] = useState<boolean>();
     const meshPosition = new THREE.Vector3(0.1, 0.2, -1);
+    const audioSrc = "/sounds/bell.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handlePointerOver = () => {
         setIsHovered(true);
@@ -27,6 +30,8 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
 
     const handleClick = () => {
         if (bellCooldown === 0) {
+            soundRef.current?.play();
+            setTimeout(() => {
             const message = {
                 "lobbyId": lobbyId,
                 "fromPlayerId": myPlayerId,
@@ -34,6 +39,8 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
             };
 
             Publish("/send/report", JSON.stringify(message));
+
+            }, 1100)
         }
     };
 
@@ -59,6 +66,7 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
 
     return (
         <group>
+            <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={0.3}/>
             <mesh position={meshPosition} onClick={handleClick}
                   onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
                 <boxGeometry args={[0.6, 0.5, 1]}/>

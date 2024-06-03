@@ -3,8 +3,7 @@ package votingManager.extern;
 import extern.enumarators.Colors;
 import extern.enumarators.Roles;
 import intern.LobbyId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
@@ -17,7 +16,7 @@ import votingManager.extern.jsonDataTransferTypes.Voting;
 import votingManager.extern.jsonDataTransferTypes.VotingTime;
 import votingManager.intern.Rest;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -25,8 +24,12 @@ import java.util.Random;
 @RestController
 public class VotingManagerController {
 
-    //When Endpoints can be called internally too, use this. (Reference: removePlayer)
-    private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
+    private final SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    public VotingManagerController(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
 
     @MessageMapping("/players/{stringLobbyId}")
     @SendTo("/subscribe/getPlayers/{stringLobbyId}")
@@ -45,14 +48,14 @@ public class VotingManagerController {
     public void sendResult(String lobbyId){
         Lobby lobby = Lobbies.getLobby(lobbyId);
         boolean killOne = lobby.getKillOne();
-        HashMap<String, Integer> votedPlayer = countVotedPlayers(lobby);
-        String[] mFP = findMostFrequentPlayerId(votedPlayer).split(",");
+        ArrayList<Player> votedPlayer = countVotedPlayers(lobby);
+        ArrayList<String> mFP = findMostFrequentPlayerId(votedPlayer);
 
-        if (mFP.length == 1 || (mFP.length > 1 && killOne)) {
+        if (mFP.size() == 1 || (mFP.size() > 1 && killOne)) {
                 Random random = new Random();
 
-                int burn = mFP.length == 1 ? 0 : random.nextInt(mFP.length);
-                Player player = lobby.getPlayer(mFP[burn]);
+                int burn = mFP.size() == 1 ? 0 : random.nextInt(mFP.size());
+                Player player = lobby.getPlayer(mFP.get(burn));
                 player.setKilled(true);
                 player.killed();
                 player.setColor(Colors.BLACK);
@@ -107,38 +110,33 @@ public class VotingManagerController {
         return null;
     }
 
-    private static HashMap<String, Integer> countVotedPlayers(Lobby lobby){
-        HashMap<String, Integer> votedPlayer = new HashMap<>();
-        for (Map.Entry<String, Player> entry : lobby.getPlayers().entrySet()) {
-            Player player = entry.getValue();
-            if (player.getRole() == Roles.IMPOSTER || player.getRole() == Roles.CREWMATE) {
-                if (votedPlayer.containsKey(player.getVotedFor())) {
-                    votedPlayer.put(player.getVotedFor(), votedPlayer.get(player.getVotedFor()) + 1);
-                } else {
-                    votedPlayer.put(player.getVotedFor(), 0);
-                }
+    private static ArrayList<Player> countVotedPlayers(Lobby lobby){
+        ArrayList<Player> votedPlayer = new ArrayList<Player>();
+        for (Player p : lobby.getPlayers().values()) {
+            Player player = p;
+            if (player.getRole().equals(Roles.IMPOSTER) || player.getRole().equals(Roles.CREWMATE)) {
                 if (player.getVotedFor() != null && !player.getVotedFor().isEmpty()) {
                     lobby.getPlayer(player.getVotedFor()).incrementNumberOfVotes();
                 }
             }
+            votedPlayer.add(p);
         }
         return votedPlayer;
     }
 
-    private static String findMostFrequentPlayerId(HashMap<String, Integer> votedPlayer) {
-        StringBuilder mostFrequentPlayerId = new StringBuilder();
+    private static ArrayList<String> findMostFrequentPlayerId(ArrayList<Player> votedPlayer) {
+        ArrayList<String> mostFrequentPlayerId = new ArrayList<String>();
         int maxCount = 0;
-        for (Map.Entry<String, Integer> entry : votedPlayer.entrySet()) {
-            int count = entry.getValue();
+        for (Player player : votedPlayer) {
+            int count = player.getNumberOfVotes() != 0 ? player.getNumberOfVotes() : 0;
             if (count > maxCount) {
                 maxCount = count;
-                mostFrequentPlayerId.setLength(0);
-                mostFrequentPlayerId.append(entry.getKey());
+                mostFrequentPlayerId = new ArrayList<String>();
+                mostFrequentPlayerId.add(player.getId());
             } else if (count == maxCount) {
-                mostFrequentPlayerId.append(",");
-                mostFrequentPlayerId.append(entry.getKey());
+                mostFrequentPlayerId.add(player.getId());
             }
         }
-        return String.valueOf(mostFrequentPlayerId);
+        return mostFrequentPlayerId;
     }
 }

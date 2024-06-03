@@ -4,6 +4,7 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
 import taskManager.*;
 import taskManager.extern.jsonDataTransferTypes.GetTasks;
 import taskManager.extern.jsonDataTransferTypes.TaskClicked;
@@ -11,13 +12,16 @@ import taskManager.intern.Rest;
 import taskManager.tasks.*;
 
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 public class TaskManagerController {
 
-    //When Endpoints can be called internally too, use this. (Reference: removePlayer)
-    private final SimpMessagingTemplate messagingTemplate = ApplicationContextHolder.getContext().getBean(SimpMessagingTemplate.class);
+    private final SimpMessagingTemplate messagingTemplate;
+
+    @Autowired
+    public TaskManagerController(SimpMessagingTemplate messagingTemplate) {
+        this.messagingTemplate = messagingTemplate;
+    }
 
     @MessageMapping("/tasks/{stringLobbyId}")
     @SendTo("/subscribe/getPlayerTasks/{stringLobbyId}")
@@ -47,8 +51,6 @@ public class TaskManagerController {
         if (task.getClass().getSimpleName().equals(Bin.class.getSimpleName())) {
             for (Map.Entry<String, Task> cave : lobby.getPlayersTask(message.getPlayerId()).getTasks()){
                 if (cave.getValue().getClass().getSimpleName().equals(Cave.class.getSimpleName())){
-                    System.out.println(message.getTaskId());
-                    System.out.println(message.getTaskId() + "@");
                     cave.getValue().setTaskId(message.getTaskId() + "@");
                     return  "{" +
                             "\"" + message.getPlayerId() + "\": "

@@ -7,6 +7,7 @@ import playerManager.extern.jsonDataTransferTypes.KillCooldown;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import playerManager.extern.ApplicationContextHolder;
 
 public class Player {
     private final String id;
@@ -81,7 +82,6 @@ public class Player {
     public int getAllowedToKillIn() {
         return allowedToKillIn;
     }
-
     public void initiateMove(String[] stringArray, double deltaTime) {
 
         double diagonalFac = 1;
@@ -170,6 +170,11 @@ public class Player {
         return false;
     }
 
+    public void newPosition(int newX, int newY) {
+        x = newX;
+        y = newY;
+    }
+
     public void teleport(int sewerFrom) {
         x = Map.getSewer((sewerFrom + 2) % 4).getX();
         y = Map.getSewer((sewerFrom + 2) % 4).getY();
@@ -198,7 +203,7 @@ public class Player {
                 KillCooldown message = new KillCooldown();
                 message.setLobbyId(lobbyId);
                 message.setKillCooldown(allowedToKillIn);
-                PlayerManagerController playerManagerController = new PlayerManagerController();
+                PlayerManagerController playerManagerController = ApplicationContextHolder.getContext().getBean(PlayerManagerController.class);
                 playerManagerController.killCooldown(message);
             } else {
                 executorServiceKillCooldown.shutdown();

@@ -1,10 +1,11 @@
 import * as THREE from "three";
-import React, {useEffect, useState} from "react";
-import {useFrame, useLoader} from "@react-three/fiber";
+import React, {useEffect, useRef, useState} from "react";
+import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {calculateInsideClickRange} from "../../Utility";
 import {Player} from "../../PlayerManager";
 import {Publish} from "../../PlayermanagerSocket";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -15,8 +16,10 @@ export default function Sewer({lobbyId, myPlayer}: Props) {
 
     const [isHovered, setIsHovered] = useState(false);
     const [insideSewerDistances, setInsideSewerDistances] = useState<boolean[]>([]);
+    const audioSrc = "/sounds/whoosh-cinematic.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
-    const texture = useLoader(TextureLoader, 'src/Images/sewer.png');
+    const texture = useLoader(TextureLoader, '/images/sewer.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
 
@@ -31,6 +34,7 @@ export default function Sewer({lobbyId, myPlayer}: Props) {
     const handleClick = (num: number) => {
 
         if(myPlayer?.role == "imposter") {
+            soundRef.current?.play();
             const teleportData = {
                 lobbyId: lobbyId,
                 playerId: myPlayer?.id,
@@ -56,12 +60,12 @@ export default function Sewer({lobbyId, myPlayer}: Props) {
                 calculateInsideClickRange(sewer, myPlayer, 0.3)
             );
             setInsideSewerDistances(distances);
-            console.log(distances);
         }
     }, [myPlayer?.x, myPlayer?.y]);
 
     return (
         <group>
+            <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={1}/>
             {sewers.map((mesh, index) => (
                 <React.Fragment key={index}>
                     <mesh position={new THREE.Vector3(mesh.x, mesh.y, 0.1)} onClick={() => handleClick(mesh.id)}

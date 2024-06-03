@@ -37,6 +37,7 @@ type Props = {
     setWinner(setWinner: role): void;
     setAllowedToMove:(setAllowedToMove: boolean) => void;
     scale: Scale;
+    setSrc(pic: string): void
 }
 
 export type Task = {
@@ -55,20 +56,19 @@ export type Task = {
     radius: number;
 };
 
-export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner, setAllowedToMove, scale}: Props){
+export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner, setAllowedToMove, scale, setSrc}: Props){
 
     const [currentTask, setCurrentTask] = useState<Task | undefined>(undefined);
     const [showMinimap, setShowMinimap] = useState<boolean>(false)
     const [progress, setProgress] = useState<number>(0)
     const [tasks, setTasks] = useState<Array<Task>>([]);
-    const texture = useLoader(TextureLoader, 'src/Images/newMap.png');
+    const texture = useLoader(TextureLoader, '/images/newMap.png');
     const [sabotage, setSabotage] = useState<boolean>(false);
     const sabotageRef = useRef(sabotage);
     const [sabotageCooldown, setSabotageCooldown] = useState<boolean>(false);
-
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
-    const back = useLoader(TextureLoader, 'src/images/back.png');
+    const back = useLoader(TextureLoader, '/images/back.png');
     back.magFilter = THREE.NearestFilter;
     back.minFilter = THREE.NearestFilter;
 
@@ -293,7 +293,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
 
             {currentTask === undefined && !showMinimap &&<>
                 <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
-                <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks}/>
+                <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks} setSrc={setSrc}/>
              </>
             }
 
@@ -301,7 +301,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 <MiniMap myPlayer={myPlayer} tasks={tasks} currentTask={currentTask} scale={scale}/>
                 :
                 currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
-                currentTask?.gameType === "Cave" && <CaveMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} currentTask={currentTask} setCurrentTask={setCurrentTask}/> ||
+                currentTask?.gameType === "Cave" && <CaveMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} currentTask={currentTask} setCurrentTask={setCurrentTask} setSrc={setSrc}/> ||
                 currentTask?.gameType === "Fishing" && <FishingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
                 currentTask?.gameType === "Chicken" && <ChickenMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
                 currentTask?.gameType === "Cooking" && <CookingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||

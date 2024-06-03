@@ -1,5 +1,6 @@
 package votingManager;
 
+import votingManager.extern.ApplicationContextHolder;
 import votingManager.extern.VotingManagerController;
 import votingManager.extern.jsonDataTransferTypes.VotingTime;
 
@@ -63,7 +64,7 @@ public class Lobby {
         }
         executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() -> {
-            VotingManagerController votingManagerController = new VotingManagerController();
+            VotingManagerController votingManagerController = ApplicationContextHolder.getContext().getBean(VotingManagerController.class);
             VotingTime votingTime = new VotingTime();
             votingTime.setLobbyId(lobbyId);
             votingTime.setTimeLeft(timeLeft);

@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="better scaling fpr Progressbar?">
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="changed LobbySettings order">
+      <change afterPath="$PROJECT_DIR$/../frontend/src/lobby/VoiceSettings.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/Lobby.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/Lobby.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/taskManager/src/main/java/taskManager/extern/TaskManagerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Flooding.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Flooding.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/FloodingTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/FloodingTask.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fountain.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fountain.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/FountainTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/FountainTask.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,11 +125,12 @@
     &quot;Spring Boot.StompWebsocketPlayerManager.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketTaskManager.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.StompWebsocketVotingManager.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.WebsocketVoiceManager.executor&quot;: &quot;Run&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;sabotage&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/chatManager/src/main/java/chatManager&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Melih_Daten/FHV/4_Semester/Enterprise/Projekt/ScaryVillage/backend/gameManager/src/main/resources&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -145,18 +147,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\gameManager\src\main\resources" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\java\voiceManager\extern" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\resources" />
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\voiceChatManager\src\main\java\voiceManager" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\chatManager\src\main\java\chatManager" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\chatManager\src\main\resources" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\java\taskManager\extern" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\java\taskManager" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\taskManager\src\main\resources" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\gameManager\src\main\resources" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\lobbyManager\src\main\java\lobbyManager" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\SingletonWebsocketEndPoint\src\main\resources" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\playerManager\src\main\java\playerManager" />
       <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\playerManager\src\test" />
-      <recent name="C:\Melih_Daten\FHV\4_Semester\Enterprise\Projekt\ScaryVillage\backend\playerManager\src\main\resources" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="taskManager.extern" />
@@ -241,12 +243,20 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WebsocketVoiceManager" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="voiceChatManager" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="voiceManager.WebsocketVoiceManager" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <list>
+      <item itemvalue="Spring Boot.WebsocketVoiceManager" />
       <item itemvalue="Spring Boot.StompWebsocketGameManager" />
-      <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
-      <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
-      <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
       <item itemvalue="Spring Boot.StompWebsocketTaskManager" />
+      <item itemvalue="Spring Boot.StompWebsocketLobbyManager" />
+      <item itemvalue="Spring Boot.StompWebsocketPlayerManager" />
+      <item itemvalue="Spring Boot.StompWebsocketVotingManager" />
     </list>
     <recent_temporary>
       <list>
@@ -261,7 +271,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-21.0.2-openjdk-21.0.2-4caba194b151-4f524021" />
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
       </set>
     </attachedChunks>
   </component>
@@ -364,7 +375,135 @@
       <option name="project" value="LOCAL" />
       <updated>1715630148917</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="merge conflicts">
+      <option name="closed" value="true" />
+      <created>1716314817422</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1716314817422</updated>
+    </task>
+    <task id="LOCAL-00004" summary="removed logs">
+      <option name="closed" value="true" />
+      <created>1716378332627</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1716378332627</updated>
+    </task>
+    <task id="LOCAL-00005" summary="changed pom Files">
+      <option name="closed" value="true" />
+      <created>1716410203404</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1716410203404</updated>
+    </task>
+    <task id="LOCAL-00006" summary="changed pom Files">
+      <option name="closed" value="true" />
+      <created>1716411047100</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1716411047100</updated>
+    </task>
+    <task id="LOCAL-00007" summary="changed pom Files">
+      <option name="closed" value="true" />
+      <created>1716411461468</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1716411461468</updated>
+    </task>
+    <task id="LOCAL-00008" summary="changed pom Files">
+      <option name="closed" value="true" />
+      <created>1716412027536</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1716412027536</updated>
+    </task>
+    <task id="LOCAL-00009" summary="changed pom Files">
+      <option name="closed" value="true" />
+      <created>1716412378727</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1716412378727</updated>
+    </task>
+    <task id="LOCAL-00010" summary="changed pom Files">
+      <option name="closed" value="true" />
+      <created>1716412518343</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1716412518343</updated>
+    </task>
+    <task id="LOCAL-00011" summary="AplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716414234126</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1716414234126</updated>
+    </task>
+    <task id="LOCAL-00012" summary="AplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716464867780</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1716464867780</updated>
+    </task>
+    <task id="LOCAL-00013" summary="ApplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716465716958</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1716465716958</updated>
+    </task>
+    <task id="LOCAL-00014" summary="ApplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716466262075</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1716466262075</updated>
+    </task>
+    <task id="LOCAL-00015" summary="ApplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716468997505</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1716468997505</updated>
+    </task>
+    <task id="LOCAL-00016" summary="ApplicationContext Problems">
+      <option name="closed" value="true" />
+      <created>1716470152290</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1716470152290</updated>
+    </task>
+    <task id="LOCAL-00017" summary="mini ui fix">
+      <option name="closed" value="true" />
+      <created>1716824001050</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1716824001050</updated>
+    </task>
+    <task id="LOCAL-00018" summary="changed LobbySettings order">
+      <option name="closed" value="true" />
+      <created>1717001551446</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1717001551446</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,9 +524,16 @@
     <MESSAGE value="sync" />
     <MESSAGE value="&quot;&quot;" />
     <MESSAGE value="i want to pull" />
-    <MESSAGE value="i want to merge" />
     <MESSAGE value="better scaling fpr Progressbar?" />
-    <option name="LAST_COMMIT_MESSAGE" value="better scaling fpr Progressbar?" />
+    <MESSAGE value="i want to merge" />
+    <MESSAGE value="merge conflicts" />
+    <MESSAGE value="removed logs" />
+    <MESSAGE value="changed pom Files" />
+    <MESSAGE value="AplicationContext Problems" />
+    <MESSAGE value="ApplicationContext Problems" />
+    <MESSAGE value="mini ui fix" />
+    <MESSAGE value="changed LobbySettings order" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed LobbySettings order" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

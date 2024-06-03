@@ -1,11 +1,12 @@
 import {Player} from "../../PlayerManager";
 import {Task} from "../Map";
 import * as THREE from "three";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {Publish} from "../../TaskmanagerSocket";
 import {Scale} from "../../InGame";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -19,7 +20,7 @@ type Props = {
 
 function Stone(props: any) {
     const [isBroken, setIsBroken] = useState(false);
-    const texture = useLoader(TextureLoader, isBroken ? 'src/Images/StoneBroken.png' : 'src/Images/Stone.png');
+    const texture = useLoader(TextureLoader, isBroken ? '/images/StoneBroken.png' : '/images/Stone.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
 
@@ -37,11 +38,16 @@ function Stone(props: any) {
 }
 
 export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props){
-    const texture = useLoader(TextureLoader, 'src/Images/MiningTask.png');
+    const texture = useLoader(TextureLoader, '/images/MiningTask.png');
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
+    const audioSrc = "/sounds/rock_break.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const handleClick = (gem: boolean) => {
+        if (!soundRef.current?.isPlaying){
+            soundRef.current?.play();
+        }
         const taskFinished = {
             lobbyId: lobbyId,
             playerId: myPlayerId,
@@ -70,6 +76,7 @@ export default function MiningMesh({ lobbyId, myPlayerId, myPlayer, taskId, setC
 
     return (
         <group>
+            <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={1}/>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
                   scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
             <boxGeometry args={[1, 1, 0.1]}/>
