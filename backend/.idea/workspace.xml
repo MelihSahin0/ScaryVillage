@@ -4,16 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="changed LobbySettings order">
-      <change afterPath="$PROJECT_DIR$/../frontend/src/lobby/VoiceSettings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="changed LobbySettings order" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
