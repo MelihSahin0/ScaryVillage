@@ -22,9 +22,9 @@ type Props = {
 export default function FountainMesh({ lobbyId, myPlayerId, myPlayer, taskId, setCurrentTask, setAllowedToMove, scale, setTasks, tasks }: Props) {
     setAllowedToMove(false);
 
-    const textureBackground = useLoader(TextureLoader, 'src/Images/fountain_background.png');
-    const texture1 = useLoader(TextureLoader, 'src/Images/fountain_house_burning.png');
-    const texture2 = useLoader(TextureLoader, 'src/Images/fountain_house.png');
+    const textureBackground = useLoader(TextureLoader, '/images/fountain_background.png');
+    const texture1 = useLoader(TextureLoader, '/images/fountain_house_burning.png');
+    const texture2 = useLoader(TextureLoader, '/images/fountain_house.png');
     textureBackground.magFilter = THREE.NearestFilter;
     textureBackground.minFilter = THREE.NearestFilter;
     texture1.magFilter = THREE.NearestFilter;

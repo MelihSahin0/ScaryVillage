@@ -20,8 +20,8 @@ type Props = {
 export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setCurrentTask, setAllowedToMove, scale}: Props){
     setAllowedToMove(false);
 
-    const texture1 = useLoader(TextureLoader, 'src/Images/flooding_empty.png');
-    const texture2 = useLoader(TextureLoader, 'src/Images/flooding_full.png');
+    const texture1 = useLoader(TextureLoader, '/images/flooding_empty.png');
+    const texture2 = useLoader(TextureLoader, '/images/flooding_full.png');
     texture1.magFilter = THREE.NearestFilter;
     texture1.minFilter = THREE.NearestFilter;
     texture2.magFilter = THREE.NearestFilter;
@@ -31,15 +31,15 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
     const [shovelLoaded, setShovelLoaded] = useState(false);
     const [texture, setTexture] = useState<THREE.Texture | null>(texture1);
 
-    const textureBackground = useLoader(TextureLoader, 'src/Images/flooding_background.png');
+    const textureBackground = useLoader(TextureLoader, '/images/flooding_background.png');
     textureBackground.magFilter = THREE.NearestFilter;
     textureBackground.minFilter = THREE.NearestFilter;
 
-    const textureFlood = useLoader(TextureLoader, 'src/Images/flooding_ocean.png');
+    const textureFlood = useLoader(TextureLoader, '/images/flooding_ocean.png');
     textureFlood.magFilter = THREE.NearestFilter;
     textureFlood.minFilter = THREE.NearestFilter;
 
-    const texturePile = useLoader(TextureLoader, 'src/Images/flooding_pile_of_earth.png');
+    const texturePile = useLoader(TextureLoader, '/images/flooding_pile_of_earth.png');
     texturePile.magFilter = THREE.NearestFilter;
     texturePile.minFilter = THREE.NearestFilter;
 
