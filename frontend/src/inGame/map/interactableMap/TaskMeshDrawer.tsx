@@ -62,7 +62,7 @@ export default function TaskMeshDrawer({lobbyId, myPlayerId, myPlayer, tasks, se
                               }
 
                               if (task.gameType === "Bin"){
-                                  setSrc("/images/pixiTrash.png")
+                                  setSrc(myPlayerId)
                               }
 
                             setTimeout(() =>{
