@@ -77,6 +77,41 @@ export function UnsubscribeGetPlayerTodoTask(){
     StartConnection();
 }
 
+export function SubscribeSabotageTask(updatePlayers: (message: any) => void) {
+    const messageHandler: MessageHandler = {
+        id: 3,
+        destination: "/subscribe/sabotageTask/" + lobbyId,
+        function: updatePlayers
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+    StartConnection();
+}
+export function UnsubscribeSabotageTask(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
+    StartConnection();
+}
+
+export function SubscribeSabotageDone(updatePlayers: (message: any) => void) {
+    const messageHandler: MessageHandler = {
+        id: 4,
+        destination: "/subscribe/sabotageDone/" + lobbyId,
+        function: updatePlayers
+    };
+
+    if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
+        subscriptionHandlers.push(messageHandler);
+    }
+    StartConnection();
+}
+export function UnsubscribeSabotageDone(){
+    subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
+    StartConnection();
+}
+
+
 function StartConnection(){
     client.deactivate().then();
     client.configure({
