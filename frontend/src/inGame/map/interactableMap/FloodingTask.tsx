@@ -66,7 +66,7 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
             setShovelLoaded(false);
             setTexture(texture1);
         }
-        if(expansionFactor <= 0.1) {
+        if(expansionFactor <= 0.4) {
             setAllowedToMove(true);
             const taskFinished = {
                 lobbyId: lobbyId,
