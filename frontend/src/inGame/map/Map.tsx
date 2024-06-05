@@ -3,7 +3,7 @@ import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import BellMesh from "./interactableMap/Emergency";
 import {Player} from "../PlayerManager";
-import {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
     Publish, SubscribeGetPlayerTodoTask, SubscribeGetProgress,
     SubscribePlayerTasks, SubscribeSabotageDone, SubscribeSabotageTask,
@@ -28,6 +28,7 @@ import Flooding from "./interactableMap/Flooding";
 import FloodingMesh from "./interactableMap/FloodingTask";
 import Fountain from "./interactableMap/Fountain";
 import FountainMesh from "./interactableMap/FountainTask";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -71,6 +72,8 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     const back = useLoader(TextureLoader, '/images/back.png');
     back.magFilter = THREE.NearestFilter;
     back.minFilter = THREE.NearestFilter;
+    const audioSrc = "/sounds/warning.mp3";
+    const warningRef = useRef<THREE.PositionalAudio | null>(null);
 
     useEffect(() => {
         SubscribeToLobby(lobbyId);
@@ -170,7 +173,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     useEffect(() => {
         const getPlayerSabotage = (message: any) => {
             if(message.type === "Flooding"){
-                console.log("DIE FLUT KOMMT III");
             const task: Task = {
                 taskId: message.taskId,
                 gameType: message.type,
@@ -181,7 +183,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             setTasks([task]);
             }
             if(message.type === "Fountain") {
-                console.log("FOUNTAIN OF YOUTH " + message.position);
                 const task1: Task = {
                     taskId: "Fountain1",
                     gameType: message.type,
@@ -218,7 +219,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 setAllowedToMove(true);
                 setCurrentTask(undefined);
                 if (myPlayer.role === "imposter") {
-                    setTasks([]); // set Imposter Tasklist empty
+                    setTasks([]); // set Imposter Task list empty
                 } else if (message[myPlayerId] != undefined) {
                     const updatedTasks: Array<Task> = [];
                     JSON.parse(message[myPlayerId]).forEach((message: any) => {
@@ -237,7 +238,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 setSabotage(false);
                 sabotageRef.current = false;
                 setSabotageCooldown(true);
-                console.log(sabotageCooldown);
             };
             SubscribeSabotageDone(getPlayerSabotage);
             return () => {
@@ -259,7 +259,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     const checkSabotageStatus = () => {
         setTimeout(() => {
             if (sabotageRef.current) {
-                console.log("Sabotage is active." + sabotageRef.current);
                 setWinner("imposter");
                 setGameState("lobby");
                 setSabotage(false);
@@ -278,6 +277,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             </mesh>
             <mesh position={new THREE.Vector3(0, 0, 0)}>
                 <boxGeometry args={[9, 5, 0.1]}/>
+                {sabotage && <PositionalAudio ref={warningRef} url={audioSrc} autoplay loop={false} distance={0.1}/>}
                 <meshBasicMaterial map={texture}/>
             </mesh>
 

@@ -3,9 +3,10 @@ import * as THREE from "three";
 import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {Publish} from "../../TaskmanagerSocket";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Task} from "../Map";
 import {Scale} from "../../InGame";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -43,6 +44,11 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
     texturePile.magFilter = THREE.NearestFilter;
     texturePile.minFilter = THREE.NearestFilter;
 
+    const shovelSrc = "/sounds/shovel.mp3";
+    const floodingSrc = "/sounds/flooded.mp3";
+    const shovelRef = useRef<THREE.PositionalAudio | null>(null);
+    const flooding =useRef<THREE.PositionalAudio | null>(null);
+
     useEffect(() => {
         const interval = setInterval(() => {
             setExpansionFactor((prev) => prev + 0.01 <= 1 ? prev + 0.01 : prev);
@@ -75,13 +81,16 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
     const loadShovel = () => {
         setShovelLoaded(true);
         setTexture(texture2);
+        shovelRef.current?.play()
     }
 
     return(
         <group>
+            <PositionalAudio ref={flooding} url={floodingSrc} autoplay loop={true} distance={0.5}/>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 2)}
                   scale={[scale.width/(0.4270833333333333*scale.width+(-35)), scale.height/(0.004669753812365262*(scale.height**2)+(-4.846533486941553)*(scale.height)+1627.4816620249615), scale.depth]}>
                 <boxGeometry args={[1, 1, 0.1]}/>
+                <PositionalAudio ref={shovelRef} url={shovelSrc} loop={false} distance={1}/>
                 <meshBasicMaterial map={textureBackground} transparent={true}/>
             </mesh>
             <mesh position={new THREE.Vector3(myPlayer?.x, myPlayer?.y, 4)}

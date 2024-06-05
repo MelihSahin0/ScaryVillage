@@ -92,16 +92,18 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
 
 
 function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown, mySrc}: { mySrc:string,  lobbyId: string, player: Player, myPlayer: Player | undefined, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined, killCooldown: number }) {
-    const texture = useLoader(TextureLoader, mySrc);
+    const texture = useLoader(TextureLoader, player.src);
+    const texture2 = useLoader(TextureLoader, "/images/pixiTrash.png")
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
+    texture2.magFilter = THREE.NearestFilter;
+    texture2.minFilter = THREE.NearestFilter;
     const [isHovered, setIsHovered] = useState(false);
     const [insideClickRange, setInsideClickRange] = useState<boolean>()
     const killSound = "/sounds/ambient-metal-whoosh.mp3";
     const killRef = useRef<THREE.PositionalAudio | null>(null);
     const reportSound = "/sounds/bell.mp3";
     const reportRef = useRef<THREE.PositionalAudio | null>(null);
-
 
     useEffect(() => {
         if (myPlayer !== null && myPlayer !== undefined) {
@@ -155,7 +157,8 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown, mySrc
                 }, 1000);}}
                   onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
                 <planeGeometry attach="geometry" args={[0.3, 0.3, 1]}/>
-                <meshBasicMaterial transparent map={texture} color={player.color}/>
+                {mySrc===player.id && <meshBasicMaterial transparent map={texture2} color={player.color}/>}
+                {mySrc!=player.id && <meshBasicMaterial transparent map={texture} color={player.color}/>}
             </mesh>
             {myPlayer?.role === "imposter" && player.role === "crewmate" ? (
                 <group visible={isHovered && killCooldown === 0}>

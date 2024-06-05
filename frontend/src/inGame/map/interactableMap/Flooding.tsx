@@ -1,8 +1,9 @@
 import * as THREE from "three";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {Player} from "../../PlayerManager";
 import {Publish} from "../../TaskmanagerSocket";
 import {Task} from "../Map";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -14,6 +15,8 @@ type Props = {
 export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Props) {
 
     const [isHovered, setIsHovered] = useState(false);
+    const audioSrc = "/sounds/click_effect.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const shovel = {x: -3.8, y: 0.16090551000000003 };
 
@@ -26,7 +29,7 @@ export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
     };
 
     const handleClick = () => {
-
+            soundRef.current?.play()
         if(myPlayer?.role == "imposter") {
             const sabotageData = {
                 lobbyId: lobbyId,
@@ -52,6 +55,7 @@ export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
                 visible={false}
             >
                 <boxGeometry args={[0.15, 0.15, 0.1]} />
+                <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={1}/>
                 <meshBasicMaterial transparent={true} opacity={0} />
             </mesh>
             {isHovered && (
