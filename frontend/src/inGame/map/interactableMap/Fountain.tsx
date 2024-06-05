@@ -1,8 +1,9 @@
 import * as THREE from "three";
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import {Player} from "../../PlayerManager";
 import {Publish} from "../../TaskmanagerSocket";
 import {Task} from "../Map";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -17,6 +18,8 @@ type Props = {
 export default function Fountain({lobbyId, myPlayer, setCurrentTask, tasks, xCoor, yCoor, i}: Props) {
 
     const [isHovered, setIsHovered] = useState(false);
+    const audioSrc = "/sounds/click_effect.mp3";
+    const soundRef = useRef<THREE.PositionalAudio | null>(null);
 
     const fountain = {x: xCoor, y: yCoor };
     const handlePointerOver = () => {
@@ -29,6 +32,8 @@ export default function Fountain({lobbyId, myPlayer, setCurrentTask, tasks, xCoo
 
     const handleClick = () => {
 
+        soundRef.current?.setVolume(1)
+        soundRef.current?.play();
         if(myPlayer?.role == "imposter") {
             const sabotageData = {
                 lobbyId: lobbyId,
@@ -54,6 +59,7 @@ export default function Fountain({lobbyId, myPlayer, setCurrentTask, tasks, xCoo
                 visible={false}
             >
                 <boxGeometry args={[0.56, 0.5, 0.1]} />
+                <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={1}/>
                 <meshBasicMaterial transparent={true} opacity={0} />
             </mesh>
             {isHovered && (

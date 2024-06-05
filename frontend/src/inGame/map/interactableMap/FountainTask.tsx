@@ -3,9 +3,10 @@ import * as THREE from "three";
 import { useLoader } from "@react-three/fiber";
 import { TextureLoader } from "three";
 import { Publish } from "../../TaskmanagerSocket";
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import { Task } from "../Map";
 import { Scale } from "../../InGame";
+import {PositionalAudio} from "@react-three/drei";
 
 type Props = {
     lobbyId: string;
@@ -34,6 +35,9 @@ export default function FountainMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
 
     const initialHouseTextures = Array.from({ length: 9 }, (_, index) => index < 6 ? texture1 : texture2);
     const [houseTextures, setHouseTextures] = useState(initialHouseTextures);
+    const waterSrc = "/sounds/water-splash.mp3";
+    const waterRef = useRef<THREE.PositionalAudio | null>(null);
+
 
     const onClick = () => {
         const taskFinished = {
@@ -45,6 +49,7 @@ export default function FountainMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
     };
 
     const handleHouseClick = (index: number) => {
+        waterRef.current?.play()
         setHouseTextures((prevTextures) =>
             prevTextures.map((texture, i) => (i === index ? texture2 : texture))
         );
@@ -73,12 +78,14 @@ export default function FountainMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
 
     return (
         <group>
+            <PositionalAudio url={"/sounds/fire-burning.mp3"} autoplay loop={true} distance={0.5}/>
             {/* Background Mesh */}
             <mesh
                 position={new THREE.Vector3(myPlayer!.x, myPlayer!.y, 2)}
                 scale={[scale.width / (0.4270833333333333 * scale.width + (-35)), scale.height / (0.004669753812365262 * (scale.height ** 2) + (-4.846533486941553) * scale.height + 1627.4816620249615), scale.depth]}
             >
                 <boxGeometry args={[1, 1, 0.1]} />
+                <PositionalAudio ref={waterRef} url={waterSrc} loop={false} distance={1}/>
                 <meshBasicMaterial map={textureBackground} transparent={true} />
             </mesh>
 
