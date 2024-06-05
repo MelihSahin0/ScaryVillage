@@ -28,7 +28,6 @@ export default function FishingMesh({lobbyId, myPlayerId ,myPlayer, taskId, setC
     const audioSrcFishPick = "/sounds/bloop.mp3";
     const soundPickRef = useRef<THREE.PositionalAudio | null>(null);
 
-
     useState(() => {
         const initialTexture = new TextureLoader().load('/images/fish.png');
         initialTexture.magFilter = THREE.NearestFilter;
