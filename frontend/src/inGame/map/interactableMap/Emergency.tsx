@@ -9,9 +9,10 @@ type Props = {
     lobbyId: string;
     myPlayerId: string;
     myPlayer: Player | undefined;
+    visible: boolean;
 }
 
-export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
+export default function BellMesh({lobbyId, myPlayerId, myPlayer, visible}: Props){
 
     const [isHovered, setIsHovered] = useState(false);
     const [bellCooldown, setBellCooldown] = useState<number>()
@@ -29,7 +30,7 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
     };
 
     const handleClick = () => {
-        if (bellCooldown === 0) {
+        if (bellCooldown === 0 && insideBellDistance) {
             soundRef.current?.play();
             setTimeout(() => {
             const message = {
@@ -66,18 +67,22 @@ export default function BellMesh({lobbyId, myPlayerId, myPlayer}: Props){
 
     return (
         <group>
-            <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={0.3}/>
-            <mesh position={meshPosition} onClick={handleClick}
-                  onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
-                <boxGeometry args={[0.6, 0.5, 1]}/>
-                <meshBasicMaterial transparent/>
-            </mesh>
-            <group visible={isHovered && bellCooldown == 0 && (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter")}>
-                <lineSegments position={[meshPosition.x, meshPosition.y, 1]}>
-                    <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.6, 0.5, 1)]}/>
-                    <lineBasicMaterial attach="material" color={insideBellDistance ? 0xFFFF00 : 0x808080 }/>
-                </lineSegments>
-            </group>
+            {visible &&
+                <group>
+                    <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={0.3}/>
+                    <mesh position={meshPosition} onClick={handleClick}
+                          onPointerOver={handlePointerOver} onPointerOut={handlePointerOut}>
+                        <boxGeometry args={[0.6, 0.5, 1]}/>
+                        <meshBasicMaterial transparent/>
+                    </mesh>
+                    <group visible={isHovered && bellCooldown == 0 && (myPlayer?.role === "crewmate" || myPlayer?.role === "imposter")}>
+                        <lineSegments position={[meshPosition.x, meshPosition.y, 1]}>
+                            <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.6, 0.5, 1)]}/>
+                            <lineBasicMaterial attach="material" color={insideBellDistance ? 0xFFFF00 : 0x808080 }/>
+                        </lineSegments>
+                    </group>
+                </group>
+            }
         </group>
     )
 }

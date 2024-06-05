@@ -11,9 +11,9 @@ const playerOptions = [
     { value: 10, label: '10' }
 ]
 const imposterOption = [
-    { value: 1, label: '01' },
-    { value: 2, label: '02' },
-    { value: 3, label: '03' },
+    { value: 1, label: '1' },
+    { value: 2, label: '2' },
+    { value: 3, label: '3' },
 ]
 
 const visibilityOptions = [

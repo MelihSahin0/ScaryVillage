@@ -6,10 +6,10 @@ import {Player} from "../PlayerManager";
 import React, {useEffect, useRef, useState} from "react";
 import {
     Publish, SubscribeGetPlayerTodoTask, SubscribeGetProgress,
-    SubscribePlayerTasks, SubscribeSabotageDone, SubscribeSabotageTask,
+    SubscribePlayerTasks, SubscribeSabotageCooldown, SubscribeSabotageDone, SubscribeSabotageTask,
     SubscribeToLobby, UnsubscribeGetPlayerTodoTask,
     UnsubscribeGetProgress,
-    UnsubscribePlayerTasks, UnsubscribeSabotageDone, UnsubscribeSabotageTask
+    UnsubscribePlayerTasks, UnsubscribeSabotageCooldown, UnsubscribeSabotageDone, UnsubscribeSabotageTask
 } from "../TaskmanagerSocket";
 import {games, gameState, role} from "../../types";
 import TaskProgress from "./TaskProgress";
@@ -65,7 +65,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     const [tasks, setTasks] = useState<Array<Task>>([]);
     const texture = useLoader(TextureLoader, '/images/newMap.png');
     const [sabotage, setSabotage] = useState<boolean>(false);
-    const sabotageRef = useRef(sabotage);
     const [sabotageCooldown, setSabotageCooldown] = useState<boolean>(false);
     texture.magFilter = THREE.NearestFilter;
     texture.minFilter = THREE.NearestFilter;
@@ -172,40 +171,40 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
 
     useEffect(() => {
         const getPlayerSabotage = (message: any) => {
-            if(message.type === "Flooding"){
-            const task: Task = {
-                taskId: message.taskId,
-                gameType: message.type,
-                position: message.position,
-                scale: message.scale,
-                radius: message.radius
-            }
-            setTasks([task]);
-            }
-            if(message.type === "Fountain") {
-                const task1: Task = {
-                    taskId: "Fountain1",
-                    gameType: message.type,
-                    position: message.position,
-                    scale: message.scale,
-                    radius: message.radius
+            if (myPlayer?.role !== "imposterGhost" && myPlayer?.role !== "crewmateGhost") {
+                if (message.type === "Flooding") {
+                    const task: Task = {
+                        taskId: message.taskId,
+                        gameType: message.type,
+                        position: message.position,
+                        scale: message.scale,
+                        radius: message.radius
+                    }
+                    setTasks([task]);
                 }
-                const task2: Task = {
-                    taskId: "Fountain2",
-                    gameType: message.type,
-                    position: {
-                        x: 0.11,
-                        y: -0.95,
-                        z: message.position.z
-                    },
-                    scale: message.scale,
-                    radius: message.radius
+                if (message.type === "Fountain") {
+                    const task1: Task = {
+                        taskId: "Fountain1",
+                        gameType: message.type,
+                        position: message.position,
+                        scale: message.scale,
+                        radius: message.radius
+                    }
+                    const task2: Task = {
+                        taskId: "Fountain2",
+                        gameType: message.type,
+                        position: {
+                            x: 0.11,
+                            y: -0.95,
+                            z: message.position.z
+                        },
+                        scale: message.scale,
+                        radius: message.radius
+                    }
+                    setTasks([task1, task2]);
                 }
-                setTasks([task1, task2]);
+                setSabotage(true);
             }
-            setSabotage(true);
-            sabotageRef.current = true;
-            checkSabotageStatus();
         }
         SubscribeSabotageTask(getPlayerSabotage);
         return () => {
@@ -236,8 +235,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                     setTasks(updatedTasks);
                 }
                 setSabotage(false);
-                sabotageRef.current = false;
-                setSabotageCooldown(true);
             };
             SubscribeSabotageDone(getPlayerSabotage);
             return () => {
@@ -247,27 +244,20 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
     }, [myPlayer?.role]);
 
     useEffect(() => {
-        if (sabotageCooldown) {
-            const timer = setTimeout(() => {
-                setSabotageCooldown(false);
-            }, 30000);
-
-            return () => clearTimeout(timer);
+        const getSabotageCooldown = (messages: any) => {
+           if (messages.onCooldown === null){
+               setWinner("imposter");
+               setGameState("lobby");
+           } else {
+               setSabotageCooldown(messages.onCooldown);
+           }
         }
-    }, [sabotageCooldown]);
+        SubscribeSabotageCooldown(getSabotageCooldown);
 
-    const checkSabotageStatus = () => {
-        setTimeout(() => {
-            if (sabotageRef.current) {
-                setWinner("imposter");
-                setGameState("lobby");
-                setSabotage(false);
-                sabotageRef.current = false;
-            } else {
-                console.log("No sabotage.");
-            }
-        }, 30000);
-    };
+        return () => {
+            UnsubscribeSabotageCooldown();
+        }
+    }, []);
 
     return (
         <group>
@@ -282,23 +272,16 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             </mesh>
 
             <Sewer lobbyId={lobbyId} myPlayer={myPlayer}/>
-
-            {((myPlayer?.role === "imposter" && !sabotageCooldown) || tasks.some(task => task.gameType === "Flooding" /* Checks if the Flooding Task is set */)) && <Flooding lobbyId={lobbyId} myPlayer={myPlayer} setCurrentTask={setCurrentTask} tasks={tasks}/>}
-
-            {((myPlayer?.role === "imposter" && !sabotageCooldown) || tasks.some(task => task.gameType === "Fountain" /* Checks if the Fountain Task is set */)) && <Fountain lobbyId={lobbyId} myPlayer={myPlayer} setCurrentTask={setCurrentTask} tasks={tasks} xCoor={0.08} yCoor={1.3} i={0}/>}
-            {((myPlayer?.role === "imposter" && !sabotageCooldown) || tasks.some(task => task.gameType === "Fountain" /* Checks if the Fountain Task is set */)) && <Fountain lobbyId={lobbyId} myPlayer={myPlayer} setCurrentTask={setCurrentTask} tasks={tasks} xCoor={0.11} yCoor={-0.95} i={1}/>}
-
-
             <TaskProgress progress={progress} myPlayer={myPlayer} tasks={tasks} scale={scale}/>
 
-            {currentTask === undefined && !showMinimap &&<>
-                <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer}/>
-                <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks} setSrc={setSrc}/>
-             </>
-            }
+            {(((myPlayer?.role === "imposter" || myPlayer?.role === "imposterGhost") && !sabotageCooldown && !tasks.some(task => task.gameType === "Fountain")) || tasks.some(task => task.gameType === "Flooding" /* Checks if the Flooding Task is set */)) && currentTask === undefined && <Flooding lobbyId={lobbyId} myPlayer={myPlayer} setCurrentTask={setCurrentTask} tasks={tasks}/>}
+            {(((myPlayer?.role === "imposter" || myPlayer?.role === "imposterGhost") && !sabotageCooldown && !tasks.some(task => task.gameType === "Flooding")) || tasks.some(task => task.gameType === "Fountain" /* Checks if the Fountain Task is set */)) && currentTask === undefined && <Fountain lobbyId={lobbyId} myPlayer={myPlayer} setCurrentTask={setCurrentTask} tasks={tasks}/>}
+
+            <BellMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} visible={currentTask === undefined && !showMinimap && !sabotage}/>
+            <TaskMeshDrawer lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} tasks={tasks} setSrc={setSrc} visible={currentTask === undefined && !showMinimap && !sabotage}/>
 
             {showMinimap ?
-                <MiniMap myPlayer={myPlayer} tasks={tasks} currentTask={currentTask} scale={scale}/>
+                <MiniMap myPlayer={myPlayer} tasks={tasks} currentTask={currentTask} scale={scale} sabotage={sabotage}/>
                 :
                 currentTask?.gameType === "Sleeping" && <SleepingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
                 currentTask?.gameType === "Cave" && <CaveMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} currentTask={currentTask} setCurrentTask={setCurrentTask} setSrc={setSrc}/> ||
@@ -307,12 +290,9 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                 currentTask?.gameType === "Cooking" && <CookingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
                 currentTask?.gameType === "Chopping" && <ChoppingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
                 currentTask?.gameType === "Mining" && <MiningMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
-
-                // Sabotage Tasks
                 currentTask?.gameType === "Flooding" && <FloodingMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale}/> ||
                 currentTask?.gameType === "Fountain" && <FountainMesh lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} taskId={currentTask.taskId} setCurrentTask={setCurrentTask} setAllowedToMove={setAllowedToMove} scale={scale} setTasks={setTasks} tasks={tasks}/>
-
-}
+            }
         </group>
     )
 }

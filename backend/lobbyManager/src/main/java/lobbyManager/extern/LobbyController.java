@@ -77,6 +77,11 @@ public class LobbyController {
         }
 
         Player player = lobby.getPlayer(message.getPlayerId());
+
+        if (player == null) {
+            return;
+        }
+
         lobby.stopTimer();
         lobby.removePlayer(message.getPlayerId());
         lobby.startTimer();

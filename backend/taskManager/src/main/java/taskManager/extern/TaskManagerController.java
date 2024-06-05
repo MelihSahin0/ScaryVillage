@@ -41,9 +41,10 @@ public class TaskManagerController {
         if (lobby == null) {
             return null;
         }
-        System.out.println(message);
+
         if (lobby.getPlayersTask(message.getPlayerId()) == null) {return null;} // Otherwise throws error for imposter trying to do sabotage task
         if (lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId()) == null) {return null;} // Otherwise throws error for sabotage
+
         Task task = lobby.getPlayersTask(message.getPlayerId()).getTask(message.getTaskId());
         if (!task.insideRadius(Rest.getPlayerPosi(message.getLobbyId(), message.getPlayerId()))){
             return null;
@@ -134,6 +135,10 @@ public class TaskManagerController {
     public String sabotage(TaskClicked message){
         Lobby lobby = Lobbies.getLobby(message.getLobbyId());
 
+        if (lobby == null){
+            return null;
+        }
+
         if(lobby.getActiveSabotage()) {
             return null;
         }
@@ -154,7 +159,7 @@ public class TaskManagerController {
             scale.setWidth(0.5);
             fountain.setScale(scale);
             fountain.setDifficulty(TaskDifficulty.MEDIUM);
-            fountain.setRadius(5);
+            fountain.setRadius(0.6);
             fountain.setStatus(TaskStatus.TODO);
 
             // Set both fountains to true
@@ -164,13 +169,11 @@ public class TaskManagerController {
             lobby.checkSabotage(message.getLobbyId());
 
             return fountain.toString();
-        }
-
-        else if(message.getTaskId().equals("Flooding")) {
+        } else if(message.getTaskId().equals("Flooding")) {
             Flooding flooding = new Flooding();
             flooding.setTaskId(UUID.randomUUID().toString());
             Task.Position position = new Task.Position();
-            position.setX(-3.85);
+            position.setX(-3.8);
             position.setY(0.16090551000000003);
             flooding.setPosition(position);
             Task.Scale scale = new Task.Scale();
@@ -178,7 +181,7 @@ public class TaskManagerController {
             scale.setWidth(0.2);
             flooding.setScale(scale);
             flooding.setDifficulty(TaskDifficulty.MEDIUM);
-            flooding.setRadius(5);
+            flooding.setRadius(0.6);
             flooding.setStatus(TaskStatus.TODO);
 
             lobby.setSabotage(0, true);
@@ -197,23 +200,23 @@ public class TaskManagerController {
         if(message.getTaskId().equals("Fountain1")) {
             lobby.setSabotage(1, false);
             if(!lobby.getActiveSabotage()) {
-                lobby.setSabotageCooldown();
                 return lobby.toString();
             }
         }
         else if(message.getTaskId().equals("Fountain2")) {
             lobby.setSabotage(2, false);
             if(!lobby.getActiveSabotage()) {
-                lobby.setSabotageCooldown();
                 return lobby.toString();
             }
         }
         else {
             lobby.setSabotage(0, false);
-            lobby.setSabotageCooldown();
             return lobby.toString();
         }
         return null;
     }
 
+    public void sendCooldown(String lobbyId, Boolean cooldownState) {
+        messagingTemplate.convertAndSend("/subscribe/sabotageCooldown/" + lobbyId, "{\"onCooldown\":" + cooldownState + "}");
+    }
 }

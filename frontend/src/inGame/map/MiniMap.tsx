@@ -1,7 +1,7 @@
 import {Player} from "../PlayerManager";
 import * as THREE from "three";
 import React from "react";
-import {useLoader, useThree} from "@react-three/fiber";
+import {useLoader} from "@react-three/fiber";
 import {TextureLoader} from "three";
 import {Task} from "./Map";
 import {Scale} from "../InGame";
@@ -11,9 +11,10 @@ type Props = {
     tasks: Array<Task>;
     currentTask: Task | undefined;
     scale: Scale;
+    sabotage: boolean;
 }
 
-export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
+export default function MiniMap({myPlayer, tasks, currentTask, scale, sabotage}: Props) {
     const mapTexture = useLoader(TextureLoader, 'images/newMap.png');
     mapTexture.magFilter = THREE.NearestFilter;
     mapTexture.minFilter = THREE.NearestFilter;
@@ -24,6 +25,7 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
     sewerTexture.magFilter = THREE.NearestFilter;
     sewerTexture.minFilter = THREE.NearestFilter;
     const displayTasks = currentTask?.gameType === "Cave" ? [...tasks, currentTask] : tasks;
+    const sabo = [{taskId: "Fountain1", x: 0.11, y: -0.95, width: 0.56,height: 0.5}, {taskId: "Fountain2", x: 0.08 , y: 1.3, width: 0.56,height: 0.5}, {taskId: "Flooding", x: -3.8, y: 0.16090551000000003, width: 0.15,height: 0.4}];
 
     const sewers = [
         {id: 0, x: -3.4, y: 1.6},
@@ -66,25 +68,40 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale}: Props) {
                 </React.Fragment>
             ))};
 
-
+            {myPlayer?.role === "imposter" && !sabotage && (
+                <group>
+                    {sabo.map((sab) => (
+                        <lineSegments key={sab.taskId + "@"}
+                            position={new THREE.Vector3(
+                                sab.x / (0.00014583333333333318 * scale.width + 3.41) + (myPlayer ? myPlayer.x * 1.28 : 0) - (myPlayer ? myPlayer.x * 1.28 : 0) / 4.57,
+                                sab.y / (0.000047402450041123594 * (scale.height ** 2) + (-0.057330966320548724) * (scale.height) + 20.528915773896273) + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
+                                3
+                            )}>
+                            <edgesGeometry attach="geometry"
+                                           args={[new THREE.BoxGeometry(sab.width / 3.5, sab.height / 3.5, sab.depth)]}/>
+                            <lineBasicMaterial attach="material" color={0xFFFF00}/>
+                        </lineSegments>
+                    ))}
+                </group>
+            )}
 
             <mesh
                 position={[myPlayer ? myPlayer.x * ((-0.00001041666666666609) * scale.width + 1.295) : 0, myPlayer ? myPlayer.y * ((-0.0000010357628500816756) * (scale.height ** 2) + 0.001245800873609301 * (scale.height) + 0.8927908337240951) : 0, 3]}>
                 <planeGeometry attach="geometry" args={[0.07, 0.07, 1]}/>
                 <meshBasicMaterial transparent={true} map={playerTexture} color={myPlayer?.color}/>
             </mesh>
-            {currentTask === undefined && //Emergency
-							<group
-								visible={myPlayer?.role === "crewmate" || myPlayer?.role === "imposter"}>
-								<lineSegments position={new THREE.Vector3(
-                    0.1 / 3.62 + (myPlayer ? myPlayer.x * 1.28 : 0) - (myPlayer ? myPlayer.x * 1.28 : 0) / 4.57,
-                    0.2 / 3.95 + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
-                    3
-                )}>
-									<edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.6 / 3.5, 0.5 / 4, 3)]}/>
-									<lineBasicMaterial attach="material" color={0xFFFF00}/>
-								</lineSegments>
-							</group>
+            {currentTask === undefined && !sabotage && //Emergency
+                <group
+                    visible={myPlayer?.role === "crewmate" || myPlayer?.role === "imposter"}>
+                    <lineSegments position={new THREE.Vector3(
+                        0.1 / 3.62 + (myPlayer ? myPlayer.x * 1.28 : 0) - (myPlayer ? myPlayer.x * 1.28 : 0) / 4.57,
+                        0.2 / 3.95 + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
+                        3
+                    )}>
+                        <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.6 / 3.5, 0.5 / 4, 3)]}/>
+                        <lineBasicMaterial attach="material" color={0xFFFF00}/>
+                    </lineSegments>
+                </group>
             }
             {displayTasks.map((task) => {
                 if (currentTask === undefined || currentTask!.taskId === task.taskId) {
