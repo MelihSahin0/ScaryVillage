@@ -3,7 +3,7 @@ package lobbyManager;
 public class Message {
 
     private final boolean wasAlive;
-    private final String playerName;
+    private String playerName;
     private final String message;
 
     public Message(boolean wasAlive, String playerName, String message) {
@@ -14,6 +14,10 @@ public class Message {
 
     public String getPlayerName() {
         return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public String getMessage() {

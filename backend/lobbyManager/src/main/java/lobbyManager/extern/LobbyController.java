@@ -143,7 +143,17 @@ public class LobbyController {
         }
 
         Player player = lobby.getPlayer(message.getPlayerId());
+
+        for (Message m : lobby.getMessages()){
+            if (m.getPlayerName().equals(player.getName())){
+                m.setPlayerName(message.getName());
+            }
+        }
         player.setName(message.getName());
+
+        GetMessages messages = new GetMessages();
+        messages.setLobbyId(message.getLobbyId());
+        getAllMessages(messages);
 
         return lobby.getPlayers().values().toString();
     }
