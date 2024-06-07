@@ -33,7 +33,7 @@ export default function FountainMesh({ lobbyId, myPlayerId, myPlayer, taskId, se
     texture2.magFilter = THREE.NearestFilter;
     texture2.minFilter = THREE.NearestFilter;
 
-    const initialHouseTextures = Array.from({ length: 9 }, (_, index) => index < 6 ? texture1 : texture2);
+    const initialHouseTextures = Array.from({ length: 2 }, (_, index) => index < 6 ? texture1 : texture2);
     const [houseTextures, setHouseTextures] = useState(initialHouseTextures);
     const waterSrc = "/sounds/water-splash.mp3";
     const waterRef = useRef<THREE.PositionalAudio | null>(null);

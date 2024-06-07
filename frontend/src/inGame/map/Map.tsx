@@ -171,6 +171,9 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
 
     useEffect(() => {
         const getPlayerSabotage = (message: any) => {
+            if (message.type === "Flooding" || message.type === "Fountain"){
+                warningRef.current?.play()
+            }
             if (myPlayer?.role !== "imposterGhost" && myPlayer?.role !== "crewmateGhost") {
                 if (message.type === "Flooding") {
                     const task: Task = {
@@ -258,16 +261,17 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             UnsubscribeSabotageCooldown();
         }
     }, []);
+    console.log(warningRef.current?.isPlaying)
 
     return (
         <group>
+            <PositionalAudio ref={warningRef} url={audioSrc} loop={false} distance={0.2}/>
             <mesh position={new THREE.Vector3(0, 0, 0)}>
                 <boxGeometry args={[12, 6, 0.1]} />
                 <meshBasicMaterial attach="material" map={back}/>
             </mesh>
             <mesh position={new THREE.Vector3(0, 0, 0)}>
                 <boxGeometry args={[9, 5, 0.1]}/>
-                {sabotage && <PositionalAudio ref={warningRef} url={audioSrc} autoplay loop={false} distance={0.1}/>}
                 <meshBasicMaterial map={texture}/>
             </mesh>
 
