@@ -47,7 +47,7 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale, sabotage}:
                     <mesh position={new THREE.Vector3(
                         sewer.x / (0.00014583333333333318 * scale.width + 3.41) + (myPlayer ? myPlayer.x * 1.28 : 0) - (myPlayer ? myPlayer.x * 1.28 : 0) / 4.57,
                         sewer.y / (0.000047402450041123594 * (scale.height ** 2) + (-0.057330966320548724) * (scale.height) + 20.528915773896273) + (myPlayer ? myPlayer.y * 1.25 : 0) - (myPlayer ? myPlayer.y * 1.25 : 0) / 5,
-                        3
+                        2
                     )}>
                         <boxGeometry args={[0.06, 0.06, 0.1]}/>
                         <meshBasicMaterial map={sewerTexture} transparent={true}/>
@@ -78,7 +78,7 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale, sabotage}:
                                 3
                             )}>
                             <edgesGeometry attach="geometry"
-                                           args={[new THREE.BoxGeometry(sab.width / 3.5, sab.height / 3.5, sab.depth)]}/>
+                                           args={[new THREE.BoxGeometry(sab.width / 3.5, sab.height / 3.5, 2.5)]}/>
                             <lineBasicMaterial attach="material" color={0xFFFF00}/>
                         </lineSegments>
                     ))}
