@@ -86,7 +86,7 @@ export default function MiniMap({myPlayer, tasks, currentTask, scale, sabotage}:
             )}
 
             <mesh
-                position={[myPlayer ? myPlayer.x * ((-0.00001041666666666609) * scale.width + 1.295) : 0, myPlayer ? myPlayer.y * ((-0.0000010357628500816756) * (scale.height ** 2) + 0.001245800873609301 * (scale.height) + 0.8927908337240951) : 0, 3]}>
+                position={[myPlayer ? myPlayer.x * ((-0.00001041666666666609) * scale.width + 1.295) : 0, myPlayer ? myPlayer.y * ((-0.0000010357628500816756) * (scale.height ** 2) + 0.001245800873609301 * (scale.height) + 0.8927908337240951) : 0, 3.5]}>
                 <planeGeometry attach="geometry" args={[0.07, 0.07, 1]}/>
                 <meshBasicMaterial transparent={true} map={playerTexture} color={myPlayer?.color}/>
             </mesh>
