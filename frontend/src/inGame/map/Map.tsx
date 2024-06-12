@@ -39,6 +39,7 @@ type Props = {
     setAllowedToMove:(setAllowedToMove: boolean) => void;
     scale: Scale;
     setSrc(pic: string): void
+    setSabotageOutside(setSabotage: boolean): void;
 }
 
 export type Task = {
@@ -57,7 +58,7 @@ export type Task = {
     radius: number;
 };
 
-export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner, setAllowedToMove, scale, setSrc}: Props){
+export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWinner, setAllowedToMove, scale, setSrc, setSabotageOutside}: Props){
 
     const [currentTask, setCurrentTask] = useState<Task | undefined>(undefined);
     const [showMinimap, setShowMinimap] = useState<boolean>(false)
@@ -207,6 +208,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                     setTasks([task1, task2]);
                 }
                 setSabotage(true);
+                setSabotageOutside(true);
             }
         }
         SubscribeSabotageTask(getPlayerSabotage);
@@ -238,6 +240,7 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
                     setTasks(updatedTasks);
                 }
                 setSabotage(false);
+                setSabotageOutside(false);
             };
             SubscribeSabotageDone(getPlayerSabotage);
             return () => {
@@ -261,7 +264,6 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             UnsubscribeSabotageCooldown();
         }
     }, []);
-    console.log(warningRef.current?.isPlaying)
 
     return (
         <group>

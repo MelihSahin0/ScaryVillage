@@ -26,6 +26,7 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
     const [previousX, setPreviousX] = useState(0);
     const [previousY, setPreviousY] = useState(0);
     const [scale, setScale] = useState<Scale>({width: window.innerWidth * (window.devicePixelRatio / 2), height: window.innerHeight * (window.devicePixelRatio / 2), depth: 0.1});
+    const [sabotage, setSabotage] = useState<boolean>(false);
 
     function setSrc(pic: string){
         setMySrc(pic);
@@ -66,8 +67,8 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
             <ambientLight/>
             <pointLight position={[10, 10, 10]}/>
             <PositionalAudio url={"/sounds/game-ambient-music.mp3"} autoplay loop={true} distance={0.15}/>
-            <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner} setAllowedToMove={setAllowedToMove} setSrc={setSrc} scale={scale}/>
-            <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner} myPlayer={myPlayer} setMyPlayer={setMyPlayer} mySrc={mySrc} allowedToMove={allowedToMove}/>
+            <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner} setAllowedToMove={setAllowedToMove} setSrc={setSrc} scale={scale} setSabotageOutside={setSabotage}/>
+            <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner} myPlayer={myPlayer} setMyPlayer={setMyPlayer} mySrc={mySrc} allowedToMove={allowedToMove} sabotage={sabotage}/>
         </>
     )
 }

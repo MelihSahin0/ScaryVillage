@@ -16,11 +16,12 @@ type Props = {
     killCooldown: number;
     allowedToMove: boolean;
     playSound: boolean;
-    mySrc: string
+    mySrc: string;
+    sabotage: boolean;
 }
 
 
-export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, allowedToMove, playSound, mySrc}: Props){
+export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, allowedToMove, playSound, mySrc, sabotage}: Props){
     const meshRef = useRef<Mesh<BufferGeometry<NormalBufferAttributes>> | null>(null);
     const keyMap = useKeyboard();
     const steps = "/sounds/knock.mp3";
@@ -84,14 +85,14 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
                     (myPlayer?.role === "imposterGhost" || myPlayer?.role === "crewmateGhost")
                 )
                 &&
-                <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={myPlayer} meshRef={player.id === myPlayer?.id ? meshRef : undefined} killCooldown={killCooldown} mySrc={mySrc}/>
+                <DrawPlayerMesh key={player.id} lobbyId={lobbyId} player={player} myPlayer={myPlayer} meshRef={player.id === myPlayer?.id ? meshRef : undefined} killCooldown={killCooldown} mySrc={mySrc} sabotage={sabotage}/>
            ))}
         </>
     );
 }
 
 
-function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown, mySrc}: { mySrc:string,  lobbyId: string, player: Player, myPlayer: Player | undefined, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined, killCooldown: number }) {
+function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown, mySrc, sabotage}: { mySrc:string,  lobbyId: string, player: Player, myPlayer: Player | undefined, meshRef: React.RefObject<Mesh<BufferGeometry<NormalBufferAttributes>>> | undefined, killCooldown: number, sabotage: boolean }) {
     const texture = useLoader(TextureLoader, player.src);
     const texture2 = useLoader(TextureLoader, "/images/pixiTrash.png")
     texture.magFilter = THREE.NearestFilter;
@@ -128,7 +129,9 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown, mySrc
         };
 
         if(player.role == "deadBody") {
-            Publish("/send/report", JSON.stringify(message));
+            if (!sabotage) {
+                Publish("/send/report", JSON.stringify(message));
+            }
         } else {
             Publish("/send/killPlayer", JSON.stringify(message));
         }
@@ -168,7 +171,7 @@ function DrawPlayerMesh({lobbyId, player, myPlayer, meshRef, killCooldown, mySrc
                     </lineSegments>
                 </group>
             ): null}
-            {(myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && player.role === "deadBody" ? (
+            {(myPlayer?.role === "crewmate" || myPlayer?.role === "imposter") && player.role === "deadBody" && !sabotage ? (
                 <group visible={isHovered}>
                     <lineSegments position={[player.x,player.y,player.z]}>
                         <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.3, 0.3, 1)]} />

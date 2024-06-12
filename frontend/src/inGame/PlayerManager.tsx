@@ -36,9 +36,10 @@ type Props = {
     setMyPlayer(setMyPlayer: Player): void;
     allowedToMove: boolean;
     mySrc: string;
+    sabotage: boolean;
 }
 
-export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer ,setMyPlayer, allowedToMove, mySrc}: Props){
+export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWinner, myPlayer ,setMyPlayer, allowedToMove, mySrc, sabotage}: Props){
     const [players, setPlayers] = useState<Array<Player>>([]);
     const [killCooldown, setKillCooldown] = useState(0);
     const [play, setPlay] = useState(true)
@@ -214,7 +215,7 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
 
     return (
         <>
-            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} allowedToMove={allowedToMove} playSound={play} mySrc={mySrc} />
+            <DrawPlayer lobbyId={lobbyId} myPlayer={myPlayer} players={players} killCooldown={killCooldown} allowedToMove={allowedToMove} playSound={play} mySrc={mySrc} sabotage={sabotage}/>
         </>
     )
 }
