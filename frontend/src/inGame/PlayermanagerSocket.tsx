@@ -7,7 +7,7 @@ type MessageHandler = {
 };
 let subscriptionHandlers: MessageHandler[] = [];
 const client = new Client();
-let lobbyId = "";
+let lobbyId: string = "";
 
 const isDebug = process.env.NODE_ENV === 'development';
 
@@ -34,11 +34,9 @@ export function SubscribePlayers(updatePlayers: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribePlayers(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
-    StartConnection();
 }
 
 export function SubscribePlayerMovement(updatePlayers: (message: any) => void) {
@@ -52,12 +50,9 @@ export function SubscribePlayerMovement(updatePlayers: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribePlayerMovement(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 1);
-    StartConnection();
 }
 
 export function SubscribeKill(killPlayers: (message: any) => void) {
@@ -71,12 +66,9 @@ export function SubscribeKill(killPlayers: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeKill(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 2);
-    StartConnection();
 }
 
 export function SubscribeReport(report: (message: any) => void) {
@@ -90,12 +82,9 @@ export function SubscribeReport(report: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeReport(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 3);
-    StartConnection();
 }
 
 export function SubscribeKillCooldown(report: (message: any) => void) {
@@ -109,12 +98,9 @@ export function SubscribeKillCooldown(report: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeKillCooldown(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 4);
-    StartConnection();
 }
 
 export function SubscribeBellCooldown(report: (message: any) => void) {
@@ -128,15 +114,12 @@ export function SubscribeBellCooldown(report: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeBellCooldown(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 5);
-    StartConnection();
 }
 
-function StartConnection(){
+export function StartConnection(){
     client.deactivate().then();
     client.configure({
         brokerURL: getBrokerURL(),
@@ -156,6 +139,6 @@ export function CloseConnection(){
 }
 
 export function Publish(dest: string, body: string){
-    const destination : string = dest + "/" + lobbyId;
-    client.publish({ destination, body });
+    const destination: string = dest + "/" + lobbyId;
+    client.publish({destination, body});
 }

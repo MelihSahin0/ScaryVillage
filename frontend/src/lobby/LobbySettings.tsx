@@ -1,6 +1,7 @@
 import Select from "react-select";
-import {Publish, SubscribeGetLobbySettings, UnsubscribeGetLobbySettings} from "./LobbyManagerSocket";
+import {Publish, StartConnection, SubscribeGetLobbySettings, UnsubscribeGetLobbySettings} from "./LobbyManagerSocket";
 import React, {useEffect, useState} from "react";
+import {StartHeartbeat} from "./Heartbeat";
 
 const playerOptions = [
     { value: 5, label: '5' },
@@ -66,6 +67,12 @@ export default function LobbySettings({lobbyId, maxNumberOfPlayers}: Props){
             UnsubscribeGetLobbySettings();
         }
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            StartConnection();
+        }, 100)
+    }, [lobbyId]);
 
     useEffect(() => {
         setTimeout(() => {

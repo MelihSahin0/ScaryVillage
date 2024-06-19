@@ -38,7 +38,7 @@ export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
                 taskId: "Flooding",
             };
             Publish("/send/initiateSabotage", JSON.stringify(sabotageData));
-        } else if (insideDistance) {
+        } else if (insideDistance && myPlayer?.role !== "crewmateGhost" && myPlayer?.role !== "imposterGhost") {
             setCurrentTask(tasks[0]);
         }
     };
@@ -65,7 +65,7 @@ export default function Flooding({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
                 <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={1}/>
                 <meshBasicMaterial transparent={true} opacity={0} />
             </mesh>
-            {isHovered && (
+            {isHovered && myPlayer?.role !== "crewmateGhost" && myPlayer?.role !== "imposterGhost" && (
                 <lineSegments position={tasks.length == 0 ? new THREE.Vector3(shovel.x, shovel.y, 0.2)  : new THREE.Vector3(tasks[0].position.x, tasks[0].position.y, 0.2)}>
                     <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.15, 0.4, 1)]} />
                     <lineBasicMaterial attach="material" color={insideDistance ? 0xFFFF00 : 0x808080}/>

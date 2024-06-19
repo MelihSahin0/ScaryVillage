@@ -45,7 +45,7 @@ export default function PlayerListItem({displayPlayer, lobbyId, myPlayer, votedP
                         {displayPlayer.name}
                     </p>
                     {votedPlayer === displayPlayer.id && <img
-                        src="../../public/images/down.png"
+                        src="/images/down.png"
                         alt="Image"
                         style={{width: 'auto', height: '23px'}}
                         className="pl-1 pt-[5px]"

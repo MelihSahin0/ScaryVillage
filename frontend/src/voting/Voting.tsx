@@ -5,7 +5,7 @@ import {
     Publish,
     SubscribePlayers,
     UnsubscribePlayers,
-    SubscribeToLobby, SubscribeVotingTime, UnsubscribeVotingTime, SubscribeGameEnd, UnsubscribeGameEnd
+    SubscribeToLobby, SubscribeVotingTime, UnsubscribeVotingTime, SubscribeGameEnd, UnsubscribeGameEnd, StartConnection
 } from "./VoteManagerSocket";
 import PlayerList from "./PlayerList";
 import TextChat from "./TextChat";
@@ -140,6 +140,12 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
 
     useEffect(() => {
         setTimeout(() => {
+            StartConnection();
+        }, 100)
+    }, [myPlayerId]);
+
+    useEffect(() => {
+        setTimeout(() => {
             const sendMyLobbyId = {
                 lobbyId: lobbyId
             };
@@ -148,7 +154,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
                 lobbyId: lobbyId
             }
             LobbyPublish("/send/getMessages", JSON.stringify(getMessages));
-        }, 500);
+        }, 600);
         return () => {
             CloseConnection();
         }

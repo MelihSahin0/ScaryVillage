@@ -64,8 +64,8 @@ export default function InGame({lobbyId, myPlayerId, setGameState, setWinner}: P
     return (
         <>
             <OrthographicCamera position={[myPlayer ? myPlayer.x : previousX, myPlayer ? myPlayer.y : previousY, 10]} makeDefault zoom={cameraZoomFactor}/>
-            <ambientLight/>
-            <pointLight position={[10, 10, 10]}/>
+            <ambientLight color={sabotage ? "#FF0000" : "#FFFFFF"}/>
+            <pointLight position={[10, 10, 10]} color={sabotage ? "#FF0000" : "#FFFFFF"}/>
             <PositionalAudio url={"/sounds/game-ambient-music.mp3"} autoplay loop={true} distance={0.15}/>
             <Map lobbyId={lobbyId} myPlayerId={myPlayerId} myPlayer={myPlayer} setGameState={setGameState} setWinner={setWinner} setAllowedToMove={setAllowedToMove} setSrc={setSrc} scale={scale} setSabotageOutside={setSabotage}/>
             <PlayerManager lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner} myPlayer={myPlayer} setMyPlayer={setMyPlayer} mySrc={mySrc} allowedToMove={allowedToMove} sabotage={sabotage}/>

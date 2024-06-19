@@ -28,7 +28,7 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
     texture2.magFilter = THREE.NearestFilter;
     texture2.minFilter = THREE.NearestFilter;
 
-    const [expansionFactor, setExpansionFactor] = useState(0.3);
+    const [expansionFactor, setExpansionFactor] = useState(0.4);
     const [shovelLoaded, setShovelLoaded] = useState(false);
     const [texture, setTexture] = useState<THREE.Texture | null>(texture1);
 
@@ -66,7 +66,7 @@ export default function FloodingMesh({lobbyId, myPlayerId ,myPlayer, taskId, set
             setShovelLoaded(false);
             setTexture(texture1);
         }
-        if(expansionFactor <= 0.4) {
+        if(expansionFactor <= 0.1) {
             setAllowedToMove(true);
             const taskFinished = {
                 lobbyId: lobbyId,

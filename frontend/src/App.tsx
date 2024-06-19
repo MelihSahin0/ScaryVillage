@@ -9,6 +9,8 @@ import Voting from "./voting/Voting";
 import {AdaptiveDpr} from "@react-three/drei";
 import VoiceChat from "./voiceChat/voiceChatWebsocket";
 
+const isDebug = process.env.NODE_ENV === 'development';
+
 export default function App() {
 
     const [gameState, setGameState] = useState<gameState>('startingScreen');
@@ -26,7 +28,7 @@ export default function App() {
                 <AdaptiveDpr pixelated />
             </Canvas>
             {gameState === 'voting' && <Voting lobbyId={lobbyId} myPlayerId={myPlayerId} setGameState={setGameState} setWinner={setWinner}/>}
-            {gameState !== 'startingScreen' && <VoiceChat lobbyId={lobbyId} myPlayerId={myPlayerId} masterVolume={masterVoiceVolume}/>}
+            {gameState !== 'startingScreen' && isDebug && <VoiceChat lobbyId={lobbyId} myPlayerId={myPlayerId} masterVolume={masterVoiceVolume}/>}
         </>
     );
 }

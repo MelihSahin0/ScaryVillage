@@ -61,7 +61,7 @@ export default function Fountain({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
                 taskId: "Fountain",
             };
             Publish("/send/initiateSabotage", JSON.stringify(sabotageData));
-        } else if (insideDistance[index]) {
+        } else if (insideDistance[index] && myPlayer?.role !== "crewmateGhost" && myPlayer?.role !== "imposterGhost") {
             setCurrentTask(tasks[index]);
         }
     };
@@ -80,7 +80,7 @@ export default function Fountain({lobbyId, myPlayer, setCurrentTask, tasks}: Pro
                         <PositionalAudio ref={soundRef} url={audioSrc} loop={false} distance={1}/>
                         <meshBasicMaterial transparent={true} opacity={0}/>
                     </mesh>
-                    <group visible={isHovered[index] !== undefined && isHovered[index]}>
+                    <group visible={isHovered[index] !== undefined && isHovered[index] && myPlayer?.role !== "crewmateGhost" && myPlayer?.role !== "imposterGhost"}>
                         <lineSegments
                             position={tasks.length == 0 ? new THREE.Vector3(fountain[index].x, fountain[index].y, 0.2) : new THREE.Vector3(tasks[index].position.x, tasks[index].position.y, 0.2)}>
                             <edgesGeometry attach="geometry" args={[new THREE.BoxGeometry(0.56, 0.5, 1)]}/>

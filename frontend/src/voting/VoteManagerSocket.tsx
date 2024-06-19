@@ -34,11 +34,9 @@ export function SubscribePlayers(updatePlayers: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribePlayers(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
-    StartConnection();
 }
 
 export function SubscribeVoting(voting: (message: any) => void) {
@@ -52,12 +50,9 @@ export function SubscribeVoting(voting: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeVoting(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 1);
-    StartConnection();
 }
 
 export function SubscribeVotingTime(voting: (message: any) => void) {
@@ -71,12 +66,9 @@ export function SubscribeVotingTime(voting: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeVotingTime(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 2);
-    StartConnection();
 }
 
 export function SubscribeGameEnd(voting: (message: any) => void) {
@@ -90,15 +82,12 @@ export function SubscribeGameEnd(voting: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeGameEnd(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 3);
-    StartConnection();
 }
 
-function StartConnection(){
+export function StartConnection(){
     client.deactivate().then();
     client.configure({
         brokerURL: getBrokerURL(),
@@ -118,6 +107,6 @@ export function CloseConnection(){
 }
 
 export function Publish(dest: string, body: string){
-    const destination : string = dest + "/" + lobbyId;
-    client.publish({ destination, body });
+    const destination: string = dest + "/" + lobbyId;
+    client.publish({destination, body});
 }

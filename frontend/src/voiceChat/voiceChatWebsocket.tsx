@@ -80,7 +80,6 @@ export default function VoiceChat({ lobbyId, myPlayerId, masterVolume }: Props) 
             if (remoteStreamRef.current) {
                 remoteStreamRef.current.srcObject = event.streams[0];
                 remoteStreamRef.current.volume = masterVolume;
-                console.log(masterVolume)
             }
         };
 
@@ -102,8 +101,6 @@ export default function VoiceChat({ lobbyId, myPlayerId, masterVolume }: Props) 
 
         peerConnectionRef.current = peer;
     };
-
-
 
     const handleOfferMessage = async (message: any) => {
         const offer = new RTCSessionDescription(message.sdp);

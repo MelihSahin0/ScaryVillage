@@ -5,7 +5,7 @@ import BellMesh from "./interactableMap/Emergency";
 import {Player} from "../PlayerManager";
 import React, {useEffect, useRef, useState} from "react";
 import {
-    Publish, SubscribeGetPlayerTodoTask, SubscribeGetProgress,
+    Publish, StartConnection, SubscribeGetPlayerTodoTask, SubscribeGetProgress,
     SubscribePlayerTasks, SubscribeSabotageCooldown, SubscribeSabotageDone, SubscribeSabotageTask,
     SubscribeToLobby, UnsubscribeGetPlayerTodoTask,
     UnsubscribeGetProgress,
@@ -264,6 +264,12 @@ export default function Map({lobbyId, myPlayerId, myPlayer, setGameState, setWin
             UnsubscribeSabotageCooldown();
         }
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            StartConnection();
+        }, 100)
+    }, [lobbyId, myPlayerId, myPlayer?.role]);
 
     return (
         <group>
