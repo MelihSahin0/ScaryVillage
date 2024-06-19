@@ -6,24 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="664cf988-b211-430a-a09c-790ecb601d98" name="Changes" comment="fixed Message bug. Changed to 5 Players again">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/DrawPlayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/InGame.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayerManager.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/PlayermanagerSocket.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/TaskmanagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/TaskmanagerSocket.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/Map.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Flooding.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Flooding.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/FloodingTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/FloodingTask.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fountain.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/Fountain.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/FountainTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/inGame/map/interactableMap/FountainTask.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/Lobby.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbyManagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbyManagerSocket.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/lobby/LobbySettings.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/startingScreen/GameManagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/startingScreen/GameManagerSocket.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/startingScreen/StartingScreen.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voiceChat/voiceChatWebsocket.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/PlayerListItem.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/voting/VoteManagerSocket.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/VoteManagerSocket.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/src/voting/Voting.tsx" afterDir="false" />
     </list>
@@ -79,7 +72,6 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
-    <option name="RESET_MODE" value="MIXED" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
   &quot;lastFilter&quot;: {
@@ -383,7 +375,6 @@
       <workItem from="1718267614865" duration="1265000" />
       <workItem from="1718697303277" duration="16000" />
       <workItem from="1718790658060" duration="796000" />
-      <workItem from="1718796671340" duration="1047000" />
     </task>
     <task id="LOCAL-00001" summary="i want to merge">
       <option name="closed" value="true" />
