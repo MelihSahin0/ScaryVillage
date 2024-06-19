@@ -22,10 +22,6 @@ export default function VoiceChat({ lobbyId, myPlayerId, masterVolume }: Props) 
     const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
     const stompClientRef = useRef<Client | null>(null);
 
-    if (!isDebug){
-        return;
-    }
-
     const initStompClient = () => {
         const stompClient = new Client({
             brokerURL: getBrokerURL(),
