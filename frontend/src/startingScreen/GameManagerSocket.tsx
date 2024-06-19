@@ -29,14 +29,12 @@ export function SubscribeGetLobby(lobbyId: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribeGetLobby(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
-    StartConnection();
 }
 
-function StartConnection(){
+export function StartConnection(){
     client.deactivate().then();
     client.configure({
         brokerURL: getBrokerURL(),
@@ -56,5 +54,5 @@ export function CloseConnection(){
 }
 
 export function Publish(destination: string, body: string){
-    client.publish({ destination, body });
+    client.publish({destination, body});
 }

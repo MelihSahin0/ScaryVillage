@@ -11,7 +11,7 @@ import {
     UnsubscribePlayerMovement,
     UnsubscribeKill,
     UnsubscribeReport,
-    SubscribeKillCooldown, UnsubscribeKillCooldown
+    SubscribeKillCooldown, UnsubscribeKillCooldown, StartConnection
 } from "./PlayermanagerSocket";
 import {gameState, role} from "../types";
 
@@ -203,6 +203,12 @@ export default function PlayerManager({lobbyId, myPlayerId, setGameState, setWin
             UnsubscribeReport();
         }
     }, []);
+
+    useEffect(() => {
+        setTimeout(() => {
+            StartConnection();
+        })
+    }, [myPlayer?.role]);
 
     useEffect(() => {
         setTimeout(() => {

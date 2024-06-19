@@ -1,6 +1,6 @@
 import {gameState} from "../types";
 import React, {useEffect, useState} from "react";
-import {CloseConnection, Publish, SubscribeGetLobby, UnsubscribeGetLobby} from "./GameManagerSocket";
+import {CloseConnection, Publish, StartConnection, SubscribeGetLobby, UnsubscribeGetLobby} from "./GameManagerSocket";
 import {StopHeartbeat} from "../lobby/Heartbeat";
 import {CloseConnection as LobbyCloseConnection} from "../lobby/LobbyManagerSocket";
 
@@ -33,6 +33,7 @@ export default function StartingScreen({myPlayerId, setLobbyId, setGameState }: 
             }
         };
         SubscribeGetLobby(getLobbyUuid);
+        StartConnection();
         return () => {
             UnsubscribeGetLobby();
             CloseConnection();

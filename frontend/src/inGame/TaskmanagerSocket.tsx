@@ -34,11 +34,9 @@ export function SubscribePlayerTasks(updatePlayers: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribePlayerTasks(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
-    StartConnection();
 }
 
 export function SubscribeGetProgress(updatePlayers: (message: any) => void) {
@@ -52,11 +50,9 @@ export function SubscribeGetProgress(updatePlayers: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribeGetProgress(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 1);
-    StartConnection();
 }
 
 export function SubscribeGetPlayerTodoTask(updatePlayers: (message: any) => void) {
@@ -70,11 +66,9 @@ export function SubscribeGetPlayerTodoTask(updatePlayers: (message: any) => void
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribeGetPlayerTodoTask(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 2);
-    StartConnection();
 }
 
 export function SubscribeSabotageTask(updatePlayers: (message: any) => void) {
@@ -87,11 +81,9 @@ export function SubscribeSabotageTask(updatePlayers: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribeSabotageTask(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 3);
-    StartConnection();
 }
 
 export function SubscribeSabotageDone(updatePlayers: (message: any) => void) {
@@ -104,11 +96,9 @@ export function SubscribeSabotageDone(updatePlayers: (message: any) => void) {
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribeSabotageDone(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 4);
-    StartConnection();
 }
 
 export function SubscribeSabotageCooldown(updatePlayers: (message: any) => void) {
@@ -121,15 +111,13 @@ export function SubscribeSabotageCooldown(updatePlayers: (message: any) => void)
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-    StartConnection();
 }
 export function UnsubscribeSabotageCooldown(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 5);
-    StartConnection();
 }
 
 
-function StartConnection(){
+export function StartConnection(){
     client.deactivate().then();
     client.configure({
         brokerURL: getBrokerURL(),

@@ -67,8 +67,9 @@ export default function DrawPlayer({lobbyId, myPlayer, players, killCooldown, al
                 movement: keyPress
             };
 
-            Publish("/send/playerMovement", JSON.stringify(movementData));
-
+            if (players.length > 0) {
+                Publish("/send/playerMovement", JSON.stringify(movementData));
+            }
         }
     })
 

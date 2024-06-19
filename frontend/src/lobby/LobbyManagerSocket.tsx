@@ -34,12 +34,9 @@ export function SubscribeJoinLobby(joinLobby: (messages: any) => void){
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeJoinLobby(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 0);
-    StartConnection();
 }
 
 export function SubscribeLobbyStatus(joinLobby: (messages: any) => void){
@@ -53,12 +50,9 @@ export function SubscribeLobbyStatus(joinLobby: (messages: any) => void){
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeLobbyStatus(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 1);
-    StartConnection();
 }
 
 export function SubscribeGetLobbySettings(joinLobby: (messages: any) => void){
@@ -72,12 +66,9 @@ export function SubscribeGetLobbySettings(joinLobby: (messages: any) => void){
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeGetLobbySettings(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 2);
-    StartConnection();
 }
 
 export function SubscribeGetMessages(joinLobby: (messages: any) => void){
@@ -91,15 +82,12 @@ export function SubscribeGetMessages(joinLobby: (messages: any) => void){
     if (!subscriptionHandlers.find(handler => handler.id === messageHandler.id)) {
         subscriptionHandlers.push(messageHandler);
     }
-
-    StartConnection();
 }
 export function UnsubscribeGetMessages(){
     subscriptionHandlers = subscriptionHandlers.filter(handler => handler.id !== 3);
-    StartConnection();
 }
 
-function StartConnection(){
+export function StartConnection(){
     client.deactivate().then();
     client.configure({
         brokerURL: getBrokerURL(),
@@ -119,6 +107,6 @@ export function CloseConnection(){
 }
 
 export function Publish(dest: string, body: string){
-    const destination : string = dest + "/" + lobbyId;
-    client.publish({ destination, body });
+    const destination: string = dest + "/" + lobbyId;
+    client.publish({destination, body});
 }

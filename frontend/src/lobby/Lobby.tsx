@@ -1,7 +1,7 @@
 import {gameState, role} from "../types";
 import React, {useEffect, useRef, useState} from "react";
 import {
-    Publish, SubscribeGetMessages,
+    Publish, StartConnection, SubscribeGetMessages,
     SubscribeJoinLobby,
     SubscribeLobbyStatus,
     SubscribeToLobby, UnsubscribeGetMessages,
@@ -119,6 +119,12 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
 
     useEffect(() => {
         setTimeout(() => {
+            StartConnection();
+        }, 100)
+    }, [lobbyId, myPlayerId, setGameState]);
+
+    useEffect(() => {
+        setTimeout(() => {
             const sendMyPlayerId = {
                 playerId: myPlayerId,
                 lobbyId: lobbyId
@@ -129,14 +135,14 @@ export default function Lobby({myPlayerId, lobbyId, setGameState, setWinner, win
             }
             Publish("/send/getMessages", JSON.stringify(getMessages));
             StartHeartbeat(lobbyId, myPlayerId);
-        }, 500);
+        }, 600);
     }, [lobbyId, myPlayerId]);
 
     useEffect(() => {
         if (audioRef.current) {
             audioRef.current.volume = 0.03;
             audioRef.current.loop = true;
-            audioRef.current.play();
+            audioRef.current.play().then();
         }
     }, []);
 

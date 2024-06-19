@@ -22,6 +22,10 @@ export default function VoiceChat({ lobbyId, myPlayerId, masterVolume }: Props) 
     const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
     const stompClientRef = useRef<Client | null>(null);
 
+    if (!isDebug){
+        return;
+    }
+
     const initStompClient = () => {
         const stompClient = new Client({
             brokerURL: getBrokerURL(),
@@ -80,7 +84,6 @@ export default function VoiceChat({ lobbyId, myPlayerId, masterVolume }: Props) 
             if (remoteStreamRef.current) {
                 remoteStreamRef.current.srcObject = event.streams[0];
                 remoteStreamRef.current.volume = masterVolume;
-                console.log(masterVolume)
             }
         };
 
@@ -102,8 +105,6 @@ export default function VoiceChat({ lobbyId, myPlayerId, masterVolume }: Props) 
 
         peerConnectionRef.current = peer;
     };
-
-
 
     const handleOfferMessage = async (message: any) => {
         const offer = new RTCSessionDescription(message.sdp);
