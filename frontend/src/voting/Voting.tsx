@@ -9,7 +9,7 @@ import {
 } from "./VoteManagerSocket";
 import PlayerList from "./PlayerList";
 import TextChat from "./TextChat";
-import {SubscribeGetMessages, UnsubscribeGetMessages, Publish as LobbyPublish} from "../lobby/LobbyManagerSocket";
+import {SubscribeGetMessages, UnsubscribeGetMessages, Publish as LobbyPublish, StartConnection as StartLobbyConnection} from "../lobby/LobbyManagerSocket";
 
 export type Player = {
     id: string;
@@ -141,6 +141,7 @@ export default function Voting({myPlayerId, lobbyId, setGameState, setWinner}: P
     useEffect(() => {
         setTimeout(() => {
             StartConnection();
+            StartLobbyConnection();
         }, 100)
     }, [myPlayerId]);
 
